@@ -1,0 +1,8 @@
+nextjs:
+  structure:
+    - app/
+    - public/
+    - components/
+  dependencies:
+    - userIntent: "text"
+      packages: ["react", "react-dom", "next"]
