@@ -1,5 +1,0 @@
-models:
-  planner: models/gemini-2.0-flash-exp
-  generator: models/gemini-2.0-flash-exp
-  editor: models/gemini-2.0-flash-exp
-  linker: models/gemini-2.0-flash-exp

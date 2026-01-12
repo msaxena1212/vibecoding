@@ -8,6 +8,7 @@ A generative coding platform inspired by Lovable/Antigravity, powered by LangGra
 - **Agents**: Planner, Generator, Linker, Editor, Validator
 - **Graph**: LangGraph state machine
 - **Memory**: Project snapshots and diff engine
+- **Detailed Workflow**: See [workflow.md](./workflow.md) for full process details.
 
 ## Setup
 

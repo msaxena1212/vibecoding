@@ -1,0 +1,5 @@
+models:
+  planner: models/gemini-flash-latest
+  generator: models/gemini-flash-latest
+  editor: models/gemini-flash-latest
+  linker: models/gemini-flash-latest

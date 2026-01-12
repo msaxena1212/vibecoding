@@ -98,6 +98,11 @@
                 Vibe-LangGraph</h1>
         </div>
         <div class="ml-auto flex items-center gap-4 text-sm text-gray-400">
+            <div id="session-info"
+                class="hidden flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20">
+                <span class="text-[10px] text-indigo-400 uppercase font-bold">Session</span>
+                <span id="current-session-id" class="text-[10px] font-mono text-indigo-200"></span>
+            </div>
             <span class="flex items-center gap-1">
                 <div class="w-2 h-2 rounded-full bg-green-500"></div> System Online
             </span>
@@ -109,12 +114,28 @@
 
         <!-- Left Sidebar: Interaction -->
         <div class="w-1/3 min-w-[350px] max-w-[500px] border-r border-white/5 flex flex-col glass-panel">
+            <!-- Sidebar Tabs -->
+            <div class="h-12 border-b border-white/5 flex items-center px-4 gap-1 bg-black/20">
+                <button onclick="toggleSidebarView('chat')" id="btn-show-chat"
+                    class="px-4 py-2 text-sm text-indigo-400 border-b-2 border-indigo-500 bg-indigo-500/5 transition-all">Chat</button>
+                <button onclick="toggleSidebarView('history')" id="btn-show-history"
+                    class="px-4 py-2 text-sm text-gray-500 hover:text-gray-300 transition-all">History</button>
+            </div>
+
             <div class="p-6 flex-1 flex flex-col gap-6 overflow-y-auto">
 
                 <!-- Chat Interface -->
                 <div id="chat-view" class="flex flex-col gap-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-lg font-semibold text-indigo-300 px-2">Conversation</h2>
+                        <button onclick="startNewChat()"
+                            class="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-indigo-400 border border-indigo-500/30 rounded-lg hover:bg-indigo-500/10 transition-all">
+                            New Chat
+                        </button>
+                    </div>
                     <div class="bg-indigo-500/10 border border-indigo-500/20 p-4 rounded-xl">
-                        <p class="text-sm text-indigo-200">Hi! I'm your AI architect. What shall we build today?</p>
+                        <p class="text-sm text-indigo-200">Hi! I'm your AI architect. Describe the application you'd
+                            like me to build.</p>
                     </div>
 
                     <!-- User Input -->
@@ -132,13 +153,6 @@
 
             </div>
 
-            <!-- View Toggles -->
-            <div class="px-6 py-3 border-t border-white/5 flex gap-2">
-                <button onclick="toggleSidebarView('chat')" id="btn-show-chat"
-                    class="flex-1 py-2 text-xs font-semibold rounded-lg bg-indigo-600 text-white shadow-lg transition-all">Chat</button>
-                <button onclick="toggleSidebarView('history')" id="btn-show-history"
-                    class="flex-1 py-2 text-xs font-semibold rounded-lg bg-white/5 text-gray-400 hover:text-white transition-all">History</button>
-            </div>
 
             <!-- Input Area -->
             <div class="p-6 border-t border-white/5 bg-black/20">
@@ -246,10 +260,13 @@
         // State
         let currentFiles = {};
         let lastState = {};
-        let currentProjectId = null;
+        let currentProjectId = localStorage.getItem('vibe_current_project_id');
 
         document.addEventListener('DOMContentLoaded', () => {
             loadProjectHistory();
+            if (currentProjectId) {
+                loadProject(currentProjectId);
+            }
         });
 
         function toggleSidebarView(view) {
@@ -263,14 +280,14 @@
                 chatView.classList.remove('hidden');
                 historyView.classList.add('hidden');
                 inputArea.classList.remove('hidden');
-                btnChat.className = "flex-1 py-2 text-xs font-semibold rounded-lg bg-indigo-600 text-white shadow-lg transition-all";
-                btnHistory.className = "flex-1 py-2 text-xs font-semibold rounded-lg bg-white/5 text-gray-400 hover:text-white transition-all";
+                btnChat.className = "px-4 py-2 text-sm text-indigo-400 border-b-2 border-indigo-500 bg-indigo-500/5 transition-all";
+                btnHistory.className = "px-4 py-2 text-sm text-gray-500 hover:text-gray-300 transition-all";
             } else {
                 chatView.classList.add('hidden');
                 historyView.classList.remove('hidden');
                 inputArea.classList.add('hidden'); // Hide input when in history
-                btnChat.className = "flex-1 py-2 text-xs font-semibold rounded-lg bg-white/5 text-gray-400 hover:text-white transition-all";
-                btnHistory.className = "flex-1 py-2 text-xs font-semibold rounded-lg bg-indigo-600 text-white shadow-lg transition-all";
+                btnChat.className = "px-4 py-2 text-sm text-gray-500 hover:text-gray-300 transition-all";
+                btnHistory.className = "px-4 py-2 text-sm text-indigo-400 border-b-2 border-indigo-500 bg-indigo-500/5 transition-all";
                 loadProjectHistory();
             }
         }
@@ -309,6 +326,25 @@
             }
         }
 
+        function startNewChat() {
+            currentProjectId = null;
+            localStorage.removeItem('vibe_current_project_id');
+            document.getElementById('chat-history').innerHTML = '';
+            document.getElementById('session-info').classList.add('hidden');
+            document.getElementById('project-stats').classList.add('hidden');
+
+            // Clear code view
+            document.getElementById('editor-filename').textContent = 'No file selected';
+            document.getElementById('code-content').textContent = '';
+            document.getElementById('file-list').innerHTML = '<div class="text-gray-600 text-sm italic p-2 text-center mt-10">No files generated yet</div>';
+
+            // Clear preview
+            document.getElementById('preview-frame').srcdoc = '';
+
+            addMessage('assistant', "Starting a new conversation. What are we building next?");
+            toggleSidebarView('chat');
+        }
+
         async function loadProject(id) {
             showLoader(true);
             updateLoaderText("Loading project snapshot...");
@@ -321,8 +357,13 @@
 
                 if (data) {
                     currentProjectId = id;
+                    localStorage.setItem('vibe_current_project_id', id);
                     currentFiles = data.files || {};
                     lastState = data;
+
+                    // Update Session ID UI
+                    document.getElementById('session-info').classList.remove('hidden');
+                    document.getElementById('current-session-id').textContent = currentProjectId.substring(0, 8) + '...';
 
                     // Update UI
                     document.getElementById('project-stats').classList.remove('hidden');
@@ -349,19 +390,16 @@
 
         async function loadChatHistory(projectId) {
             try {
-                // In a real app: fetch(`/api/v1/projects/${projectId}/messages`)
-                // For now, let's assume get_projects include messages or we use a hack
-                const response = await fetch('/api/v1/projects');
-                const projects = await response.json();
-                const data = projects.find(p => p.id === projectId);
+                const response = await fetch(`/api/v1/projects/${projectId}/messages`);
+                const messages = await response.json();
 
                 const history = document.getElementById('chat-history');
                 history.innerHTML = '';
 
-                if (data) {
-                    // This is a simplified fetch; real one would call a dedicated messages endpoint
-                    addMessage('user', data.user_intent);
-                    addMessage('assistant', "Loaded project snapshot. You can view the code and preview above.");
+                if (messages && messages.length > 0) {
+                    messages.forEach(msg => {
+                        addMessage(msg.role, msg.content);
+                    });
                 }
             } catch (e) {
                 console.error("Chat load failed:", e);
@@ -418,26 +456,40 @@
             let finalHtml = currentFiles[entryPath].content;
 
             // 2. Inject CSS/JS (simple heuristic)
-            // We'll replace local links with blobs or just inline everything
+            // Order: CSS -> All JSX/JS (Components + Entry)
+            let styles = "";
+            let allComponentCode = "";
+
             Object.keys(currentFiles).forEach(path => {
                 const content = currentFiles[path].content;
                 if (path.endsWith('.css')) {
-                    const styleTag = `<style data-path="${path}">${content}</style>`;
-                    if (finalHtml.includes('</head>')) {
-                        finalHtml = finalHtml.replace('</head>', `${styleTag}</head>`);
-                    } else {
-                        finalHtml += styleTag;
-                    }
-                }
-                if (path.endsWith('.js') && path !== entryPath) {
-                    const scriptTag = `<script data-path="${path}">${content}<\/script>`;
-                    if (finalHtml.includes('</body>')) {
-                        finalHtml = finalHtml.replace('</body>', `${scriptTag}</body>`);
-                    } else {
-                        finalHtml += scriptTag;
-                    }
+                    styles += `/* ${path} */\n${content}\n`;
                 }
             });
+
+            // Concatenate all JS/JSX files into a single Babel block
+            // Entry point goes last to ensure depends are defined
+            Object.keys(currentFiles).forEach(path => {
+                if ((path.endsWith('.js') || path.endsWith('.jsx')) && path !== entryPath) {
+                    allComponentCode += `\n/* --- FILE: ${path} --- */\n${currentFiles[path].content}\n`;
+                }
+            });
+            allComponentCode += `\n/* --- ENTRY POINT: ${entryPath} --- */\n${currentFiles[entryPath].content}\n`;
+
+            const stylesTag = `<style>${styles}</style>`;
+            const scriptsTag = `<script type="text/babel">${allComponentCode}<\/script>`;
+
+            if (finalHtml.includes('</head>')) {
+                finalHtml = finalHtml.replace('</head>', `${stylesTag}</head>`);
+            } else {
+                finalHtml += stylesTag;
+            }
+
+            if (finalHtml.includes('</body>')) {
+                finalHtml = finalHtml.replace('</body>', `${scriptsTag}</body>`);
+            } else {
+                finalHtml += scriptsTag;
+            }
 
             frame.srcdoc = finalHtml;
         }
@@ -455,13 +507,16 @@
 
             try {
                 // Call API
-                let url = `/api/v1/generate?intent=${encodeURIComponent(prompt)}`;
-                if (currentProjectId) {
-                    url += `&project_id=${currentProjectId}`;
-                }
-
+                const url = `/api/v1/generate/`;
                 const response = await fetch(url, {
-                    method: 'POST'
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        intent: prompt,
+                        project_id: currentProjectId
+                    })
                 });
 
                 if (!response.ok) throw new Error("Generation failed");
@@ -481,6 +536,12 @@
                 // Process Results
                 currentFiles = data.files || {};
                 lastState = data; // Save the full state for the "Graph State" tab
+                currentProjectId = data.project_id;
+                localStorage.setItem('vibe_current_project_id', currentProjectId);
+
+                // Update Session ID UI
+                document.getElementById('session-info').classList.remove('hidden');
+                document.getElementById('current-session-id').textContent = currentProjectId.substring(0, 8) + '...';
 
                 // Update Stats
                 document.getElementById('project-stats').classList.remove('hidden');
@@ -494,7 +555,9 @@
                 const firstFile = Object.keys(currentFiles)[0];
                 if (firstFile) selectFile(firstFile);
 
-                addMessage('system', "Project generated successfully! Check the explorer or Prediction tab.");
+                const framework = data.framework || 'project';
+                const planSummary = data.plan?.plan_summary || 'Generation complete.';
+                addMessage('assistant', `I've generated your **${framework}**. \n\n**Plan Summary:**\n${planSummary}`);
 
                 // Auto switch to preview if it's a website
                 if (Object.keys(currentFiles).some(p => p.endsWith('.html'))) {
@@ -558,13 +621,18 @@
             const history = document.getElementById('chat-history');
             const div = document.createElement('div');
 
+            // Basic markdown parsing for bold and newlines
+            let formattedText = text
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n/g, '<br/>');
+
             if (role === 'user') {
                 div.className = "flex justify-end";
-                div.innerHTML = `<div class="bg-indigo-600 text-white px-4 py-2 rounded-xl rounded-tr-none max-w-[85%] text-sm shadow-lg">${text}</div>`;
+                div.innerHTML = `<div class="bg-indigo-600 text-white px-4 py-2 rounded-xl rounded-tr-none max-w-[85%] text-sm shadow-lg">${formattedText}</div>`;
             } else {
                 div.className = "flex justify-start";
                 const colorClass = isError ? "text-red-400 bg-red-500/10 border-red-500/20" : "text-gray-300 bg-white/5 border-white/10";
-                div.innerHTML = `<div class="${colorClass} border px-4 py-2 rounded-xl rounded-tl-none max-w-[85%] text-sm shadow-lg">${text}</div>`;
+                div.innerHTML = `<div class="${colorClass} border px-4 py-2 rounded-xl rounded-tl-none max-w-[85%] text-sm shadow-lg">${formattedText}</div>`;
             }
 
             history.appendChild(div);
