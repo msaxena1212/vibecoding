@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Photography Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
+    <style>
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg-color: #FFFFFF;
+            --text-color: #1A1A1A;
+            --secondary-text-color: #737373;
+            --font-header: 'Lora', serif;
+            --font-body: 'Open Sans', sans-serif;
+        }
+
+        header {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: clamp(1rem, 2vw, 2rem);
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: clamp(1rem, 3vw, 4rem);
+        }
+
+        header nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        header nav ul li a:hover {
+            color: var(--secondary-text-color);
+        }
+
+        main {
+            padding: clamp(2rem, 5vw, 5rem);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: clamp(3rem, 6vw, 6rem);
+        }
+
+        section h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-family: var(--font-header);
+            color: var(--text-color);
+            margin-bottom: clamp(1rem, 2vw, 2rem);
+            text-align: center;
+        }
+
+        section p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--secondary-text-color);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: clamp(2rem, 4vw, 4rem);
+            align-items: center;
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+
+        footer {
+            background-color: #f0f0f0;
+            padding: clamp(1rem, 2vw, 2rem);
+            text-align: center;
+            font-size: clamp(0.8rem, 1.5vw, 1rem);
+            color: var(--secondary-text-color);
+        }
+
+        footer ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: clamp(1rem, 3vw, 3rem);
+            margin-bottom: 1rem;
+        }
+
+        footer ul li a {
+            color: var(--secondary-text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer ul li a:hover {
+            color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="#">Portfolio</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="about-me">
+            <h2>About [Photographer's Name]</h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="assets/urban_1.jpg" alt="Professional headshot of the photographer">
+                </div>
+                <p>Learn about the artist behind the lens. Discover [Photographer's Name]'s passion, philosophy, and approach to creating unforgettable images. [Photographer's Name] is dedicated to capturing the essence of every subject, creating timeless memories that last a lifetime.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <ul>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Twitter</a></li>
+        </ul>
+        <p>&copy; 2024 Photography Portfolio</p>
+    </footer>
+
+</body>
+</html>

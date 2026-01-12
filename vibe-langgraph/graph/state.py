@@ -1,4 +1,11 @@
-from typing import TypedDict, List, Dict, Optional, Any, Literal
+from typing import TypedDict, List, Dict, Optional, Any, Literal, Annotated
+import operator
+
+def merge_usage(a: Dict[str, int], b: Dict[str, int]) -> Dict[str, int]:
+    new_usage = a.copy()
+    for k, v in b.items():
+        new_usage[k] = new_usage.get(k, 0) + v
+    return new_usage
 
 class FileState(TypedDict):
     content: str
@@ -14,6 +21,15 @@ class CodebaseState(TypedDict):
     userIntent: str
     messages: List[Any] # To track conversation history/agent messages
     plan: Dict[str, Any] # The generated plan
+    reasoning: str # Architectural reasoning
+    design_tokens: Dict[str, Any] # Visual tokens
+    plan_summary: str # High level summary
+    copy_data: Dict[str, Any] # Elite copywriting
+    seo_report: Optional[Dict[str, Any]]
+    images_to_generate: List[Dict[str, str]] # [{path: str, prompt: str}]
+    diagnostic_report: Optional[str]
     current_step: str
-    total_tokens: int
+    total_tokens: Annotated[int, operator.add]
+    token_usage: Annotated[Dict[str, int], merge_usage] # Granular usage per agent
+    project_id: Optional[str]
     errors: List[str]

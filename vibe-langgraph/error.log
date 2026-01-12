@@ -1,0 +1,45 @@
+Traceback (most recent call last):
+  File "C:\Users\mindz\.gemini\antigravity\playground\dark-cosmic\vibe-langgraph\apps\api\routes\generate.py", line 66, in generate_project
+    result = workflow.invoke(initial_state)
+  File "C:\Users\mindz\AppData\Local\Programs\Python\Python313\Lib\site-packages\langgraph\pregel\main.py", line 3068, in invoke
+    for chunk in self.stream(
+                 ~~~~~~~~~~~^
+        input,
+        ^^^^^^
+    ...<10 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    ):
+    ^
+  File "C:\Users\mindz\AppData\Local\Programs\Python\Python313\Lib\site-packages\langgraph\pregel\main.py", line 2643, in stream
+    for _ in runner.tick(
+             ~~~~~~~~~~~^
+        [t for t in loop.tasks.values() if not t.writes],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        schedule_task=loop.accept_push,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ):
+    ^
+  File "C:\Users\mindz\AppData\Local\Programs\Python\Python313\Lib\site-packages\langgraph\pregel\_runner.py", line 167, in tick
+    run_with_retry(
+    ~~~~~~~~~~~~~~^
+        t,
+        ^^
+    ...<10 lines>...
+        },
+        ^^
+    )
+    ^
+  File "C:\Users\mindz\AppData\Local\Programs\Python\Python313\Lib\site-packages\langgraph\pregel\_retry.py", line 42, in run_with_retry
+    return task.proc.invoke(task.input, config)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mindz\AppData\Local\Programs\Python\Python313\Lib\site-packages\langgraph\_internal\_runnable.py", line 656, in invoke
+    input = context.run(step.invoke, input, config, **kwargs)
+  File "C:\Users\mindz\AppData\Local\Programs\Python\Python313\Lib\site-packages\langgraph\_internal\_runnable.py", line 333, in invoke
+    raise TypeError(
+    ...<3 lines>...
+    )
+TypeError: No synchronous function provided to "validator".
+Either initialize with a synchronous function or invoke via the async API (ainvoke, astream, etc.)
+During task with name 'validator' and id '219fbf43-7ad2-45f1-1501-d2c1017909d5'

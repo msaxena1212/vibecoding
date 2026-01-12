@@ -1,0 +1,209 @@
+/* style.css */
+
+/* Root Styles & CSS Variables */
+:root {
+  /* Color Palette */
+  --primary-color: #A67B5B;
+  --secondary-color: #E3D5CA;
+  --accent-color: #3D2B1F;
+  --glass-bg: rgba(255, 255, 255, 0.2);
+  --glass-border: rgba(255, 255, 255, 0.3);
+
+  /* Typography */
+  --font-primary: 'Lora', serif;
+  --font-secondary: 'Open Sans', sans-serif;
+
+  /* Spacing */
+  --space-sm: clamp(0.5rem, 2vw, 1rem);
+  --space-md: clamp(1rem, 3vw, 2rem);
+  --space-lg: clamp(2rem, 5vw, 4rem);
+}
+
+/* General Styles */
+body {
+  font-family: var(--font-secondary);
+  margin: 0;
+  padding: 0;
+  background-color: var(--secondary-color);
+  color: var(--accent-color);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  scroll-padding-top: 20px;
+}
+
+/* Typography */
+h1, h2, h3 {
+  font-family: var(--font-primary);
+  font-weight: 600;
+  color: var(--primary-color);
+  line-height: 1.2;
+  margin-bottom: var(--space-sm);
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 4rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+}
+
+h3 {
+  font-size: clamp(1.2rem, 3vw, 2rem);
+}
+
+p {
+  margin-bottom: var(--space-md);
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--accent-color);
+}
+
+/* Layout */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-lg);
+}
+
+/* Header */
+header {
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--glass-border);
+  padding: var(--space-md);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+nav li {
+  margin-left: var(--space-md);
+}
+
+nav a {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  background-color: var(--glass-bg);
+  transform: translateY(-2px);
+  scale: 1.02;
+}
+
+/* Hero Section */
+.hero {
+  background-image: url('../assets/hero_image.png');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  text-align: center;
+  padding: var(--space-lg);
+  border-radius: 10px;
+  margin-bottom: var(--space-lg);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.hero h1, .hero p {
+  color: white;
+}
+
+/* Sections */
+section {
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: var(--accent-color);
+  transform: translateY(-2px);
+  scale: 1.02;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: var(--space-md);
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--glass-border);
+}
+
+/* Animations */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Utility Classes */
+.text-center {
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  nav li {
+    margin-left: 0;
+    margin-top: var(--space-sm);
+  }
+}
+
+/* Glassmorphism Effect */
+.glass {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}

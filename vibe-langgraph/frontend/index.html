@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
@@ -40,10 +41,72 @@
         }
 
         .glass-panel {
-            background: rgba(19, 19, 31, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            background: rgba(19, 19, 31, 0.6);
+            backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.4s ease-out forwards;
+        }
+
+        .animate-slide-left {
+            animation: slideLeft 0.3s ease-out forwards;
+        }
+
+        .animate-slide-right {
+            animation: slideRight 0.3s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideLeft {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideRight {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .animate-pulse-glow {
@@ -81,6 +144,44 @@
 
         ::-webkit-scrollbar-thumb:hover {
             background: #555;
+        }
+
+        .markdown-content h1,
+        .markdown-content h2,
+        .markdown-content h3 {
+            font-weight: 600;
+            color: #fff;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .markdown-content h2 {
+            font-size: 1.1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 0.2rem;
+        }
+
+        .markdown-content p {
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .markdown-content ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .markdown-content li {
+            margin-bottom: 0.25rem;
+        }
+
+        .markdown-content code {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.85rem;
         }
     </style>
 </head>
@@ -133,11 +234,23 @@
             </div>
 
             <!-- View Toggles -->
-            <div class="px-6 py-3 border-t border-white/5 flex gap-2">
-                <button onclick="toggleSidebarView('chat')" id="btn-show-chat"
-                    class="flex-1 py-2 text-xs font-semibold rounded-lg bg-indigo-600 text-white shadow-lg transition-all">Chat</button>
-                <button onclick="toggleSidebarView('history')" id="btn-show-history"
-                    class="flex-1 py-2 text-xs font-semibold rounded-lg bg-white/5 text-gray-400 hover:text-white transition-all">History</button>
+            <div class="px-6 py-3 border-t border-white/5 flex flex-col gap-2">
+                <div class="flex gap-2">
+                    <button onclick="toggleSidebarView('chat')" id="btn-show-chat"
+                        class="flex-1 py-2 text-xs font-semibold rounded-lg bg-indigo-600 text-white shadow-lg transition-all">Chat</button>
+                    <button onclick="toggleSidebarView('history')" id="btn-show-history"
+                        class="flex-1 py-2 text-xs font-semibold rounded-lg bg-white/5 text-gray-400 hover:text-white transition-all">History</button>
+                </div>
+
+                <!-- Reasoning / Plan HUD removed per user request, moved to chat -->
+
+                <button onclick="createNewChat()"
+                    class="w-full py-2 text-[10px] uppercase tracking-widest font-bold rounded-lg border border-white/10 text-gray-500 hover:text-indigo-400 hover:border-indigo-500/30 transition-all flex items-center justify-center gap-2">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                    New Chat
+                </button>
             </div>
 
             <!-- Input Area -->
@@ -336,6 +449,11 @@
 
                     toggleSidebarView('chat');
 
+                    // CRITICAL: Sync the preview after loading project data
+                    if (Object.keys(currentFiles).some(p => p.endsWith('.html'))) {
+                        syncPreview();
+                    }
+
                     // Fetch Chat Messages
                     await loadChatHistory(id);
                 }
@@ -349,23 +467,47 @@
 
         async function loadChatHistory(projectId) {
             try {
-                // In a real app: fetch(`/api/v1/projects/${projectId}/messages`)
-                // For now, let's assume get_projects include messages or we use a hack
-                const response = await fetch('/api/v1/projects');
-                const projects = await response.json();
-                const data = projects.find(p => p.id === projectId);
+                const response = await fetch(`/api/v1/projects/${projectId}/messages`);
+                const messages = await response.json();
 
                 const history = document.getElementById('chat-history');
                 history.innerHTML = '';
 
-                if (data) {
-                    // This is a simplified fetch; real one would call a dedicated messages endpoint
-                    addMessage('user', data.user_intent);
-                    addMessage('assistant', "Loaded project snapshot. You can view the code and preview above.");
+                if (messages && messages.length > 0) {
+                    messages.forEach(msg => {
+                        addMessage(msg.role, msg.content);
+                    });
+                } else {
+                    // Fallback to project intent if no messages (legacy)
+                    const pResp = await fetch('/api/v1/projects');
+                    const projects = await pResp.json();
+                    const data = projects.find(p => p.id === projectId);
+                    if (data) {
+                        addMessage('user', data.user_intent);
+                        addMessage('assistant', "Project loaded. You can continue our conversation here.");
+                    }
                 }
             } catch (e) {
                 console.error("Chat load failed:", e);
             }
+        }
+
+        function createNewChat() {
+            currentProjectId = null;
+            currentFiles = {};
+            lastState = {};
+
+            // UI Reset
+            document.getElementById('chat-history').innerHTML = '';
+            document.getElementById('architect-hud').classList.add('hidden');
+            document.getElementById('file-list').innerHTML = '<div class="text-gray-600 text-sm italic p-2 text-center mt-10">No files generated yet</div>';
+            document.getElementById('project-stats').classList.add('hidden');
+            document.getElementById('editor-filename').textContent = 'No file selected';
+            document.getElementById('code-content').textContent = '';
+            document.getElementById('preview-frame').srcdoc = '';
+
+            toggleSidebarView('chat');
+            addMessage('system', "New session started. How can I help you?");
         }
 
         function switchTab(tab) {
@@ -394,52 +536,41 @@
 
         function syncPreview() {
             const frame = document.getElementById('preview-frame');
+            console.log("🔍 syncPreview called");
+            console.log("  currentProjectId:", currentProjectId);
+            console.log("  currentFiles:", Object.keys(currentFiles));
+
+            if (!currentProjectId) {
+                console.warn("⚠️ No project ID - showing placeholder");
+                frame.srcdoc = '<div style="font-family: sans-serif; padding: 40px; text-align: center; color: #666;"><h3>New Session</h3><p>Generate a project to see the preview.</p></div>';
+                return;
+            }
 
             // 1. Find the best entry point
-            // Check for index.html at root, then any index.html, then any .html
             let entryPath = Object.keys(currentFiles).find(p => p.toLowerCase() === 'index.html');
             if (!entryPath) entryPath = Object.keys(currentFiles).find(p => p.toLowerCase().endsWith('index.html'));
             if (!entryPath) entryPath = Object.keys(currentFiles).find(p => p.toLowerCase().endsWith('.html'));
 
+            console.log("  entryPath:", entryPath);
+
             if (!entryPath) {
+                console.warn("⚠️ No HTML entry point found");
                 frame.srcdoc = `
                     <div style="font-family: sans-serif; padding: 40px; text-align: center; color: #666;">
-                        <h3>No Preview Available</h3>
-                        <p>This project doesn't seem to have an HTML entry point.</p>
-                        <div style="display: inline-block; text-align: left; background: #f5f5f5; padding: 15px; border-radius: 8px; font-size: 13px;">
-                            <strong>Generated Files:</strong><br/>
-                            ${Object.keys(currentFiles).map(f => `• ${f}`).join('<br/>')}
-                        </div>
+                        <h3>No HTML Entry Point Found</h3>
+                        <p>Generate an index.html to enable the preview.</p>
                     </div>
                 `;
                 return;
             }
 
-            let finalHtml = currentFiles[entryPath].content;
-
-            // 2. Inject CSS/JS (simple heuristic)
-            // We'll replace local links with blobs or just inline everything
-            Object.keys(currentFiles).forEach(path => {
-                const content = currentFiles[path].content;
-                if (path.endsWith('.css')) {
-                    const styleTag = `<style data-path="${path}">${content}</style>`;
-                    if (finalHtml.includes('</head>')) {
-                        finalHtml = finalHtml.replace('</head>', `${styleTag}</head>`);
-                    } else {
-                        finalHtml += styleTag;
-                    }
-                }
-                if (path.endsWith('.js') && path !== entryPath) {
-                    const scriptTag = `<script data-path="${path}">${content}<\/script>`;
-                    if (finalHtml.includes('</body>')) {
-                        finalHtml = finalHtml.replace('</body>', `${scriptTag}</body>`);
-                    } else {
-                        finalHtml += scriptTag;
-                    }
-                }
-            });
-
-            frame.srcdoc = finalHtml;
+            // 2. Direct Navigation to Project Hub
+            // This enables native multi-page support and persistent assets
+            const projectUrl = `/static/p/${currentProjectId}/${entryPath}`;
+            console.log("✅ Setting iframe src to:", projectUrl);
+            frame.src = projectUrl;
+            // Clear srcdoc just in case
+            frame.removeAttribute('srcdoc');
         }
 
         async function generateProject() {
@@ -455,7 +586,7 @@
 
             try {
                 // Call API
-                let url = `/api/v1/generate?intent=${encodeURIComponent(prompt)}`;
+                let url = `/api/v1/generate/?intent=${encodeURIComponent(prompt)}`;
                 if (currentProjectId) {
                     url += `&project_id=${currentProjectId}`;
                 }
@@ -466,44 +597,37 @@
 
                 if (!response.ok) throw new Error("Generation failed");
 
-                const data = await response.json();
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let buffer = '';
 
-                // HACK: The API returns the FINAL state. 
-                // In a real streaming app, we'd get updates.
-                // We'll simulate the "agents" locally for effect if needed, but for now just show result.
+                // Create a "Thinking" message that we will update live
+                const thinkingId = 'thinking-' + Date.now();
+                addThinkingMessage(thinkingId);
 
-                updateLoaderText("Generator Agent: Writing code...");
-                await new Promise(r => setTimeout(r, 800)); // Fake delay for UX
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
 
-                updateLoaderText("Linker Agent: Resolving dependencies...");
-                await new Promise(r => setTimeout(r, 600)); // Fake delay for UX
+                    buffer += decoder.decode(value, { stream: true });
 
-                // Process Results
-                currentFiles = data.files || {};
-                lastState = data; // Save the full state for the "Graph State" tab
+                    // Resilient NDJSON Parsing
+                    let boundary = buffer.indexOf('\n');
+                    while (boundary !== -1) {
+                        const line = buffer.slice(0, boundary).trim();
+                        buffer = buffer.slice(boundary + 1);
 
-                // Update Stats
-                document.getElementById('project-stats').classList.remove('hidden');
-                document.getElementById('stat-framework').textContent = data.framework || 'vanilla';
-                document.getElementById('stat-files').textContent = Object.keys(currentFiles).length;
-                document.getElementById('stat-tokens').textContent = (data.total_tokens || 0).toLocaleString();
-
-                renderFileList(currentFiles);
-
-                // Select first file
-                const firstFile = Object.keys(currentFiles)[0];
-                if (firstFile) selectFile(firstFile);
-
-                addMessage('system', "Project generated successfully! Check the explorer or Prediction tab.");
-
-                // Auto switch to preview if it's a website
-                if (Object.keys(currentFiles).some(p => p.endsWith('.html'))) {
-                    switchTab('preview');
+                        if (line) {
+                            try {
+                                const chunk = JSON.parse(line);
+                                handleStreamChunk(chunk, thinkingId);
+                            } catch (e) {
+                                console.warn("Failed to parse chunk:", line, e);
+                            }
+                        }
+                        boundary = buffer.indexOf('\n');
+                    }
                 }
-
-                // Refresh history list and current project context
-                currentProjectId = data.project_id;
-                await loadProjectHistory();
 
             } catch (e) {
                 console.error(e);
@@ -513,6 +637,121 @@
             }
         }
 
+        function processGenerationResult(data) {
+            // Process Results
+            currentFiles = data.files || {};
+            lastState = data; // Save the full state for the "Graph State" tab
+
+            // Update Stats
+            document.getElementById('project-stats').classList.remove('hidden');
+            document.getElementById('stat-framework').textContent = data.framework || 'vanilla';
+            document.getElementById('stat-files').textContent = Object.keys(currentFiles).length;
+            document.getElementById('stat-tokens').textContent = (data.total_tokens || 0).toLocaleString();
+
+            renderFileList(currentFiles);
+
+            // Select first file
+            const firstFile = Object.keys(currentFiles)[0];
+            if (firstFile) selectFile(firstFile);
+
+            if (data.assistant_response) {
+                addMessage('assistant', data.assistant_response);
+            } else {
+                addMessage('assistant', "Project generated successfully! Check the explorer or Preview tab.");
+            }
+
+            // Auto switch to preview if it's a website
+            if (Object.keys(currentFiles).some(p => p.endsWith('.html'))) {
+                switchTab('preview');
+            }
+
+            // Refresh history list and current project context
+            currentProjectId = data.project_id;
+            loadProjectHistory();
+        }
+
+        function handleStreamChunk(chunk, thinkingId) {
+            if (chunk.type === 'status') {
+                updateLoaderText(chunk.content);
+                updateThinkingStatus(thinkingId, chunk.content);
+            } else if (chunk.type === 'reasoning') {
+                appendReasoning(thinkingId, chunk.content);
+            } else if (chunk.type === 'result') {
+                const data = chunk.data;
+                // Remove thinking message before showing result assistant message
+                const thinkingMsg = document.getElementById(thinkingId);
+                if (thinkingMsg) thinkingMsg.remove();
+                processGenerationResult(data);
+            } else if (chunk.type === 'error') {
+                throw new Error(chunk.content);
+            }
+        }
+
+        function addThinkingMessage(id) {
+            const history = document.getElementById('chat-history');
+            const div = document.createElement('div');
+            div.id = id;
+            div.className = "flex justify-start animate-fade-in";
+            div.innerHTML = `
+                <div class="bg-indigo-500/5 border border-indigo-500/20 p-4 rounded-xl rounded-tl-none max-w-[90%] shadow-xl">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></div>
+                        <span id="${id}-status" class="text-[10px] uppercase tracking-widest font-bold text-indigo-400">Architect is planning...</span>
+                    </div>
+                    <div id="${id}-reasoning" class="text-xs text-gray-400 italic space-y-2 prose prose-invert max-w-none">
+                        <!-- Reasoning chunks will appear here -->
+                    </div>
+                </div>
+            `;
+            history.appendChild(div);
+            div.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateThinkingStatus(id, status) {
+            const el = document.getElementById(`${id}-status`);
+            if (el) el.textContent = status;
+        }
+
+        function appendReasoning(id, content) {
+            const el = document.getElementById(`${id}-reasoning`);
+            if (el) {
+                // We show reasoning as mini-sections
+                const p = document.createElement('p');
+                p.className = "animate-slide-up";
+                p.textContent = content;
+                el.appendChild(p);
+                el.scrollTop = el.scrollHeight;
+            }
+        }
+
+        function processGenerationResult(data) {
+            // Process Results
+            currentFiles = data.files || {};
+            lastState = data;
+
+            // CRITICAL: Set project ID FIRST before any preview operations
+            currentProjectId = data.project_id;
+
+            document.getElementById('project-stats').classList.remove('hidden');
+            document.getElementById('stat-framework').textContent = data.framework || 'vanilla';
+            document.getElementById('stat-files').textContent = Object.keys(currentFiles).length;
+            document.getElementById('stat-tokens').textContent = (data.total_tokens || 0).toLocaleString();
+
+            renderFileList(currentFiles);
+            const firstFile = Object.keys(currentFiles)[0];
+            if (firstFile) selectFile(firstFile);
+
+            if (data.assistant_response) {
+                addMessage('assistant', data.assistant_response);
+            }
+
+            if (Object.keys(currentFiles).some(p => p.endsWith('.html'))) {
+                switchTab('preview');
+            }
+
+            loadProjectHistory();
+        }
+
         function renderFileList(files, activePath = null) {
             const list = document.getElementById('file-list');
             list.innerHTML = '';
@@ -520,9 +759,9 @@
             Object.keys(files).forEach(path => {
                 const isActive = path === activePath;
                 const item = document.createElement('div');
-                item.className = `flex items-center gap-2 px-3 py-2 rounded-md text-sm cursor-pointer transition-all ${isActive ? 'text-indigo-400 bg-indigo-500/10' : 'text-gray-400 hover:text-white hover:bg-white/5'}`;
+                item.className = `flex items-center gap-2 px-3 py-1.5 rounded-md text-sm cursor-pointer transition-all ${isActive ? 'text-indigo-400 bg-indigo-500/10 shadow-[inset_0_0_10px_rgba(99,102,241,0.1)]' : 'text-gray-400 hover:text-white hover:bg-white/5'}`;
                 item.innerHTML = `
-                    <svg class="w-4 h-4 ${isActive ? 'opacity-100' : 'opacity-50'}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    <svg class="w-4 h-4 ${isActive ? 'opacity-100' : 'opacity-40'}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                     <span class="truncate">${path}</span>
                 `;
                 item.onclick = () => selectFile(path);
@@ -533,40 +772,31 @@
         function selectFile(path) {
             const file = currentFiles[path];
             document.getElementById('editor-filename').textContent = path;
-
             const codeArea = document.getElementById('code-content');
-
-            // Determine language for Prism
             let lang = 'javascript';
             if (path.endsWith('.py')) lang = 'python';
             if (path.endsWith('.css')) lang = 'css';
             if (path.endsWith('.html')) lang = 'html';
             if (path.endsWith('.json')) lang = 'json';
-
             codeArea.className = `language-${lang} flex-1 overflow-auto p-4 text-sm font-mono text-gray-300 leading-relaxed`;
             codeArea.textContent = file.content;
-
-            if (window.Prism) {
-                Prism.highlightElement(codeArea);
-            }
-
-            // Update active state in list
+            if (window.Prism) Prism.highlightElement(codeArea);
             renderFileList(currentFiles, path);
         }
 
         function addMessage(role, text, isError = false) {
             const history = document.getElementById('chat-history');
             const div = document.createElement('div');
-
             if (role === 'user') {
-                div.className = "flex justify-end";
-                div.innerHTML = `<div class="bg-indigo-600 text-white px-4 py-2 rounded-xl rounded-tr-none max-w-[85%] text-sm shadow-lg">${text}</div>`;
+                div.className = "flex justify-end mb-4 animate-slide-left";
+                div.innerHTML = `<div class="bg-indigo-600 text-white px-5 py-3 rounded-2xl rounded-tr-none max-w-[85%] text-sm shadow-[0_10px_25px_-5px_rgba(79,70,229,0.4)] border border-indigo-400/20">${text}</div>`;
             } else {
-                div.className = "flex justify-start";
+                div.className = "flex justify-start mb-4 animate-slide-right";
                 const colorClass = isError ? "text-red-400 bg-red-500/10 border-red-500/20" : "text-gray-300 bg-white/5 border-white/10";
-                div.innerHTML = `<div class="${colorClass} border px-4 py-2 rounded-xl rounded-tl-none max-w-[85%] text-sm shadow-lg">${text}</div>`;
+                let renderedContent = text;
+                if (role === 'assistant' && typeof marked !== 'undefined') renderedContent = marked.parse(text);
+                div.innerHTML = `<div class="${colorClass} border px-5 py-3 rounded-2xl rounded-tl-none max-w-[85%] text-sm shadow-xl markdown-content glass-panel">${renderedContent}</div>`;
             }
-
             history.appendChild(div);
             div.scrollIntoView({ behavior: 'smooth' });
         }

@@ -23,6 +23,14 @@ class ProjectStore:
                     project.files = state.get("files", {})
                     project.dependency_graph = state.get("dependencyGraph", {})
                     project.total_tokens = state.get("total_tokens", 0)
+                    project.token_usage = state.get("token_usage", {})
+                    project.reasoning = state.get("reasoning")
+                    project.plan_summary = state.get("plan_summary")
+                    project.design_tokens = state.get("design_tokens", {})
+                    project.mock_data = state.get("mock_data", {})
+                    project.copy_data = state.get("copy_data", {})
+                    project.seo_report = state.get("seo_report", {})
+                    project.images_to_generate = state.get("images_to_generate", [])
                     project.updated_at = datetime.utcnow()
                     session.add(project)
                     await session.commit()
@@ -36,7 +44,15 @@ class ProjectStore:
                 status="completed",
                 files=state.get("files", {}),
                 dependency_graph=state.get("dependencyGraph", {}),
-                total_tokens=state.get("total_tokens", 0)
+                total_tokens=state.get("total_tokens", 0),
+                token_usage=state.get("token_usage", {}),
+                reasoning=state.get("reasoning"),
+                plan_summary=state.get("plan_summary"),
+                design_tokens=state.get("design_tokens", {}),
+                mock_data=state.get("mock_data", {}),
+                copy_data=state.get("copy_data", {}),
+                seo_report=state.get("seo_report", {}),
+                images_to_generate=state.get("images_to_generate", [])
             )
             session.add(project)
             await session.commit()
@@ -79,7 +95,15 @@ class ProjectStore:
                     "dependencyGraph": project.dependency_graph,
                     "userIntent": project.user_intent,
                     "framework": project.framework,
-                    "total_tokens": project.total_tokens
+                    "total_tokens": project.total_tokens,
+                    "token_usage": project.token_usage,
+                    "reasoning": project.reasoning,
+                    "plan_summary": project.plan_summary,
+                    "design_tokens": project.design_tokens,
+                    "mock_data": project.mock_data,
+                    "copy_data": project.copy_data,
+                    "seo_report": project.seo_report,
+                    "images_to_generate": project.images_to_generate
                 }
             return None
 

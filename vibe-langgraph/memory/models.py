@@ -11,7 +11,15 @@ class Project(SQLModel, table=True):
     status: str = Field(default="draft") # draft, generating, completed, error
     files: Dict = Field(default={}, sa_type=JSON)
     dependency_graph: Dict = Field(default={}, sa_type=JSON)
+    reasoning: Optional[str] = Field(default=None)
+    plan_summary: Optional[str] = Field(default=None)
+    design_tokens: Dict = Field(default={}, sa_type=JSON)
+    mock_data: Dict = Field(default={}, sa_type=JSON)
+    copy_data: Dict = Field(default={}, sa_type=JSON)
+    seo_report: Dict = Field(default={}, sa_type=JSON)
+    images_to_generate: List[Dict] = Field(default=[], sa_type=JSON)
     total_tokens: int = Field(default=0)
+    token_usage: Dict = Field(default={}, sa_type=JSON)
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
     

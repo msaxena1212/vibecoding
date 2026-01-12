@@ -32,9 +32,9 @@ async def debug_pipeline():
             errors=[]
         )
         
-        print("Step 2: Invoking workflow (this may take a minute)...")
+        print("Step 2: Invoking workflow (async, this may take a minute)...")
         # Run workflow
-        result = workflow.invoke(initial_state)
+        result = await workflow.ainvoke(initial_state)
         print("Step 2 complete. Result keys:", result.keys())
         
         print("Step 3: Sanitizing state...")

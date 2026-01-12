@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
+    <style>
+        /* CSS Variables (Design Tokens) */
+        :root {
+            --primary-color-1: #1A202C;
+            --primary-color-2: #FFFFFF;
+            --primary-color-3: #718096;
+            --font-family-base: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family-base);
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-color-1);
+            color: var(--primary-color-2);
+            scroll-behavior: smooth;
+        }
+
+        /* Reusable Styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: clamp(1rem, 3vw, 2rem);
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(26, 32, 44, 0.8);
+            backdrop-filter: blur(10px);
+            padding: clamp(0.5rem, 1vw, 1rem) 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        header nav ul li {
+            margin-left: clamp(1rem, 2vw, 2rem);
+        }
+
+        header nav ul li a {
+            color: var(--primary-color-2);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        header nav ul li a:hover {
+            color: var(--primary-color-3);
+        }
+
+        /* Main Section */
+        main {
+            padding: clamp(2rem, 5vw, 4rem) 0;
+        }
+
+        /* About Section */
+        .about-section {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: clamp(1rem, 3vw, 3rem);
+            align-items: center;
+        }
+
+        .about-section img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .about-content h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: clamp(0.5rem, 1vw, 1rem);
+        }
+
+        .about-content p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            line-height: 1.6;
+            color: var(--primary-color-3);
+        }
+
+        .skills-section {
+            margin-top: clamp(2rem, 4vw, 4rem);
+        }
+
+        .skills-section h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: clamp(0.5rem, 1vw, 1rem);
+        }
+
+        .skills-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .skills-list li {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            margin-bottom: clamp(0.5rem, 1vw, 1rem);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .skill-name {
+            flex: 1;
+        }
+
+        .skill-level {
+            width: 60%;
+            height: 10px;
+            background-color: #343a40;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .skill-percentage {
+            display: block;
+            height: 100%;
+            background-color: #007bff;
+            width: 70%; /* Adjust as needed */
+        }
+
+        .cta-buttons {
+            margin-top: clamp(2rem, 4vw, 4rem);
+            display: flex;
+            gap: clamp(1rem, 2vw, 2rem);
+        }
+
+        .cta-button {
+            padding: clamp(0.75rem, 1.5vw, 1.25rem) clamp(1.5rem, 3vw, 2.5rem);
+            border: none;
+            border-radius: 5px;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        .primary-cta {
+            background-color: #007bff;
+            color: var(--primary-color-2);
+        }
+
+        .secondary-cta {
+            background-color: transparent;
+            border: 2px solid #007bff;
+            color: #007bff;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(26, 32, 44, 0.8);
+            backdrop-filter: blur(10px);
+            padding: clamp(1rem, 2vw, 2rem) 0;
+            text-align: center;
+            color: var(--primary-color-3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .about-section {
+                grid-template-columns: 1fr;
+            }
+
+            .about-section img {
+                order: -1;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="assets/logo.png" alt="Logo" style="height: 50px;">
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="container about-section">
+            <img src="assets/profile.png" alt="Profile Picture">
+            <div class="about-content">
+                <h2>About Me</h2>
+                <p>Driven by a passion for user-centered design and clean code, I specialize in creating websites and applications that are both visually appealing and functionally robust. With experience in front-end development, UI/UX design, and project management, I bring a holistic approach to every project. I'm always eager to learn new technologies and collaborate on innovative solutions.</p>
+            </div>
+        </section>
+
+        <section class="container skills-section">
+            <h3>Skills</h3>
+            <ul class="skills-list">
+                <li>
+                    <span class="skill-name">HTML</span>
+                    <div class="skill-level">
+                        <span class="skill-percentage" style="width: 90%;"></span>
+                    </div>
+                </li>
+                <li>
+                    <span class="skill-name">CSS</span>
+                    <div class="skill-level">
+                        <span class="skill-percentage" style="width: 85%;"></span>
+                    </div>
+                </li>
+                <li>
+                    <span class="skill-name">JavaScript</span>
+                    <div class="skill-level">
+                        <span class="skill-percentage" style="width: 70%;"></span>
+                    </div>
+                </li>
+                <li>
+                    <span class="skill-name">React</span>
+                    <div class="skill-level">
+                        <span class="skill-percentage" style="width: 60%;"></span>
+                    </div>
+                </li>
+                <li>
+                    <span class="skill-name">Node.js</span>
+                    <div class="skill-level">
+                        <span class="skill-percentage" style="width: 50%;"></span>
+                    </div>
+                </li>
+                <li>
+                    <span class="skill-name">Figma</span>
+                    <div class="skill-level">
+                        <span class="skill-percentage" style="width: 75%;"></span>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="container cta-buttons">
+            <a href="#" class="cta-button primary-cta">View My Work</a>
+            <a href="#" class="cta-button secondary-cta">Get In Touch</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            &copy; 2024 Portfolio. All rights reserved.
+        </div>
+    </footer>
+</body>
+</html>

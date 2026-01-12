@@ -7,16 +7,24 @@ from agents.validator.agent import run_validator
 from agents.editor.agent import run_editor
 from .router import route_request
 
+from agents.copywriter.agent import run_copywriter
+from agents.seo_specialist.agent import run_seo_specialist
+from agents.image_generator.agent import run_image_generator
+from .router import route_request, route_validator
+
 def create_workflow():
     workflow = StateGraph(CodebaseState)
 
     workflow.add_node("planner", run_planner)
+    workflow.add_node("copywriter", run_copywriter)
+    workflow.add_node("image_generator", run_image_generator)
     workflow.add_node("generator", run_generator)
     workflow.add_node("linker", run_linker)
+    workflow.add_node("seo_specialist", run_seo_specialist)
     workflow.add_node("validator", run_validator)
     workflow.add_node("editor", run_editor)
 
-    # Dynamic Routing
+    # Dynamic Entry
     workflow.set_conditional_entry_point(
         route_request,
         {
@@ -25,14 +33,24 @@ def create_workflow():
         }
     )
     
-    workflow.add_edge("planner", "generator")
+    # Linear Progression Trace
+    workflow.add_edge("planner", "copywriter")
+    workflow.add_edge("copywriter", "image_generator")
+    workflow.add_edge("image_generator", "generator")
     workflow.add_edge("generator", "linker")
-    workflow.add_edge("linker", "validator")
-    workflow.add_edge("validator", END)
+    workflow.add_edge("linker", "seo_specialist")
+    workflow.add_edge("seo_specialist", "validator")
     
-    workflow.add_edge("editor", "validator") # After editing, validate
+    # Self-Healing Loop
+    workflow.add_conditional_edges(
+        "validator",
+        route_validator,
+        {
+            "editor": "editor",
+            "end": END
+        }
+    )
     
-    # Editor flow would likely be a separate entry or conditional
-    # For now, we leave it disconnected or accessible via specific config
+    workflow.add_edge("editor", "validator") # Re-audit after edit
     
     return workflow.compile()
