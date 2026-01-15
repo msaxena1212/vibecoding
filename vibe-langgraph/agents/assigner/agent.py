@@ -33,6 +33,7 @@ async def run_assigner(state: CodebaseState):
     tokens = extract_tokens(response)
 
     return {
+        "plan": {**plan, "assignments": assignments},
         "current_step": "assignments_complete",
         "diagnostic_report": f"Assigner: Made {len(assignments)} assignments.",
         "total_tokens": tokens,

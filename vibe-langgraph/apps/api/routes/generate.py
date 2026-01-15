@@ -13,14 +13,23 @@ router = APIRouter()
 
 # Node to Name mapping for better UX
 NODE_NAMES = {
+    "router": "🧭 Router: Analyzing user intent...",
     "planner": "🛸 Architect: Designing the blueprint...",
+    "assigner": "📋 Assigner: Delegating specialized tasks...",
+    "seeker": "🔍 Seeker: Conducting industry research...",
     "copywriter": "✒️ Copywriter: Crafting high-conversion copy...",
+    "fetch_images": "🌐 Asset Scout: Sourcing visual media...",
     "image_generator": "🖼️ Artist: Fulfilling thematic assets...",
     "generator": "💻 Developer: Implementing components...",
+    "backend_architect": "⚙️ Backend: Designing data architecture...",
+    "react_specialist": "⚛️ React: Building advanced components...",
     "linker": "🔗 Linker: Optimizing dependency graph...",
+    "ui_specialist": "💎 UI Pro: Adding premium design polish...",
     "seo_specialist": "🚀 SEO: Auditing performance & visibility...",
     "validator": "🛡️ QA: Running diagnostic scan...",
-    "editor": "🔧 Fixer: Refining code for perfection..."
+    "editor": "🔧 Fixer: Refining code for perfection...",
+    "debugger": "🩹 Debugger: Surgically repairing errors...",
+    "chatter": "💬 Liaison: Conversing with user..."
 }
 
 @router.post("/")

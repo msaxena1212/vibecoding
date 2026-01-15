@@ -28,10 +28,13 @@ async def run_generator(state: CodebaseState):
         copy_data = state.get("copy_data", {})
         generated_images = {img["path"]: img["local_path"] for img in state.get("images_to_generate", []) if "local_path" in img}
         
+        reasoning = state.get("reasoning", "")
+        plan_summary = state.get("plan_summary", "")
+
         messages = [
             SystemMessage(content=system_prompt_template)
         ] + history + [
-            HumanMessage(content=f"Generate the file: {path}\nDescription: {description}\n\nExisting State: {str(generated_files.keys())}\nDesign Tokens: {json.dumps(design_tokens)}\nMock Data: {json.dumps(mock_data)}\nCopy Data: {json.dumps(copy_data)}\nAvailable Assets: {json.dumps(generated_images)}")
+            HumanMessage(content=f"Generate the file: {path}\nDescription: {description}\n\nProject Reasoning: {reasoning}\nTechnical Plan: {plan_summary}\n\nExisting State: {str(generated_files.keys())}\nDesign Tokens: {json.dumps(design_tokens)}\nMock Data: {json.dumps(mock_data)}\nCopy Data: {json.dumps(copy_data)}\nAvailable Assets: {json.dumps(generated_images)}")
         ]
         
         response = await llm.ainvoke(messages)

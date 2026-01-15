@@ -58,6 +58,7 @@ async def run_planner(state: CodebaseState):
         "design_tokens": plan.get("design_tokens", {}),
         "mock_data": plan.get("mock_data", {}),
         "images_to_generate": plan.get("images_to_generate", []),
+        "assignments": plan.get("assignments", []),
         "total_tokens": tokens,
         "token_usage": {"planner": tokens}
     }

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supermarket POS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Open Sans"', 'sans-serif'],
+                        serif: ['"Roboto Condensed"', 'serif'],
+                    },
+                    colors: {
+                        primary: {
+                            500: '#28a745',
+                            700: '#343a40',
+                            100: '#f8f9fa',
+                        },
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.5s ease-out'
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Roboto Condensed', serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md py-4 px-6">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center">
+                <img src="assets/logo.png" alt="SPOS Logo" class="h-8 mr-4">
+                <h1 class="text-2xl font-bold text-gray-800">SPOS</h1>
+            </div>
+            <div>
+                <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-primary-500">
+                    User Profile
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto mt-6 p-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+            <!-- Product Search -->
+            <div class="bg-white rounded-2xl shadow-md p-4">
+                <h2 class="text-xl font-semibold mb-4">Product Search</h2>
+                <input type="text" placeholder="Search by name or barcode"
+                    class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-primary-500 mb-3">
+                <button
+                    class="bg-primary-500 hover:bg-primary-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-primary-500 mb-3 w-full">
+                    Scan Item
+                </button>
+                <div class="grid grid-cols-2 gap-2">
+                    <img src="assets/apple.png" alt="Apple" class="object-cover rounded-2xl">
+                    <img src="assets/bread.png" alt="Bread" class="object-cover rounded-2xl">
+                </div>
+            </div>
+
+            <!-- Cart Display -->
+            <div class="bg-white rounded-2xl shadow-md p-4">
+                <h2 class="text-xl font-semibold mb-4">Shopping Cart</h2>
+                <ul class="mb-4">
+                    <li class="flex justify-between py-2 border-b">
+                        <span>Apple x 2</span>
+                        <span>$2.00</span>
+                    </li>
+                    <li class="flex justify-between py-2 border-b">
+                        <span>Bread x 1</span>
+                        <span>$3.00</span>
+                    </li>
+                </ul>
+                <div class="font-semibold text-right">
+                    Total: $5.00
+                </div>
+            </div>
+
+            <!-- Payment Options -->
+            <div class="bg-white rounded-2xl shadow-md p-4">
+                <h2 class="text-xl font-semibold mb-4">Payment Options</h2>
+                <button
+                    class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-primary-500 mb-3 w-full">
+                    Checkout
+                </button>
+                <button
+                    class="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-primary-500 w-full">
+                    Cancel Transaction
+                </button>
+                <div class="mt-4">
+                    <h3 class="text-lg font-semibold mb-2">Transaction History</h3>
+                    <ul class="text-sm">
+                        <li>Transaction #1234 - $15.00</li>
+                        <li>Transaction #1235 - $22.50</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-200 py-4 text-center">
+        <p class="text-gray-600">© 2024 Supermarket POS</p>
+    </footer>
+</body>
+
+</html>

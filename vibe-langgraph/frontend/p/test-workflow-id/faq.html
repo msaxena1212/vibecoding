@@ -1,39 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - Nova Horizon</title>
+    <title>Frequently Asked Questions - Nova Horizon</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         primary: {
-                            50: '#E0F2F1',
-                            100: '#B2DFDB',
-                            200: '#80CBC4',
-                            300: '#4DB6AC',
-                            400: '#26A69A',
-                            500: '#009688',
-                            600: '#00897B',
-                            700: '#00796B',
-                            800: '#00695C',
-                            900: '#004D40',
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#b0dcfd',
+                            300: '#639fff',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                            950: '#082f49',
                         },
-                        cosmic: {
-                            DEFAULT: '#1A237E',
-                            dark: '#000000',
-                            accent: '#D4AC0D'
-                        }
+                        dark: '#121212',
+                        light: '#FFFFFF',
                     },
                     fontFamily: {
-                        sans: ['"Open Sans"', 'sans-serif'],
-                        serif: ['"Roboto Slab"', 'serif'],
+                        'sans': ['Open Sans', 'sans-serif'],
+                        'serif': ['Bebas Neue', 'serif'],
                     },
                     animation: {
                         'fade-in-up': 'fade-in-up 0.5s ease-out'
@@ -55,69 +53,158 @@
         }
     </script>
     <style>
-      body {
-        background-color: #0D1117;
-        color: #fff;
-      }
+        body {
+            background-color: #121212;
+            color: #FFFFFF;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .accordion-header button {
+            width: 100%;
+            padding: 1rem;
+            text-align: left;
+            background-color: transparent;
+            color: #FFFFFF;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-header button:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .accordion-body {
+            padding: 0 1rem;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            max-height: 0;
+        }
+
+        .accordion-body p {
+            padding-bottom: 1rem;
+        }
     </style>
 </head>
-<body class="font-sans">
 
-    <header class="bg-cosmic-dark bg-opacity-70 backdrop-blur-lg py-4">
-        <div class="container mx-auto px-4 flex items-center justify-between">
-            <a href="index.html" class="text-2xl font-serif font-bold text-white">Nova Horizon</a>
-            <nav>
-                <ul class="flex space-x-6">
-                    <li><a href="index.html" class="text-gray-300 hover:text-white transition-colors">Home</a></li>
-                    <li><a href="about.html" class="text-gray-300 hover:text-white transition-colors">About</a></li>
-                    <li><a href="pricing.html" class="text-gray-300 hover:text-white transition-colors">Pricing</a></li>
-                    <li><a href="contact.html" class="text-gray-300 hover:text-white transition-colors">Contact</a></li>
-                    <li><a href="faq.html" class="text-gray-300 hover:text-white transition-colors">FAQ</a></li>
-                </ul>
-            </nav>
-        </div>
+<body class="bg-dark font-sans">
+    <header class="bg-black/70 backdrop-blur-lg sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-6 flex items-center justify-between">
+            <a href="index.html" class="text-2xl font-serif text-white">Nova Horizon</a>
+            <div class="space-x-6">
+                <a href="index.html" class="text-gray-300 hover:text-white transition-colors">Home</a>
+                <a href="about.html" class="text-gray-300 hover:text-white transition-colors">About</a>
+                <a href="services.html" class="text-gray-300 hover:text-white transition-colors">Packages</a>
+                <a href="contact.html" class="text-gray-300 hover:text-white transition-colors">Contact</a>
+                <a href="faq.html" class="text-gray-300 hover:text-white transition-colors">FAQ</a>
+            </div>
+        </nav>
     </header>
 
-    <main class="container mx-auto py-12 px-4">
-        <h1 class="text-4xl font-serif font-bold mb-8 text-center">Frequently Asked Questions</h1>
+    <section class="container mx-auto py-12 px-4">
+        <h1 class="text-4xl font-serif text-center mb-8">Frequently Asked Questions</h1>
 
-        <div class="space-y-6">
-            <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6">
-                <h2 class="text-xl font-semibold mb-2">What is Nova Horizon?</h2>
-                <p class="text-gray-300">Nova Horizon is a pioneering space tourism company offering meticulously crafted journeys beyond Earth, blending cutting-edge technology with unparalleled luxury and safety.</p>
+        <div class="accordion">
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <button aria-expanded="false">
+                        <span>What safety measures are in place for space travel?</span>
+                        <span class="text-xl">&#x25BC;</span>
+                    </button>
+                </div>
+                <div class="accordion-body">
+                    <p>Nova Horizon prioritizes passenger safety above all else. Our spacecraft undergo rigorous testing and maintenance. Our crew is highly trained in emergency procedures. We provide comprehensive pre-flight training to prepare passengers for the space environment. Additionally, our vessels are equipped with advanced life support systems and emergency protocols.</p>
+                </div>
             </div>
 
-            <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6">
-                <h2 class="text-xl font-semibold mb-2">How safe are your spaceflights?</h2>
-                <p class="text-gray-300">Your safety is our paramount concern. We utilize state-of-the-art spacecraft, rigorously tested and maintained to the highest aerospace standards. Our crew undergoes extensive training, exceeding industry requirements.</p>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <button aria-expanded="false">
+                        <span>What is the booking procedure for a space tourism package?</span>
+                        <span class="text-xl">&#x25BC;</span>
+                    </button>
+                </div>
+                <div class="accordion-body">
+                    <p>To book a space tourism package, please contact our concierge service to discuss your preferences and requirements. A consultation will be scheduled to review available packages, flight schedules, and pre-flight training. Upon selection, a deposit is required to secure your booking. Our team will guide you through the necessary medical evaluations and documentation.</p>
+                </div>
             </div>
 
-            <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6">
-                <h2 class="text-xl font-semibold mb-2">What is included in the price of a journey?</h2>
-                <p class="text-gray-300">Our journeys include comprehensive pre-flight training, luxurious accommodations, gourmet meals prepared by world-renowned chefs, personalized concierge service, and of course, the unforgettable experience of spaceflight itself.</p>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <button aria-expanded="false">
+                        <span>What kind of training is provided before the spaceflight?</span>
+                        <span class="text-xl">&#x25BC;</span>
+                    </button>
+                </div>
+                <div class="accordion-body">
+                    <p>All passengers undergo comprehensive pre-flight training tailored to their chosen package. This includes simulations of the space environment, safety protocols, and emergency procedures. You'll learn about the effects of g-forces, weightlessness, and radiation exposure. Our expert trainers will ensure you are well-prepared for a safe and enjoyable journey.</p>
+                </div>
             </div>
 
-            <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6">
-                <h2 class="text-xl font-semibold mb-2">What kind of training is provided before the flight?</h2>
-                <p class="text-gray-300">We provide extensive pre-flight training, including simulations, centrifuge training, and survival courses, to ensure you are fully prepared for the unique environment of space.</p>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <button aria-expanded="false">
+                        <span>What type of accommodations are available during orbital flights?</span>
+                        <span class="text-xl">&#x25BC;</span>
+                    </button>
+                </div>
+                <div class="accordion-body">
+                    <p>Our orbital flights offer luxurious accommodations designed for comfort and relaxation. Each passenger enjoys a private cabin equipped with a personal entertainment system, gourmet meals, and panoramic views of Earth. Our dedicated crew provides personalized service to ensure your needs are met. Cabins are designed to minimize the effects of weightlessness and maximize comfort.</p>
+                </div>
             </div>
 
-            <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6">
-                <h2 class="text-xl font-semibold mb-2">Are there any age or health restrictions for participants?</h2>
-                <p class="text-gray-300">Participants must be at least 18 years of age and meet certain health requirements. A comprehensive medical evaluation is required before booking a flight.</p>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <button aria-expanded="false">
+                        <span>Are there any age or health restrictions for space travel?</span>
+                        <span class="text-xl">&#x25BC;</span>
+                    </button>
+                </div>
+                <div class="accordion-body">
+                    <p>While we welcome passengers of all ages, certain health restrictions apply to ensure passenger safety. A comprehensive medical evaluation is required to assess your fitness for space travel. Pre-existing conditions such as heart disease, uncontrolled diabetes, or severe respiratory issues may disqualify you from participation. Our medical team will review your health records and advise accordingly.</p>
+                </div>
             </div>
         </div>
-    </main>
+    </section>
 
-    <footer class="bg-cosmic-dark py-8 mt-12 text-center text-gray-400">
+    <footer class="bg-black/70 backdrop-blur-lg py-8 text-center text-gray-400">
         <p>&copy; 2024 Nova Horizon. All rights reserved.</p>
-        <nav class="mt-4">
-            <ul class="flex justify-center space-x-6">
-                <li><a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a></li>
-                <li><a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
-            </ul>
-        </nav>
+        <div class="mt-4 space-x-4">
+            <a href="terms.html" class="hover:text-white">Terms of Service</a>
+            <a href="privacy.html" class="hover:text-white">Privacy Policy</a>
+            <a href="contact.html" class="hover:text-white">Contact Us</a>
+        </div>
     </footer>
 
+    <script>
+        const accordionItems = document.querySelectorAll('.accordion-item');
+
+        accordionItems.forEach(item => {
+            const header = item.querySelector('.accordion-header button');
+            const body = item.querySelector('.accordion-body');
+
+            header.addEventListener('click', () => {
+                const isExpanded = header.getAttribute('aria-expanded') === 'true';
+
+                accordionItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.querySelector('.accordion-header button').setAttribute('aria-expanded', 'false');
+                        otherItem.querySelector('.accordion-body').style.maxHeight = null;
+                    }
+                });
+
+                header.setAttribute('aria-expanded', !isExpanded);
+                body.style.maxHeight = isExpanded ? null : body.scrollHeight + 'px';
+            });
+        });
+    </script>
 </body>
+
 </html>

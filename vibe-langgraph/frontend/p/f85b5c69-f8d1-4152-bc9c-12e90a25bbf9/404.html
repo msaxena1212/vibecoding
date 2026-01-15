@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#28a745',
+                        secondary: '#343a40',
+                        light: '#f8f9fa',
+                    },
+                    fontFamily: {
+                        'sans': ['Roboto Condensed', 'sans-serif'],
+                        'body': ['Open Sans', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.5s ease-out'
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 font-body">
+    <div class="flex items-center justify-center h-screen">
+        <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-8 text-center shadow-lg">
+            <h1 class="text-4xl font-bold text-gray-800 font-sans mb-4">404 - Page Not Found</h1>
+            <p class="text-gray-600 mb-6">Oops! The page you're looking for could not be found.</p>
+            <a href="index.html" class="bg-primary hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 transition-colors duration-300">
+                Go back to Home
+            </a>
+        </div>
+    </div>
+</body>
+</html>

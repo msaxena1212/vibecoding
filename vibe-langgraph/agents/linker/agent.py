@@ -42,15 +42,40 @@ async def run_linker(state: CodebaseState):
         data = parse_json_dict(content)
         patches = data.get("patches", [])
         
+        # Linker is now PROACTIVE: It can modify ANY file in the project hub
+        project_id = state.get("project_id", "default")
+        project_hub_path = os.path.join("frontend", "p", project_id)
+
         for patch in patches:
             path = patch.get("path")
             new_content = patch.get("new_content")
             
+            if not path or new_content is None: continue
+
+            print(f"🔗 Linker applying patch to: {path}")
+            
+            # Update state
             if path in files:
-                print(f"🔗 Linker patching file: {path}")
                 files[path]["content"] = new_content
                 files[path]["lastEditedBy"] = "linker"
+            else:
+                files[path] = {
+                    "content": new_content,
+                    "language": "python" if path.endswith(".py") else "javascript",
+                    "imports": [],
+                    "exports": [],
+                    "lastEditedBy": "linker"
+                }
+
+            # Update Disk in Project Hub
+            try:
+                local_full_path = os.path.join(project_hub_path, path)
+                os.makedirs(os.path.dirname(local_full_path), exist_ok=True)
+                with open(local_full_path, "w", encoding="utf-8") as f:
+                    f.write(new_content)
                 patches_applied += 1
+            except Exception as e:
+                print(f"❌ Linker failed to persist {path}: {e}")
     except Exception as e:
         print(f"❌ Linker failed to parse patches: {e}")
 

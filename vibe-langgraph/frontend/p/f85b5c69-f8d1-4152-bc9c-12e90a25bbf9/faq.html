@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Supermarket POS Software</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto+Condensed:wght@400;700&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Open Sans', 'sans-serif'],
+                        serif: ['Roboto Condensed', 'serif'],
+                    },
+                    colors: {
+                        primary: {
+                            500: '#28a745',
+                            700: '#343a40',
+                            100: '#f8f9fa',
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.5s ease-out'
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Roboto Condensed', serif;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <header class="bg-white shadow-md">
+        <nav class="container mx-auto py-4 px-6">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="text-2xl font-bold text-primary-700">Supermarket POS</a>
+                <div class="space-x-6">
+                    <a href="index.html" class="hover:text-primary-500">Home</a>
+                    <a href="about.html" class="hover:text-primary-500">About</a>
+                    <a href="contact.html" class="hover:text-primary-500">Contact</a>
+                    <a href="faq.html" class="hover:text-primary-500">FAQ</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto py-12 px-6">
+        <h1 class="text-4xl font-bold text-center mb-8">Frequently Asked Questions</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            <div>
+                <h2 class="text-2xl font-bold mb-4">General Questions</h2>
+                <div class="space-y-4">
+                    <div class="bg-white/10 backdrop-blur-lg border border-white/20 p-4 rounded-lg shadow-md">
+                        <h3 class="font-semibold mb-2">What is a POS system?</h3>
+                        <p>A Point of Sale (POS) system is a combination of hardware and software that allows
+                            businesses to process transactions, manage inventory, and track sales.</p>
+                    </div>
+
+                    <div class="bg-white/10 backdrop-blur-lg border border-white/20 p-4 rounded-lg shadow-md">
+                        <h3 class="font-semibold mb-2">Why do I need a POS system?</h3>
+                        <p>A POS system can help you streamline your operations, improve efficiency, and gain
+                            valuable insights into your business performance.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold mb-4">Technical Questions</h2>
+                <div class="space-y-4">
+                    <div class="bg-white/10 backdrop-blur-lg border border-white/20 p-4 rounded-lg shadow-md">
+                        <h3 class="font-semibold mb-2">What hardware is required?</h3>
+                        <p>Typically, a POS system requires a computer or tablet, a barcode scanner, a receipt
+                            printer, and a cash drawer.</p>
+                    </div>
+
+                    <div class="bg-white/10 backdrop-blur-lg border border-white/20 p-4 rounded-lg shadow-md">
+                        <h3 class="font-semibold mb-2">Is the software cloud-based?</h3>
+                        <p>Yes, our POS software is cloud-based, allowing you to access your data from anywhere with
+                            an internet connection.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold mb-4">Pricing and Support</h2>
+                <div class="space-y-4">
+                    <div class="bg-white/10 backdrop-blur-lg border border-white/20 p-4 rounded-lg shadow-md">
+                        <h3 class="font-semibold mb-2">How much does the POS system cost?</h3>
+                        <p>Pricing varies depending on the features and number of users. Please visit our pricing
+                            page for more details.</p>
+                    </div>
+
+                    <div class="bg-white/10 backdrop-blur-lg border border-white/20 p-4 rounded-lg shadow-md">
+                        <h3 class="font-semibold mb-2">What kind of support do you offer?</h3>
+                        <p>We offer 24/7 email and phone support to assist you with any issues or questions you may
+                            have.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold mb-4">Features and Functionality</h2>
+                <div class="space-y-4">
+                    <div class="bg-white/10 backdrop-blur-lg border border-white/20 p-4 rounded-lg shadow-md">
+                        <h3 class="font-semibold mb-2">Does the system support inventory management?</h3>
+                        <p>Yes, our POS system includes robust inventory management features, allowing you to track
+                            stock levels, manage product information, and automate reordering processes.</p>
+                    </div>
+
+                    <div class="bg-white/10 backdrop-blur-lg border border-white/20 p-4 rounded-lg shadow-md">
+                        <h3 class="font-semibold mb-2">Can I generate reports?</h3>
+                        <p>Yes, our system provides comprehensive reporting and analytics, allowing you to track
+                            sales trends, identify top-selling products, and understand customer behavior.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-primary-700 text-white py-8 mt-12">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2024 Supermarket POS. All rights reserved.</p>
+            <div class="mt-4 space-x-4">
+                <a href="terms.html" class="hover:text-primary-100">Terms of Service</a>
+                <a href="privacy.html" class="hover:text-primary-100">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

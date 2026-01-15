@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms and Conditions - Supermarket POS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Roboto Condensed"', 'sans-serif'],
+                        body: ['"Open Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            500: '#28a745',
+                        },
+                        secondary: {
+                            500: '#343a40',
+                        },
+                        light: {
+                            500: '#f8f9fa',
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.5s ease-out'
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Roboto Condensed', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 font-body">
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto py-4 px-6">
+            <nav class="flex items-center justify-between">
+                <a href="index.html" class="text-2xl font-bold text-primary-500">Supermarket POS</a>
+                <ul class="flex space-x-6">
+                    <li><a href="about.html" class="hover:text-primary-500">About</a></li>
+                    <li><a href="contact.html" class="hover:text-primary-500">Contact</a></li>
+                    <li><a href="privacy.html" class="hover:text-primary-500">Privacy</a></li>
+                    <li><a href="terms.html" class="font-semibold text-primary-500">Terms</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto py-12 px-6">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Terms and Conditions</h1>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">1. Acceptable Use</h2>
+            <p class="text-gray-600">
+                You agree to use the Supermarket POS software only for lawful purposes and in accordance with these
+                Terms and Conditions. You are prohibited from using the software in any way that could damage,
+                disable, overburden, or impair our servers or networks, or interfere with any other party's use and
+                enjoyment of the software.
+            </p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">2. Liability</h2>
+            <p class="text-gray-600">
+                The Supermarket POS software is provided "as is" without any warranties, express or implied. We are
+                not liable for any damages arising from the use of the software, including but not limited to direct,
+                indirect, incidental, or consequential damages.
+            </p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">3. Intellectual Property</h2>
+            <p class="text-gray-600">
+                All intellectual property rights in the Supermarket POS software, including but not limited to
+                copyrights, trademarks, and trade secrets, are owned by us or our licensors. You are granted a
+                limited, non-exclusive, and non-transferable license to use the software for your internal business
+                purposes.
+            </p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">4. Termination</h2>
+            <p class="text-gray-600">
+                We may terminate your access to the Supermarket POS software at any time, with or without cause. Upon
+                termination, you must cease all use of the software and destroy all copies in your possession.
+            </p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">5. Governing Law</h2>
+            <p class="text-gray-600">
+                These Terms and Conditions shall be governed by and construed in accordance with the laws of [Your
+                Jurisdiction], without regard to its conflict of law provisions.
+            </p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">6. Changes to Terms</h2>
+            <p class="text-gray-600">
+                We reserve the right to modify these Terms and Conditions at any time. Your continued use of the
+                Supermarket POS software after any such changes constitutes your acceptance of the new Terms and
+                Conditions.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">7. Contact Us</h2>
+            <p class="text-gray-600">
+                If you have any questions about these Terms and Conditions, please contact us at
+                <a href="contact.html" class="text-primary-500 hover:underline">our contact page</a>.
+            </p>
+        </section>
+    </main>
+
+    <footer class="bg-secondary-500 text-light-500 py-4">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2024 Supermarket POS. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

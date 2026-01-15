@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Horizon - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#121212',
+                        secondary: '#FFFFFF',
+                        accent: '#639fff',
+                        error: '#ff6b6b',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.5s ease-out'
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .animate-fade-in-up {
+            animation: fade-in-up 0.5s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-primary text-secondary font-sans">
+
+    <header class="bg-white/10 backdrop-blur-lg border border-white/20 sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-6 flex items-center justify-between">
+            <a href="index.html" class="text-xl font-bold">Nova Horizon</a>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="index.html" class="hover:text-accent transition-colors">Home</a></li>
+                    <li><a href="about.html" class="hover:text-accent transition-colors">About</a></li>
+                    <li><a href="services.html" class="hover:text-accent transition-colors">Services</a></li>
+                    <li><a href="contact.html" class="hover:text-accent transition-colors">Contact</a></li>
+                    <li><a href="dashboard.html" class="hover:text-accent transition-colors">Dashboard</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+        <section class="mb-12">
+            <h1 class="text-4xl font-bold mb-4">Welcome Aboard</h1>
+            <p class="text-lg">Manage your bookings, view your itinerary, and prepare for your journey to the stars.</p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Booking History</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-4 animate-fade-in-up">
+                    <h3 class="font-semibold">Suborbital Glimpse</h3>
+                    <p>Date: 2024-03-15</p>
+                    <p>Status: Confirmed</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-4 animate-fade-in-up">
+                    <h3 class="font-semibold">Orbital Odyssey</h3>
+                    <p>Date: 2025-11-20</p>
+                    <p>Status: Pending</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-4 animate-fade-in-up">
+                    <h3 class="font-semibold">Lunar Escape</h3>
+                    <p>Date: 2028-07-04</p>
+                    <p>Status: Booked</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Profile Settings</h2>
+            <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 animate-fade-in-up">
+                <form>
+                    <div class="mb-4">
+                        <label for="name" class="block text-sm font-medium text-secondary">Name</label>
+                        <input type="text" id="name" class="mt-1 p-2 w-full rounded-md bg-transparent border border-white/20 focus:ring-2 ring-accent" value="John Doe">
+                    </div>
+                    <div class="mb-4">
+                        <label for="email" class="block text-sm font-medium text-secondary">Email</label>
+                        <input type="email" id="email" class="mt-1 p-2 w-full rounded-md bg-transparent border border-white/20 focus:ring-2 ring-accent" value="john.doe@example.com">
+                    </div>
+                    <div class="mb-4">
+                        <label for="password" class="block text-sm font-medium text-secondary">Password</label>
+                        <input type="password" id="password" class="mt-1 p-2 w-full rounded-md bg-transparent border border-white/20 focus:ring-2 ring-accent" value="********">
+                    </div>
+                    <button type="submit" class="bg-accent text-primary py-2 px-4 rounded-md hover:bg-accent/80 transition-colors">Update Profile</button>
+                </form>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-semibold mb-4">Pre-Flight Information</h2>
+            <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 animate-fade-in-up">
+                <p>Please ensure you have completed the following:</p>
+                <ul class="list-disc list-inside">
+                    <li>Medical Checkup</li>
+                    <li>Flight Suit Fitting</li>
+                    <li>Pre-Flight Training Modules</li>
+                    <li>Waiver Forms</li>
+                </ul>
+                <p class="mt-4">Contact our support team if you have any questions.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white/10 backdrop-blur-lg border border-white/20 py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2024 Nova Horizon. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

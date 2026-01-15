@@ -24,9 +24,12 @@ async def run_ui_specialist(state: CodebaseState):
     code_context = "\n".join([f"--- FILE: {path} ---\n{data['content']}" for path, data in files.items()])
     tokens_json = json.dumps(design_tokens, indent=2)
     
+    reasoning = state.get("reasoning", "")
+    plan_summary = state.get("plan_summary", "")
+
     messages = [
         SystemMessage(content=prompt),
-        HumanMessage(content=f"User Intent: {user_intent}\n\nDESIGN TOKENS:\n{tokens_json}\n\nCURRENT CODE:\n{code_context}")
+        HumanMessage(content=f"User Intent: {user_intent}\nProject Context: {reasoning}\nTechnical Plan: {plan_summary}\n\nDESIGN TOKENS:\n{tokens_json}\n\nCURRENT CODE:\n{code_context}")
     ]
     
     response = await llm.ainvoke(messages)
