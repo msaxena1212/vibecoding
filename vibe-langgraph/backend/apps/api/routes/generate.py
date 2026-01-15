@@ -26,6 +26,7 @@ async def generate_project(request: GenerateRequest):
         framework = "react"
         messages = []
         total_tokens = 0
+        gemini_hits = 0
         
         from backend.apps.api.deps import get_project_store
         store = get_project_store()
@@ -38,6 +39,7 @@ async def generate_project(request: GenerateRequest):
                 dependency_graph = existing_data.get("dependencyGraph", {})
                 framework = existing_data.get("framework", "react")
                 total_tokens = existing_data.get("total_tokens", 0)
+                gemini_hits = existing_data.get("gemini_hits", 0)
                 
                 # Load previous chat messages for context
                 prev_messages = await store.get_chat_messages(project_id)
@@ -48,14 +50,44 @@ async def generate_project(request: GenerateRequest):
                 print(f"DEBUG: Project ID '{project_id}' provided but NOT FOUND in database.")
 
         initial_state = CodebaseState(
-            files=files,
-            dependencyGraph=dependency_graph,
-            framework=framework,
             userIntent=intent,
-            messages=messages,
+            intent={
+                "primaryMode": "generate",
+                "confidence": 1.0,
+                "reasoning": "Initial request"
+            },
+            mode="generate",
+            framework={"name": "react", "version": "18"},
+            plan={
+                "steps": [],
+                "filesToCreate": [],
+                "filesToModify": [],
+                "version": 1
+            },
+            planVersion=1,
+            files=files,
+            fileVersions={path: 1 for path in files.keys()},
+            dependencyGraph=dependency_graph,
+            diagnostics={
+                "errors": [],
+                "warnings": []
+            },
+            conversation={
+                "messages": messages,
+                "lastAgentResponse": ""
+            },
+            observability=[],
+            agent_config={},
+            flow_type="code",
+            needs_modification=False,
+            is_debug_explain=False,
+            change_summary="",
             current_step="start",
             total_tokens=total_tokens,
-            errors=[]
+            gemini_hits=gemini_hits,
+            errors=[],
+            tool_history=[],
+            agent_scratchpad=""
         )
     
         if not project_id:
@@ -70,10 +102,8 @@ async def generate_project(request: GenerateRequest):
         # 2. Save User Message immediately
         await store.add_chat_message(project_id, "user", intent)
 
-        print("DEBUG: Invoking workflow...")
-        # Run workflow
-        result = workflow.invoke(initial_state)
-        print("DEBUG: Workflow finished.")
+        result = workflow.invoke(initial_state, config={"recursion_limit": 100})
+        print(f"DEBUG: Workflow finished. Gemini Hits: {result.get('gemini_hits', 0)}")
         
         # Sanitize state for JSON serialization
         print("DEBUG: Sanitizing state...")
@@ -92,6 +122,8 @@ async def generate_project(request: GenerateRequest):
         framework = result.get("framework", "project")
         errors = result.get("errors", [])
         
+        flow_type = result.get("flow_type", "code")
+        
         if assistant_msgs:
             last_msg = assistant_msgs[-1]["content"]
             # Prepend plan summary if it's not already there
@@ -102,14 +134,23 @@ async def generate_project(request: GenerateRequest):
             if errors:
                 prefix += f"**Errors encountered:**\n" + "\n".join([f"- {e}" for e in errors]) + "\n\n"
                 
-            combined_msg = f"I've generated your **{framework}**.\n\n{prefix}{last_msg}"
+            if flow_type == "code":
+                prefix = f"I've generated your **{framework}**.\n\n" + prefix
+            combined_msg = f"{prefix}{last_msg}"
             await store.add_chat_message(project_id, "assistant", combined_msg)
         else:
-            msg = f"I've generated your **{framework}**."
+            msg = ""
+            if flow_type == "code":
+                msg = f"I've generated your **{framework}**."
+                
             if plan_summary:
                 msg += f"\n\n**Plan Summary:**\n{plan_summary}"
             if errors:
                 msg += f"\n\n**Errors encountered:**\n" + "\n".join([f"- {e}" for e in errors])
+            
+            if not msg:
+                msg = "Processed your request."
+                
             await store.add_chat_message(project_id, "assistant", msg)
         
         print(f"DEBUG: Saved to DB with ID: {project_id}")

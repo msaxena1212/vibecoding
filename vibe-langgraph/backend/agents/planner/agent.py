@@ -24,7 +24,9 @@ def run_planner(state: CodebaseState):
     response = llm.invoke(messages)
     
     # Extract token usage
-    tokens = response.usage_metadata.get("total_tokens", 0) if hasattr(response, "usage_metadata") else 0
+    tokens = 0
+    if response and hasattr(response, "usage_metadata") and response.usage_metadata:
+        tokens = response.usage_metadata.get("total_tokens", 0)
     current_tokens = state.get("total_tokens", 0)
     
     # Parse the response content as JSON
@@ -66,7 +68,14 @@ def run_planner(state: CodebaseState):
         return {
             "current_step": "planning_complete", 
             "plan": plan, 
+            "mode": plan.get("mode", "generate"),
+            "framework": plan.get("framework", {"name": "react", "version": "18"}),
+            "conversation": {
+                "messages": state.get("messages", []),
+                "lastAgentResponse": plan.get("plan_summary", "")
+            },
             "total_tokens": current_tokens + tokens,
+            "gemini_hits": state.get("gemini_hits", 0) + 1,
             "errors": []
         } 
     except Exception as e:
@@ -75,5 +84,6 @@ def run_planner(state: CodebaseState):
         return {
             "current_step": "planning_error", 
             "total_tokens": current_tokens + tokens,
+            "gemini_hits": state.get("gemini_hits", 0) + 1,
             "errors": [f"Planner Error: {str(e)}"]
         }

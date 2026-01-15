@@ -51,7 +51,7 @@ def run_seeker(state: CodebaseState):
         if not relevant_files and file_list:
             relevant_files = [file_list[0]]
             
-        return {"plan": {"relevant_files": relevant_files}, "current_step": "seeker_complete"}
+        return {"plan": {"relevant_files": relevant_files}, "current_step": "seeker_complete", "gemini_hits": state.get("gemini_hits", 0) + 1}
     except Exception as e:
         print(f"Seeker Error: {e}")
-        return {"current_step": "seeker_error", "plan": {"relevant_files": file_list[:3]}}
+        return {"current_step": "seeker_error", "plan": {"relevant_files": file_list[:3]}, "gemini_hits": state.get("gemini_hits", 0) + 1}

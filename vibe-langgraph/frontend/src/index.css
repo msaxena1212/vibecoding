@@ -1,0 +1,172 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #09090b;
+  /* Deep Zinc 950 */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Vibe Variables */
+  --bg-deep: #050505;
+  --bg-surface: #0f0f11;
+  --bg-glass: rgba(20, 20, 23, 0.6);
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --primary: #8b5cf6;
+  /* Violet */
+  --primary-glow: rgba(139, 92, 246, 0.4);
+  --secondary: #ec4899;
+  /* Pink */
+  --text-main: #f4f4f5;
+  --text-muted: #a1a1aa;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% 10%, #1a1a2e 0%, #050505 100%);
+}
+
+#root {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  /* text-align: center; REMOVED to allow dashboard layout */
+}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-glass);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.glass-card {
+  background: rgba(30, 30, 35, 0.4);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  background: rgba(40, 40, 45, 0.6);
+  border-color: rgba(139, 92, 246, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(139, 92, 246, 0.1);
+}
+
+/* Typography & Elements */
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  background: linear-gradient(to right, #fff, #999);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: #646cff;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-black/40 backdrop-blur-2xl border border-white/5 shadow-2xl;
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.05),
+      0 4px 20px -2px rgba(0, 0, 0, 0.5);
+  }
+
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/5 transition-all duration-300;
+  }
+
+  .glass-input {
+    @apply bg-black/20 backdrop-blur-xl border border-white/5 text-slate-200 placeholder:text-slate-600 focus:border-violet-500/50 focus:bg-black/40 transition-all duration-300;
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Aurora Animations */
+@keyframes aurora {
+  0% {
+    transform: translate(0%, 0%) rotate(0deg) scale(1.0);
+    opacity: 0.5;
+  }
+
+  33% {
+    transform: translate(2%, 5%) rotate(5deg) scale(1.1);
+    opacity: 0.4;
+  }
+
+  66% {
+    transform: translate(-2%, 2%) rotate(-5deg) scale(0.9);
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: translate(0%, 0%) rotate(0deg) scale(1.0);
+    opacity: 0.5;
+  }
+}
+
+.animate-aurora {
+  animation: aurora 20s infinite ease-in-out alternate;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  transition: background 0.2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.selection\:bg-violet-500\/30::selection {
+  background-color: rgba(139, 92, 246, 0.3);
+  color: white;
+}

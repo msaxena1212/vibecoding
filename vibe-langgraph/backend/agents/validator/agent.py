@@ -7,42 +7,69 @@ def run_validator(state: CodebaseState):
     """
     files = state.get("files", {})
     errors = []
+    warnings = []
     
+    import uuid
+
+    def create_error(err_type, file, message, severity="blocking", auto_fixable=False):
+        return {
+            "id": str(uuid.uuid4()),
+            "type": err_type,
+            "file": file,
+            "message": message,
+            "severity": severity,
+            "autoFixable": auto_fixable
+        }
+
     for path, file_data in files.items():
         content = file_data.get("content", "")
         
         # 1. Check for empty files
         if not content.strip():
-            errors.append(f"File {path} is empty.")
+            errors.append(create_error("syntax", path, f"File {path} is empty.", "blocking", False))
             continue
             
-        # 2. Check for unclosed JSX/HTML tags (very basic)
-        if path.endswith((".html", ".jsx", ".tsx")):
-            open_tags = len(re.findall(r"<[a-zA-Z]+(?!/>)[^>]*>", content))
-            close_tags = len(re.findall(r"</[a-zA-Z]+>", content))
-            if open_tags != close_tags and "<!" not in content:
-                 # This is a bit naive, but good for base validation
-                 pass 
+        # 2. Check for Vite Build Readiness
+        if path == "package.json":
+            try:
+                import json
+                pkg = json.loads(content)
+                scripts = pkg.get("scripts", {})
+                if not all(s in scripts for s in ["dev", "build", "preview"]):
+                    errors.append(create_error("config", path, "package.json is missing standard Vite scripts (dev, build, preview).", "blocking", True))
+                
+                dev_deps = pkg.get("devDependencies", {})
+                if "vite" not in dev_deps or "@vitejs/plugin-react" not in dev_deps:
+                    errors.append(create_error("config", path, "package.json is missing vite devDependencies.", "critical", True))
+            except:
+                errors.append(create_error("config", path, "package.json is not valid JSON.", "blocking", False))
 
-        # 3. Check for obvious placeholders
+        # 3. Check for index.html entry point
+        if path == "index.html":
+            if '<script type="module" src="/src/main.jsx"></script>' not in content:
+                errors.append(create_error("framework", path, "index.html is missing the Vite module entry script tag.", "blocking", True))
+            if 'ReactDOM.render' in content:
+                warnings.append(create_error("framework", path, "index.html contains legacy inline ReactDOM.render script; move logic to src/main.jsx.", "warning", False))
+
+        # 4. Check for React 18 createRoot
+        if path == "src/main.jsx":
+            if "createRoot" not in content:
+                errors.append(create_error("framework", path, "src/main.jsx is missing React 18 createRoot initialization.", "critical", False))
+
+        # 5. Check for obvious placeholders
         if "[INSERT CODE HERE]" in content or "TODO" in content:
-            errors.append(f"File {path} contains placeholders/TODOs.")
+            warnings.append(create_error("syntax", path, f"File {path} contains placeholders/TODOs.", "minor", False))
 
-        # 4. Check for unhandled imports (very basic)
-        if "from './" in content:
-            import_match = re.search(r"from './([^']+)'", content)
-            if import_match:
-                imported_file = import_match.group(1)
-                # Check if file exists in the state
-                found = False
-                for ext in ["", ".jsx", ".js", ".css"]:
-                    if f"{imported_file}{ext}" in files or f"src/{imported_file}{ext}" in files:
-                        found = True
-                        break
-                # if not found:
-                #    errors.append(f"File {path} imports non-existent file: {imported_file}")
+    # Check for missing imports from Linker
+    missing_imports = state.get("missing_imports", []) or []
+    for mi in missing_imports:
+        errors.append(create_error("import", mi["file"], f"Missing import {mi['target']} in {mi['file']}", "blocking", False))
 
     return {
         "current_step": "validation_complete",
-        "errors": errors
+        "diagnostics": {
+            "errors": errors,
+            "warnings": warnings
+        },
+        "errors": [e["message"] for e in errors] # Keep for compatibility
     }

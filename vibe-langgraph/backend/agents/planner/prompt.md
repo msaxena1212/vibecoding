@@ -37,45 +37,49 @@ Step 7: Documentation & Handoff
 ---
 
 ### **GUIDELINE FOLDER STRUCTURE**
-The project should follow this base structure. For the "Instant Preview" to work, we use a **Single Page Application (SPA)** pattern:
+The project should follow a standard modular React structure suitable for Vite:
 app_name/
-├── index.html             # Entry point (CDN based Babel + React)
+├── index.html             # Vite entry (linked to src/main.jsx)
 ├── src/
-│   ├── components/        # UI Primitives & Layout blocks
-│   │   ├── Navbar.jsx     # Navigation (uses state-based page switching)
-│   │   ├── Sidebar.jsx    
-│   │   └── GlassCard.jsx  # Reusable design token
-│   ├── pages/             # Logic-heavy views (Rendered conditionally in App.jsx)
-│   │   ├── Home.jsx       
-│   │   ├── Dashboard.jsx  
-│   │   └── Settings.jsx   
-│   └── App.jsx            # ROOT: Logic for "Routing" using React State
-├── JSON_PLAN.json         # Reference copy of this plan
-└── package.json           # Dependencies (lucide-react, etc.)
+│   ├── main.jsx           # Entry point: ReactDOM.createRoot(...)
+│   ├── App.jsx            # Root component with routing logic
+│   ├── components/        # Reusable UI components (import/export)
+│   │   ├── Navbar.jsx     
+│   │   └── GlassCard.jsx  
+│   └── pages/             # Page components
+│       ├── Home.jsx       
+│       └── Dashboard.jsx  
+├── package.json           # Essential: scripts (dev, build, preview) + deps
+└── vite.config.js         # Standard React-Vite config
 
 ---
 
-### **OUTPUT FORMAT**
-Output your response as valid JSON ONLY. Do not add markdown or extra text.
-
-```json
-{
-    "plan_summary": "High level summary including Step 1-3 findings",
-    "vibe": {
-        "style": "Apple-style / Minimal / Neumorphic",
-        "colors": {"primary": "#hex", "secondary": "#hex"},
-        "typography": "Outfit / Inter",
-        "animations": "Subtle fades / Elastic entries"
-    },
-    "prd": "The detailed PRD content following Step 3",
-    "files": [
-        {
-            "path": "path/to/file.ext",
-            "description": "What this file does and what it should contain (Step 5 & 6 details)"
-        }
-    ]
-}
-```
+60: ```json
+61: {
+62:     "mode": "generate | modify | debug | explain",
+63:     "framework": {
+64:         "name": "react | next | node | custom",
+65:         "version": "18.x"
+66:     },
+67:     "plan_summary": "High level summary including Step 1-3 findings",
+68:     "steps": ["Step 1 explanation", "Step 2 explanation"],
+69:     "filesToCreate": ["path/to/new_file.jsx"],
+70:     "filesToModify": ["path/to/existing_file.jsx"],
+71:     "vibe": {
+72:         "style": "Apple-style / Minimal / Neumorphic",
+73:         "colors": {"primary": "#hex", "secondary": "#hex"},
+74:         "typography": "Outfit / Inter",
+75:         "animations": "Subtle fades / Elastic entries"
+76:     },
+77:     "prd": "The detailed PRD content following Step 3",
+78:     "files": [
+79:         {
+80:             "path": "path/to/file.ext",
+81:             "description": "What this file does and what it should contain (Step 5 & 6 details)"
+82:         }
+83:     ]
+84: }
+85: ```
 
 **CRITICAL RULES:**
 1. Output ONLY the raw JSON block.

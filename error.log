@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "C:\Users\mindz\Desktop\projects\antigravity_genie\vibecoding\vibe-langgraph\backend\apps\api\routes\generate.py", line 105, in generate_project
+    result = workflow.invoke(initial_state, config={"recursion_limit": 100})
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mindz\AppData\Local\Programs\Python\Python312\Lib\site-packages\langgraph\pregel\main.py", line 3068, in invoke
+    for chunk in self.stream(
+  File "C:\Users\mindz\AppData\Local\Programs\Python\Python312\Lib\site-packages\langgraph\pregel\main.py", line 2643, in stream
+    for _ in runner.tick(
+  File "C:\Users\mindz\AppData\Local\Programs\Python\Python312\Lib\site-packages\langgraph\pregel\_runner.py", line 167, in tick
+    run_with_retry(
+  File "C:\Users\mindz\AppData\Local\Programs\Python\Python312\Lib\site-packages\langgraph\pregel\_retry.py", line 42, in run_with_retry
+    return task.proc.invoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mindz\AppData\Local\Programs\Python\Python312\Lib\site-packages\langgraph\_internal\_runnable.py", line 656, in invoke
+    input = context.run(step.invoke, input, config, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mindz\AppData\Local\Programs\Python\Python312\Lib\site-packages\langgraph\_internal\_runnable.py", line 400, in invoke
+    ret = self.func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\mindz\Desktop\projects\antigravity_genie\vibecoding\vibe-langgraph\backend\agents\assigner\agent.py", line 33, in run_assigner
+    response = llm.invoke(messages)
+               ^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'invoke'
+During task with name 'assigner' and id '15246284-f229-0b75-4b2e-01a9ef13c87a'

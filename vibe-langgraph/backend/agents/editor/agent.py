@@ -49,7 +49,9 @@ RELEVANT SOURCE FILES:
         content = "".join([part.get("text", "") if isinstance(part, dict) else str(part) for part in content])
     
     # Extract token usage
-    tokens = response.usage_metadata.get("total_tokens", 0) if hasattr(response, "usage_metadata") else 0
+    tokens = 0
+    if response and hasattr(response, "usage_metadata") and response.usage_metadata:
+        tokens = response.usage_metadata.get("total_tokens", 0)
     current_tokens = state.get("total_tokens", 0)
     
     # Simple JSON extraction
@@ -64,20 +66,39 @@ RELEVANT SOURCE FILES:
         # Merge changes back into state
         new_files = existing_files.copy()
         for path, new_content in modified_files.items():
+            # Robust content extraction: if LLM returned a dict, try to get 'content' key or stringify
+            final_content = ""
+            if isinstance(new_content, dict):
+                final_content = new_content.get("content", str(new_content))
+            else:
+                final_content = str(new_content)
+
             if path in new_files:
-                new_files[path]["content"] = new_content
+                new_files[path]["content"] = final_content
                 new_files[path]["lastEditedBy"] = "editor"
             else:
                 # Handle new file creation during edit if requested
                 new_files[path] = {
-                    "content": new_content,
+                    "content": final_content,
                     "language": "python" if path.endswith(".py") else "javascript",
                     "imports": [],
                     "exports": [],
+                    "artifactType": "code",
+                    "generatedBy": "editor",
                     "lastEditedBy": "editor"
                 }
                 
-        return {"files": new_files, "current_step": "editing_complete", "total_tokens": current_tokens + tokens}
+        return {
+            "files": new_files, 
+            "current_step": "editing_complete", 
+            "total_tokens": current_tokens + tokens,
+            "gemini_hits": state.get("gemini_hits", 0) + 1
+        }
     except Exception as e:
         print(f"Error parsing editor response: {e}")
-        return {"current_step": "editing_error", "errors": [str(e)], "total_tokens": current_tokens + tokens}
+        return {
+            "current_step": "editing_error", 
+            "errors": [str(e)], 
+            "total_tokens": current_tokens + tokens,
+            "gemini_hits": state.get("gemini_hits", 0) + 1
+        }

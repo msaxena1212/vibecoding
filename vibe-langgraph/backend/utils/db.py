@@ -46,7 +46,7 @@ engine = create_async_engine(
 
 async def init_db():
     async with engine.begin() as conn:
-        # await conn.run_sync(SQLModel.metadata.drop_all) # WARNING: Dev only
+        # await conn.run_sync(SQLModel.metadata.drop_all) # WARNING: Resetting schema for architectural sync
         await conn.run_sync(SQLModel.metadata.create_all)
         
         if not IS_SQLITE:
