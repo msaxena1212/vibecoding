@@ -1,7 +1,7 @@
 from typing import Literal
 from .state import CodebaseState
 
-def route_validator(state: CodebaseState) -> Literal["editor", "end"]:
+def route_validator(state: CodebaseState) -> Literal["editor", "debugger", "end"]:
     """
     Handle self-diagnosis loop with retry limit.
     """
@@ -10,39 +10,47 @@ def route_validator(state: CodebaseState) -> Literal["editor", "end"]:
     
     # If validator explicitly requested a fix
     if current_step == "needs_fix":
-        if retry_count > 2:
+        if retry_count > 3:
             print("🛑 Max retries reached. Exiting validation loop.")
             return "end"
             
-        print(f"🔄 Validation failed (Attempt {retry_count + 1}). Routing to Editor.")
-        return "editor"
+        # Use Debugger for technical failures, Editor for user-initiated changes
+        print(f"🔄 Validation failed (Attempt {retry_count + 1}). Routing to Debugger.")
+        return "debugger"
         
     # Check for critical errors in the diagnostic report (heuristic)
     diagnostic = state.get("diagnostic_report", "").lower()
-    if "critical" in diagnostic or "error" in diagnostic:
-        if retry_count > 2:
+    if "critical" in diagnostic or "error" in diagnostic or "fail" in diagnostic:
+        if retry_count > 3:
             print("🛑 Max retries reached (Critical Errors). Exiting.")
             return "end"
             
-        print(f"⚠️ Critical errors found (Attempt {retry_count + 1}). Routing to Editor.")
-        return "editor"
+        print(f"⚠️ Issues found (Attempt {retry_count + 1}). Routing to Debugger.")
+        return "debugger"
 
     print("✅ Validation passed. Finishing workflow.")
     return "end"
 
-def route_request(state: CodebaseState) -> Literal["planner", "editor"]:
+def route_request(state: CodebaseState) -> Literal["planner", "editor", "chatter"]:
     """
-    Determine if the request is a new project (planner) or an edit (editor).
+    Determine the next node based on the Router agent's decision.
     """
-    user_intent = state.get("userIntent", "").lower()
-    files = state.get("files", {})
+    route = state.get("current_step", "planner")
     
-    # If we already have files, we MUST edit unless it's a hard reset
-    if files:
-        if any(word in user_intent for word in ["new project", "start over", "clear all", "reset"]):
-            return "planner"
-        return "editor"
+    if route not in ["planner", "editor", "chatter"]:
+        return "planner"
         
-    if any(word in user_intent for word in ["edit", "change", "add", "improve", "update"]):
-        return "editor"
-    return "planner"
+    return route
+def route_assignments(state: CodebaseState) -> Literal["backend_architect", "react_specialist", "seeker"]:
+    """
+    Decide which specialized agent to trigger based on assignments.
+    """
+    assignments = state.get("plan", {}).get("assignments", [])
+    agent_names = [a.get("agent", "").lower() for a in assignments]
+    
+    if "backend" in str(agent_names):
+        return "backend_architect"
+    if "react" in str(agent_names) or "component" in str(agent_names):
+        return "react_specialist"
+        
+    return "seeker"

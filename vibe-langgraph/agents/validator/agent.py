@@ -1,6 +1,7 @@
 from graph.state import CodebaseState
-from utils.llm import get_llm
+from utils.llm import get_llm, extract_tokens
 from langchain_core.messages import SystemMessage, HumanMessage
+from utils.formatter import parse_json_dict
 import json
 import re
 
@@ -54,47 +55,41 @@ async def run_validator(state: CodebaseState):
     response = await llm.ainvoke(messages)
     content = response.content
     
-    # Extract JSON
-    # Try to find the outermost curly braces for robust JSON extraction
-    json_match = re.search(r"({.*})", content, re.DOTALL)
-    if json_match:
-        content = json_match.group(1)
-    
-    
     # Extract token usage
-    tokens = 0
-    if hasattr(response, "response_metadata"):
-        tokens = response.response_metadata.get("token_usage", {}).get("total_tokens", 0)
-    elif hasattr(response, "usage_metadata"):
-        tokens = response.usage_metadata.get("total_tokens", 0)
+    tokens = extract_tokens(response)
         
     current_tokens = state.get("total_tokens", 0)
     usage = state.get("token_usage", {})
     usage["validator"] = usage.get("validator", 0) + tokens
 
+    report = parse_json_dict(content)
     
-    try:
-        report = json.loads(content)
-        if report.get("status") == "fail":
-            diag = report.get("diagnostic_report", {})
-            diag_text = f"Audit Failed: {diag.get('summary', 'Issues detected.')}\n- Technical: {', '.join(diag.get('technical_issues', []))}\n- Design: {', '.join(diag.get('design_flaws', []))}"
-            
-            print(f"DEBUG: Diagnosis FAILED: {diag_text}")
-            return {
-                "current_step": "needs_fix",
-                "diagnostic_report": diag_text,
-                "errors": [diag_text],
-                "retry_count": 1,
-                "total_tokens": tokens,
-                "token_usage": {"validator": tokens}
-            }
-        
+    if not report:
+        print("❌ Error: Validator failed to generate a valid diagnostic report.")
         return {
-            "current_step": "validation_complete", 
-            "diagnostic_report": "All quality and design audits passed.",
+            "current_step": "validation_complete", # Skip on failure to avoid loops
+            "diagnostic_report": "Diagnosis failed due to parsing error.",
             "total_tokens": tokens,
             "token_usage": {"validator": tokens}
         }
-    except Exception as e:
-        print(f"Error parsing validator report: {e}")
-        return {"current_step": "validation_complete", "diagnostic_report": "Diagnosis skipped due to parsing error."}
+
+    if report.get("status") == "fail":
+        diag = report.get("diagnostic_report", {})
+        diag_text = f"Audit Failed: {diag.get('summary', 'Issues detected.')}\n- Technical: {', '.join(diag.get('technical_issues', []))}\n- Design: {', '.join(diag.get('design_flaws', []))}"
+        
+        print(f"DEBUG: Diagnosis FAILED: {diag_text}")
+        return {
+            "current_step": "needs_fix",
+            "diagnostic_report": diag_text,
+            "errors": [diag_text],
+            "retry_count": state.get("retry_count", 0) + 1,
+            "total_tokens": tokens,
+            "token_usage": {"validator": tokens}
+        }
+    
+    return {
+        "current_step": "validation_complete", 
+        "diagnostic_report": "All quality and design audits passed.",
+        "total_tokens": tokens,
+        "token_usage": {"validator": tokens}
+    }

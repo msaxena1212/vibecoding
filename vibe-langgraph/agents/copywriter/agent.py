@@ -1,7 +1,8 @@
 import os
 from graph.state import CodebaseState
-from utils.llm import get_llm
+from utils.llm import get_llm, extract_tokens
 from langchain_core.messages import SystemMessage, HumanMessage
+from utils.formatter import parse_json_dict
 import json
 
 async def run_copywriter(state: CodebaseState):
@@ -25,20 +26,18 @@ async def run_copywriter(state: CodebaseState):
 
     response = await llm.ainvoke(messages)
     content = response.content
-    tokens = response.response_metadata.get("token_usage", {}).get("total_tokens", 0)
+    tokens = extract_tokens(response)
     
-    try:
-        if "```json" in content:
-            content = content.split("```json")[1].split("```")[0].strip()
-        copy_data = json.loads(content)
+    data = parse_json_dict(content)
+    if data:
         return {
-            "copy_data": copy_data,
-            "reasoning": copy_data.get("reasoning", "Refining brand voice..."),
+            "copy_data": data,
+            "reasoning": data.get("reasoning", "Refining brand voice..."),
             "current_step": "copywriting_complete",
             "total_tokens": tokens,
             "token_usage": {"copywriter": tokens}
         }
-    except:
+    else:
         return {
             "current_step": "copywriting_failed",
             "total_tokens": tokens,

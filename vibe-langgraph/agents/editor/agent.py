@@ -1,6 +1,7 @@
 from graph.state import CodebaseState
 from langchain_core.messages import SystemMessage, HumanMessage
-from utils.llm import get_llm
+from utils.llm import get_llm, extract_tokens
+from utils.formatter import parse_json_dict
 import json
 import re
 
@@ -47,18 +48,10 @@ async def run_editor(state: CodebaseState):
             "token_usage": {"editor": 0}
         }
     content = response.content
-    
-    # Extract token usage
-    tokens = response.usage_metadata.get("total_tokens", 0) if hasattr(response, "usage_metadata") else 0
-    current_tokens = state.get("total_tokens", 0)
-    
-    # Robust JSON extraction
-    json_match = re.search(r"({.*})", content, re.DOTALL)
-    if json_match:
-        content = json_match.group(1)
+    tokens = extract_tokens(response)
     
     try:
-        data = json.loads(content)
+        data = parse_json_dict(content)
         modified_files = data.get("files", {})
         
         # Merge changes back into state (PROACTIVE PATCHING)
@@ -66,6 +59,10 @@ async def run_editor(state: CodebaseState):
         
         # We only update files that are EXPLICITLY returned by the LLM
         for path, new_content in modified_files.items():
+            if not path or new_content is None:
+                print(f"⚠️ Skipping malformed patch for {path}")
+                continue
+
             print(f"🔧 Editor modifying file: {path}")
             if path in new_files:
                 new_files[path]["content"] = new_content
@@ -95,4 +92,10 @@ async def run_editor(state: CodebaseState):
         }
     except Exception as e:
         print(f"Error parsing editor response: {e}")
-        return {"current_step": "editing_error", "errors": [str(e)], "total_tokens": current_tokens + tokens}
+        return {
+            "files": existing_files,
+            "current_step": "editing_error", 
+            "errors": [str(e)], 
+            "total_tokens": tokens,
+            "token_usage": {"editor": tokens}
+        }

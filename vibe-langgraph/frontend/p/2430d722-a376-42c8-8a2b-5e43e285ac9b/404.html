@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Chai Sutta Bar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Open Sans', 'sans-serif'],
+                        'serif': ['Roboto Slab', 'serif'],
+                    },
+                    colors: {
+                        primary: '#A0522D',
+                        secondary: '#F5F5DC',
+                        white: '#FFFFFF',
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.5s ease-out'
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-secondary font-sans text-primary">
+    <div class="min-h-screen flex items-center justify-center bg-secondary">
+        <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl shadow-lg p-8 text-center max-w-md animate-fade-in-up">
+            <h1 class="text-6xl font-serif font-bold mb-4">404</h1>
+            <p class="text-lg mb-6">Oops! It seems like the chai got cold and we couldn't find the page you were looking for.</p>
+            <img src="assets/logo.png" alt="Chai Sutta Bar Logo - Lost in the Sutta" class="mx-auto mb-6 w-48 object-contain">
+            <p class="text-sm mb-4">Maybe it wandered off to find the perfect sutta?</p>
+            <a href="index.html" class="bg-primary text-white px-6 py-3 rounded-full hover:bg-opacity-80 transition-colors duration-300 focus:ring-2 ring-primary">
+                Take me back to the Chai Sutta Bar
+            </a>
+        </div>
+    </div>
+</body>
+</html>

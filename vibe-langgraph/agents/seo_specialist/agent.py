@@ -1,6 +1,6 @@
 import os
 from graph.state import CodebaseState
-from utils.llm import get_llm
+from utils.llm import get_llm, extract_tokens
 from langchain_core.messages import SystemMessage, HumanMessage
 import json
 
@@ -30,30 +30,21 @@ async def run_seo_specialist(state: CodebaseState):
 
     response = await llm.ainvoke(messages)
     content = response.content
-    tokens = response.response_metadata.get("token_usage", {}).get("total_tokens", 0)
+    tokens = extract_tokens(response)
     
-    if "```json" in content:
-        content = content.split("```json")[1].split("```")[0].strip()
+    report = parse_json_dict(content)
     
-    try:
-        report = json.loads(content)
-        if report.get("status") == "optimize":
-            return {
-                "current_step": "needs_fix",
-                "diagnostic_report": f"SEO/Performance Alert: {report.get('optimizations_recommended')}",
-                "total_tokens": tokens,
-                "token_usage": {"seo_specialist": tokens}
-            }
-            
+    if report and report.get("status") == "optimize":
         return {
-            "seo_report": report,
-            "current_step": "seo_audit_complete",
+            "current_step": "needs_fix",
+            "diagnostic_report": f"SEO/Performance Alert: {report.get('optimizations_recommended')}",
             "total_tokens": tokens,
             "token_usage": {"seo_specialist": tokens}
         }
-    except:
-        return {
-            "current_step": "seo_audit_complete",
-            "total_tokens": tokens,
-            "token_usage": {"seo_specialist": tokens}
-        }
+        
+    return {
+        "seo_report": report or {},
+        "current_step": "seo_audit_complete",
+        "total_tokens": tokens,
+        "token_usage": {"seo_specialist": tokens}
+    }

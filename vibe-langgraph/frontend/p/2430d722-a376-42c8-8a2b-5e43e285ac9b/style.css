@@ -1,0 +1,139 @@
+/* style.css */
+
+:root {
+  /* Color Palette */
+  --primary-color: #A0522D;
+  --secondary-color: #F5F5DC;
+  --neutral-color: #FFFFFF;
+
+  /* Typography */
+  --heading-font: "Roboto Slab", serif;
+  --body-font: "Open Sans", sans-serif;
+
+  /* Spacing (Fluid - adjust these values based on your needs) */
+  --section-padding: 3rem 1rem; /* Adjust top/bottom and left/right padding */
+  --grid-gap: 1rem;
+
+  /* Animation Speed */
+  --animation-duration: 0.3s;
+}
+
+/* General Styles */
+body {
+  font-family: var(--body-font);
+  color: #333; /* Dark gray for readability */
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: var(--secondary-color);
+}
+
+h1, h2, h3 {
+  font-family: var(--heading-font);
+  color: var(--primary-color);
+  margin-bottom: 0.5em;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color var(--animation-duration) ease;
+}
+
+a:hover {
+  color: darken(var(--primary-color), 10%); /* Darken on hover */
+}
+
+/* Layout */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+section {
+  padding: var(--section-padding);
+}
+
+/* Grid Layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
+  gap: var(--grid-gap);
+}
+
+/* Buttons */
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary-color);
+  color: var(--neutral-color);
+  border-radius: 0.25rem;
+  text-decoration: none;
+  transition: background-color var(--animation-duration) ease;
+  border: none;
+  cursor: pointer;
+  font-family: var(--body-font);
+  font-size: 1rem;
+}
+
+.button:hover {
+  background-color: darken(var(--primary-color), 10%);
+}
+
+.button-secondary {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.button-secondary:hover {
+  background-color: lighten(var(--secondary-color), 5%);
+}
+
+
+/* Animations (Define Keyframes) */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn var(--animation-duration) ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp var(--animation-duration) ease forwards;
+}
+
+
+/* Responsive Design (Example) */
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+  }
+
+  .grid {
+    grid-template-columns: 1fr; /* Stack on smaller screens */
+  }
+}
+
+/* Utility Classes (Example) */
+.text-center {
+  text-align: center;
+}

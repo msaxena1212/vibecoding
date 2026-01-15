@@ -1,5 +1,5 @@
 from langchain_core.messages import SystemMessage, HumanMessage
-from utils.llm import get_llm
+from utils.llm import get_llm, extract_tokens
 from graph.state import CodebaseState
 import json
 import os
@@ -37,11 +37,7 @@ async def run_generator(state: CodebaseState):
         response = await llm.ainvoke(messages)
         
         # Extract token usage
-        tokens = 0
-        if hasattr(response, "response_metadata"):
-            tokens = response.response_metadata.get("token_usage", {}).get("total_tokens", 0)
-        elif hasattr(response, "usage_metadata"): # Fallback for some versions
-            tokens = response.usage_metadata.get("total_tokens", 0)
+        tokens = extract_tokens(response)
             
         total_gen_tokens += tokens
         content = response.content

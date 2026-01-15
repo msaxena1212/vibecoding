@@ -1,6 +1,7 @@
 from graph.state import CodebaseState
-from utils.llm import get_llm
+from utils.llm import get_llm, extract_tokens
 from langchain_core.messages import SystemMessage, HumanMessage
+from utils.formatter import parse_json_dict
 import json
 import re
 import os
@@ -38,35 +39,26 @@ async def run_linker(state: CodebaseState):
     patches_applied = 0
     
     try:
-        # Extract JSON
-        json_match = re.search(r"({.*})", content, re.DOTALL)
-        if json_match:
-            data = json.loads(json_match.group(1))
-            status = data.get("status", "ready")
-            patches = data.get("patches", [])
+        data = parse_json_dict(content)
+        patches = data.get("patches", [])
+        
+        for patch in patches:
+            path = patch.get("path")
+            new_content = patch.get("new_content")
             
-            for patch in patches:
-                path = patch.get("path")
-                new_content = patch.get("new_content")
-                
-                if path in files:
-                    print(f"🔗 Linker patching file: {path}")
-                    files[path]["content"] = new_content
-                    files[path]["lastEditedBy"] = "linker"
-                    patches_applied += 1
-                    
+            if path in files:
+                print(f"🔗 Linker patching file: {path}")
+                files[path]["content"] = new_content
+                files[path]["lastEditedBy"] = "linker"
+                patches_applied += 1
     except Exception as e:
         print(f"❌ Linker failed to parse patches: {e}")
 
-    tokens = 0
-    if hasattr(response, "response_metadata"):
-        tokens = response.response_metadata.get("token_usage", {}).get("total_tokens", 0)
-    elif hasattr(response, "usage_metadata"):
-        tokens = response.usage_metadata.get("total_tokens", 0)
+    tokens = extract_tokens(response)
     
     return {
         "files": files, 
-        "current_step": "linking_skipped" if patches_applied == 0 else "linking_complete",
+        "current_step": "linking_complete" if patches_applied > 0 else "linking_skipped",
         "diagnostic_report": f"Linker Audit: {patches_applied} patches applied.",
         "total_tokens": tokens,
         "token_usage": {"linker": tokens}

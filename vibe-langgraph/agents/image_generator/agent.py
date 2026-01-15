@@ -1,7 +1,8 @@
 import os
 from graph.state import CodebaseState
-from utils.llm import get_llm
+from utils.llm import get_llm, extract_tokens
 from langchain_core.messages import SystemMessage, HumanMessage
+from utils.formatter import parse_json_dict
 import json
 
 async def run_image_generator(state: CodebaseState):
@@ -39,16 +40,11 @@ async def run_image_generator(state: CodebaseState):
             SystemMessage(content=system_prompt),
             HumanMessage(content=f"Request: {base_prompt}\nDesign Tokens: {json.dumps(design_tokens)}")
         ]
-        
         try:
             response = await llm.ainvoke(messages)
-            tokens = response.response_metadata.get("token_usage", {}).get("total_tokens", 0)
+            tokens = extract_tokens(response)
             total_gen_tokens += tokens
-            content = response.content
-            if "```json" in content:
-                content = content.split("```json")[1].split("```")[0].strip()
-            
-            p_data = json.loads(content)
+            p_data = parse_json_dict(response.content)
             img["refined_prompt"] = p_data.get("prompt", base_prompt)
         except Exception as e:
             print(f"Prompt refinement failed: {e}")

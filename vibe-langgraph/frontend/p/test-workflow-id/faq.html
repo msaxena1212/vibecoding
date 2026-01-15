@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Nova Horizon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#E0F2F1',
+                            100: '#B2DFDB',
+                            200: '#80CBC4',
+                            300: '#4DB6AC',
+                            400: '#26A69A',
+                            500: '#009688',
+                            600: '#00897B',
+                            700: '#00796B',
+                            800: '#00695C',
+                            900: '#004D40',
+                        },
+                        cosmic: {
+                            DEFAULT: '#1A237E',
+                            dark: '#000000',
+                            accent: '#D4AC0D'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Open Sans"', 'sans-serif'],
+                        serif: ['"Roboto Slab"', 'serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.5s ease-out'
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+      body {
+        background-color: #0D1117;
+        color: #fff;
+      }
+    </style>
+</head>
+<body class="font-sans">
+
+    <header class="bg-cosmic-dark bg-opacity-70 backdrop-blur-lg py-4">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <a href="index.html" class="text-2xl font-serif font-bold text-white">Nova Horizon</a>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="index.html" class="text-gray-300 hover:text-white transition-colors">Home</a></li>
+                    <li><a href="about.html" class="text-gray-300 hover:text-white transition-colors">About</a></li>
+                    <li><a href="pricing.html" class="text-gray-300 hover:text-white transition-colors">Pricing</a></li>
+                    <li><a href="contact.html" class="text-gray-300 hover:text-white transition-colors">Contact</a></li>
+                    <li><a href="faq.html" class="text-gray-300 hover:text-white transition-colors">FAQ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto py-12 px-4">
+        <h1 class="text-4xl font-serif font-bold mb-8 text-center">Frequently Asked Questions</h1>
+
+        <div class="space-y-6">
+            <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-semibold mb-2">What is Nova Horizon?</h2>
+                <p class="text-gray-300">Nova Horizon is a pioneering space tourism company offering meticulously crafted journeys beyond Earth, blending cutting-edge technology with unparalleled luxury and safety.</p>
+            </div>
+
+            <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-semibold mb-2">How safe are your spaceflights?</h2>
+                <p class="text-gray-300">Your safety is our paramount concern. We utilize state-of-the-art spacecraft, rigorously tested and maintained to the highest aerospace standards. Our crew undergoes extensive training, exceeding industry requirements.</p>
+            </div>
+
+            <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-semibold mb-2">What is included in the price of a journey?</h2>
+                <p class="text-gray-300">Our journeys include comprehensive pre-flight training, luxurious accommodations, gourmet meals prepared by world-renowned chefs, personalized concierge service, and of course, the unforgettable experience of spaceflight itself.</p>
+            </div>
+
+            <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-semibold mb-2">What kind of training is provided before the flight?</h2>
+                <p class="text-gray-300">We provide extensive pre-flight training, including simulations, centrifuge training, and survival courses, to ensure you are fully prepared for the unique environment of space.</p>
+            </div>
+
+            <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6">
+                <h2 class="text-xl font-semibold mb-2">Are there any age or health restrictions for participants?</h2>
+                <p class="text-gray-300">Participants must be at least 18 years of age and meet certain health requirements. A comprehensive medical evaluation is required before booking a flight.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-cosmic-dark py-8 mt-12 text-center text-gray-400">
+        <p>&copy; 2024 Nova Horizon. All rights reserved.</p>
+        <nav class="mt-4">
+            <ul class="flex justify-center space-x-6">
+                <li><a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+                <li><a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+            </ul>
+        </nav>
+    </footer>
+
+</body>
+</html>

@@ -32,3 +32,38 @@ def get_llm(model_name: str = None, agent_name: str = "planner"):
         model_name = "models/gemini-1.5-flash"
         
     return ChatGoogleGenerativeAI(model=model_name, google_api_key=api_key)
+
+def extract_tokens(response) -> int:
+    """
+    Robustly extract total tokens from various response metadata formats.
+    """
+    try:
+        # Check usage_metadata first (modern LangChain)
+        if hasattr(response, "usage_metadata") and response.usage_metadata:
+            usage = response.usage_metadata
+            if isinstance(usage, dict):
+                return usage.get("total_tokens", 0)
+            if hasattr(usage, "total_tokens"):
+                return usage.total_tokens
+
+        # Check response_metadata (legacy/alternative)
+        if hasattr(response, "response_metadata") and response.response_metadata:
+            meta = response.response_metadata
+            # If it's a dict
+            if hasattr(meta, "get"):
+                token_usage = meta.get("token_usage")
+                if token_usage and hasattr(token_usage, "get"):
+                    return token_usage.get("total_tokens", 0)
+            
+            # If it's a list (some LangChain versions)
+            if isinstance(meta, list):
+                for item in meta:
+                    if hasattr(item, "get") and "token_usage" in item:
+                        token_usage = item.get("token_usage")
+                        if token_usage and hasattr(token_usage, "get"):
+                            return token_usage.get("total_tokens", 0)
+            
+    except Exception as e:
+        # Warning: Failed to extract tokens: {e}
+        pass
+    return 0
