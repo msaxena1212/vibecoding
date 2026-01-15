@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Experiencing Viewing Issues</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .animate-fade-in-up {
+            animation: fade-in-up 0.5s ease-out forwards;
+        }
+
+        @keyframes fade-in-up {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#007BFF',
+                        secondary: '#FFFFFF',
+                    },
+                    fontFamily: {
+                        sans: ['Roboto', 'sans-serif'],
+                        serif: ['Open Sans', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-100">
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto py-4 px-5">
+            <nav class="flex items-center justify-between">
+                <a href="index.html" class="text-2xl font-bold text-primary">
+                    <img src="assets/logo.png" alt="Logo" class="h-8 inline-block mr-2">
+                    Company Name
+                </a>
+                <div>
+                    <a href="index.html" class="px-4 py-2 text-gray-700 hover:text-primary">Home</a>
+                    <a href="about.html" class="px-4 py-2 text-gray-700 hover:text-primary">About</a>
+                    <a href="contact.html" class="px-4 py-2 text-gray-700 hover:text-primary">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto mt-10 p-5">
+        <section class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">
+                Experiencing Viewing Issues? We're On It.
+            </h1>
+            <p class="text-gray-600">
+                We're aware some users are having trouble viewing this page and are working hard to resolve it. Your
+                patience is appreciated.
+            </p>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="md:col-span-1 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 animate-fade-in-up">
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">Quick Troubleshooting Steps</h2>
+                <p class="text-gray-700">
+                    While we fix the issue, here are a few things you can try:
+                </p>
+                <ul class="list-disc pl-5 mt-2">
+                    <li><strong>Refresh the Page:</strong> Sometimes a simple refresh can do the trick.</li>
+                    <li><strong>Clear Your Cache:</strong> Cached data can occasionally cause viewing problems.</li>
+                    <li><strong>Try a Different Browser:</strong> See if the issue persists across browsers.</li>
+                    <li><strong>Check Your Internet Connection:</strong> Ensure you have a stable connection.</li>
+                </ul>
+            </div>
+
+            <div class="md:col-span-1 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 animate-fade-in-up">
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">Stay Updated</h2>
+                <p class="text-gray-700">
+                    We'll post updates on our status page and social media channels as the situation evolves. We
+                    appreciate your understanding as we work to resolve this quickly.
+                </p>
+            </div>
+
+            <div class="md:col-span-1 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 animate-fade-in-up">
+                <h2 class="text-xl font-semibold text-gray-800 mb-3">Need Immediate Assistance?</h2>
+                <p class="text-gray-700">
+                    If the problem persists or you need immediate help, please don't hesitate to contact our support
+                    team. We're here to help get you back on track.
+                </p>
+                <a href="#" class="inline-block mt-4 bg-primary text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors">Contact Support</a>
+            </div>
+        </section>
+
+        <section class="mt-12 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-8 animate-fade-in-up">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Contact Us Directly</h2>
+            <form class="max-w-lg mx-auto">
+                <div class="mb-4">
+                    <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name:</label>
+                    <input type="text" id="name" name="name"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 ring-primary">
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                    <input type="email" id="email" name="email"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 ring-primary">
+                </div>
+                <div class="mb-6">
+                    <label for="message" class="block text-gray-700 text-sm font-bold mb-2">Message:</label>
+                    <textarea id="message" name="message" rows="4"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 ring-primary"></textarea>
+                </div>
+                <div class="flex items-center justify-between">
+                    <button
+                        class="bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline focus:ring-2 ring-primary"
+                        type="submit">
+                        Send Message
+                    </button>
+                    <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+                        href="#">
+                        View Status Page
+                    </a>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer class="bg-gray-200 mt-12 py-4 text-center">
+        <p class="text-gray-600">© 2023 Company Name. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

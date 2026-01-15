@@ -2,6 +2,9 @@ from langchain_core.messages import SystemMessage, HumanMessage
 from utils.llm import get_llm
 from graph.state import CodebaseState
 
+import json
+import re
+
 async def run_planner(state: CodebaseState):
     """
     Break user intent into a technical plan.
@@ -17,10 +20,13 @@ async def run_planner(state: CodebaseState):
         system_prompt = f.read()
         
     history = state.get("messages", [])
+    existing_files = list(state.get("files", {}).keys())
+    existing_context = f"\n\nEXISTING FILES:\n{', '.join(existing_files)}" if existing_files else ""
+    
     messages = [
         SystemMessage(content=system_prompt)
     ] + history + [
-        HumanMessage(content=f"User Request: {user_intent}")
+        HumanMessage(content=f"User Request: {user_intent}{existing_context}")
     ]
     
     response = await llm.ainvoke(messages)
@@ -30,9 +36,6 @@ async def run_planner(state: CodebaseState):
     current_tokens = state.get("total_tokens", 0)
     
     # Parse the response content as JSON
-    import json
-    import re
-    
     content = response.content
     print(f"DEBUG: Planner Raw Output: {content[:100]}...") # Log start of output
     

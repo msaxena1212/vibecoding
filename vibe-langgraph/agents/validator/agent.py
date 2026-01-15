@@ -26,7 +26,8 @@ async def run_validator(state: CodebaseState):
     # AUDIT CHECKLIST:
     1. **Logic & Syntax**: Identify broken JS logic, infinite loops, or CSS syntax errors.
     2. **Design Fidelity**: Check for inconsistent spacing, poor contrast (a11y), or missing hover states.
-    3. **Content Quality**: Flag "Lorem Ipsum" or generic "Sample Item" text. Data must feel realistic.
+    3. **Asset Integrity**: Before flagging a missing image or logo, cross-check the "ASSETS BEING GENERATED" list. If the asset path is in that list, it is valid and will be fulfilled.
+    4. **Content Quality**: Flag "Lorem Ipsum" or generic "Sample Item" text. Data must feel realistic.
     4. **Functional Integrity**: Verify CTAs are linked and navigation is intuitive.
     5. **Visual Detail**: Audit for fluid typography (`clamp`) and Glassmorphism depth.
 
@@ -43,23 +44,34 @@ async def run_validator(state: CodebaseState):
     }
     """
     
+    images_info = json.dumps(state.get("images_to_generate", []), indent=2)
+    
     messages = [
         SystemMessage(content=system_prompt),
-        HumanMessage(content=f"User Intent: {user_intent}\n\nGenerated Code:\n{code_context}")
+        HumanMessage(content=f"User Intent: {user_intent}\n\nASSETS BEING GENERATED:\n{images_info}\n\nGenerated Code:\n{code_context}")
     ]
     
     response = await llm.ainvoke(messages)
     content = response.content
     
     # Extract JSON
-    json_match = re.search(r"```json\n(.*?)\n```", content, re.DOTALL)
+    # Try to find the outermost curly braces for robust JSON extraction
+    json_match = re.search(r"({.*})", content, re.DOTALL)
     if json_match:
         content = json_match.group(1)
     
-    tokens = response.response_metadata.get("token_usage", {}).get("total_tokens", 0)
+    
+    # Extract token usage
+    tokens = 0
+    if hasattr(response, "response_metadata"):
+        tokens = response.response_metadata.get("token_usage", {}).get("total_tokens", 0)
+    elif hasattr(response, "usage_metadata"):
+        tokens = response.usage_metadata.get("total_tokens", 0)
+        
     current_tokens = state.get("total_tokens", 0)
     usage = state.get("token_usage", {})
     usage["validator"] = usage.get("validator", 0) + tokens
+
     
     try:
         report = json.loads(content)
@@ -72,6 +84,7 @@ async def run_validator(state: CodebaseState):
                 "current_step": "needs_fix",
                 "diagnostic_report": diag_text,
                 "errors": [diag_text],
+                "retry_count": 1,
                 "total_tokens": tokens,
                 "token_usage": {"validator": tokens}
             }

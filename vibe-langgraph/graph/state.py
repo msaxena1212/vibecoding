@@ -32,4 +32,5 @@ class CodebaseState(TypedDict):
     total_tokens: Annotated[int, operator.add]
     token_usage: Annotated[Dict[str, int], merge_usage] # Granular usage per agent
     project_id: Optional[str]
+    retry_count: Annotated[int, operator.add]
     errors: List[str]

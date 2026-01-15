@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
+    <style>
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --color-bg: #EDF2F7;
+            --color-primary: #2D3748;
+            --color-secondary: #4A5568;
+            --font-header: 'Roboto', sans-serif;
+            --font-body: 'Open Sans', sans-serif;
+        }
+
+        header {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: clamp(1rem, 2vw, 2rem);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--color-secondary);
+        }
+
+        main {
+            padding: clamp(2rem, 5vw, 5rem);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: clamp(1rem, 3vw, 3rem);
+        }
+
+        .chart-container, .kpi-widget {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 12px;
+            padding: clamp(1rem, 2vw, 2rem);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .chart-container:hover, .kpi-widget:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 48px rgba(0,0,0,0.2);
+        }
+
+        .hero {
+            text-align: center;
+            padding: clamp(3rem, 8vw, 8rem);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-family: var(--font-header);
+            color: var(--color-primary);
+            margin-bottom: clamp(0.5rem, 1vw, 1rem);
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: var(--color-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-buttons {
+            margin-top: clamp(2rem, 4vw, 4rem);
+            display: flex;
+            justify-content: center;
+            gap: clamp(1rem, 2vw, 2rem);
+        }
+
+        .cta-button {
+            padding: clamp(0.75rem, 1.5vw, 1.5rem) clamp(1.5rem, 3vw, 3rem);
+            border: none;
+            border-radius: 8px;
+            font-size: clamp(1rem, 1.5vw, 1.25rem);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none;
+            display: inline-block; /* Make sure the anchor tag behaves like a block */
+        }
+
+        .cta-primary {
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        .cta-secondary {
+            background-color: transparent;
+            border: 2px solid var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            text-align: center;
+            padding: clamp(1rem, 2vw, 2rem);
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: clamp(3rem, 5vw, 5rem);
+        }
+
+        section {
+            padding: clamp(3rem, 5vw, 5rem);
+            text-align: center;
+        }
+
+        section h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-family: var(--font-header);
+            color: var(--color-primary);
+            margin-bottom: clamp(0.5rem, 1vw, 1rem);
+        }
+
+        section p {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: var(--color-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Visualize Your Data. Effortlessly.</h1>
+            <p>Create interactive dashboards with stunning charts in minutes. No coding required.</p>
+            <div class="cta-buttons">
+                <a href="#" class="cta-button cta-primary">Start Your Free Trial</a>
+                <a href="#" class="cta-button cta-secondary">View Demo</a>
+            </div>
+        </section>
+
+       <section id="intuitive_interface">
+            <h2>Drag, Drop, Analyze.</h2>
+            <p>Our intuitive interface lets you build custom dashboards with ease. Simply drag and drop data sources, choose from a variety of chart types, and instantly gain actionable insights. The fluid spacing system ensures a clean and modern look.</p>
+        </section>
+
+        <section id="chart_library">
+            <h2>Charts That Tell a Story.</h2>
+            <p>From line graphs to pie charts, our extensive chart library has everything you need to present your data in a compelling way. Customize colors, labels, and animations to create visually stunning reports that capture attention. Typography uses Roboto and Open Sans for readability and a modern feel.</p>
+        </section>
+
+        <section id="realtime_updates">
+            <h2>Real-Time Data, Real-Time Insights.</h2>
+            <p>Stay ahead of the curve with real-time data updates. Our platform automatically refreshes your dashboards, so you always have the latest information at your fingertips. Make data-driven decisions with confidence.</p>
+        </section>
+
+        <div class="chart-container">
+            <h3>Sample Chart</h3>
+            <img src="assets/chart_example.png" alt="Example Chart" style="width: 100%; max-width: 500px;">
+        </div>
+
+         <div class="kpi-widget">
+            <h3>Key Metric</h3>
+            <p>Value: 1,234</p>
+        </div>
+
+        <div class="kpi-widget">
+            <h3>Another Metric</h3>
+            <p>Value: 5,678</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Data Dashboard. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

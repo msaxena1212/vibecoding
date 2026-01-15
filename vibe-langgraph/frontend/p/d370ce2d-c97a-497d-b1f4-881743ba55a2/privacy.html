@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Roboto Mono', 'monospace'],
+                    },
+                    colors: {
+                        'primary': '#1E1E1E',
+                        'secondary': '#FFFFFF',
+                        'accent': '#64FFDA',
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.5s ease-out'
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-primary text-secondary">
+    <header class="bg-white/10 backdrop-blur-lg border border-white/20 p-4">
+        <nav class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-lg font-semibold">3D Artist Portfolio</a>
+            <div class="space-x-4">
+                <a href="about.html" class="hover:text-accent transition-colors duration-300">About</a>
+                <a href="contact.html" class="hover:text-accent transition-colors duration-300">Contact</a>
+                <a href="privacy.html" class="hover:text-accent transition-colors duration-300">Privacy Policy</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto py-8">
+        <h1 class="text-3xl font-bold mb-4">Privacy Policy</h1>
+
+        <p class="mb-4">
+            Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your personal information when you use our website.
+        </p>
+
+        <h2 class="text-2xl font-semibold mb-2">Information We Collect</h2>
+
+        <p class="mb-4">
+            We may collect the following types of personal information:
+        </p>
+
+        <ul class="list-disc list-inside mb-4">
+            <li>Contact Information: such as your name, email address, and phone number.</li>
+            <li>Usage Data: information about how you use our website, including your IP address, browser type, and pages visited.</li>
+            <li>Cookies: we use cookies to enhance your browsing experience and collect data about website usage.</li>
+        </ul>
+
+        <h2 class="text-2xl font-semibold mb-2">How We Use Your Information</h2>
+
+        <p class="mb-4">
+            We may use your personal information for the following purposes:
+        </p>
+
+        <ul class="list-disc list-inside mb-4">
+            <li>To provide and improve our services.</li>
+            <li>To respond to your inquiries and requests.</li>
+            <li>To send you updates and promotional materials (you can opt-out at any time).</li>
+            <li>To analyze website usage and trends.</li>
+        </ul>
+
+        <h2 class="text-2xl font-semibold mb-2">Data Security</h2>
+
+        <p class="mb-4">
+            We take reasonable measures to protect your personal information from unauthorized access, use, or disclosure. However, no method of transmission over the internet is completely secure.
+        </p>
+
+        <h2 class="text-2xl font-semibold mb-2">Third-Party Websites</h2>
+
+        <p class="mb-4">
+            Our website may contain links to third-party websites. We are not responsible for the privacy practices of these websites.
+        </p>
+
+        <h2 class="text-2xl font-semibold mb-2">Changes to This Policy</h2>
+
+        <p class="mb-4">
+            We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on our website.
+        </p>
+
+        <h2 class="text-2xl font-semibold mb-2">Contact Us</h2>
+
+        <p class="mb-4">
+            If you have any questions about this Privacy Policy, please contact us at <a href="mailto:info@example.com" class="text-accent hover:underline">info@example.com</a>.
+        </p>
+    </main>
+
+    <footer class="bg-white/10 backdrop-blur-lg border border-white/20 p-4 text-center">
+        <p>&copy; 2024 3D Artist Portfolio. All rights reserved.</p>
+    </footer>
+</body>
+</html>

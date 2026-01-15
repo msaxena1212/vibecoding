@@ -37,10 +37,17 @@ async def on_startup():
 @app.get("/api/v1/projects")
 async def get_projects():
     from apps.api.deps import get_project_store
-    store = get_project_store()
-    projects = await store.get_history()
-    # Explicitly convert models to dicts to avoid serialization edge cases
-    return [p.dict() for p in projects]
+    import traceback
+    try:
+        store = get_project_store()
+        projects = await store.get_history()
+        # Explicitly convert models to dicts to avoid serialization edge cases
+        # Using model_dump() as recommended for Pydantic v2 / SQLModel
+        return [p.model_dump() for p in projects]
+    except Exception as e:
+        print(f"CRITICAL ERROR in get_projects: {e}")
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/api/v1/projects/{project_id}/messages")
 async def get_project_messages(project_id: str):

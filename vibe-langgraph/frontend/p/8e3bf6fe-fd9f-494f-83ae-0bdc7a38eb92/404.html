@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Not Found</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #FFFF00; /* Bright Yellow */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Comic Sans MS', cursive;
+            text-align: center;
+        }
+
+        .error-code {
+            font-size: 10em;
+            font-weight: bold;
+            color: #FF0000; /* Red */
+            text-shadow: 4px 4px 0px #0000FF; /* Blue */
+            animation: flash 0.5s linear infinite;
+        }
+
+        .error-message {
+            font-size: 2em;
+            color: #0000FF; /* Blue */
+            margin-bottom: 20px;
+             animation: glitch 1s linear infinite;
+        }
+
+        .dancing-banana {
+            width: 200px;
+            height: auto;
+        }
+
+        @keyframes flash {
+            0% { opacity: 1; }
+            50% { opacity: 0.1; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            25% { transform: translate(-2px, 2px); }
+            50% { transform: translate(2px, -2px); }
+            75% { transform: translate(-2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        .back-home {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #00FF00; /* Green */
+            color: #000;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+             animation: flash-button 1s linear infinite;
+        }
+
+        @keyframes flash-button {
+            0% { background-color: #00FF00; color: #000;}
+            50% { background-color: #FF0000; color: #fff; }
+            100% { background-color: #00FF00; color: #000; }
+        }
+    </style>
+</head>
+<body>
+    <div class="error-code">404</div>
+    <div class="error-message">Page Not Found</div>
+    <img src="https://media.giphy.com/media/Ju7l5y9Rytm1Seizjz/giphy.gif" alt="Dancing Banana" class="dancing-banana">
+    <a href="index.html" class="back-home">Go Back Home</a>
+</body>
+</html>

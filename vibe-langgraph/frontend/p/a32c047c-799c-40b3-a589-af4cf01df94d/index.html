@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoloProtect - Your Silent Guardian</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Open+Sans:wght@400;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#E9F5F2',
+                            100: '#A2D9CE',
+                            200: '#52BE80',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        serif: ['Open Sans', 'serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.5s ease-out'
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero {
+            background-image: url('assets/hero_image.png');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans">
+    <!-- Hero Section -->
+    <header class="hero h-screen flex items-center justify-center text-center text-white">
+        <div class="absolute inset-0 bg-black/50"></div>
+        <div class="relative z-10 p-8">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-fade-in-up">Peace of Mind, Simplified: Your Daily
+                Safety Net</h1>
+            <p class="text-lg md:text-xl mb-8 animate-fade-in-up delay-100">Check in daily. We'll alert your emergency
+                contact if you don't, ensuring your well-being.</p>
+            <a href="#"
+                class="bg-primary-100 text-primary-800 py-3 px-6 rounded-full font-semibold hover:bg-primary-200 transition-colors animate-fade-in-up delay-200">Download
+                SoloProtect Now</a>
+        </div>
+    </header>
+
+    <!-- Core Features Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-semibold text-center text-gray-800 mb-8">Stay Safe, Effortlessly: Core Features
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Feature 1: Daily Check-in -->
+                <div class="p-6 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-md group hover:shadow-lg transition-shadow duration-300">
+                    <img src="assets/check_in_icon.png" alt="Daily Check-in"
+                        class="mx-auto h-12 w-12 object-cover rounded-full mb-4">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">One-Tap Check-in</h3>
+                    <p class="text-gray-600">A single tap confirms you're okay each day.</p>
+                </div>
+
+                <!-- Feature 2: Emergency Contacts -->
+                <div class="p-6 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-md group hover:shadow-lg transition-shadow duration-300">
+                    <img src="assets/check_in_icon.png" alt="Emergency Contacts"
+                        class="mx-auto h-12 w-12 object-cover rounded-full mb-4">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Automated Alerts</h3>
+                    <p class="text-gray-600">If you miss check-ins for a defined period, your emergency contact is
+                        automatically notified.</p>
+                </div>
+
+                <!-- Feature 3: Privacy Focused -->
+                <div class="p-6 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-md group hover:shadow-lg transition-shadow duration-300">
+                    <img src="assets/check_in_icon.png" alt="Privacy Focused"
+                        class="mx-auto h-12 w-12 object-cover rounded-full mb-4">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Emergency Contact Management</h3>
+                    <p class="text-gray-600">Easily add and manage trusted contacts.</p>
+                </div>
+
+                <!-- Feature 4: Low Battery Usage -->
+                <div class="p-6 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-md group hover:shadow-lg transition-shadow duration-300">
+                    <img src="assets/check_in_icon.png" alt="Low Battery Usage"
+                        class="mx-auto h-12 w-12 object-cover rounded-full mb-4">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Customizable Reminders</h3>
+                    <p class="text-gray-600">Set reminders to ensure you never forget to check in.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Privacy Section -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-semibold text-center text-gray-800 mb-8">Your Privacy, Our Priority</h2>
+            <p class="text-lg text-gray-700 leading-relaxed">We understand the importance of privacy. SoloProtect
+                collects minimal personal information and uses secure data encryption to protect your data. We are
+                committed to transparency and responsible data handling.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2024 SoloProtect. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

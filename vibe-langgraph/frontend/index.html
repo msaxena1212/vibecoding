@@ -640,17 +640,17 @@
         function processGenerationResult(data) {
             // Process Results
             currentFiles = data.files || {};
-            lastState = data; // Save the full state for the "Graph State" tab
+            lastState = data;
 
-            // Update Stats
+            // CRITICAL: Set project ID FIRST before any preview operations
+            currentProjectId = data.project_id;
+
             document.getElementById('project-stats').classList.remove('hidden');
             document.getElementById('stat-framework').textContent = data.framework || 'vanilla';
             document.getElementById('stat-files').textContent = Object.keys(currentFiles).length;
             document.getElementById('stat-tokens').textContent = (data.total_tokens || 0).toLocaleString();
 
             renderFileList(currentFiles);
-
-            // Select first file
             const firstFile = Object.keys(currentFiles)[0];
             if (firstFile) selectFile(firstFile);
 
@@ -665,8 +665,6 @@
                 switchTab('preview');
             }
 
-            // Refresh history list and current project context
-            currentProjectId = data.project_id;
             loadProjectHistory();
         }
 
@@ -722,34 +720,6 @@
                 el.appendChild(p);
                 el.scrollTop = el.scrollHeight;
             }
-        }
-
-        function processGenerationResult(data) {
-            // Process Results
-            currentFiles = data.files || {};
-            lastState = data;
-
-            // CRITICAL: Set project ID FIRST before any preview operations
-            currentProjectId = data.project_id;
-
-            document.getElementById('project-stats').classList.remove('hidden');
-            document.getElementById('stat-framework').textContent = data.framework || 'vanilla';
-            document.getElementById('stat-files').textContent = Object.keys(currentFiles).length;
-            document.getElementById('stat-tokens').textContent = (data.total_tokens || 0).toLocaleString();
-
-            renderFileList(currentFiles);
-            const firstFile = Object.keys(currentFiles)[0];
-            if (firstFile) selectFile(firstFile);
-
-            if (data.assistant_response) {
-                addMessage('assistant', data.assistant_response);
-            }
-
-            if (Object.keys(currentFiles).some(p => p.endsWith('.html'))) {
-                switchTab('preview');
-            }
-
-            loadProjectHistory();
         }
 
         function renderFileList(files, activePath = null) {

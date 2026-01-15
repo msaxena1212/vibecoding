@@ -1,0 +1,135 @@
+/* style.css */
+
+/* Global Styles */
+body {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Typography */
+h1, h2, h3 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+p {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  margin-bottom: 1em;
+}
+
+/* Layout */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Buttons */
+.button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #A5B4FC; /* Primary Color */
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.button:hover {
+  background-color: #E0E7FF; /* Lighter Primary Color */
+  color: #333;
+}
+
+/* Sections */
+section {
+  padding: 40px 0;
+}
+
+/* Glassmorphism (applied via Tailwind in HTML for consistency) */
+/*.glassmorphism {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+}*/
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Usage Example (apply via Tailwind classes instead) */
+/*.animate-fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+.animate-slide-in {
+  animation: slideInFromBottom 1s ease forwards;
+}*/
+
+/* Mobile-First Responsive Design */
+@media (min-width: 768px) {
+  .container {
+    padding: 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 60px;
+  }
+}
+
+/* Utility Classes (consider using Tailwind instead) */
+.text-center {
+  text-align: center;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}

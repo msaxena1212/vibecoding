@@ -81,22 +81,30 @@ async def generate_project(intent: str, project_id: str = None):
                 total_tokens=total_tokens,
                 token_usage={},
                 project_id=active_project_id,
+                retry_count=0,
                 errors=[]
             )
 
+            # ELITE: Persist project early to ensure DB/Disk synchronization even on crash
+            from utils.formatter import sanitize_state
+            await store.save_snapshot(intent, sanitize_state(initial_state), project_id=active_project_id)
+            
             # Start streaming the workflow
+            from graph.router import route_request, route_validator
+
+            # 1. Yield Initial Status
+            initial_step = route_request(initial_state)
+            if initial_step in NODE_NAMES:
+                yield json.dumps({
+                    "type": "status",
+                    "name": initial_step,
+                    "content": NODE_NAMES[initial_step]
+                }) + "\n"
+
             final_result = initial_state.copy()
             async for event in workflow.astream(initial_state):
                 # event is a dict {node_name: state_update}
                 for node_name, update in event.items():
-                    # 1. Yield Status Update
-                    if node_name in NODE_NAMES:
-                        yield json.dumps({
-                            "type": "status",
-                            "name": node_name,
-                            "content": NODE_NAMES[node_name]
-                        }) + "\n"
-                    
                     # 2. Yield Reasoning Update (if any)
                     if "reasoning" in update and update["reasoning"]:
                         yield json.dumps({
@@ -122,8 +130,29 @@ async def generate_project(intent: str, project_id: str = None):
                             current_messages = final_result.get("messages", [])
                             current_messages.extend(value)
                             final_result["messages"] = current_messages
+                        elif key == "retry_count":
+                            final_result["retry_count"] = final_result.get("retry_count", 0) + value
                         else:
                             final_result[key] = value
+
+                    # 4. Predict Next Status
+                    next_node = None
+                    if node_name == "planner": next_node = "copywriter"
+                    elif node_name == "copywriter": next_node = "image_generator"
+                    elif node_name == "image_generator": next_node = "generator"
+                    elif node_name == "generator": next_node = "linker"
+                    elif node_name == "linker": next_node = "seo_specialist"
+                    elif node_name == "seo_specialist": next_node = "validator"
+                    elif node_name == "validator":
+                        next_node = route_validator(final_result)
+                    elif node_name == "editor": next_node = "validator"
+                    
+                    if next_node and next_node in NODE_NAMES:
+                        yield json.dumps({
+                            "type": "status",
+                            "name": next_node,
+                            "content": NODE_NAMES[next_node]
+                        }) + "\n"
 
             # Workflow finished, process results
             from utils.formatter import sanitize_state

@@ -52,8 +52,8 @@ async def run_editor(state: CodebaseState):
     tokens = response.usage_metadata.get("total_tokens", 0) if hasattr(response, "usage_metadata") else 0
     current_tokens = state.get("total_tokens", 0)
     
-    # Simple JSON extraction
-    json_match = re.search(r"```(?:json)?\n(.*?)\n```", content, re.DOTALL)
+    # Robust JSON extraction
+    json_match = re.search(r"({.*})", content, re.DOTALL)
     if json_match:
         content = json_match.group(1)
     
@@ -61,9 +61,12 @@ async def run_editor(state: CodebaseState):
         data = json.loads(content)
         modified_files = data.get("files", {})
         
-        # Merge changes back into state
+        # Merge changes back into state (PROACTIVE PATCHING)
         new_files = existing_files.copy()
+        
+        # We only update files that are EXPLICITLY returned by the LLM
         for path, new_content in modified_files.items():
+            print(f"🔧 Editor modifying file: {path}")
             if path in new_files:
                 new_files[path]["content"] = new_content
                 new_files[path]["lastEditedBy"] = "editor"

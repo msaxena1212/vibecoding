@@ -1,0 +1,116 @@
+/* style.css */
+
+/* CSS Variables for Branding */
+:root {
+  --primary-color-1: #3498db;
+  --primary-color-2: #2ecc71;
+  --font-primary: 'Roboto', sans-serif;
+  --font-secondary: 'Open Sans', sans-serif;
+}
+
+/* General Styles */
+body {
+  font-family: var(--font-secondary);
+  line-height: 1.6;
+  color: #333;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Responsive Typography using Clamp */
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-family: var(--font-primary);
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-family: var(--font-primary);
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+p {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  margin-bottom: 1rem;
+}
+
+/* Glassmorphism Effect */
+.glassmorphic {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 20px;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: var(--primary-color-1);
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: darken(var(--primary-color-1), 10%);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--primary-color-1);
+  padding: 10px 22px;
+  border: 2px solid var(--primary-color-1);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(var(--primary-color-1), 0.1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-bottom {
+  animation: slideInFromBottom 1s ease-out;
+}
+
+/* Utilities (Example - can be expanded) */
+.text-center {
+  text-align: center;
+}

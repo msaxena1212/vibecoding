@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - 3D Artist Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Roboto Mono', 'monospace'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#F0FDF4',
+                            100: '#DCFCE7',
+                            200: '#BBF7D0',
+                            300: '#86EFAC',
+                            400: '#4ADE80',
+                            500: '#22C55E',
+                            600: '#16A34A',
+                            700: '#15803D',
+                            800: '#166534',
+                            900: '#14532D',
+                            DEFAULT: '#64FFDA', // Primary Accent Color
+                        },
+                        dark: '#1E1E1E',
+                        light: '#FFFFFF',
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.5s ease-out'
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Add custom styles here if needed, or keep it minimal and use Tailwind */
+    </style>
+</head>
+<body class="bg-dark text-light font-sans">
+
+    <header class="sticky top-0 z-50 bg-white/10 backdrop-blur-lg border-b border-white/20">
+        <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="index.html" class="text-xl font-bold">3D Artist</a>
+            <div class="space-x-6">
+                <a href="index.html" class="hover:text-primary transition-colors duration-200">Home</a>
+                <a href="about.html" class="hover:text-primary transition-colors duration-200">About</a>
+                <a href="services.html" class="hover:text-primary transition-colors duration-200">Services</a>
+                <a href="faq.html" class="hover:text-primary transition-colors duration-200">FAQ</a>
+                <a href="contact.html" class="hover:text-primary transition-colors duration-200">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+        <section class="mb-12">
+            <h1 class="text-4xl font-bold mb-6">Frequently Asked Questions</h1>
+            <p class="text-lg">Find answers to common questions about my 3D art services, pricing, and workflow.</p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">General Questions</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="font-medium">What 3D software do you use?</h3>
+                    <p>I primarily use Blender, Maya, and Substance Painter, which are industry-standard tools for 3D modeling, texturing, and rendering.</p>
+                </div>
+                <div>
+                    <h3 class="font-medium">What types of 3D projects do you specialize in?</h3>
+                    <p>I specialize in a variety of projects, including character design, environment design, architectural visualization, and product modeling.</p>
+                </div>
+                <div>
+                    <h3 class="font-medium">What is your process for creating 3D art?</h3>
+                    <p>My process typically involves initial consultation, concept development, 3D modeling, texturing, rendering, and final revisions based on your feedback.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Pricing & Services</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="font-medium">How do you determine your pricing?</h3>
+                    <p>Pricing depends on the complexity of the project, the required level of detail, and the estimated time to completion. I can provide a custom quote after discussing your specific needs.</p>
+                </div>
+                <div>
+                    <h3 class="font-medium">Do you offer revisions?</h3>
+                    <p>Yes, I offer a certain number of revisions as part of the project scope to ensure you are completely satisfied with the final result. The number of revisions will be specified in the project agreement.</p>
+                </div>
+                <div>
+                    <h3 class="font-medium">What is included in your 3D modeling service?</h3>
+                    <p>My 3D modeling service includes the creation of a detailed 3D model, UV unwrapping, and basic texturing. Additional services like advanced texturing, rigging, and animation can be added as needed.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-semibold mb-4">Project Workflow</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="font-medium">How long does it take to complete a 3D project?</h3>
+                    <p>The timeline varies depending on the project's complexity. A simple model may take a few days, while a more complex project could take several weeks. I will provide a realistic timeline in the project proposal.</p>
+                </div>
+                <div>
+                    <h3 class="font-medium">What kind of input do you need from me?</h3>
+                    <p>Clear communication and detailed feedback are crucial. I will need reference images, design specifications, and consistent communication throughout the project to ensure the final product meets your expectations.</p>
+                </div>
+                <div>
+                    <h3 class="font-medium">How will I receive the final 3D files?</h3>
+                    <p>I can deliver the final 3D files in various formats (e.g., .blend, .fbx, .obj) depending on your needs. I can also provide rendered images and animations in standard video formats.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark border-t border-white/10 py-6 text-center text-gray-400">
+        <p>&copy; 2024 3D Artist. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiencing Viewing Issues</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Roboto', 'sans-serif'],
+                        serif: ['Open Sans', 'serif'],
+                    },
+                    colors: {
+                        primary: '#007BFF',
+                        secondary: '#FFFFFF',
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.5s ease-out'
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .animate-fade-in-up {
+            animation: fade-in-up 0.5s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+
+    <header class="bg-white shadow">
+        <nav class="container mx-auto py-4 px-6">
+            <div class="flex items-center justify-between">
+                <a href="/" class="text-2xl font-bold text-primary">
+                    <img src="assets/logo.png" alt="Logo" class="h-8 inline-block mr-2">
+                    Company Name
+                </a>
+                <div>
+                    <a href="#" class="text-gray-700 hover:text-primary px-3">Home</a>
+                    <a href="#" class="text-gray-700 hover:text-primary px-3">About</a>
+                    <a href="#" class="text-gray-700 hover:text-primary px-3">Services</a>
+                    <a href="#" class="text-gray-700 hover:text-primary px-3">Contact</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto py-12 px-6">
+
+        <!-- Hero Section -->
+        <section class="mb-12 text-center">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4 animate-fade-in-up">
+                Experiencing Viewing Issues? We're On It.
+            </h1>
+            <p class="text-lg text-gray-600 mb-8 animate-fade-in-up">
+                We're aware some users are having trouble viewing this page and are working hard to resolve it. Your patience is appreciated.
+            </p>
+            <div class="flex justify-center space-x-4 animate-fade-in-up">
+                <a href="#" class="bg-primary text-white py-2 px-6 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-primary">
+                    Contact Support
+                </a>
+                <a href="#" class="bg-gray-200 text-gray-700 py-2 px-6 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-primary">
+                    View Status Page
+                </a>
+            </div>
+        </section>
+
+        <!-- Troubleshooting Section -->
+        <section id="troubleshooting" class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Quick Troubleshooting Steps</h2>
+            <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 animate-fade-in-up">
+                <p class="text-gray-700 leading-relaxed">
+                    While we fix the issue, here are a few things you can try:
+                </p>
+                <ul class="list-disc pl-5 mt-4 text-gray-700 leading-relaxed">
+                    <li><strong>Refresh the Page:</strong> Sometimes a simple refresh can do the trick.</li>
+                    <li><strong>Clear Your Cache:</strong> Cached data can occasionally cause viewing problems.</li>
+                    <li><strong>Try a Different Browser:</strong> See if the issue persists across browsers.</li>
+                    <li><strong>Check Your Internet Connection:</strong> Ensure you have a stable connection.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Stay Updated Section -->
+        <section id="stay_updated" class="mb-12">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Stay Updated</h2>
+            <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 animate-fade-in-up">
+                <p class="text-gray-700 leading-relaxed">
+                    We'll post updates on our status page and social media channels as the situation evolves. We appreciate your understanding as we work to resolve this quickly.
+                </p>
+            </div>
+        </section>
+
+        <!-- Contact Support Section -->
+        <section id="contact_support">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Need Immediate Assistance?</h2>
+            <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 animate-fade-in-up">
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    If the problem persists or you need immediate help, please don't hesitate to contact our support team. We're here to help get you back on track.
+                </p>
+                <a href="#" class="bg-primary text-white py-2 px-6 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-primary inline-block">
+                    Contact Support
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 py-6 text-center">
+        <p class="text-gray-500">© 2024 Company Name. All rights reserved.</p>
+    </footer>
+
+    <script>
+        window.onerror = function(message, source, lineno, colno, error) {
+            console.error('An error occurred:', message, source, lineno, colno, error);
+            alert('An error occurred. Please check the console for details.'); // Optional: Notify the user
+        };
+    </script>
+</body>
+</html>

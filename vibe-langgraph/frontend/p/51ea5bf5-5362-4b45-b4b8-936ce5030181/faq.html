@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Quantum Fitness</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6246EA',
+                        secondary: '#D1D0CE',
+                        dark: '#16161A',
+                    },
+                    fontFamily: {
+                        sans: ['"Roboto"', 'sans-serif'],
+                        body: ['"Open Sans"', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.5s ease-out'
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+      body {
+          font-family: 'Open Sans', sans-serif;
+      }
+    </style>
+</head>
+<body class="bg-dark text-secondary">
+    <nav class="bg-white/5 backdrop-blur-lg border-b border-white/10 sticky top-0 z-10">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="index.html" class="text-xl font-bold text-primary">Quantum Fitness</a>
+            <div class="space-x-6">
+                <a href="index.html" class="hover:text-white transition-colors">Home</a>
+                <a href="about.html" class="hover:text-white transition-colors">About</a>
+                <a href="services.html" class="hover:text-white transition-colors">Services</a>
+                <a href="contact.html" class="hover:text-white transition-colors">Contact</a>
+                <a href="faq.html" class="hover:text-white transition-colors">FAQ</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="container mx-auto py-16 text-center">
+        <h1 class="text-4xl font-bold text-white mb-4">Frequently Asked Questions</h1>
+        <p class="text-lg text-secondary">Find answers to common questions about Quantum Fitness.</p>
+    </header>
+
+    <main class="container mx-auto py-8 px-4">
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-white mb-4">Membership</h2>
+            <div class="space-y-4">
+                <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
+                    <h3 class="text-lg font-medium text-white mb-2">What types of memberships do you offer?</h3>
+                    <p class="text-secondary">We offer several membership options, including Basic, Premium, and Quantum. Each tier provides different levels of access to our facilities, training programs, and personalized support.</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
+                    <h3 class="text-lg font-medium text-white mb-2">How do I cancel my membership?</h3>
+                    <p class="text-secondary">You can cancel your membership by contacting our customer support team via email or phone. Please refer to our <a href="terms.html" class="text-primary hover:underline">Terms and Conditions</a> for specific cancellation policies.</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
+                    <h3 class="text-lg font-medium text-white mb-2">Can I freeze my membership?</h3>
+                    <p class="text-secondary">Yes, we offer membership freeze options for a limited period. Please contact our team for more details and eligibility criteria.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-white mb-4">Training & Facilities</h2>
+            <div class="space-y-4">
+                <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
+                    <h3 class="text-lg font-medium text-white mb-2">What are your gym hours?</h3>
+                    <p class="text-secondary">Our gym is open from 6 AM to 10 PM on weekdays and 8 AM to 8 PM on weekends.</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
+                    <h3 class="text-lg font-medium text-white mb-2">Do you offer personal training?</h3>
+                    <p class="text-secondary">Yes, we have certified Quantum Coaches who provide personalized training programs and support. Please visit our <a href="services.html" class="text-primary hover:underline">Services</a> page for more information.</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
+                    <h3 class="text-lg font-medium text-white mb-2">What kind of equipment do you have?</h3>
+                    <p class="text-secondary">Quantum Fitness is equipped with state-of-the-art machines, free weights, and specialized equipment powered by Quantum AI. </p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-semibold text-white mb-4">Technology & Innovation</h2>
+            <div class="space-y-4">
+                <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
+                    <h3 class="text-lg font-medium text-white mb-2">How does Quantum AI personalize my workout?</h3>
+                    <p class="text-secondary">Our Quantum AI analyzes your biometrics and performance data to create a customized fitness plan that adapts to your body in real-time, maximizing results and minimizing risk of injury.</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
+                    <h3 class="text-lg font-medium text-white mb-2">Is my data secure?</h3>
+                    <p class="text-secondary">Yes, we take data privacy and security very seriously. Please refer to our <a href="privacy.html" class="text-primary hover:underline">Privacy Policy</a> for detailed information on how we protect your data.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white/5 backdrop-blur-lg border-t border-white/10 py-8 mt-12">
+        <div class="container mx-auto text-center text-secondary">
+            <p>&copy; 2024 Quantum Fitness. All rights reserved.</p>
+            <div class="mt-4 space-x-4">
+                <a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a>
+                <a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

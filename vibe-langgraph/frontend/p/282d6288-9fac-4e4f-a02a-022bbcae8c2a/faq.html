@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Pens & Pencils</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        accent: '#a68e6c',
+                    },
+                    fontFamily: {
+                        sans: ['"Open Sans"', 'sans-serif'],
+                        serif: ['"Lora"', 'serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.5s ease-out'
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <header class="bg-white shadow-md py-4">
+        <div class="container mx-auto px-4">
+            <nav class="flex items-center justify-between">
+                <a href="index.html" class="text-2xl font-bold text-primary-700">Pens & Pencils</a>
+                <ul class="flex space-x-6">
+                    <li><a href="index.html" class="hover:text-primary-500 transition-colors">Home</a></li>
+                    <li><a href="about.html" class="hover:text-primary-500 transition-colors">About</a></li>
+                    <li><a href="services.html" class="hover:text-primary-500 transition-colors">Services</a></li>
+                    <li><a href="contact.html" class="hover:text-primary-500 transition-colors">Contact</a></li>
+                    <li><a href="faq.html" class="hover:text-primary-500 transition-colors">FAQ</a></li>
+                    <li><a href="privacy.html" class="hover:text-primary-500 transition-colors">Privacy</a></li>
+                    <li><a href="terms.html" class="hover:text-primary-500 transition-colors">Terms</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto py-12 px-4">
+        <h1 class="text-4xl font-serif font-bold text-center mb-8 text-primary-800">Frequently Asked Questions</h1>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4 text-primary-700">General Questions</h2>
+            <div class="space-y-4">
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <h3 class="font-semibold text-primary-600">What types of pens and pencils do you offer?</h3>
+                    <p class="text-gray-700">We offer a wide range of pens, including ballpoint, gel, fountain, and
+                        rollerball pens. Our pencil selection includes graphite, mechanical, and colored pencils.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <h3 class="font-semibold text-primary-600">Do you offer international shipping?</h3>
+                    <p class="text-gray-700">Yes, we ship internationally. Shipping costs and delivery times vary
+                        depending on the destination.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <h3 class="font-semibold text-primary-600">What is your return policy?</h3>
+                    <p class="text-gray-700">We offer a 30-day return policy for unused items in their original
+                        packaging. Please see our <a href="terms.html" class="text-accent hover:underline">Terms and
+                            Conditions</a> for more details.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4 text-primary-700">Product Specific Questions</h2>
+            <div class="space-y-4">
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <h3 class="font-semibold text-primary-600">How do I refill my fountain pen?</h3>
+                    <p class="text-gray-700">Fountain pens can be refilled using ink cartridges or a converter.
+                        Instructions for refilling your specific model can be found in the product manual or on our
+                        website's <a href="services.html" class="text-accent hover:underline">Support</a> page.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <h3 class="font-semibold text-primary-600">What is the difference between graphite grades?</h3>
+                    <p class="text-gray-700">Graphite grades range from hard (H) to soft (B). Harder grades produce
+                        lighter lines, while softer grades produce darker lines. The HB grade is a common middle ground.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-semibold mb-4 text-primary-700">Order & Shipping Questions</h2>
+            <div class="space-y-4">
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <h3 class="font-semibold text-primary-600">How can I track my order?</h3>
+                    <p class="text-gray-700">Once your order ships, you will receive a tracking number via email. You
+                        can use this number to track your order on the carrier's website.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <h3 class="font-semibold text-primary-600">What payment methods do you accept?</h3>
+                    <p class="text-gray-700">We accept major credit cards (Visa, Mastercard, American Express), PayPal,
+                        and Apple Pay.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-primary-800 text-white py-6 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2024 Pens & Pencils. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

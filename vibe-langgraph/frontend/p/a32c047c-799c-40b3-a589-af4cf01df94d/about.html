@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Guardian Angel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#E9F5F2',
+                            200: '#A2D9CE',
+                            500: '#52BE80',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        serif: ['Open Sans', 'serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.5s ease-out'
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        }
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Styles (Optional - can be placed in style.css) */
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+
+<body class="bg-primary-50 font-sans">
+    <div class="container mx-auto py-12 px-4 md:px-8 lg:px-12">
+
+        <!-- Hero Section -->
+        <section class="mb-12 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-primary-500 mb-4">Peace of Mind, Simplified: Your Daily Safety
+                Net</h1>
+            <p class="text-lg text-gray-700">Check in daily. We'll alert your emergency contact if you don't, ensuring
+                your well-being.</p>
+        </section>
+
+        <!-- Core Features Section -->
+        <section id="core_features" class="mb-12">
+            <div class="glassmorphism rounded-2xl p-6 md:p-8">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Stay Safe, Effortlessly: Core Features</h2>
+                <p class="text-gray-700 leading-relaxed">SoloProtect is designed to be your reliable safety companion.
+                    Here's how it works:</p>
+                <ul class="list-disc list-inside mt-4">
+                    <li><strong>One-Tap Check-in:</strong> A single tap confirms you're okay each day.</li>
+                    <li><strong>Automated Alerts:</strong> If you miss check-ins for a defined period, your emergency
+                        contact is automatically notified.</li>
+                    <li><strong>Emergency Contact Management:</strong> Easily add and manage trusted contacts.</li>
+                    <li><strong>Customizable Reminders:</strong> Set reminders to ensure you never forget to check in.
+                    </li>
+                    <li><strong>Optional Health/Mood Notes:</strong> Keep a private log of your well-being.</li>
+                    <li><strong>Clear Escalation Flow:</strong> Know exactly what happens in an emergency.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Privacy & Security Section -->
+        <section id="privacy_security" class="mb-12">
+            <div class="glassmorphism rounded-2xl p-6 md:p-8">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Your Privacy, Our Priority</h2>
+                <p class="text-gray-700 leading-relaxed">We understand the importance of privacy. SoloProtect collects
+                    minimal personal information and uses secure data encryption to protect your data. We are committed
+                    to transparency and responsible data handling.</p>
+            </div>
+        </section>
+
+        <!-- Technical Considerations Section -->
+        <section id="technical_considerations" class="mb-12">
+            <div class="glassmorphism rounded-2xl p-6 md:p-8">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Built for Reliability</h2>
+                <p class="text-gray-700 leading-relaxed">SoloProtect is engineered for minimal battery and data usage.
+                    It's designed to be accessible for all age groups, with a simple and intuitive interface. We use
+                    SMS, email, and in-app notifications to ensure your emergency contacts are alerted quickly.</p>
+            </div>
+        </section>
+
+        <!-- User Flow Section -->
+        <section id="user_flow" class="mb-12">
+            <div class="glassmorphism rounded-2xl p-6 md:p-8">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Simple User Flow</h2>
+                <ol class="list-decimal list-inside mt-4">
+                    <li><strong>Registration:</strong> Quick and easy with minimal information required.</li>
+                    <li><strong>Emergency Contact Setup:</strong> Add at least one trusted contact.</li>
+                    <li><strong>Daily Check-in:</strong> One-tap confirmation of your well-being.</li>
+                    <li><strong>Alert Trigger:</strong> Missed check-ins trigger automatic notifications to your
+                        emergency contact.</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Contact Us Section -->
+        <section id="contact_us" class="text-center">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Contact Us</h2>
+            <p class="text-gray-700">Email: support@guardianangel.com</p>
+            <p class="text-gray-700">Phone: (555) 123-4567</p>
+        </section>
+
+    </div>
+</body>
+
+</html>

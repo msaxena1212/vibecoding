@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug & Test</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1E1E1E;
+            color: #FFFFFF;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: clamp(1rem, 2vw, 2rem);
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: clamp(1rem, 3vw, 4rem);
+        }
+
+        nav a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: inline-block;
+        }
+
+        nav a:hover {
+            color: #ddd;
+            transform: translateY(-2px);
+        }
+
+        main {
+            padding: clamp(2rem, 5vw, 5rem);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section {
+            margin-bottom: clamp(3rem, 6vw, 6rem);
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: clamp(2rem, 4vw, 4rem);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        section h2 {
+            font-family: 'Roboto Slab', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: clamp(1rem, 2vw, 2rem);
+            text-align: center;
+        }
+
+        section p {
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            line-height: 1.7;
+        }
+
+        footer {
+            text-align: center;
+            padding: clamp(1rem, 2vw, 2rem);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #FFFFFF;
+            font-size: clamp(0.8rem, 1vw, 1rem);
+        }
+
+        .hero {
+            text-align: center;
+            padding: clamp(4rem, 8vw, 8rem);
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .hero h1 {
+            font-family: 'Roboto Slab', serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            margin-bottom: clamp(1rem, 2vw, 2rem);
+        }
+
+        .hero p {
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: clamp(0.75rem, 1.5vw, 1.25rem) clamp(1.5rem, 3vw, 2.5rem);
+            background-color: #FFFFFF;
+            color: #1E1E1E;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-top: clamp(2rem, 4vw, 3rem);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .logo {
+            max-height: 50px;
+        }
+
+        /* Example placeholder for missing images */
+        .placeholder-image {
+            width: 100%;
+            height: 200px; /* Adjust as needed */
+            background: linear-gradient(135deg, #333333, #222222);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        /* Reveal Animation */
+        @keyframes reveal {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        section {
+            animation: reveal 0.75s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="assets/logo.png" alt="Company Logo" class="logo">
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Achieve Project Success with Streamlined Testing</h1>
+            <p>Debug effectively, reduce errors, and deliver flawless software with our comprehensive testing solutions.</p>
+            <a href="#" class="cta-button">Start Your Free Trial</a>
+        </section>
+
+        <section>
+            <h2>Unleash the Power of Automated Testing</h2>
+            <div class="placeholder-image"></div>
+            <p>Accelerate your development cycle and improve software quality with our state-of-the-art automated testing framework. Identify bugs early, reduce manual effort, and ensure consistent performance across all platforms. Using the Roboto font family ensures the best readability.</p>
+        </section>
+
+        <section>
+            <h2>Comprehensive Debugging Tools</h2>
+            <div class="placeholder-image"></div>
+            <p>Our platform provides a suite of powerful debugging tools to help you quickly diagnose and resolve issues. From real-time monitoring to advanced logging, we give you the insights you need to optimize your code and deliver exceptional user experiences. Roboto Slab provides clear emphasis on important information.</p>
+        </section>
+
+        <section>
+            <h2>Seamless Integration and Collaboration</h2>
+            <div class="placeholder-image"></div>
+            <p>Integrate our testing solutions seamlessly into your existing development workflow. Our platform supports a wide range of programming languages and frameworks, making it easy to collaborate with your team and deliver high-quality software faster. The calm animation vibe will ensure minimal distraction from the main content.</p>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2024 Debug & Test. All rights reserved.
+    </footer>
+
+</body>
+</html>

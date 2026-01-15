@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Quantum Fitness</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6246EA',
+                        secondary: '#D1D0CE',
+                        dark: '#16161A',
+                    },
+                    fontFamily: {
+                        sans: ['Roboto', 'sans-serif'],
+                        serif: ['Open Sans', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.5s ease-out'
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .animate-fade-in-up {
+            animation: fade-in-up 0.5s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-dark font-sans text-white">
+    <nav class="p-4 bg-white/5 backdrop-blur-lg border-b border-white/10">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-xl font-bold text-primary">Quantum Fitness</a>
+            <div>
+                <a href="index.html" class="mr-4 hover:text-secondary transition-colors">Home</a>
+                <a href="about.html" class="mr-4 hover:text-secondary transition-colors">About</a>
+                <a href="#" class="hover:text-secondary transition-colors">Services</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="container mx-auto py-16 text-center">
+        <h1 class="text-4xl font-bold mb-4 animate-fade-in-up">About Quantum Fitness</h1>
+        <p class="text-lg text-secondary animate-fade-in-up">Our mission is to revolutionize fitness through technology and personalized training.</p>
+    </header>
+
+    <section class="container mx-auto py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 animate-fade-in-up">
+                <h2 class="text-2xl font-semibold mb-4">Our Story</h2>
+                <p class="text-secondary">Quantum Fitness was founded on the belief that everyone deserves access to personalized, data-driven fitness solutions. We combine cutting-edge technology with expert coaching to help you achieve your goals faster and more effectively. Our gym is designed to be an immersive and motivating environment where you can push your limits and unlock your full potential.</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 animate-fade-in-up">
+                <h2 class="text-2xl font-semibold mb-4">Our Mission</h2>
+                <p class="text-secondary">We are committed to providing a revolutionary fitness experience that empowers individuals to transform their lives. We strive to create a supportive community where members can connect, learn, and grow together. By leveraging the power of technology and personalized training, we aim to redefine the future of fitness.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mx-auto py-12">
+        <h2 class="text-3xl font-bold text-center mb-8 animate-fade-in-up">Meet the Team</h2>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="text-center animate-fade-in-up">
+                <img src="assets/emily_johnson.png" alt="Emily Johnson" class="rounded-2xl object-cover w-full h-64 mb-4">
+                <h3 class="text-xl font-semibold">Emily Johnson</h3>
+                <p class="text-secondary">CEO & Founder</p>
+            </div>
+            <div class="text-center animate-fade-in-up">
+                <img src="assets/david_lee.png" alt="David Lee" class="rounded-2xl object-cover w-full h-64 mb-4">
+                <h3 class="text-xl font-semibold">David Lee</h3>
+                <p class="text-secondary">Chief Technology Officer</p>
+            </div>
+            <div class="text-center animate-fade-in-up">
+                <img src="assets/trainer_anya.png" alt="Anya Petrova" class="rounded-2xl object-cover w-full h-64 mb-4">
+                <h3 class="text-xl font-semibold">Anya Petrova</h3>
+                <p class="text-secondary">Head Trainer</p>
+            </div>
+            <div class="text-center animate-fade-in-up">
+                <img src="assets/trainer_kenji.png" alt="Kenji Tanaka" class="rounded-2xl object-cover w-full h-64 mb-4">
+                <h3 class="text-xl font-semibold">Kenji Tanaka</h3>
+                <p class="text-secondary">Senior Fitness Coach</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white/5 backdrop-blur-lg border-t border-white/10 py-8 mt-12">
+        <div class="container mx-auto text-center text-secondary">
+            <p>&copy; 2024 Quantum Fitness. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

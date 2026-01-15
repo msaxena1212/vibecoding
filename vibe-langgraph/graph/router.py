@@ -3,13 +3,31 @@ from .state import CodebaseState
 
 def route_validator(state: CodebaseState) -> Literal["editor", "end"]:
     """
-    Handle self-diagnosis loop.
-    TEMPORARILY DISABLED: Always skip editor to avoid network errors
+    Handle self-diagnosis loop with retry limit.
     """
-    # current_step = state.get("current_step", "")
-    # if current_step == "needs_fix":
-    #     return "editor"
-    print("⚠️ Skipping editor phase (disabled to prevent network errors)")
+    current_step = state.get("current_step", "")
+    retry_count = state.get("retry_count", 0)
+    
+    # If validator explicitly requested a fix
+    if current_step == "needs_fix":
+        if retry_count > 2:
+            print("🛑 Max retries reached. Exiting validation loop.")
+            return "end"
+            
+        print(f"🔄 Validation failed (Attempt {retry_count + 1}). Routing to Editor.")
+        return "editor"
+        
+    # Check for critical errors in the diagnostic report (heuristic)
+    diagnostic = state.get("diagnostic_report", "").lower()
+    if "critical" in diagnostic or "error" in diagnostic:
+        if retry_count > 2:
+            print("🛑 Max retries reached (Critical Errors). Exiting.")
+            return "end"
+            
+        print(f"⚠️ Critical errors found (Attempt {retry_count + 1}). Routing to Editor.")
+        return "editor"
+
+    print("✅ Validation passed. Finishing workflow.")
     return "end"
 
 def route_request(state: CodebaseState) -> Literal["planner", "editor"]:

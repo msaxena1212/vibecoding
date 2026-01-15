@@ -62,6 +62,14 @@ async def run_generator(state: CodebaseState):
 
         # PERSIST TO PROJECT HUB
         project_id = state.get("project_id", "default")
+        
+        # DEBUG: Log to file
+        try:
+            with open("generator_debug.log", "a") as dbg:
+                dbg.write(f"Generator running for Project ID: {project_id}, Path: {path}\n")
+        except:
+            pass
+
         try:
             local_full_path = os.path.join("frontend", "p", project_id, path)
             os.makedirs(os.path.dirname(local_full_path), exist_ok=True)

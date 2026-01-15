@@ -38,6 +38,7 @@ class ProjectStore:
 
             # Create new if no ID or ID not found
             project = Project(
+                id=project_id if project_id else str(uuid.uuid4()),
                 user_intent=user_intent,
                 description=state.get("plan", {}).get("plan_summary"),
                 framework=state.get("framework", "vanilla"),

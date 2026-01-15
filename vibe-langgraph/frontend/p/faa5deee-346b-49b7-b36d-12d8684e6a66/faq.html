@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - AI Tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Roboto', 'serif'],
+                    },
+                    colors: {
+                        primary: '#1E293B',
+                        secondary: '#FFFFFF',
+                        accent: '#3B82F6',
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.5s ease-out'
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto py-12 px-4">
+        <h1 class="text-3xl font-semibold text-primary mb-8">Frequently Asked Questions</h1>
+
+        <div class="space-y-4">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-medium text-gray-800 mb-2">What is this AI Tool?</h2>
+                <p class="text-gray-600">This AI tool is a platform designed to streamline workflows, boost productivity, and provide unparalleled insights using AI-powered automation.</p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-medium text-gray-800 mb-2">How does the AI Tool integrate with existing systems?</h2>
+                <p class="text-gray-600">Our AI Tool integrates seamlessly with your existing software and systems, ensuring a smooth and hassle-free implementation. Connect to your favorite CRM, marketing automation platform, and data warehouse with ease.</p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-medium text-gray-800 mb-2">What kind of predictive analytics does the tool offer?</h2>
+                <p class="text-gray-600">The tool offers advanced predictive analytics capabilities to identify emerging trends, anticipate market shifts, and optimize your strategies for maximum impact. It helps you uncover hidden opportunities and mitigate potential risks with unparalleled accuracy.</p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-medium text-gray-800 mb-2">How can I get started with the AI Tool?</h2>
+                <p class="text-gray-600">You can start by signing up for a free trial on our website or requesting a demo to see the tool in action. Our team will guide you through the setup process and help you tailor the tool to your specific needs.</p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-medium text-gray-800 mb-2">Is there any support documentation available?</h2>
+                <p class="text-gray-600">Yes, we provide comprehensive support documentation, including user guides, tutorials, and FAQs. Our support team is also available to assist you with any questions or issues you may encounter.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
