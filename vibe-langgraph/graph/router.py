@@ -10,7 +10,7 @@ def route_validator(state: CodebaseState) -> Literal["editor", "debugger", "end"
     
     # If validator explicitly requested a fix
     if current_step == "needs_fix":
-        if retry_count > 3:
+        if retry_count > 5:
             print("🛑 Max retries reached. Exiting validation loop.")
             return "end"
             
@@ -21,7 +21,7 @@ def route_validator(state: CodebaseState) -> Literal["editor", "debugger", "end"
     # Check for critical errors in the diagnostic report (heuristic)
     diagnostic = state.get("diagnostic_report", "").lower()
     if "critical" in diagnostic or "error" in diagnostic or "fail" in diagnostic:
-        if retry_count > 3:
+        if retry_count > 5:
             print("🛑 Max retries reached (Critical Errors). Exiting.")
             return "end"
             

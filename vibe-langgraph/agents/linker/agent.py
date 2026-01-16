@@ -52,6 +52,11 @@ async def run_linker(state: CodebaseState):
             
             if not path or new_content is None: continue
 
+            # Truncation check
+            if path.endswith(".html") and "</html>" not in new_content.lower():
+                print(f"⚠️ Linker truncation detected for {path}! Rejecting patch.")
+                continue
+
             print(f"🔗 Linker applying patch to: {path}")
             
             # Update state

@@ -1,38 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Nova Horizon</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <title>Contact Nova Horizon</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            200: '#b0dcfd',
-                            300: '#639fff',
-                            400: '#3876ba',
-                            500: '#121212',
-                            600: '#0e0e0e',
-                            700: '#0a0a0a',
-                            800: '#070707',
-                            900: '#030303',
-                        },
-                        secondary: '#ff6b6b',
+                        'primary': '#0B0D17',
+                        'secondary': '#E6E6FA',
+                        'accent': '#9886A0',
                     },
                     fontFamily: {
-                        'sans': ['Open Sans', 'sans-serif'],
-                        'headline': ['Bebas Neue', 'sans-serif'],
+                        'sans': ['Roboto', 'sans-serif'],
+                        'display': ['Bebas Neue', 'sans-serif'],
+                    },
+                    spacing: {
+                        'fluid': 'clamp(1rem, 5vw, 3rem)',
                     },
                     animation: {
-                        'fade-in-up': 'fade-in-up 0.7s ease-out'
+                        'fade-in-up': 'fade-in-up 0.5s ease-out'
                     },
                     keyframes: {
                         'fade-in-up': {
@@ -51,81 +44,90 @@
         }
     </script>
     <style>
-        body {
-            background-color: #000;
-            color: #fff;
+        .kinetic-typography {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: white;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            animation: pulse 3s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.05);
+            }
         }
     </style>
 </head>
-<body class="font-sans">
-    <header class="bg-black bg-opacity-70 backdrop-blur-lg py-4 px-6 fixed top-0 left-0 w-full z-50">
+
+<body class="bg-primary font-sans text-secondary">
+
+    <!-- Header -->
+    <header class="bg-white/10 backdrop-blur-lg border border-white/20 py-4 px-6">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-headline text-white">Nova Horizon</a>
+            <a href="index.html" class="text-2xl font-display text-white">Nova Horizon</a>
             <nav>
                 <ul class="flex space-x-6">
-                    <li><a href="index.html" class="hover:text-primary-300 transition-colors duration-200">Home</a></li>
-                    <li><a href="about.html" class="hover:text-primary-300 transition-colors duration-200">About</a></li>
-                    <li><a href="contact.html" class="hover:text-primary-300 transition-colors duration-200">Contact</a></li>
+                    <li><a href="index.html" class="hover:text-accent transition-colors duration-300">Home</a></li>
+                    <li><a href="about.html" class="hover:text-accent transition-colors duration-300">About</a></li>
+                    <li><a href="contact.html" class="text-accent">Contact</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <section class="py-24 mt-16">
-        <div class="container mx-auto px-6">
-            <h1 class="text-4xl font-headline text-center mb-8 animate-fade-in-up">Contact Us: Begin Your Journey.</h1>
+    <!-- Contact Section -->
+    <section class="py-20">
+        <div class="container mx-auto text-center">
+            <h1 class="kinetic-typography mb-8">Contact Us</h1>
+            <p class="text-lg mb-12">Reach out to learn more about our extraordinary journeys and how you can
+                transcend the ordinary with Nova Horizon.</p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 animate-fade-in-up">
-                    <h2 class="text-2xl font-semibold mb-4">Send us a Message</h2>
-                    <form id="contactForm">
-                        <div class="mb-4">
-                            <label for="name" class="block text-gray-300 text-sm font-bold mb-2">Name</label>
-                            <input type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 ring-primary bg-gray-800 bg-opacity-50" required>
-                        </div>
-                        <div class="mb-4">
-                            <label for="email" class="block text-gray-300 text-sm font-bold mb-2">Email</label>
-                            <input type="email" id="email" name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 ring-primary bg-gray-800 bg-opacity-50" required>
-                        </div>
-                        <div class="mb-6">
-                            <label for="message" class="block text-gray-300 text-sm font-bold mb-2">Message</label>
-                            <textarea id="message" name="message" rows="4" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 ring-primary bg-gray-800 bg-opacity-50" required></textarea>
-                        </div>
-                        <button type="submit" class="bg-primary-300 hover:bg-primary-400 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline focus:ring-2 ring-primary transition-colors duration-200">Send Message</button>
-                    </form>
-                    <div id="confirmationMessage" class="mt-4 text-green-500 hidden">Thank you! Your message has been received.</div>
-                </div>
-
-                <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 animate-fade-in-up">
-                    <h2 class="text-2xl font-semibold mb-4">Contact Information</h2>
-                    <p class="mb-2"><strong>Address:</strong> 123 Galaxy Way, Stellar City, Universe</p>
-                    <p class="mb-2"><strong>Phone:</strong> +1 (555) NOVA-SPACE</p>
-                    <p class="mb-2"><strong>Email:</strong> info@novahorizon.com</p>
-                    <!-- Optional: Map Integration -->
-                    <!-- Replace with your map embed code -->
-                    <div class="h-48 bg-gray-800 rounded-2xl">
-                        <p class="text-center text-gray-400 py-20">Map Placeholder</p>
+            <div class="max-w-lg mx-auto bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-8">
+                <form action="#" method="POST">
+                    <div class="mb-4">
+                        <label for="name" class="block text-left text-white text-sm font-bold mb-2">Name:</label>
+                        <input type="text" id="name" name="name"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline focus:ring-2 ring-accent"
+                            placeholder="Your Name">
                     </div>
-                </div>
+                    <div class="mb-4">
+                        <label for="email" class="block text-left text-white text-sm font-bold mb-2">Email:</label>
+                        <input type="email" id="email" name="email"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline focus:ring-2 ring-accent"
+                            placeholder="Your Email">
+                    </div>
+                    <div class="mb-6">
+                        <label for="message" class="block text-left text-white text-sm font-bold mb-2">Message:</label>
+                        <textarea id="message" name="message" rows="4"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-primary leading-tight focus:outline-none focus:shadow-outline focus:ring-2 ring-accent"
+                            placeholder="Your Message"></textarea>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <button
+                            class="bg-accent hover:bg-secondary text-primary font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline focus:ring-2 ring-primary transition-colors duration-300"
+                            type="submit">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </section>
 
-    <footer class="bg-black bg-opacity-70 backdrop-blur-lg py-6 px-6">
-        <div class="container mx-auto text-center text-gray-400">
-            <p>&copy; 2024 Nova Horizon. All rights reserved.</p>
+    <!-- Footer -->
+    <footer class="bg-white/10 backdrop-blur-lg border border-white/20 py-8">
+        <div class="container mx-auto text-center">
+            <p class="text-sm">&copy; 2024 Nova Horizon. All rights reserved.</p>
         </div>
     </footer>
 
-    <script>
-        document.getElementById('contactForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            // Simulate form submission
-            setTimeout(function() {
-                document.getElementById('confirmationMessage').classList.remove('hidden');
-                document.getElementById('contactForm').reset();
-            }, 500);
-        });
-    </script>
 </body>
+
 </html>

@@ -3,35 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Services - Nova Horizon</title>
+    <title>Nova Horizon - Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         primary: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            200: '#b9d9fa',
-                            300: '#87bdd5',
-                            400: '#599fbf',
-                            500: '#3480a8',
-                            600: '#23648f',
-                            700: '#1a4d75',
-                            800: '#143a5b',
-                            900: '#121212',
-                            DEFAULT: '#639fff',
+                            50: '#E2E8FF',
+                            100: '#B4BFFF',
+                            200: '#8695FF',
+                            300: '#624CAB',
+                            400: '#29154F',
+                            500: '#0B0423',
                         },
-                        secondary: '#ff6b6b',
-                        'cosmic-dark': '#121212',
-                        'cosmic-light': '#FFFFFF',
                     },
                     fontFamily: {
-                        'sans': ['Open Sans', 'sans-serif'],
+                        'sans': ['Roboto', 'sans-serif'],
                         'display': ['Bebas Neue', 'sans-serif'],
                     },
                     animation: {
@@ -54,104 +46,114 @@
         }
     </script>
     <style>
-        /* Custom Styles - Add to style.css if needed */
-        .animate-fade-in-up {
-            animation: fade-in-up 0.5s ease-out;
+        body {
+            background-color: #0B0423;
+            color: white;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .glassmorphism {
+            background-color: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
-<body class="bg-cosmic-dark text-cosmic-light font-sans">
+<body class="bg-primary-500">
 
     <!-- Header -->
-    <header class="bg-white/5 backdrop-blur-lg sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-6 flex items-center justify-between">
-            <a href="index.html" class="text-xl font-bold font-display">Nova Horizon</a>
+    <header class="bg-black/20 backdrop-blur-lg py-4 px-6 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-display text-white">
+                <img src="assets/nova_horizon_logo.png" alt="Nova Horizon Logo" class="h-12 inline-block">
+                Nova Horizon
+            </a>
             <nav>
                 <ul class="flex space-x-6">
-                    <li><a href="index.html" class="hover:text-primary-300 transition-colors">Home</a></li>
-                    <li><a href="about.html" class="hover:text-primary-300 transition-colors">About</a></li>
-                    <li><a href="services.html" class="text-primary-300">Services</a></li>
-                    <li><a href="contact.html" class="hover:text-primary-300 transition-colors">Contact</a></li>
+                    <li><a href="index.html" class="text-white hover:text-primary-300 transition-colors">Home</a></li>
+                    <li><a href="about.html" class="text-white hover:text-primary-300 transition-colors">About</a></li>
+                    <li><a href="services.html" class="text-white hover:text-primary-300 transition-colors">Services</a></li>
+                    <li><a href="contact.html" class="text-white hover:text-primary-300 transition-colors">Contact</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="py-20">
-        <div class="container mx-auto px-4 text-center">
-            <h1 class="text-4xl md:text-5xl font-bold font-display mb-4">Our Services: Beyond Expectations</h1>
-            <p class="text-lg md:text-xl text-gray-300">Explore our range of space tourism packages, tailored to your desires.</p>
+    <section class="relative py-24 bg-cover bg-center" style="background-image: url('assets/hero_image.png');">
+        <div class="absolute inset-0 bg-black/60"></div>
+        <div class="container mx-auto text-center relative z-10">
+            <h1 class="text-5xl font-display text-white mb-4 animate-fade-in-up">Transcend. Explore. Become Stardust.</h1>
+            <p class="text-xl text-white/80 animate-fade-in-up">Embark on an extraordinary journey beyond the ordinary. Nova Horizon offers exclusive spaceflights for the discerning explorer.</p>
+            <a href="contact.html" class="inline-block mt-8 py-3 px-8 bg-primary-300 text-primary-500 font-bold rounded-full hover:bg-primary-200 transition-colors animate-fade-in-up">Begin Your Ascent</a>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section class="py-12">
-        <div class="container mx-auto px-4">
-            <!-- Suborbital Glimpse -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                <div class="md:order-2">
-                    <img src="/images/suborbital.jpg" alt="Suborbital Glimpse" class="object-cover rounded-2xl w-full h-full">
-                </div>
-                <div class="md:order-1">
-                    <h2 class="text-3xl font-bold font-display mb-2">Suborbital Glimpse: A Taste of the Cosmos</h2>
-                    <p class="text-gray-300 mb-4">Embark on a breathtaking 2-hour journey to suborbital space. Experience the magic of weightlessness and witness Earth from a perspective few have ever seen. Our 'Suborbital Glimpse' package includes a personalized flight suit, zero-gravity experience, professional photography, and pre-flight training. Priced at $250,000, this is your first step to becoming a cosmic explorer.</p>
-                    <a href="#" class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-primary">Learn More</a>
-                </div>
-            </div>
+    <section id="services" class="py-16">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-display text-center text-white mb-8">Our Space Tourism Packages</h2>
 
-            <!-- Orbital Odyssey -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                <div>
-                    <img src="/images/orbital.jpg" alt="Orbital Odyssey" class="object-cover rounded-2xl w-full h-full">
-                </div>
-                <div>
-                    <h2 class="text-3xl font-bold font-display mb-2">Orbital Odyssey: A Multi-Day Space Sojourn</h2>
-                    <p class="text-gray-300 mb-4">Immerse yourself in a 3-day orbital adventure in low Earth orbit. The 'Orbital Odyssey' offers a unique blend of luxury and scientific exploration. Enjoy private cabin accommodations, gourmet meals, a spacewalk experience, and the opportunity to participate in scientific research. At $2,000,000, this package redefines the boundaries of luxury travel.</p>
-                    <a href="#" class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-primary">Learn More</a>
-                </div>
-            </div>
+            <!-- Flight Packages -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-            <!-- Lunar Escape -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                <div class="md:order-2">
-                    <img src="/images/lunar.jpg" alt="Lunar Escape" class="object-cover rounded-2xl w-full h-full">
+                <!-- Orion's Ascent -->
+                <div class="glassmorphism p-6 rounded-2xl group hover:scale-105 transition-all duration-300 ease-out">
+                    <img src="assets/orion_ascent.jpg" alt="Orion's Ascent" class="object-cover rounded-2xl h-64 w-full">
+                    <h3 class="text-2xl font-display text-white mt-4">Orion's Ascent</h3>
+                    <p class="text-white/80 mt-2">Suborbital flight with breathtaking views of Earth. Includes pre-flight training and post-flight celebration.</p>
+                    <p class="text-xl font-bold text-primary-300 mt-2">$500,000</p>
+                    <ul class="list-disc list-inside text-white/60 mt-2">
+                        <li>Personalized flight suit</li>
+                        <li>In-flight photography</li>
+                        <li>Gourmet meal</li>
+                    </ul>
+                    <a href="contact.html" class="inline-block mt-4 py-2 px-6 bg-primary-400 text-white font-bold rounded-full hover:bg-primary-300 transition-colors">Book Now</a>
                 </div>
-                <div class="md:order-1">
-                    <h2 class="text-3xl font-bold font-display mb-2">Lunar Escape: The Ultimate Celestial Voyage</h2>
-                    <p class="text-gray-300 mb-4">Venture on a 7-day odyssey to lunar orbit, a journey reserved for the most discerning explorers. The 'Lunar Escape' package offers unparalleled views of the Moon and Earth. Indulge in dedicated crew service, luxury accommodations, lunar observation activities, and a post-flight debriefing. This exclusive experience is priced at $150,000,000.</p>
-                    <a href="#" class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-primary">Learn More</a>
-                </div>
-            </div>
 
-             <!-- The Nova Horizon Difference -->
-             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                <div>
-                    <img src="/images/nova_horizon_vessel.jpg" alt="The Nova Horizon Difference" class="object-cover rounded-2xl w-full h-full">
+                <!-- Cosmic Voyager -->
+                <div class="glassmorphism p-6 rounded-2xl group hover:scale-105 transition-all duration-300 ease-out">
+                    <img src="assets/cosmic_voyager.jpg" alt="Cosmic Voyager" class="object-cover rounded-2xl h-64 w-full">
+                    <h3 class="text-2xl font-display text-white mt-4">Cosmic Voyager</h3>
+                    <p class="text-white/80 mt-2">Orbital flight with extended stay in a space station. Includes scientific experiments and exploration activities.</p>
+                    <p class="text-xl font-bold text-primary-300 mt-2">$5,000,000</p>
+                    <ul class="list-disc list-inside text-white/60 mt-2">
+                        <li>Private cabin</li>
+                        <li>Scientific training</li>
+                        <li>Extravehicular activity (optional)</li>
+                    </ul>
+                    <a href="contact.html" class="inline-block mt-4 py-2 px-6 bg-primary-400 text-white font-bold rounded-full hover:bg-primary-300 transition-colors">Book Now</a>
                 </div>
-                <div>
-                    <h2 class="text-3xl font-bold font-display mb-2">The Nova Horizon Difference</h2>
-                    <p class="text-gray-300 mb-4">Nova Horizon is not just a space tourism company; we are curators of extraordinary experiences. Our commitment to safety, luxury, and innovation sets us apart. From personalized pre-flight training to dedicated in-flight support, we ensure every detail of your journey is seamless and unforgettable. Our vessels are equipped with state-of-the-art technology and designed for ultimate comfort and safety. Join an elite group of pioneers who have dared to dream beyond the stars.</p>
-                    <a href="#" class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-primary">Discover More</a>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- CTA Section -->
-    <section class="py-16 bg-white/5 backdrop-blur-lg">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl font-bold font-display mb-4">Ready to Begin Your Journey?</h2>
-            <div class="flex justify-center space-x-4">
-                <a href="#" class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">Request a Brochure</a>
-                <a href="#" class="inline-block bg-transparent border border-primary-600 hover:bg-primary-700 hover:border-transparent text-primary-600 hover:text-white font-bold py-3 px-8 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-colors">Book a Consultation</a>
+                <!-- Lunar Odyssey -->
+                <div class="glassmorphism p-6 rounded-2xl group hover:scale-105 transition-all duration-300 ease-out">
+                    <img src="assets/lunar_odyssey.jpg" alt="Lunar Odyssey" class="object-cover rounded-2xl h-64 w-full">
+                    <h3 class="text-2xl font-display text-white mt-4">Lunar Odyssey</h3>
+                    <p class="text-white/80 mt-2">A journey to the Moon. Includes Lunar orbit and surface exploration.</p>
+                    <p class="text-xl font-bold text-primary-300 mt-2">$50,000,000</p>
+                    <ul class="list-disc list-inside text-white/60 mt-2">
+                        <li>Lunar rover experience</li>
+                        <li>Sample collection (scientific purposes)</li>
+                        <li>Personalized Lunar landing site</li>
+                    </ul>
+                    <a href="contact.html" class="inline-block mt-4 py-2 px-6 bg-primary-400 text-white font-bold rounded-full hover:bg-primary-300 transition-colors">Book Now</a>
+                </div>
+
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-8 text-center text-gray-400">
-        <p>&copy; 2024 Nova Horizon. All rights reserved.</p>
+    <footer class="bg-black/40 backdrop-blur-lg py-8">
+        <div class="container mx-auto text-center text-white/60">
+            <p>&copy; 2024 Nova Horizon. All rights reserved.</p>
+            <nav class="mt-4">
+                <ul class="flex justify-center space-x-4">
+                    <li><a href="terms.html" class="hover:text-white transition-colors">Terms of Service</a></li>
+                    <li><a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                </ul>
+            </nav>
+        </div>
     </footer>
 
 </body>

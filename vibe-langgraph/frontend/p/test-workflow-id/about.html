@@ -3,48 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Nova Horizon</title>
+    <title>About Us - Nova Horizon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            200: '#bfe1fe',
-                            300: '#9ecefd',
-                            400: '#7ac8fc',
-                            500: '#639fff',
-                            600: '#4f79ef',
-                            700: '#3b58d0',
-                            800: '#273ca5',
-                            900: '#1a2672',
-                            950: '#121212',
-                        },
+                        primary: '#0B0D17',
+                        secondary: '#E6E6FA',
+                        accent: '#9886A0',
                     },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
+                        'sans': ['Roboto', 'sans-serif'],
+                        'display': ['Bebas Neue', 'sans-serif'],
                     },
                     animation: {
-                        'fade-in-up': 'fade-in-up 0.5s ease-out'
+                      'fade-in-up': 'fade-in-up 0.5s ease-out'
                     },
                     keyframes: {
-                        'fade-in-up': {
-                            '0%': {
-                                opacity: '0',
-                                transform: 'translateY(20px)'
-                            },
-                            '100%': {
-                                opacity: '1',
-                                transform: 'translateY(0)'
-                            },
-                        }
+                      'fade-in-up': {
+                        '0%': {
+                          opacity: '0',
+                          transform: 'translateY(20px)'
+                        },
+                        '100%': {
+                          opacity: '1',
+                          transform: 'translateY(0)'
+                        },
+                      }
                     }
                 }
             }
@@ -52,76 +42,55 @@
     </script>
     <style>
         body {
-            background-color: #121212;
-            color: #FFFFFF;
-        }
-
-        .parallax {
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
+            background-color: #0B0D17;
+            color: #E6E6FA;
+            font-family: 'Roboto', sans-serif;
         }
     </style>
 </head>
-<body class="font-sans">
-
+<body class="bg-primary font-sans">
     <!-- Header -->
-    <header class="bg-black/70 backdrop-blur-lg sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-            <a href="index.html" class="text-2xl font-serif font-bold text-white">Nova Horizon</a>
+    <header class="bg-white/10 backdrop-blur-lg border border-white/20 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-display">Nova Horizon</a>
             <nav>
                 <ul class="flex space-x-6">
-                    <li><a href="index.html" class="hover:text-primary-300 transition-colors">Home</a></li>
-                    <li><a href="about.html" class="hover:text-primary-300 transition-colors">About</a></li>
-                    <li><a href="packages.html" class="hover:text-primary-300 transition-colors">Packages</a></li>
-                    <li><a href="contact.html" class="hover:text-primary-300 transition-colors">Contact</a></li>
+                    <li><a href="index.html" class="hover:text-accent transition-colors duration-300">Home</a></li>
+                    <li><a href="about.html" class="hover:text-accent transition-colors duration-300">About</a></li>
+                    <li><a href="#" class="hover:text-accent transition-colors duration-300">Experiences</a></li>
+                    <li><a href="#" class="hover:text-accent transition-colors duration-300">Contact</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <div class="relative h-screen flex items-center justify-center text-center parallax" style="background-image: url('assets/hero_image.png');">
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
-        <div class="container mx-auto px-4 relative z-10">
-            <h1 class="text-5xl font-serif font-bold mb-4 animate-fade-in-up">Our Vision: To democratize space travel.</h1>
-            <p class="text-xl mb-8 animate-fade-in-up delay-100">Nova Horizon is committed to providing safe, luxurious, and unforgettable space tourism experiences.</p>
-        </div>
-    </div>
+    <!-- Main Content -->
+    <main class="container mx-auto py-12">
 
-    <!-- Team Introduction -->
-    <section class="py-20 bg-black/80">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-serif font-bold text-center mb-12">Meet the Team</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Team Member 1 -->
-                <div class="text-center">
-                    <img src="assets/testimonial_anya.png" alt="Team Member 1" class="rounded-full w-48 h-48 object-cover mx-auto mb-4">
-                    <h3 class="text-xl font-semibold">Anya Sharma</h3>
-                    <p class="text-gray-300">CEO & Founder</p>
-                    <p class="mt-2">Anya's vision drives Nova Horizon towards making space accessible to all.</p>
-                </div>
-                <!-- Team Member 2 -->
-                <div class="text-center">
-                    <img src="assets/testimonial_jameson.png" alt="Team Member 2" class="rounded-full w-48 h-48 object-cover mx-auto mb-4">
-                    <h3 class="text-xl font-semibold">Jameson Lee</h3>
-                    <p class="text-gray-300">Chief Engineer</p>
-                    <p class="mt-2">Jameson ensures our technology is cutting-edge and safe.</p>
-                </div>
-                <!-- Team Member 3 -->
-                <div class="text-center">
-                    <img src="assets/testimonial_anya.png" alt="Team Member 3" class="rounded-full w-48 h-48 object-cover mx-auto mb-4">
-                    <h3 class="text-xl font-semibold">Elena Rodriguez</h3>
-                    <p class="text-gray-300">Head of Customer Experience</p>
-                    <p class="mt-2">Elena crafts unforgettable journeys for our clients.</p>
-                </div>
+        <!-- Our Vision -->
+        <section id="about_us" class="mb-8 p-6 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl">
+            <h2 class="text-3xl font-display mb-4">Our Vision: A New Horizon in Space Tourism</h2>
+            <p>Nova Horizon is pioneering a new era of space exploration, offering unparalleled journeys to the cosmos. We are committed to safety, innovation, and delivering transformative experiences that redefine luxury travel. Our mission is to make space accessible to those who seek the ultimate adventure, while contributing to scientific advancement and inspiring future generations.</p>
+        </section>
+
+        <!-- Team Section -->
+        <section id="team" class="mb-8 p-6 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl">
+            <h2 class="text-3xl font-display mb-4">Meet the Visionaries Behind Nova Horizon</h2>
+            <p>Our team comprises leading experts in aerospace engineering, astronautics, and luxury travel. From seasoned astronauts to visionary engineers, our team is dedicated to providing an exceptional and safe experience. We are driven by a shared passion for space exploration and a commitment to pushing the boundaries of what's possible.</p>
+
+            <!-- Team Member Spotlight -->
+            <div class="mt-6">
+                <h3 class="text-xl font-display mb-2">Dr. Evelyn Reed</h3>
+                <p class="text-accent">Chief Science Officer</p>
+                <img src="assets/team_1.png" alt="Dr. Evelyn Reed" class="rounded-2xl object-cover w-64 h-64 mb-4">
+                <p>Dr. Reed is an accomplished astrophysicist and venture capitalist with a lifelong dedication to space exploration. Her expertise and vision guide Nova Horizon's commitment to scientific advancement and transformative experiences.</p>
             </div>
-        </div>
-    </section>
+        </section>
+
+    </main>
 
     <!-- Footer -->
-    <footer class="bg-black py-8 text-center text-gray-400">
+    <footer class="bg-white/10 backdrop-blur-lg border border-white/20 p-4 text-center">
         <p>&copy; 2024 Nova Horizon. All rights reserved.</p>
     </footer>
 

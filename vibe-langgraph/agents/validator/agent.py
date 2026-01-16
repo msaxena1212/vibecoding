@@ -76,11 +76,13 @@ async def run_validator(state: CodebaseState):
     if report.get("status") == "fail":
         diag = report.get("diagnostic_report", {})
         diag_text = f"Audit Failed: {diag.get('summary', 'Issues detected.')}\n- Technical: {', '.join(diag.get('technical_issues', []))}\n- Design: {', '.join(diag.get('design_flaws', []))}"
+        fix_instr = report.get("fix_instructions", "Review the diagnostic report and apply surgical patches.")
         
         print(f"DEBUG: Diagnosis FAILED: {diag_text}")
         return {
             "current_step": "needs_fix",
             "diagnostic_report": diag_text,
+            "fix_instructions": fix_instr,
             "errors": [diag_text],
             "retry_count": state.get("retry_count", 0) + 1,
             "total_tokens": tokens,

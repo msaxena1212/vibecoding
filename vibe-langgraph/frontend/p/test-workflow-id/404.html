@@ -3,36 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Lost in Space</title>
+    <title>404 - Nova Horizon</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Roboto', 'sans-serif'],
+                        serif: ['Bebas Neue', 'serif'],
                     },
                     colors: {
                         primary: {
-                            50: '#E0F2FE',
-                            100: '#CFE2FF',
-                            200: '#A5D0FF',
-                            300: '#7AC0FF',
-                            400: '#50AEFF',
-                            500: '#299CFF',
-                            600: '#008AFF',
-                            700: '#0078FF',
-                            800: '#0066FF',
-                            900: '#0054FF',
+                            50: '#E6E6FA',
+                            100: '#D4D4ED',
+                            200: '#B2B1D6',
+                            300: '#9886A0',
+                            400: '#5A5266',
+                            500: '#0B0D17',
                         },
-                        dark: '#121212',
-                        light: '#FFFFFF',
-                        accent: '#639fff',
-                        error: '#ff6b6b',
                     },
                     animation: {
                         'fade-in-up': 'fade-in-up 0.5s ease-out'
@@ -55,18 +47,19 @@
     </script>
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #121212;
-            color: #FFFFFF;
+            background-color: #0B0D17;
+            color: #E6E6FA;
+            font-family: 'Roboto', sans-serif;
         }
     </style>
 </head>
-<body class="bg-dark flex items-center justify-center h-screen">
+<body class="bg-primary-500 h-screen flex items-center justify-center">
     <div class="text-center">
-        <h1 class="text-5xl font-serif font-bold mb-4">Lost in Space?</h1>
-        <p class="text-lg mb-8">Oops! The page you're looking for has drifted into the void. Return to Earth?</p>
-        <a href="index.html" class="bg-accent hover:bg-primary-700 text-white font-bold py-2 px-4 rounded focus:ring-2 ring-primary">
-            Return to Earth
+        <h1 class="text-6xl font-serif font-bold mb-4">404</h1>
+        <p class="text-2xl mb-8">Oops! Looks like you've drifted off course.</p>
+        <p class="text-lg mb-8">This page doesn't exist, or perhaps it's exploring a different galaxy.</p>
+        <a href="index.html" class="inline-block bg-white text-primary-500 py-2 px-6 rounded-full font-bold hover:bg-primary-100 transition-colors duration-300">
+            Return to Nova Horizon
         </a>
     </div>
 </body>

@@ -79,10 +79,10 @@ def create_workflow():
     workflow.add_edge("copywriter", "fetch_images")
     workflow.add_edge("fetch_images", "image_generator")
     workflow.add_edge("image_generator", "generator")
-    workflow.add_edge("generator", "linker")
-    workflow.add_edge("linker", "ui_specialist")
+    workflow.add_edge("generator", "ui_specialist")
     workflow.add_edge("ui_specialist", "seo_specialist")
-    workflow.add_edge("seo_specialist", "validator")
+    workflow.add_edge("seo_specialist", "linker")
+    workflow.add_edge("linker", "validator")
     
     # Self-Healing & Modification Loop
     workflow.add_conditional_edges(
@@ -95,8 +95,8 @@ def create_workflow():
         }
     )
     
-    workflow.add_edge("debugger", "validator")
-    workflow.add_edge("editor", "validator")
+    workflow.add_edge("debugger", "linker")
+    workflow.add_edge("editor", "linker")
     workflow.add_edge("chatter", END)
 
     return workflow.compile()

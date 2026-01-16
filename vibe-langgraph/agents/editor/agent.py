@@ -64,6 +64,11 @@ async def run_editor(state: CodebaseState):
                 continue
 
             print(f"🔧 Editor modifying file: {path}")
+            # Truncation check
+            if path.endswith(".html") and "</html>" not in new_content.lower():
+                print(f"⚠️ Editor truncation detected for {path}! Rejecting patch.")
+                continue
+
             if path in new_files:
                 new_files[path]["content"] = new_content
                 new_files[path]["lastEditedBy"] = "editor"
