@@ -6,6 +6,7 @@ import json
 import re
 
 async def run_validator(state: CodebaseState):
+    print("\n=== [VALIDATOR STARTING] ===")
     """
     Run diagnostic scan on the generated code.
     Detects syntax errors, missing assets, or design flaws.
@@ -27,10 +28,10 @@ async def run_validator(state: CodebaseState):
     # AUDIT CHECKLIST:
     1. **Logic & Syntax**: Identify broken JS logic, infinite loops, or CSS syntax errors.
     2. **Design Fidelity**: Check for inconsistent spacing, poor contrast (a11y), or missing hover states.
-    3. **Asset Integrity**: Before flagging a missing image or logo, cross-check the "ASSETS BEING GENERATED" list. If the asset path is in that list, it is valid and will be fulfilled.
-    4. **Content Quality**: Flag "Lorem Ipsum" or generic "Sample Item" text. Data must feel realistic.
-    4. **Functional Integrity**: Verify CTAs are linked and navigation is intuitive.
-    5. **Visual Detail**: Audit for fluid typography (`clamp`) and Glassmorphism depth.
+    3. **Asset Integrity**: Sourced images MUST be high-resolution and brand-appropriate. Favor cinematic photography over generic clipart.
+    4. **Zero-Placeholder Policy**: Flag "Lorem Ipsum", generic "Sample Item" text, or any `href="#"` links. Dashboards MUST contain complex mock data, interactive charts, and realistic stats grids proportional to the user intent.
+    5. **Complete Graph Connectivity**: Verify that every page has a header/footer with links that connect to all other primary pages in the site. Navigation must be IDENTICAL on all pages.
+    6. **Phase 5/6 Interactivity**: Audit for fluid typography (`clamp`), Glassmorphism depth, Bento Grid structures, and Interaction Observer reveal effects (`.reveal` classes).
 
     # OUTPUT SCHEMA (Strict JSON):
     {
@@ -65,7 +66,7 @@ async def run_validator(state: CodebaseState):
     report = parse_json_dict(content)
     
     if not report:
-        print("❌ Error: Validator failed to generate a valid diagnostic report.")
+        print("[ERROR] Validator failed to generate a valid diagnostic report.")
         return {
             "current_step": "validation_complete", # Skip on failure to avoid loops
             "diagnostic_report": "Diagnosis failed due to parsing error.",

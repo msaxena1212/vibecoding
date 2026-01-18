@@ -15,7 +15,7 @@ async def run_editor(state: CodebaseState):
     existing_files = state.get("files", {})
     
     # Load prompt
-    with open("agents/editor/prompt.md", "r") as f:
+    with open("agents/editor/prompt.md", "r", encoding="utf-8") as f:
         system_prompt = f.read()
         
     # Build context for LLM
@@ -38,7 +38,7 @@ async def run_editor(state: CodebaseState):
     try:
         response = await llm.ainvoke(messages)
     except Exception as e:
-        print(f"⚠️ Editor agent encountered an error: {e}")
+        print(f"[WARN] Editor agent encountered an error: {e}")
         print("Skipping editor phase and returning files as-is...")
         # Return the files unchanged if editor fails
         return {
@@ -60,13 +60,13 @@ async def run_editor(state: CodebaseState):
         # We only update files that are EXPLICITLY returned by the LLM
         for path, new_content in modified_files.items():
             if not path or new_content is None:
-                print(f"⚠️ Skipping malformed patch for {path}")
+                print(f"[WARN] Skipping malformed patch for {path}")
                 continue
 
-            print(f"🔧 Editor modifying file: {path}")
+            print(f"[EDITOR] modifying file: {path}")
             # Truncation check
             if path.endswith(".html") and "</html>" not in new_content.lower():
-                print(f"⚠️ Editor truncation detected for {path}! Rejecting patch.")
+                print(f"[WARN] Editor truncation detected for {path}! Rejecting patch.")
                 continue
 
             if path in new_files:

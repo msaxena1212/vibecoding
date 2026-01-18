@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Horizon - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@400;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0B0D17;
+            color: white;
+        }
+
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .animate-fade-in-up {
+            animation: fade-in-up 0.75s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Glassmorphism Styles */
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border-radius: 10px;
+        }
+
+        /* Mobile Menu Styles */
+        .nav-mobile {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            /* Semi-transparent black */
+            backdrop-filter: blur(10px);
+            /* Apply blur */
+            z-index: 50;
+            /* Ensure it's on top */
+            display: none;
+            /* Initially hidden */
+        }
+
+        .nav-mobile.active {
+            display: block;
+            /* Show when active */
+        }
+
+        .nav-mobile ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .nav-mobile li {
+            margin: 1rem 0;
+        }
+
+        .nav-mobile a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+
+        /* Back to Top Button */
+        #back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            /* Glassmorphism style */
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            opacity: 0;
+            /* Initially hidden */
+            transition: opacity 0.3s ease-in-out;
+            z-index: 100;
+        }
+
+        #back-to-top:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        #back-to-top.show {
+            opacity: 1;
+            /* Show when scrolled down */
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#b3e5fc',
+                            300: '#67b26f',
+                            400: '#308596',
+                            500: '#0369a1',
+                            600: '#025489',
+                            700: '#03426f',
+                            800: '#072640',
+                            900: '#0b0d17',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.75s ease-out forwards',
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="bg-primary-900">
+
+    <!-- Mobile Menu -->
+    <div id="nav-mobile" class="nav-mobile">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+            <li><a href="terms.html">Terms</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+        </ul>
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-primary-900 bg-opacity-70 backdrop-blur-lg border-b border-white/10">
+        <div class="container mx-auto px-4 py-6 flex items-center justify-between">
+            <a href="index.html" class="text-2xl font-bold text-white">
+                <img src="assets/logo.png" alt="Nova Horizon Logo" class="h-8 inline-block mr-2">
+                Nova Horizon
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-6 nav-desktop">
+                <a href="index.html" class="text-white hover:text-primary-300 transition-colors">Home</a>
+                <a href="about.html" class="text-white hover:text-primary-300 transition-colors">About</a>
+                <a href="services.html" class="text-white hover:text-primary-300 transition-colors">Services</a>
+                <a href="contact.html" class="text-white hover:text-primary-300 transition-colors">Contact</a>
+                <a href="faq.html" class="text-white hover:text-primary-300 transition-colors">FAQ</a>
+                <a href="privacy.html" class="text-white hover:text-primary-300 transition-colors">Privacy</a>
+                <a href="terms.html" class="text-white hover:text-primary-300 transition-colors">Terms</a>
+                <a href="dashboard.html" class="text-white hover:text-primary-300 transition-colors">Dashboard</a>
+            </nav>
+
+            <!-- Mobile Navigation Trigger -->
+            <button id="nav-mobile-trigger" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12">
+
+        <!-- Hero Section -->
+        <section class="mb-12 text-center">
+            <h1 class="text-4xl font-bold font-serif mb-4 animate-fade-in-up">Mission Control Dashboard</h1>
+            <p class="text-lg text-gray-300 animate-fade-in-up">Real-time insights for a safe and exhilarating journey.</p>
+        </section>
+
+        <!-- Mission Readiness -->
+        <section class="mb-12 reveal">
+            <h2 class="text-2xl font-bold mb-4">Mission Readiness</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="glassmorphism p-4 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-2">Fuel Levels</h3>
+                    <p class="text-gray-300">85 tons (Warning)</p>
+                    <canvas id="fuelChart"></canvas>
+                </div>
+                <div class="glassmorphism p-4 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-2">Crew Morale</h3>
+                    <p class="text-gray-300">95% (Success)</p>
+                    <canvas id="moraleChart"></canvas>
+                </div>
+                <div class="glassmorphism p-4 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-2">System Integrity</h3>
+                    <p class="text-gray-300">92% (Warning)</p>
+                    <canvas id="integrityChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resource Allocation -->
+        <section class="mb-12 reveal">
+            <h2 class="text-2xl font-bold mb-4">Resource Allocation</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="glassmorphism p-4 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-2">Oxygen Supply</h3>
+                    <p class="text-gray-300">28 days (Success)</p>
+                    <canvas id="oxygenChart"></canvas>
+                </div>
+                <div class="glassmorphism p-4 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-2">Food Rations</h3>
+                    <p class="text-gray-300">30 days (Success)</p>
+                    <canvas id="foodChart"></canvas>
+                </div>
+                <div class="glassmorphism p-4 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-2">Water Supply</h3>
+                    <p class="text-gray-300">950 liters (Warning)</p>
+                    <canvas id="waterChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customer Analytics -->
+        <section class="mb-12 reveal">
+            <h2 class="text-2xl font-bold mb-4">Customer Analytics</h2>
+            <div class="glassmorphism p-4 rounded-lg">
+                <canvas id="customerChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Financial Performance -->
+        <section class="mb-12 reveal">
+            <h2 class="text-2xl font-bold mb-4">Financial Performance</h2>
+            <div class="glassmorphism p-4 rounded-lg">
+                <canvas id="financialChart"></canvas>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-primary-800 border-t border-white/10 py-6 text-center text-gray-400 sticky bottom-0">
+        <p>&copy; 2024 Nova Horizon. All rights reserved.</p>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" id="back-to-top" class="hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </a>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuTrigger = document.getElementById('nav-mobile-trigger');
+        const mobileMenu = document.getElementById('nav-mobile');
+
+        mobileMenuTrigger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        mobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+
+
+        // Reveal on Scroll
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                } else {
+                    reveals[i].classList.remove("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+
+        // Back to Top button
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        });
+
+        // Chart.js Configuration
+        const fuelChartCtx = document.getElementById('fuelChart').getContext('2d');
+        const moraleChartCtx = document.getElementById('moraleChart').getContext('2d');
+        const integrityChartCtx = document.getElementById('integrityChart').getContext('2d');
+        const oxygenChartCtx = document.getElementById('oxygenChart').getContext('2d');
+        const foodChartCtx = document.getElementById('foodChart').getContext('2d');
+        const waterChartCtx = document.getElementById('waterChart').getContext('2d');
+        const customerChartCtx = document.getElementById('customerChart').getContext('2d');
+        const financialChartCtx = document.getElementById('financialChart').getContext('2d');
+
+        const chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'white'
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: 'white'
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'white'
+                    }
+                }
+            }
+        };
+
+        new Chart(fuelChartCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Used', 'Remaining'],
+                datasets: [{
+                    label: 'Fuel Levels',
+                    data: [15, 85],
+                    backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)'],
+                    borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: chartOptions
+        });
+
+        new Chart(moraleChartCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Low', 'High'],
+                datasets: [{
+                    label: 'Crew Morale',
+                    data: [5, 95],
+                    backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(75, 192, 192, 0.5)'],
+                    borderColor: ['rgba(255, 99, 132, 1)', 'rgba(75, 192, 192, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: chartOptions
+        });
+
+        new Chart(integrityChartCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Compromised', 'Optimal'],
+                datasets: [{
+                    label: 'System Integrity',
+                    data: [8, 92],
+                    backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(255, 205, 86, 0.5)'],
+                    borderColor: ['rgba(255, 99, 132, 1)', 'rgba(255, 205, 86, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: chartOptions
+        });
+
+        new Chart(oxygenChartCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Used', 'Remaining'],
+                datasets: [{
+                    label: 'Oxygen Supply',
+                    data: [2, 28],
+                    backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(75, 192, 192, 0.5)'],
+                    borderColor: ['rgba(255, 99, 132, 1)', 'rgba(75, 192, 192, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: chartOptions
+        });
+
+        new Chart(foodChartCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Used', 'Remaining'],
+                datasets: [{
+                    label: 'Food Rations',
+                    data: [0, 30],
+                    backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(201, 203, 207, 0.5)'],
+                    borderColor: ['rgba(255, 99, 132, 1)', 'rgba(201, 203, 207, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: chartOptions
+        });
+
+        new Chart(waterChartCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Used', 'Remaining'],
+                datasets: [{
+                    label: 'Water Supply',
+                    data: [50, 950],
+                    backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)'],
+                    borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: chartOptions
+        });
+
+        new Chart(customerChartCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'New Customers',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2
+                }]
+            },
+            options: chartOptions
+        });
+
+        new Chart(financialChartCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                datasets: [{
+                    label: 'Revenue',
+                    data: [50000, 60000, 80000, 90000],
+                    backgroundColor: 'rgba(255, 205, 86, 0.5)',
+                    borderColor: 'rgba(255, 205, 86, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: chartOptions
+        });
+    </script>
+</body>
+
+</html>

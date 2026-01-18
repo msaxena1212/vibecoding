@@ -17,7 +17,7 @@ async def run_seo_specialist(state: CodebaseState):
 
     # Load system prompt
     prompt_path = os.path.join("agents", "seo_specialist", "prompt.md")
-    with open(prompt_path, "r") as f:
+    with open(prompt_path, "r", encoding="utf-8") as f:
         system_prompt = f.read()
 
     # Audit the main HTML file primarily

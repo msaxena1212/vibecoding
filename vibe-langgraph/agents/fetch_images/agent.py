@@ -16,7 +16,7 @@ async def run_fetch_images(state: CodebaseState):
     
     # Load prompt
     prompt_path = os.path.join("agents", "fetch_images", "prompt.md")
-    with open(prompt_path, "r") as f:
+    with open(prompt_path, "r", encoding="utf-8") as f:
         prompt = f.read()
 
     messages = [
@@ -32,7 +32,7 @@ async def run_fetch_images(state: CodebaseState):
         data = parse_json_dict(content)
         assets = data.get("assets", [])
     except Exception as e:
-        print(f"❌ Fetch Images failed to parse assets: {e}")
+        print(f"[FAIL] Fetch Images failed to parse assets: {e}")
 
     tokens = extract_tokens(response)
 

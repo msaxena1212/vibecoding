@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Chat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .animate-fade-in-up {
+            animation: fadeIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.7s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#25D366',
+                        secondary: '#128C7E',
+                    },
+                },
+            },
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="index.html" class="flex items-center">
+                <img src="assets/logo.png" alt="Logo" class="h-8 mr-2">
+                <span class="font-bold text-lg">SecureChat</span>
+            </a>
+            <nav class="hidden md:flex space-x-4">
+                <a href="index.html" class="hover:text-primary">Home</a>
+                <a href="features.html" class="hover:text-primary">Features</a>
+                <a href="pricing.html" class="hover:text-primary">Pricing</a>
+                <a href="chat.html" class="hover:text-primary">Chat</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu"
+            class="hidden md:hidden fixed top-0 left-0 w-full h-full bg-white/10 backdrop-blur-lg z-50">
+            <div class="flex flex-col items-center justify-center h-full">
+                <a href="index.html" class="block py-2 px-4 text-lg hover:bg-gray-100">Home</a>
+                <a href="features.html" class="block py-2 px-4 text-lg hover:bg-gray-100">Features</a>
+                <a href="pricing.html" class="block py-2 px-4 text-lg hover:bg-gray-100">Pricing</a>
+                <a href="chat.html" class="block py-2 px-4 text-lg hover:bg-gray-100">Chat</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto mt-8 p-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <!-- Contact List (Left Sidebar) -->
+            <div class="md:col-span-1 bg-white rounded-2xl shadow-md p-4">
+                <h2 class="text-lg font-semibold mb-4">Contacts</h2>
+                <ul>
+                    <li class="flex items-center space-x-3 py-2 border-b last:border-none">
+                        <img src="assets/alice.jpg" alt="Alice" class="w-8 h-8 rounded-full object-cover">
+                        <span>Alice</span>
+                    </li>
+                    <li class="flex items-center space-x-3 py-2 border-b last:border-none">
+                        <img src="assets/bob.jpg" alt="Bob" class="w-8 h-8 rounded-full object-cover">
+                        <span>Bob</span>
+                    </li>
+                    <!-- More contacts here -->
+                </ul>
+            </div>
+
+            <!-- Chat Area (Main Content) -->
+            <div class="md:col-span-3 bg-white rounded-2xl shadow-md p-4 flex flex-col">
+                <div class="flex-grow overflow-y-auto" id="chat-messages">
+                    <!-- Messages will be loaded here -->
+                    <div class="reveal">
+                        <div class="bg-gray-100 rounded-xl p-3 mb-2 w-fit max-w-2/3">
+                            Hello! This is a sample message.
+                        </div>
+                    </div>
+                    <div class="reveal">
+                        <div class="bg-blue-100 rounded-xl p-3 mb-2 ml-auto w-fit max-w-2/3">
+                            Hi there! How are you?
+                        </div>
+                    </div>
+                    <div class="reveal">
+                        <div class="bg-gray-100 rounded-xl p-3 mb-2 w-fit max-w-2/3">
+                            I'm doing great, thanks!
+                        </div>
+                    </div>
+                    <div class="reveal">
+                        <div class="bg-blue-100 rounded-xl p-3 mb-2 ml-auto w-fit max-w-2/3">
+                            That's good to hear!
+                        </div>
+                    </div>
+                    <div class="reveal">
+                        <div class="bg-gray-100 rounded-xl p-3 mb-2 w-fit max-w-2/3">
+                            This is another message.
+                        </div>
+                    </div>
+                    <div class="reveal">
+                        <div class="bg-blue-100 rounded-xl p-3 mb-2 ml-auto w-fit max-w-2/3">
+                            And this is a reply!
+                        </div>
+                    </div>
+                    <div class="reveal">
+                        <div class="bg-gray-100 rounded-xl p-3 mb-2 w-fit max-w-2/3">
+                            End of sample messages.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input Area -->
+                <div class="mt-4">
+                    <div class="flex space-x-2">
+                        <input type="text" placeholder="Type your message..."
+                            class="flex-grow border rounded-xl px-3 py-2 focus:ring-primary focus:border-primary">
+                        <button
+                            class="bg-primary text-white rounded-xl px-4 py-2 hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary">
+                            Send
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top"
+        class="fixed bottom-4 right-4 bg-primary text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-primary hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+            stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+        </svg>
+    </button>
+
+    <!-- Footer -->
+    <footer class="bg-white shadow-md mt-8 py-4">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 SecureChat. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Back to top button functionality
+            const backToTopButton = document.getElementById('back-to-top');
+
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 1000) {
+                    backToTopButton.classList.remove('hidden');
+                } else {
+                    backToTopButton.classList.add('hidden');
+                }
+            });
+
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Reveal on scroll functionality
+            function reveal() {
+                var reveals = document.querySelectorAll(".reveal");
+                for (var i = 0; i < reveals.length; i++) {
+                    var windowHeight = window.innerHeight;
+                    var elementTop = reveals[i].getBoundingClientRect().top;
+                    var elementVisible = 150;
+
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveals[i].classList.add("active");
+                    } else {
+                        reveals[i].classList.remove("active");
+                    }
+                }
+            }
+
+            window.addEventListener("scroll", reveal);
+            reveal(); // Initial call to reveal elements that are already in view
+        });
+    </script>
+</body>
+
+</html>

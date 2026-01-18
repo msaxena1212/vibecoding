@@ -5,6 +5,7 @@ import json
 import os
 
 async def run_generator(state: CodebaseState):
+    print("\n=== [GENERATOR STARTING] ===")
     llm = get_llm()
     plan = state.get("plan", {})
     files_to_create = plan.get("files", [])
@@ -12,7 +13,7 @@ async def run_generator(state: CodebaseState):
     generated_files = state.get("files", {}).copy()
     total_tokens = state.get("total_tokens", 0)
     
-    with open("agents/generator/prompt.md", "r") as f:
+    with open("agents/generator/prompt.md", "r", encoding="utf-8") as f:
         system_prompt_template = f.read()
 
     total_gen_tokens = 0
@@ -64,7 +65,7 @@ async def run_generator(state: CodebaseState):
         
         # DEBUG: Log to file
         try:
-            with open("generator_debug.log", "a") as dbg:
+            with open("generator_debug.log", "a", encoding="utf-8") as dbg:
                 dbg.write(f"Generator running for Project ID: {project_id}, Path: {path}\n")
         except:
             pass
@@ -74,9 +75,9 @@ async def run_generator(state: CodebaseState):
             os.makedirs(os.path.dirname(local_full_path), exist_ok=True)
             with open(local_full_path, "w", encoding="utf-8") as f:
                 f.write(content)
-            print(f"✅ File {path} persisted to Project Hub: {local_full_path}")
+            print(f"[SUCCESS] File {path} persisted to Project Hub: {local_full_path}")
         except Exception as e:
-            print(f"❌ ERROR persisting {path} to Project Hub: {e}")
+            print(f"[ERROR] persisting {path} to Project Hub: {e}")
             import traceback
             traceback.print_exc()
         

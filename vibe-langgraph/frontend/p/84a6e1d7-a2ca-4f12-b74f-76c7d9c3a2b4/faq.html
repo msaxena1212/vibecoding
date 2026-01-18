@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - ISRO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#EBF2FF',
+                            100: '#D7E4FF',
+                            200: '#B3C6FF',
+                            300: '#8FA8FF',
+                            400: '#6B8AFF',
+                            500: '#476CFF',
+                            600: '#234EFF',
+                            700: '#0B3D91',
+                            800: '#082E6B',
+                            900: '#051F45',
+                        },
+                        secondary: '#ADD8E6',
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.5s ease-out'
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.7s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-white/20">
+        <div class="container mx-auto px-4 py-6 flex items-center justify-between">
+            <a href="index.html" class="text-2xl font-bold text-primary-700">
+                <img src="assets/logo.png" alt="ISRO Logo" class="h-8 inline-block mr-2">
+                ISRO
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="nav-desktop hidden md:flex space-x-6">
+                <a href="index.html" class="hover:text-primary-500 transition-colors">Home</a>
+                <a href="about.html" class="hover:text-primary-500 transition-colors">About</a>
+                <a href="faq.html" class="hover:text-primary-500 transition-colors">FAQ</a>
+                <a href="contact.html" class="hover:text-primary-500 transition-colors">Contact</a>
+            </nav>
+
+            <!-- Mobile Navigation Trigger -->
+            <button class="nav-mobile-trigger md:hidden text-gray-600 hover:text-primary-500 focus:outline-none">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Overlay -->
+        <div class="nav-mobile-overlay fixed top-0 left-0 w-full h-0 bg-white/5 backdrop-blur-lg z-40 hidden overflow-hidden transition-all duration-300">
+            <nav class="p-4">
+                <div class="flex justify-end">
+                    <button class="nav-mobile-close text-gray-600 hover:text-primary-500 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <ul class="mt-4 space-y-4">
+                    <li><a href="index.html" class="block py-2 px-4 rounded-md hover:bg-gray-100 transition-colors">Home</a></li>
+                    <li><a href="about.html" class="block py-2 px-4 rounded-md hover:bg-gray-100 transition-colors">About</a></li>
+                    <li><a href="faq.html" class="block py-2 px-4 rounded-md hover:bg-gray-100 transition-colors">FAQ</a></li>
+                    <li><a href="contact.html" class="block py-2 px-4 rounded-md hover:bg-gray-100 transition-colors">Contact</a></li>
+                    <li><a href="privacy.html" class="block py-2 px-4 rounded-md hover:bg-gray-100 transition-colors">Privacy Policy</a></li>
+                    <li><a href="terms.html" class="block py-2 px-4 rounded-md hover:bg-gray-100 transition-colors">Terms of Service</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12">
+        <section class="mb-12 reveal">
+            <h1 class="text-4xl font-serif font-bold text-primary-700 mb-6">Frequently Asked Questions</h1>
+            <p class="text-gray-700 leading-relaxed">
+                Find answers to common questions about ISRO's missions, programs, and services.
+            </p>
+        </section>
+
+        <section class="reveal">
+            <h2 class="text-2xl font-semibold text-primary-700 mb-4">General Questions</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="font-medium text-gray-800">What is ISRO?</h3>
+                    <p class="text-gray-700">The Indian Space Research Organisation (ISRO) is the national space agency of India, responsible for space-based operations, space exploration, and the development of space technologies.</p>
+                </div>
+                <div>
+                    <h3 class="font-medium text-gray-800">What is ISRO's mission?</h3>
+                    <p class="text-gray-700">ISRO's mission is to advance space technology and leverage its applications for the nation's development.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-12 reveal">
+            <h2 class="text-2xl font-semibold text-primary-700 mb-4">Missions & Programs</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="font-medium text-gray-800">What is Chandrayaan-3?</h3>
+                    <p class="text-gray-700">Chandrayaan-3 is India's third lunar exploration mission, which successfully landed on the moon's south pole.</p>
+                </div>
+                <div>
+                    <h3 class="font-medium text-gray-800">What is Mangalyaan?</h3>
+                    <p class="text-gray-700">Mangalyaan, also known as the Mars Orbiter Mission, was India's first interplanetary mission, successfully placed into orbit around Mars.</p>
+                </div>
+                <div>
+                    <h3 class="font-medium text-gray-800">What is Aditya-L1?</h3>
+                    <p class="text-gray-700">Aditya-L1 is India's first solar mission to study the Sun, placed in a halo orbit around the Lagrange point 1 (L1) of the Sun-Earth system.</p>
+                </div>
+                <div>
+                    <h3 class="font-medium text-gray-800">What is Gaganyaan?</h3>
+                    <p class="text-gray-700">Gaganyaan is India's human spaceflight program, aiming to send Indian astronauts into space.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-12 reveal">
+            <h2 class="text-2xl font-semibold text-primary-700 mb-4">Launch Vehicles</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="font-medium text-gray-800">What is PSLV?</h3>
+                    <p class="text-gray-700">PSLV (Polar Satellite Launch Vehicle) is a reliable and versatile launch vehicle used for placing satellites into polar and low Earth orbits.</p>
+                </div>
+                <div>
+                    <h3 class="font-medium text-gray-800">What is GSLV?</h3>
+                    <p class="text-gray-700">GSLV (Geosynchronous Satellite Launch Vehicle) is a launch vehicle for placing satellites into geostationary orbit.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-12 reveal">
+            <h2 class="text-2xl font-semibold text-primary-700 mb-4">Navigation Systems</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="font-medium text-gray-800">What is GAGAN?</h3>
+                    <p class="text-gray-700">GAGAN (GPS Aided GEO Augmented Navigation) is a satellite-based augmentation system for air navigation.</p>
+                </div>
+                <div>
+                    <h3 class="font-medium text-gray-800">What is NavIC?</h3>
+                    <p class="text-gray-700">NavIC (Navigation with Indian Constellation) is an independent regional navigation satellite system designed to provide accurate positioning information service to users in India and the surrounding region.</p>
+                </div>
+            </div>
+        </section>
+
+        <button id="back-to-top" class="fixed bottom-4 right-4 bg-primary-700 text-white rounded-full p-3 hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-400 transition-colors hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+            </svg>
+        </button>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 py-6 border-t border-gray-200">
+        <div class="container mx-auto px-4 text-center text-gray-600">
+            <p>&copy; 2024 ISRO. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

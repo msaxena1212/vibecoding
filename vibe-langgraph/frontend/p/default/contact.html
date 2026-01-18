@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Nova Horizon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .animate-fade-in-up {
+                animation: fade-in-up 1s ease-out forwards;
+            }
+
+            @keyframes fade-in-up {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            .reveal {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            .reveal.active {
+                opacity: 1;
+                transform: translateY(0);
+                transition: all 1s ease-out;
+            }
+        }
+        body {
+            font-family: 'Roboto Condensed', sans-serif;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#b9d9fa',
+                            300: '#8ac4f7',
+                            400: '#56a9f4',
+                            500: '#268ee0',
+                            600: '#1976c7',
+                            700: '#145cae',
+                            800: '#114595',
+                            900: '#0b0d17',
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-primary-900 text-white">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-primary-900 bg-opacity-70 backdrop-blur-lg border-b border-white/10">
+        <div class="container mx-auto px-4 py-6 flex items-center justify-between">
+            <a href="index.html" class="text-2xl font-bold">
+                <img src="assets/logo.png" alt="Nova Horizon Logo" class="h-8 inline-block align-middle">
+                <span class="ml-2">Nova Horizon</span>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="nav-desktop hidden md:flex space-x-6">
+                <a href="index.html" class="hover:text-primary-300 transition-colors">Home</a>
+                <a href="about.html" class="hover:text-primary-300 transition-colors">About</a>
+                <a href="services.html" class="hover:text-primary-300 transition-colors">Services</a>
+                <a href="contact.html" class="hover:text-primary-300 transition-colors">Contact</a>
+            </nav>
+
+            <!-- Mobile Navigation Trigger -->
+            <button class="nav-mobile-trigger md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Overlay -->
+        <div class="nav-mobile-overlay fixed top-0 left-0 w-full h-full bg-primary-900 bg-opacity-90 backdrop-blur-lg z-40 hidden">
+            <div class="container mx-auto h-full flex flex-col items-center justify-center">
+                <nav class="flex flex-col items-center space-y-6">
+                    <a href="index.html" class="text-2xl hover:text-primary-300 transition-colors">Home</a>
+                    <a href="about.html" class="text-2xl hover:text-primary-300 transition-colors">About</a>
+                    <a href="services.html" class="text-2xl hover:text-primary-300 transition-colors">Services</a>
+                    <a href="contact.html" class="text-2xl hover:text-primary-300 transition-colors">Contact</a>
+                </nav>
+                <button class="nav-mobile-close absolute top-6 right-6 text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12">
+        <!-- Contact Form Section -->
+        <section class="reveal mb-12">
+            <h2 class="text-3xl font-bold mb-6">Get in Touch</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <form class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
+                        <div class="mb-4">
+                            <label for="name" class="block text-gray-300 text-sm font-bold mb-2">Name</label>
+                            <input type="text" id="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-primary-800 border-primary-700">
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-300 text-sm font-bold mb-2">Email</label>
+                            <input type="email" id="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-primary-800 border-primary-700">
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-300 text-sm font-bold mb-2">Message</label>
+                            <textarea id="message" rows="4" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-primary-800 border-primary-700"></textarea>
+                        </div>
+                        <button type="submit" class="bg-primary-500 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Send Message</button>
+                    </form>
+                </div>
+
+                <!-- Contact Information -->
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4">Contact Information</h3>
+                    <p class="text-gray-300 mb-2">Nova Horizon Headquarters</p>
+                    <p class="text-gray-300 mb-2">123 Spaceport Drive</p>
+                    <p class="text-gray-300 mb-2">Cosmic City, CA 90210</p>
+                    <p class="text-gray-300 mb-2">Email: info@novahorizon.com</p>
+                    <p class="text-gray-300 mb-2">Phone: +1 (555) NOVA-SPACE</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Integration Section -->
+        <section class="reveal mb-12">
+            <h2 class="text-3xl font-bold mb-6">Our Location</h2>
+            <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-4">
+                <!-- Replace with your actual map embed code -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.755999398216!2d-118.3407558!3d34.0944437!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2bc4444444444%3A0x1234567890abcdef!2sSpaceport%20Drive%2C%20Cosmic%20City%2C%20CA!5e0!3m2!1sen!2sus!4v1234567890123" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </section>
+
+        <!-- Chatbot Integration Section -->
+        <section class="reveal">
+            <h2 class="text-3xl font-bold mb-6">Instant Support</h2>
+            <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
+                <p class="text-gray-300 mb-4">Our chatbot is available 24/7 to answer your questions and provide instant support.</p>
+                <!-- Replace with your actual chatbot embed code -->
+                <div class="chatbot-placeholder">
+                    [Chatbot Placeholder]
+                </div>
+            </div>
+        </section>
+
+        <!-- Back to Top Button -->
+        <button id="backToTopBtn" class="hidden fixed bottom-8 right-8 bg-primary-500 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline">
+            Back to Top
+        </button>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-primary-900 border-t border-white/10 py-8 text-center">
+        <p class="text-gray-400">© 2024 Nova Horizon. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Menu
+            const mobileNavTrigger = document.querySelector('.nav-mobile-trigger');
+            const mobileNavOverlay = document.querySelector('.nav-mobile-overlay');
+            const mobileNavClose = document.querySelector('.nav-mobile-close');
+
+            mobileNavTrigger.addEventListener('click', () => {
+                mobileNavOverlay.classList.remove('hidden');
+            });
+
+            mobileNavClose.addEventListener('click', () => {
+                mobileNavOverlay.classList.add('hidden');
+            });
+
+            // Back to Top Button
+            const backToTopBtn = document.getElementById('backToTopBtn');
+
+            window.addEventListener('scroll', () => {
+                if (document.documentElement.scrollTop > 1000) {
+                    backToTopBtn.classList.remove('hidden');
+                } else {
+                    backToTopBtn.classList.add('hidden');
+                }
+            });
+
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Reveal on Scroll
+            const reveals = document.querySelectorAll(".reveal");
+
+            function reveal() {
+                for (let i = 0; i < reveals.length; i++) {
+                    let windowHeight = window.innerHeight;
+                    let revealTop = reveals[i].getBoundingClientRect().top;
+                    let revealPoint = 50;
+
+                    if (revealTop < windowHeight - revealPoint) {
+                        reveals[i].classList.add("active");
+                    } else {
+                        reveals[i].classList.remove("active");
+                    }
+                }
+            }
+
+            window.addEventListener("scroll", reveal);
+        });
+    </script>
+</body>
+</html>

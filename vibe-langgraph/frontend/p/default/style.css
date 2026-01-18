@@ -1,0 +1,238 @@
+/* style.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Open+Sans:wght@400;600&display=swap');
+
+/* CSS Variables */
+:root {
+    /* Primary Colors - Dark Cosmic Theme */
+    --primary-dark: #0B0D17;
+    --secondary-dark: #1E293B;
+    --tertiary-dark: #475569;
+
+    /* Aurora Gradient Colors */
+    --aurora-blue: #3C6097;
+    --aurora-purple: #6B3F98;
+    --aurora-pink: #A75174;
+
+    /* Typography */
+    --font-primary: 'Roboto Condensed', sans-serif;
+    --font-secondary: 'Open Sans', sans-serif;
+
+    /* Spacing - Fluid System */
+    --spacing-xs: clamp(0.25rem, 0.5vw, 0.5rem);
+    --spacing-sm: clamp(0.5rem, 1vw, 1rem);
+    --spacing-md: clamp(1rem, 2vw, 2rem);
+    --spacing-lg: clamp(2rem, 4vw, 4rem);
+    --spacing-xl: clamp(4rem, 8vw, 8rem);
+
+    /* Glassmorphism Variables */
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.2);
+    --glass-blur: blur(10px);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+
+    /* Transition Speed */
+    --transition-speed: 0.3s;
+}
+
+/* General Styles */
+body {
+    font-family: var(--font-secondary);
+    background-color: var(--primary-dark);
+    color: white;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Aurora Gradient Background */
+.aurora-gradient {
+    background: linear-gradient(to right, var(--primary-dark), var(--aurora-blue), var(--aurora-purple), var(--aurora-pink));
+    /* Fallback if gradients aren't supported */
+    background-color: var(--primary-dark);
+    color: white;
+}
+
+/* Glassmorphism Effect */
+.glassmorphism {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    border-radius: 10px;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-primary);
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+}
+
+p {
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+}
+
+/* Spacing Utilities */
+.mt-xs { margin-top: var(--spacing-xs); }
+.mt-sm { margin-top: var(--spacing-sm); }
+.mt-md { margin-top: var(--spacing-md); }
+.mt-lg { margin-top: var(--spacing-lg); }
+.mt-xl { margin-top: var(--spacing-xl); }
+
+.mb-xs { margin-bottom: var(--spacing-xs); }
+.mb-sm { margin-bottom: var(--spacing-sm); }
+.mb-md { margin-bottom: var(--spacing-md); }
+.mb-lg { margin-bottom: var(--spacing-lg); }
+.mb-xl { margin-bottom: var(--spacing-xl); }
+
+.pt-xs { padding-top: var(--spacing-xs); }
+.pt-sm { padding-top: var(--spacing-sm); }
+.pt-md { padding-top: var(--spacing-md); }
+.pt-lg { padding-top: var(--spacing-lg); }
+.pt-xl { padding-top: var(--spacing-xl); }
+
+.pb-xs { padding-bottom: var(--spacing-xs); }
+.pb-sm { padding-bottom: var(--spacing-sm); }
+.pb-md { padding-bottom: var(--spacing-md); }
+.pb-lg { padding-bottom: var(--spacing-lg); }
+.pb-xl { padding-bottom: var(--spacing-xl); }
+
+/* Button Styles */
+.btn {
+    display: inline-block;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-family: var(--font-primary);
+    font-weight: 600;
+    text-decoration: none;
+    color: white;
+    background-color: var(--aurora-blue);
+    border-radius: 5px;
+    transition: background-color var(--transition-speed) ease;
+}
+
+.btn:hover {
+    background-color: var(--aurora-purple);
+}
+
+/* Link Styles */
+a {
+    color: var(--aurora-pink);
+    text-decoration: none;
+    transition: color var(--transition-speed) ease;
+}
+
+a:hover {
+    color: var(--aurora-blue);
+}
+
+/* Responsive Breakpoints */
+/* Example usage: @media (min-width: 768px) { ... } */
+
+/* Reveal on Scroll Animation */
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Keyframes for Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Utility Classes */
+.fade-in {
+    animation: fadeIn 1s ease-out forwards;
+}
+
+.fade-in-up {
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+/* Mobile Menu Styles */
+.nav-mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.nav-mobile-menu.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.nav-mobile-menu ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+.nav-mobile-menu li {
+    margin-bottom: var(--spacing-md);
+}
+
+.nav-mobile-menu a {
+    font-size: 1.5rem;
+    color: white;
+    text-decoration: none;
+}
+
+/* Back to Top Button */
+#back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: none; /* Hidden by default */
+  z-index: 999;
+}
+
+#back-to-top:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Bento Grid Layout */
+.bento-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Default for mobile */
+    gap: var(--spacing-md);
+}
+
+@media (min-width: 768px) {
+    .bento-grid {
+        grid-template-columns: repeat(3, 1fr); /* Three columns on larger screens */
+    }
+}

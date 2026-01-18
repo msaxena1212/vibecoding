@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Nova Horizon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style type="text/tailwindcss">
+        body {
+            @apply font-sans bg-gray-900 text-white;
+        }
+
+        .glassmorphism {
+            @apply bg-white/5 backdrop-blur-lg border border-white/10;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(.25, .8, .25, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Define fade-in-up animation */
+        @keyframes fade-in-up {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fade-in-up 1s ease-out forwards;
+        }
+
+        /* Custom scrollbar styles */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1E293B;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748B;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#b0dbfd',
+                            300: '#60a5fa',
+                            400: '#3b82f6',
+                            500: '#2563eb',
+                            600: '#1d4ed8',
+                            700: '#1e40af',
+                            800: '#1e3a8a',
+                            900: '#172554',
+                            950: '#0b0d17',
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-gray-900 text-white">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-gray-900 bg-opacity-70 backdrop-blur-md border-b border-gray-700">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="index.html" class="text-2xl font-bold text-white">
+                <img src="assets/logo.png" alt="Nova Horizon Logo" class="h-8 inline-block mr-2">
+                Nova Horizon
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-6 nav-desktop">
+                <a href="index.html" class="hover:text-gray-300 transition-colors">Home</a>
+                <a href="about.html" class="hover:text-gray-300 transition-colors">About</a>
+                <a href="services.html" class="hover:text-gray-300 transition-colors">Services</a>
+                <a href="contact.html" class="hover:text-gray-300 transition-colors">Contact</a>
+                <a href="faq.html" class="hover:text-gray-300 transition-colors">FAQ</a>
+                <a href="privacy.html" class="hover:text-gray-300 transition-colors">Privacy</a>
+                <a href="terms.html" class="text-blue-500">Terms</a>
+            </nav>
+
+            <!-- Mobile Navigation Trigger -->
+            <button id="nav-mobile-trigger" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Overlay -->
+        <div id="nav-mobile"
+            class="hidden fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-90 backdrop-blur-md z-50">
+            <div class="container mx-auto h-full flex flex-col justify-center items-center">
+                <nav class="flex flex-col items-center space-y-6">
+                    <a href="index.html" class="text-2xl hover:text-gray-300 transition-colors">Home</a>
+                    <a href="about.html" class="text-2xl hover:text-gray-300 transition-colors">About</a>
+                    <a href="services.html" class="text-2xl hover:text-gray-300 transition-colors">Services</a>
+                    <a href="contact.html" class="text-2xl hover:text-gray-300 transition-colors">Contact</a>
+                    <a href="faq.html" class="text-2xl hover:text-gray-300 transition-colors">FAQ</a>
+                    <a href="privacy.html" class="text-2xl hover:text-gray-300 transition-colors">Privacy</a>
+                    <a href="terms.html" class="text-2xl text-blue-500">Terms</a>
+                </nav>
+                <button id="nav-mobile-close" class="absolute top-6 right-6 text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <section class="mb-8 reveal">
+            <h1 class="text-4xl font-bold mb-4">Terms of Service</h1>
+            <p class="mb-4">Welcome to Nova Horizon! These terms of service ("Terms") govern your use of our website
+                and services. By accessing or using our website or services, you agree to be bound by these Terms. If
+                you do not agree with these Terms, please do not use our website or services.</p>
+        </section>
+
+        <section class="mb-8 reveal">
+            <h2 class="text-2xl font-bold mb-2">1. Usage Rules</h2>
+            <p class="mb-4">You agree to use our website and services only for lawful purposes and in a manner that
+                does not infringe the rights of, restrict, or inhibit anyone else's use and enjoyment of our website
+                and services. Prohibited behavior includes harassing or causing distress or inconvenience to any other
+                user, transmitting obscene or offensive content, or disrupting the normal flow of dialogue within our
+                website.</p>
+        </section>
+
+        <section class="mb-8 reveal">
+            <h2 class="text-2xl font-bold mb-2">2. Liability Disclaimers</h2>
+            <p class="mb-4">Our website and services are provided on an "as is" and "as available" basis without any
+                warranties of any kind, either express or implied. We do not warrant that our website or services will
+                be uninterrupted, error-free, or free of viruses or other harmful components. We shall not be liable
+                for any damages of any kind arising from the use of our website or services, including, but not limited
+                to direct, indirect, incidental, punitive, and consequential damages.</p>
+        </section>
+
+        <section class="mb-8 reveal">
+            <h2 class="text-2xl font-bold mb-2">3. Payment Terms</h2>
+            <p class="mb-4">All payments for our services are due in accordance with the payment terms specified at
+                the time of booking. We reserve the right to change our prices at any time. All sales are final, and
+                no refunds will be issued except as required by law. Failure to make timely payments may result in
+                cancellation of your booking.</p>
+        </section>
+
+        <section class="mb-8 reveal">
+            <h2 class="text-2xl font-bold mb-2">4. Intellectual Property</h2>
+            <p class="mb-4">The content, design, and graphics on this website are owned by or licensed to Nova
+                Horizon and are protected by copyright and other intellectual property laws. You may not reproduce,
+                distribute, or create derivative works from any content on this website without our express written
+                permission.</p>
+        </section>
+
+        <section class="mb-8 reveal">
+            <h2 class="text-2xl font-bold mb-2">5. Governing Law</h2>
+            <p class="mb-4">These Terms shall be governed by and construed in accordance with the laws of [Your
+                Jurisdiction], without regard to its conflict of law principles.</p>
+        </section>
+
+        <section class="mb-8 reveal">
+            <h2 class="text-2xl font-bold mb-2">6. Changes to Terms</h2>
+            <p class="mb-4">We reserve the right to modify these Terms at any time. Any changes will be effective
+                immediately upon posting on our website. Your continued use of our website or services after any such
+                changes constitutes your acceptance of the new Terms.</p>
+        </section>
+
+        <section class="mb-8 reveal">
+            <h2 class="text-2xl font-bold mb-2">7. Contact Us</h2>
+            <p>If you have any questions about these Terms, please contact us at <a
+                    href="mailto:info@novahorizon.com">info@novahorizon.com</a>.</p>
+        </section>
+    </main>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top"
+        class="hidden fixed bottom-8 right-8 bg-primary-700 hover:bg-primary-900 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline">
+        Back to Top
+    </button>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-400 py-4 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2024 Nova Horizon. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

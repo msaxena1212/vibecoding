@@ -5,9 +5,15 @@ A generative coding platform inspired by Lovable/Antigravity, powered by LangGra
 ## Architecture
 
 - **Apps**: FastAPI backend
-- **Agents**: Planner, Generator, Linker, Editor, Validator
+- **Agents**: Planner, Generator, Linker, Editor, Validator, UI Specialist, SEO Specialist
 - **Graph**: LangGraph state machine
 - **Memory**: Project snapshots and diff engine
+
+## Key Features
+- **Dashboard 2.0**: High-fidelity "Command Center" with Chart.js analytics and real-time stats.
+- **Mobile-First Design**: Universal responsive navigation with glassmorphism overlays.
+- **Premium Interactions**: Interaction Observer reveal effects and smooth scroll physics.
+
 
 ## Setup
 

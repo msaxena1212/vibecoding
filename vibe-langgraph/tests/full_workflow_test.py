@@ -11,7 +11,7 @@ async def test_full_workflow():
     # Mock Initial State
     state: CodebaseState = {
         "userIntent": "Create a luxury dark-cosmic themed landing page for a space tourism company called 'Nova Horizon'.",
-        "project_id": "test-workflow-id",
+        "project_id": "final-test",
         "files": {},
         "dependencyGraph": {},
         "framework": "vanilla",
