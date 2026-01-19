@@ -15,7 +15,7 @@ from utils.formatter import sanitize_state
 from apps.api.deps import get_project_store
 
 async def debug_pipeline():
-    intent = "Create a simple landing page for a coffee shop"
+    intent = "Create a comprehensive, premium web platform for 'Nova Horizon' - a luxury space tourism agency. The project must include: 1. A high-fidelity Dashboard 2.0 with Chart.js analytics for mission readiness and resources. 2. A mobile-first responsive design with a glassmorphism burger menu. 3. Interactive reveal-on-scroll animations. 4. A full suite of pages: Home, About, Services, Contact, FAQ, Privacy, Terms, and Dashboard. Use a dark, cosmic aesthetic with 'Aurora' gradients."
     print(f"Starting debug pipeline with intent: {intent}")
     
     try:

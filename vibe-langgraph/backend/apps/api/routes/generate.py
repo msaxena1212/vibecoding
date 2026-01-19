@@ -35,7 +35,10 @@ NODE_NAMES = {
 @router.post("/")
 async def generate_project(intent: str, project_id: str = None):
     async def stream_generator():
-        print(f"DEBUG: Streaming start for intent: {intent}")
+        try:
+            print(f"DEBUG: Streaming start for intent: {intent}")
+        except UnicodeEncodeError:
+            print(f"DEBUG: Streaming start for intent: {intent.encode('ascii', 'replace').decode()}")
         try:
             workflow = create_workflow()
             files = {}

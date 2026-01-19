@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | ISRO</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#E6F2FF',
+                            100: '#BFDFFF',
+                            200: '#99CAFF',
+                            300: '#73B7FF',
+                            400: '#4D9FFF',
+                            500: '#268AFF',
+                            600: '#0B3D91',
+                            700: '#0066CC',
+                            800: '#0052A3',
+                            900: '#003D7A',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['"Open Sans"', 'sans-serif'],
+                        serif: ['"Roboto Condensed"', 'serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.5s ease-out'
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+  <header class="bg-gray-900 sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-6 flex items-center justify-between">
+            <a href="index.html" class="flex items-center">
+                <img src="assets/logo.png" alt="ISRO Logo" class="h-10 mr-2">
+                <span class="font-serif text-xl font-bold">ISRO</span>
+            </a>
+
+            <div class="hidden md:flex space-x-6">
+                <a href="index.html" class="hover:text-gray-300 transition-colors">Home</a>
+                <a href="about.html" class="hover:text-gray-300 transition-colors">About</a>
+                <a href="contact.html" class="hover:text-gray-300 transition-colors">Contact</a>
+                <a href="faq.html" class="hover:text-gray-300 transition-colors">FAQ</a>
+                <a href="privacy.html" class="hover:text-gray-300 transition-colors">Privacy</a>
+                <a href="terms.html" class="hover:text-gray-300 transition-colors">Terms</a>
+            </div>
+
+            <button id="mobile-menu-trigger" class="md:hidden text-gray-300 hover:text-white focus:outline-none">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </nav>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-95 z-50">
+            <div class="flex flex-col items-center justify-center h-full">
+                <button id="mobile-menu-close" class="absolute top-6 right-6 text-gray-300 hover:text-white focus:outline-none">
+                    <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+                <a href="index.html" class="block py-2 text-lg text-gray-300 hover:text-white transition-colors">Home</a>
+                <a href="about.html" class="block py-2 text-lg text-gray-300 hover:text-white transition-colors">About</a>
+                <a href="contact.html" class="block py-2 text-lg text-gray-300 hover:text-white transition-colors">Contact</a>
+                 <a href="faq.html" class="block py-2 text-lg text-gray-300 hover:text-white transition-colors">FAQ</a>
+                <a href="privacy.html" class="block py-2 text-lg text-gray-300 hover:text-white transition-colors">Privacy</a>
+                <a href="terms.html" class="block py-2 text-lg text-gray-300 hover:text-white transition-colors">Terms</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-20 text-center">
+        <h1 class="text-6xl font-bold text-primary-500 mb-4">404</h1>
+        <p class="text-2xl mb-8">Oops! The page you're looking for could not be found.</p>
+        <a href="index.html" class="bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-6 rounded-full transition-colors focus:outline-none focus:ring-2 ring-primary">
+            Back to Homepage
+        </a>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300 py-6 mt-20">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2024 ISRO. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuTrigger = document.getElementById('mobile-menu-trigger');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuTrigger.addEventListener('click', () => {
+            mobileMenu.classList.remove('hidden');
+        });
+
+        mobileMenuClose.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
+    </script>
+</body>
+</html>

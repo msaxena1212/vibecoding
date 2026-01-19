@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleep Tracker App</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#E8E9FA',
+                            100: '#D1D3F4',
+                            200: '#BABBEE',
+                            300: '#A3A3E8',
+                            400: '#8B8DDF',
+                            500: '#7677D5',
+                            600: '#667eea',
+                            700: '#535CB1',
+                            800: '#404188',
+                            900: '#2D275F',
+                        },
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.5s ease-out'
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <header class="bg-gray-800 bg-opacity-20 backdrop-blur-lg py-4 px-6 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-primary-500">SleepWell</a>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="index.html" class="hover:text-gray-300">Home</a></li>
+                    <li><a href="dashboard.html" class="hover:text-gray-300">Dashboard</a></li>
+                    <li><a href="about.html" class="hover:text-gray-300">About</a></li>
+                    <li><a href="contact.html" class="hover:text-gray-300">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative py-24 bg-cover bg-center" style="background-image: url('assets/hero_image.png')">
+        <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+        <div class="container mx-auto text-center relative z-10">
+            <h1 class="text-5xl font-bold font-serif mb-6 animate-fade-in-up">Unlock Your Best Sleep. Understand Your Body.</h1>
+            <p class="text-xl mb-8 animate-fade-in-up">Track, analyze, and optimize your sleep with science-backed insights. Start waking up refreshed and ready to conquer the day.</p>
+            <a href="dashboard.html" class="bg-primary-600 hover:bg-primary-700 text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 animate-fade-in-up focus:ring-2 ring-primary">Start Tracking Your Sleep for Free</a>
+            <a href="about.html" class="ml-4 text-gray-300 hover:text-white transition-colors duration-300 animate-fade-in-up">Learn More About Sleep Science</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Effortless Sleep Tracking -->
+                <div class="glassmorphism p-6 rounded-3xl group hover:scale-105 transition-all duration-300 ease-out">
+                    <h2 class="text-2xl font-semibold mb-4">Effortless Sleep Tracking</h2>
+                    <p class="text-gray-300">Automatically record your sleep duration, stages (wake, light, deep, REM), and sleep efficiency. No complicated setup, just restful nights and insightful data. We use the latest in sensor technology, including support for actigraphy, to provide the most accurate data possible.</p>
+                </div>
+
+                <!-- Visualize Your Sleep Journey -->
+                <div class="glassmorphism p-6 rounded-3xl group hover:scale-105 transition-all duration-300 ease-out">
+                    <h2 class="text-2xl font-semibold mb-4">Visualize Your Sleep Journey</h2>
+                    <p class="text-gray-300">Explore interactive charts and graphs that reveal your unique sleep patterns. Easily identify trends, pinpoint disturbances, and gain a deeper understanding of your sleep health. Our visualizations are powered by libraries like Chart.js and D3.js, ensuring a smooth and intuitive experience.</p>
+                    <img src="assets/data_visualization.png" alt="Data Visualization" class="mt-4 rounded-2xl object-cover">
+                </div>
+
+                <!-- Personalized Insights for Better Sleep -->
+                <div class="glassmorphism p-6 rounded-3xl group hover:scale-105 transition-all duration-300 ease-out">
+                    <h2 class="text-2xl font-semibold mb-4">Personalized Insights for Better Sleep</h2>
+                    <p class="text-gray-300">Receive tailored recommendations based on your sleep data. Optimize your bedtime routine, identify potential sleep disruptors, and unlock strategies for achieving truly restorative sleep. Our analysis is informed by established sleep research and best practices, ensuring you receive actionable advice.</p>
+                </div>
+
+                <!-- Seamless Integrations -->
+                <div class="glassmorphism p-6 rounded-3xl group hover:scale-105 transition-all duration-300 ease-out">
+                    <h2 class="text-2xl font-semibold mb-4">Seamless Integrations</h2>
+                    <p class="text-gray-300">Connect with your favorite health and fitness apps via Health Connect API and HealthKit. Import and export your sleep data for a holistic view of your well-being. We support integrations with devices like Fitbit and Oura Ring, allowing you to consolidate your health data in one place.</p>
+                </div>
+
+                <!-- Science-Backed Accuracy -->
+                <div class="glassmorphism p-6 rounded-3xl group hover:scale-105 transition-all duration-300 ease-out">
+                    <h2 class="text-2xl font-semibold mb-4">Science-Backed Accuracy</h2>
+                    <p class="text-gray-300">Our sleep tracking algorithms are based on the gold standard of sleep analysis, polysomnography (PSG), and validated against actigraphy data. We leverage libraries like MNE-sleep and sleePy to ensure the accuracy and reliability of your sleep data. While consumer sleep trackers can't replace a clinical sleep study, we strive to provide the most scientifically sound insights possible.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 text-center text-gray-400">
+        <p>&copy; 2024 Sleep Tracker App. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,247 @@
+/* style.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap');
+
+:root {
+  /* Color Palette (Stranger Things Inspired) */
+  --primary-bg: #171717; /* Dark Background */
+  --primary-red: #E50914; /* Netflix Red */
+  --primary-white: #FFFFFF; /* White */
+  --primary-black: #000000; /* Black */
+
+  /* Typography */
+  --font-primary: 'Press Start 2P', cursive;
+  --font-secondary: 'Roboto', sans-serif;
+
+  /* Spacing System (Fluid) */
+  --space-xs: clamp(0.25rem, 0.5vw, 0.5rem);
+  --space-sm: clamp(0.5rem, 1vw, 1rem);
+  --space-md: clamp(1rem, 2vw, 2rem);
+  --space-lg: clamp(2rem, 4vw, 4rem);
+  --space-xl: clamp(4rem, 8vw, 8rem);
+
+  /* Animation Vibe (Eerie, Subtle, Flickering) */
+  --flicker-speed: 0.2s;
+}
+
+/* Basic Reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Custom Cursor */
+body {
+  background-color: var(--primary-bg);
+  color: var(--primary-white);
+  font-family: var(--font-secondary);
+  line-height: 1.6;
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="48" viewport="0 0 40 48" cursor="auto"><path d="M20 0 L30 20 L40 24 L30 28 L20 48 L10 28 L0 24 L10 20 Z" /></svg>') 16 0, auto;
+}
+
+/* General Styles */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Flickering Animation */
+@keyframes flicker {
+  0% {
+    opacity: 0.7;
+  }
+
+  5% {
+    opacity: 0.5;
+  }
+
+  10% {
+    opacity: 0.9;
+  }
+
+  15% {
+    opacity: 0.7;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  25% {
+    opacity: 0.6;
+  }
+
+  30% {
+    opacity: 0.8;
+  }
+
+  35% {
+    opacity: 0.7;
+  }
+
+  40% {
+    opacity: 0.9;
+  }
+
+  45% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  55% {
+    opacity: 0.7;
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  65% {
+    opacity: 0.9;
+  }
+
+  70% {
+    opacity: 0.7;
+  }
+
+  75% {
+    opacity: 0.5;
+  }
+
+  80% {
+    opacity: 0.8;
+  }
+
+  85% {
+    opacity: 0.9;
+  }
+
+  90% {
+    opacity: 0.6;
+  }
+
+  95% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 0.4;
+  }
+}
+
+.flicker {
+  animation: flicker 3s linear infinite;
+}
+
+/* Typography */
+h1,
+h2,
+h3 {
+  font-family: var(--font-primary);
+  color: var(--primary-red);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-sm);
+  text-shadow: 0 0 5px var(--primary-red);
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 4rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+}
+
+h3 {
+  font-size: clamp(1.2rem, 3vw, 2rem);
+}
+
+p {
+  margin-bottom: var(--space-md);
+}
+
+a {
+  color: var(--primary-red);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--primary-white);
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--primary-red);
+  color: var(--primary-white);
+  font-family: var(--font-secondary);
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: var(--primary-white);
+  color: var(--primary-red);
+}
+
+/* Layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-lg);
+}
+
+/* Parallax Scrolling (Example - Requires JS implementation) */
+.parallax {
+  background-image: url('assets/upside_down.png'); /* Replace with your image */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 500px; /* Adjust as needed */
+}
+
+/* Navigation styles - Add more as needed */
+nav {
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  padding: var(--space-sm);
+  position: sticky; /* or fixed */
+  top: 0;
+  z-index: 10;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+}
+
+nav a {
+  display: block;
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid transparent; /* For hover effect */
+}
+
+nav a:hover {
+  border-color: var(--primary-red);
+}
+
+/* Image Styles */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block; /* Removes extra space below image */
+}

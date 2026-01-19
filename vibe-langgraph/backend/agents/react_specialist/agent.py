@@ -16,7 +16,7 @@ async def run_react_specialist(state: CodebaseState):
     
     # Load prompt
     prompt_path = os.path.join("agents", "react_specialist", "prompt.md")
-    with open(prompt_path, "r") as f:
+    with open(prompt_path, "r", encoding="utf-8") as f:
         prompt = f.read()
 
     # Build context
@@ -48,7 +48,7 @@ async def run_react_specialist(state: CodebaseState):
             }
             patches_applied += 1
     except Exception as e:
-        print(f"❌ React Specialist failed to parse patches: {e}")
+        print(f"[FAIL] React Specialist failed to parse patches: {e}")
 
     tokens = extract_tokens(response)
 

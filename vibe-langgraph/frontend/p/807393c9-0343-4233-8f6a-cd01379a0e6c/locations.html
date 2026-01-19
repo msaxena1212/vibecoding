@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stranger Things Locations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap"
+    rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #171717;
+      color: #FFFFFF;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Press Start 2P', cursive;
+      color: #E50914;
+    }
+
+    .location-card {
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .location-card:hover {
+      transform: scale(1.05);
+    }
+
+    .location-image {
+      border-radius: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .parallax {
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .parallax-section {
+      height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['Roboto', 'sans-serif'],
+            'serif': ['Playfair Display', 'serif'],
+            'press-start': ['"Press Start 2P"', 'cursive'],
+          },
+          colors: {
+            primary: '#E50914',
+            secondary: '#FFFFFF',
+            dark: '#171717',
+          },
+          animation: {
+            'fade-in-up': 'fade-in-up 0.5s ease-out'
+          },
+          keyframes: {
+            'fade-in-up': {
+              '0%': {
+                opacity: '0',
+                transform: 'translateY(20px)'
+              },
+              '100%': {
+                opacity: '1',
+                transform: 'translateY(0)'
+              },
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-dark">
+
+  <nav class="bg-black/50 backdrop-blur-lg text-white sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="text-xl font-bold font-press-start">Stranger Things</a>
+      <div class="space-x-6">
+        <a href="index.html" class="hover:text-primary transition-colors">Home</a>
+        <a href="about.html" class="hover:text-primary transition-colors">About</a>
+        <a href="characters.html" class="hover:text-primary transition-colors">Characters</a>
+        <a href="locations.html" class="hover:text-primary transition-colors">Locations</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="text-center py-12">
+    <h1 class="text-4xl md:text-5xl font-press-start mb-4">Key Locations</h1>
+    <p class="text-lg">Explore the iconic places of Hawkins and the Upside Down.</p>
+  </header>
+
+  <main class="container mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <div class="location-card group">
+        <img src="assets/hawkins_lab.png" alt="Hawkins National Laboratory" class="location-image object-cover w-full h-48 rounded-2xl">
+        <h2 class="text-xl font-press-start mb-2">Hawkins National Laboratory</h2>
+        <p>A secretive government facility with a dark history.</p>
+        <a href="#" class="text-primary hover:underline block mt-2">Learn More</a>
+      </div>
+
+      <div class="location-card group">
+        <img src="assets/upside_down.png" alt="The Upside Down" class="location-image object-cover w-full h-48 rounded-2xl">
+        <h2 class="text-xl font-press-start mb-2">The Upside Down</h2>
+        <p>A dark, alternate dimension filled with terrifying creatures.</p>
+        <a href="#" class="text-primary hover:underline block mt-2">Learn More</a>
+      </div>
+
+      <div class="location-card group">
+        <img src="https://placehold.co/400x300" alt="Hawkins Middle School" class="location-image object-cover w-full h-48 rounded-2xl">
+        <h2 class="text-xl font-press-start mb-2">Hawkins Middle School</h2>
+        <p>The local middle school where much of the adventure begins.</p>
+        <a href="#" class="text-primary hover:underline block mt-2">Learn More</a>
+      </div>
+
+      <div class="location-card group">
+        <img src="https://placehold.co/400x300" alt="The Arcade" class="location-image object-cover w-full h-48 rounded-2xl">
+        <h2 class="text-xl font-press-start mb-2">The Arcade</h2>
+        <p>A place for the kids to hang out and play games.</p>
+        <a href="#" class="text-primary hover:underline block mt-2">Learn More</a>
+      </div>
+
+      <div class="location-card group">
+        <img src="https://placehold.co/400x300" alt="The Forest" class="location-image object-cover w-full h-48 rounded-2xl">
+        <h2 class="text-xl font-press-start mb-2">The Forest</h2>
+        <p>The dark and mysterious forest surrounding Hawkins.</p>
+        <a href="#" class="text-primary hover:underline block mt-2">Learn More</a>
+      </div>
+
+      <div class="location-card group">
+        <img src="https://placehold.co/400x300" alt="The Quarry" class="location-image object-cover w-full h-48 rounded-2xl">
+        <h2 class="text-xl font-press-start mb-2">The Quarry</h2>
+        <p>An abandoned quarry on the outskirts of town.</p>
+        <a href="#" class="text-primary hover:underline block mt-2">Learn More</a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="bg-black/50 backdrop-blur-lg text-white py-6 mt-12">
+    <div class="container mx-auto px-4 text-center">
+      <p>&copy; 2024 Stranger Things Fan Site</p>
+    </div>
+  </footer>
+
+</body>
+
+</html>

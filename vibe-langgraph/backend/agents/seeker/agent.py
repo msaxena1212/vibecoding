@@ -15,7 +15,7 @@ async def run_seeker(state: CodebaseState):
     
     # Load prompt
     prompt_path = os.path.join("agents", "seeker", "prompt.md")
-    with open(prompt_path, "r") as f:
+    with open(prompt_path, "r", encoding="utf-8") as f:
         prompt = f.read()
 
     messages = [
@@ -31,7 +31,7 @@ async def run_seeker(state: CodebaseState):
         data = parse_json_dict(content)
         findings = data.get("findings", [])
     except Exception as e:
-        print(f"❌ Seeker failed to parse findings: {e}")
+        print(f"[FAIL] Seeker failed to parse findings: {e}")
 
     tokens = extract_tokens(response)
 

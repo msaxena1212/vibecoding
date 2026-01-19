@@ -22,7 +22,7 @@ async def run_image_generator(state: CodebaseState):
     
     # Load system prompt
     prompt_path = os.path.join("agents", "image_generator", "prompt.md")
-    with open(prompt_path, "r") as f:
+    with open(prompt_path, "r", encoding="utf-8") as f:
         system_prompt = f.read()
 
     updated_images = []
@@ -71,19 +71,19 @@ async def run_image_generator(state: CodebaseState):
             img_data = None
             for url in SOURCES:
                 try:
-                    print(f"🖼️ Attempting asset fulfillment for {path} via {url}...")
+                    print(f"[IMG] Attempting asset fulfillment for {path} via {url}...")
                     response = requests.get(url, timeout=12, allow_redirects=True)
                     if response.status_code == 200 and len(response.content) > 1000: # Guaranteed content check
                         img_data = response.content
-                        print(f"✅ Success! Asset {path} fetched ({len(img_data)} bytes).")
+                        print(f"[SUCCESS] Asset {path} fetched ({len(img_data)} bytes).")
                         break
                     else:
-                        print(f"⚠️ Source failed or returned small file ({len(response.content) if response else 0} bytes).")
+                        print(f"[WARN] Source failed or returned small file ({len(response.content) if response else 0} bytes).")
                 except Exception as e:
-                    print(f"⚠️ Source error: {e}")
+                    print(f"Source error: {e}")
 
             if not img_data:
-                print(f"❌ ALL SOURCES FAILED for {path}. Using critical fallback...")
+                print(f"[FAIL] ALL SOURCES FAILED for {path}. Using critical fallback...")
                 # Last resort: A known good static mountain landscape
                 critical_fallback = "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1280&auto=format&fit=crop"
                 img_data = requests.get(critical_fallback, timeout=10).content
@@ -97,7 +97,7 @@ async def run_image_generator(state: CodebaseState):
             img["status"] = "fulfilled"
             img["local_path"] = f"assets/{os.path.basename(path)}"
         except Exception as e:
-            print(f"💀 CRITICAL FAILURE fulfilling image {path}: {e}")
+            print(f"[CRITICAL FAILURE] fulfilling image {path}: {e}")
             img["status"] = "failed"
             
         updated_images.append(img)

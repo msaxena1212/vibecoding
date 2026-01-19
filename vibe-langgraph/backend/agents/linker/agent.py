@@ -7,6 +7,7 @@ import re
 import os
 
 async def run_linker(state: CodebaseState):
+    print("\n=== [LINKER STARTING] ===")
     """
     Ensures 100% connectivity and asset pathing hygiene.
     """
@@ -18,7 +19,7 @@ async def run_linker(state: CodebaseState):
 
     # Load rules
     rules_path = os.path.join("agents", "linker", "rules.md")
-    with open(rules_path, "r") as f:
+    with open(rules_path, "r", encoding="utf-8") as f:
         rules = f.read()
 
     # Build context: full paths and content
@@ -26,9 +27,15 @@ async def run_linker(state: CodebaseState):
     
     images_info = json.dumps(state.get("images_to_generate", []), indent=2)
     
+    all_filenames = list(files.keys())
+    
     messages = [
         SystemMessage(content=rules),
-        HumanMessage(content=f"Review the following project structure and assets for linking hygiene:\n\nASSETS TO RENDER:\n{images_info}\n\nFILES:\n{content_summary}")
+        HumanMessage(content=f"Review the following project structure and assets for linking hygiene.\n\n"
+                             f"CRITICAL: You MUST ensure index.html links to EVERY file in the list below.\n"
+                             f"ALL GENERATED FILES:\n{all_filenames}\n\n"
+                             f"ASSETS TO RENDER:\n{images_info}\n\n"
+                             f"FILES CONTENT:\n{content_summary}")
     ]
     
     # We use LLM to audit, but for now we trust the Generator. 
@@ -52,7 +59,12 @@ async def run_linker(state: CodebaseState):
             
             if not path or new_content is None: continue
 
-            print(f"🔗 Linker applying patch to: {path}")
+            # Truncation check
+            if path.endswith(".html") and "</html>" not in new_content.lower():
+                print(f"[WARN] Linker truncation detected for {path}! Rejecting patch.")
+                continue
+
+            print(f"[LINKER] applying patch to: {path}")
             
             # Update state
             if path in files:
@@ -75,9 +87,9 @@ async def run_linker(state: CodebaseState):
                     f.write(new_content)
                 patches_applied += 1
             except Exception as e:
-                print(f"❌ Linker failed to persist {path}: {e}")
+                print(f"[FAIL] Linker failed to persist {path}: {e}")
     except Exception as e:
-        print(f"❌ Linker failed to parse patches: {e}")
+        print(f"[FAIL] Linker failed to parse patches: {e}")
 
     tokens = extract_tokens(response)
     

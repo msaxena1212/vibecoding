@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;700&display=swap');
+
+/* CSS Variables (Design Tokens) */
+:root {
+  --primary: #0B0B1B;
+  --secondary: #E0B444;
+  --accent: #6366f1;
+  --white: #FFFFFF;
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.15);
+
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body: 'Roboto', sans-serif;
+
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--primary);
+  color: var(--white);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Typography */
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: normal;
+  line-height: 1.1;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: clamp(3rem, 8vw, 6rem);
+}
+
+h2 {
+  font-size: clamp(2rem, 5vw, 4rem);
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+/* Glassmorphism System */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-hover:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-5px);
+  transition: all var(--transition-base);
+}
+
+/* Mobile Menu Logic */
+#mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(11, 11, 27, 0.98);
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: all var(--transition-base);
+  pointer-events: none;
+}
+
+#mobile-menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Hide mobile menu on desktop reached via media query */
+@media (min-width: 769px) {
+  #mobile-menu-overlay {
+    display: none !important;
+  }
+}
+
+.burger-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  z-index: 101;
+}
+
+.burger-btn span {
+  display: block;
+  width: 30px;
+  height: 2px;
+  background: var(--white);
+  transition: all var(--transition-fast);
+}
+
+.burger-btn.active span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.burger-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.burger-btn.active span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Reveal on Scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all var(--transition-slow);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Back to Top */
+#back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--secondary);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 90;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all var(--transition-base);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+#back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#back-to-top:hover {
+  background: var(--white);
+  transform: scale(1.1);
+}
+
+/* Animations */
+@keyframes aurora {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-aurora {
+  background: linear-gradient(-45deg, #0b0b1b, #1e1b4b, #312e81, #1e1b4b);
+  background-size: 400% 400%;
+  animation: aurora 15s ease infinite;
+}
+
+/* Utility */
+.text-gradient {
+  background: linear-gradient(to right, #fff, var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section-reveal {
+  overflow: hidden;
+}
+
+/* Responsive Overrides */
+@media (max-width: 768px) {
+  .nav-desktop {
+    display: none;
+  }
+
+  .nav-mobile-trigger {
+    display: block;
+  }
+
+  header nav {
+    padding: 1rem !important;
+  }
+
+  main {
+    padding-top: 2rem !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .nav-mobile-trigger {
+    display: none;
+  }
+}
+
+/* Dashboard Specific Layout Helpers */
+@media (max-width: 640px) {
+  .grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+}

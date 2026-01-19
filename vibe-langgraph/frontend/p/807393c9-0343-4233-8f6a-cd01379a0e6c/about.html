@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Stranger Things</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'press-start': ['"Press Start 2P"', 'cursive'],
+                        'roboto': ['Roboto', 'sans-serif'],
+                    },
+                    colors: {
+                        'st-dark': '#171717',
+                        'st-red': '#E50914',
+                        'st-white': '#FFFFFF',
+                        'st-black': '#000000',
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.5s ease-out'
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        }
+                    }
+                },
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #171717;
+            color: #FFFFFF;
+            font-family: 'Roboto', sans-serif;
+        }
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body class="bg-st-dark">
+
+    <nav class="bg-black/70 backdrop-blur-md text-white py-4">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <a href="index.html" class="text-2xl font-press-start">Stranger Things</a>
+            <div>
+                <a href="index.html" class="hover:text-st-red px-3">Home</a>
+                <a href="about.html" class="hover:text-st-red px-3">About</a>
+                <a href="#" class="hover:text-st-red px-3">Episodes</a>
+                <a href="#" class="hover:text-st-red px-3">Characters</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative h-screen flex items-center justify-center text-center parallax" style="background-image: url('assets/upside_down.png');">
+        <div class="absolute top-0 left-0 w-full h-full bg-black/60"></div>
+        <div class="relative z-10">
+            <h1 class="text-5xl font-press-start mb-4">Enter the Upside Down. If You Dare.</h1>
+            <p class="text-lg font-roboto">Explore the mysteries of Hawkins, Indiana, and the supernatural forces lurking beneath.</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto py-12 px-4">
+        <section id="character_spotlight" class="mb-12">
+            <h2 class="text-3xl font-press-start mb-6 text-center">Meet the Hawkins Crew</h2>
+            <p class="font-roboto text-lg mb-6 text-center">From Eleven's telekinetic powers to Mike's unwavering leadership, the kids of Hawkins are more than just friends – they're a force against the darkness. Dive into the stories of El, Mike, Dustin, Lucas, and Will, and discover their strengths, their fears, and their unbreakable bond. Even Hopper and Joyce are here to help guide you.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-4">
+                    <img src="assets/eleven.png" alt="Eleven" class="object-cover rounded-2xl mb-4 h-48 w-full">
+                    <h3 class="text-xl font-press-start mb-2">Eleven's Telekinetic Abilities</h3>
+                    <p class="font-roboto">El's powers are both a gift and a burden, making her a key player in the fight against the Upside Down.</p>
+                </div>
+
+                <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-4">
+                    <img src="assets/mike.png" alt="Mike" class="object-cover rounded-2xl mb-4 h-48 w-full">
+                    <h3 class="text-xl font-press-start mb-2">Mike's Leadership</h3>
+                    <p class="font-roboto">As the leader of the party, Mike's courage and determination keep the group together, even in the face of unimaginable danger.</p>
+                </div>
+
+                <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-4">
+                    <img src="assets/episode_1.png" alt="Dustin" class="object-cover rounded-2xl mb-4 h-48 w-full">
+                    <h3 class="text-xl font-press-start mb-2">Dustin's Comedic Relief</h3>
+                    <p class="font-roboto">With his wit and charm, Dustin provides much-needed comic relief, reminding everyone to stay positive, even when things look bleak.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="location_guide" class="mb-12">
+            <h2 class="text-3xl font-press-start mb-6 text-center">Navigate Hawkins and Beyond</h2>
+            <p class="font-roboto text-lg mb-6 text-center">From the eerie halls of Hawkins National Laboratory to the terrifying depths of the Upside Down, every location holds a secret. Explore interactive maps and uncover the hidden stories behind these iconic places, but beware – danger lurks around every corner.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-4">
+                    <img src="assets/hawkins_lab.png" alt="Hawkins National Laboratory" class="object-cover rounded-2xl mb-4 h-48 w-full">
+                    <h3 class="text-xl font-press-start mb-2">Hawkins National Laboratory: Government Secrets</h3>
+                    <p class="font-roboto">A secretive government facility where experiments are conducted, leading to the opening of the gate to the Upside Down.</p>
+                </div>
+
+                <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-4">
+                    <img src="assets/upside_down.png" alt="The Upside Down" class="object-cover rounded-2xl mb-4 h-48 w-full">
+                    <h3 class="text-xl font-press-start mb-2">The Upside Down: Alternate Dimension</h3>
+                    <p class="font-roboto">A dark and twisted reflection of our world, filled with terrifying creatures and lurking dangers.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="80s_nostalgia" class="mb-12">
+            <h2 class="text-3xl font-press-start mb-6 text-center">Relive the 80s Vibe</h2>
+            <p class="font-roboto text-lg mb-6 text-center">Immerse yourself in the sights and sounds of the 1980s, the decade that defined Stranger Things. From synthwave music to retro electronics, experience the nostalgia that fuels the show's unique atmosphere. Check out some retro playlists from Spotify.</p>
+
+            <div class="grid grid-cols-1">
+                <div class="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-4">
+                    <h3 class="text-xl font-press-start mb-2">Synthwave Music</h3>
+                    <p class="font-roboto">The pulsating rhythms and electronic melodies of synthwave capture the eerie and mysterious atmosphere of the show.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="text-center">
+            <a href="#" class="inline-block bg-st-red text-white py-2 px-6 rounded-full font-roboto hover:bg-st-red/80 transition-colors">Uncover the Truth</a>
+            <a href="#" class="inline-block bg-transparent border border-st-white text-st-white py-2 px-6 rounded-full font-roboto hover:bg-white/10 transition-colors ml-4">Join the Party</a>
+        </div>
+    </main>
+
+    <footer class="bg-black/70 backdrop-blur-md text-white py-4 text-center">
+        <p>&copy; 2024 Stranger Things Fan Site</p>
+    </footer>
+
+</body>
+</html>

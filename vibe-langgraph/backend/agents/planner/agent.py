@@ -17,7 +17,7 @@ async def run_planner(state: CodebaseState):
     user_intent = state.get("userIntent", "")
     
     # Load prompt
-    with open("agents/planner/prompt.md", "r") as f:
+    with open("agents/planner/prompt.md", "r", encoding="utf-8") as f:
         system_prompt = f.read()
         
     history = state.get("messages", [])
@@ -40,7 +40,7 @@ async def run_planner(state: CodebaseState):
     plan = parse_json_dict(content)
     
     if not plan:
-        print("❌ Error: Planner failed to generate a valid JSON plan.")
+        print("[ERROR] Planner failed to generate a valid JSON plan.")
         return {
             "current_step": "planning_error",
             "total_tokens": tokens,

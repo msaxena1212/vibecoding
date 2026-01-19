@@ -28,6 +28,7 @@ class CodebaseState(TypedDict):
     seo_report: Optional[Dict[str, Any]]
     images_to_generate: List[Dict[str, str]] # [{path: str, prompt: str}]
     diagnostic_report: Optional[str]
+    fix_instructions: Optional[str]
     current_step: str
     total_tokens: Annotated[int, operator.add]
     token_usage: Annotated[Dict[str, int], merge_usage] # Granular usage per agent

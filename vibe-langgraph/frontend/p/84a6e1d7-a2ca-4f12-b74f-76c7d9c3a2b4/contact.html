@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - ISRO</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0B3D91',
+                        secondary: '#ADD8E6',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.5s ease-out'
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.7s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="index.html" class="flex items-center">
+                <img src="assets/logo.png" alt="ISRO Logo" class="h-8 mr-2">
+                <span class="font-bold text-lg">ISRO</span>
+            </a>
+            <div class="nav-desktop hidden md:flex space-x-6">
+                <a href="index.html" class="hover:text-primary transition-colors">Home</a>
+                <a href="about.html" class="hover:text-primary transition-colors">About</a>
+                <a href="contact.html" class="hover:text-primary transition-colors">Contact</a>
+            </div>
+
+            <!-- Mobile Menu Trigger -->
+            <button id="nav-mobile-trigger" class="md:hidden text-gray-700 focus:outline-none focus:ring-2 ring-primary">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div id="nav-mobile" class="hidden fixed top-0 left-0 w-full h-full bg-white/10 backdrop-blur-lg z-50">
+            <div class="container mx-auto p-4">
+                <button id="nav-mobile-close" class="absolute top-4 right-4 text-gray-700 focus:outline-none focus:ring-2 ring-primary">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+                <nav class="flex flex-col items-center mt-16 space-y-4">
+                    <a href="index.html" class="text-lg font-semibold hover:text-primary transition-colors">Home</a>
+                    <a href="about.html" class="text-lg font-semibold hover:text-primary transition-colors">About</a>
+                    <a href="contact.html" class="text-lg font-semibold hover:text-primary transition-colors">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto py-12 px-4">
+        <section class="reveal">
+            <h1 class="text-3xl font-bold text-center mb-8">Contact Us</h1>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Contact Form -->
+                <div>
+                    <form class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
+                        <div class="mb-4">
+                            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name</label>
+                            <input type="text" id="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 ring-primary" placeholder="Your Name">
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                            <input type="email" id="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 ring-primary" placeholder="Your Email">
+                        </div>
+                        <div class="mb-4">
+                            <label for="message" class="block text-gray-700 text-sm font-bold mb-2">Message</label>
+                            <textarea id="message" rows="4" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 ring-primary" placeholder="Your Message"></textarea>
+                        </div>
+                        <button type="submit" class="bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline focus:ring-2 ring-primary">
+                            Submit
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Information -->
+                <div>
+                    <div class="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6">
+                        <h2 class="text-xl font-semibold mb-4">ISRO Headquarters</h2>
+                        <p class="mb-2">
+                            <span class="font-bold">Address:</span>
+                            Antariksh Bhavan, New BEL Road
+                            Bangalore - 560 094
+                            Karnataka, India
+                        </p>
+                        <p class="mb-2">
+                            <span class="font-bold">Phone:</span>
+                            +91 80 23415275 / 22172294
+                        </p>
+                        <p class="mb-4">
+                            <span class="font-bold">Email:</span>
+                            contact@isro.gov.in
+                        </p>
+
+                        <h2 class="text-xl font-semibold mt-6 mb-4">Connect with Us</h2>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-blue-500 hover:text-blue-700">Facebook</a>
+                            <a href="#" class="text-blue-500 hover:text-blue-700">Twitter</a>
+                            <a href="#" class="text-blue-500 hover:text-blue-700">LinkedIn</a>
+                            <a href="#" class="text-blue-500 hover:text-blue-700">YouTube</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Back to Top Button -->
+        <button id="back-to-top" class="hidden fixed bottom-4 right-4 bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline focus:ring-2 ring-primary">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+            </svg>
+        </button>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 py-4 mt-8">
+        <div class="container mx-auto text-center">
+            <p class="text-gray-600">© 2024 ISRO. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

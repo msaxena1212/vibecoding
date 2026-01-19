@@ -17,7 +17,7 @@ async def run_debugger(state: CodebaseState):
     
     # Load prompt
     prompt_path = os.path.join("agents", "debugger", "prompt.md")
-    with open(prompt_path, "r") as f:
+    with open(prompt_path, "r", encoding="utf-8") as f:
         prompt = f.read()
 
     # Build context
@@ -25,7 +25,7 @@ async def run_debugger(state: CodebaseState):
     
     messages = [
         SystemMessage(content=prompt),
-        HumanMessage(content=f"User Intent: {user_intent}\n\nDIAGNOSTIC REPORT:\n{diagnostic}\n\nCURRENT CODE:\n{code_context}")
+        HumanMessage(content=f"User Intent: {user_intent}\n\nDIAGNOSTIC REPORT:\n{diagnostic}\n\nFIX INSTRUCTIONS:\n{state.get('fix_instructions', '')}\n\nCURRENT CODE:\n{code_context}")
     ]
     
     response = await llm.ainvoke(messages)
@@ -39,11 +39,16 @@ async def run_debugger(state: CodebaseState):
             path = patch.get("path")
             new_content = patch.get("new_content")
             if path in files:
+                # Truncation check
+                if path.endswith(".html") and "</html>" not in new_content.lower():
+                    print(f"[WARN] Truncation detected for {path}! Rejecting patch.")
+                    continue
+                
                 files[path]["content"] = new_content
                 files[path]["lastEditedBy"] = "debugger"
                 patches_applied += 1
     except Exception as e:
-        print(f"❌ Debugger failed to parse patches: {e}")
+        print(f"[FAIL] Debugger failed to parse patches: {e}")
 
     tokens = extract_tokens(response)
 

@@ -16,7 +16,7 @@ async def run_chatter(state: CodebaseState):
     
     # Load prompt
     prompt_path = os.path.join("agents", "chatter", "prompt.md")
-    with open(prompt_path, "r") as f:
+    with open(prompt_path, "r", encoding="utf-8") as f:
         prompt = f.read()
 
     # Build history context

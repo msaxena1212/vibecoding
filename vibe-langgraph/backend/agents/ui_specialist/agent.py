@@ -17,7 +17,7 @@ async def run_ui_specialist(state: CodebaseState):
     
     # Load prompt
     prompt_path = os.path.join("agents", "ui_specialist", "prompt.md")
-    with open(prompt_path, "r") as f:
+    with open(prompt_path, "r", encoding="utf-8") as f:
         prompt = f.read()
 
     # Build context
@@ -47,7 +47,7 @@ async def run_ui_specialist(state: CodebaseState):
                 files[path]["lastEditedBy"] = "ui_specialist"
                 patches_applied += 1
     except Exception as e:
-        print(f"❌ UI Specialist failed to parse patches: {e}")
+        print(f"[FAIL] UI Specialist failed to parse patches: {e}")
 
     tokens = extract_tokens(response)
 

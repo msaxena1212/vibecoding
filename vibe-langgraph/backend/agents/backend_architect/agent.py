@@ -16,7 +16,7 @@ async def run_backend_architect(state: CodebaseState):
     
     # Load prompt
     prompt_path = os.path.join("agents", "backend_architect", "prompt.md")
-    with open(prompt_path, "r") as f:
+    with open(prompt_path, "r", encoding="utf-8") as f:
         prompt = f.read()
 
     # Build context
@@ -48,7 +48,7 @@ async def run_backend_architect(state: CodebaseState):
             }
             patches_applied += 1
     except Exception as e:
-        print(f"❌ Backend Architect failed to parse patches: {e}")
+        print(f"[FAIL] Backend Architect failed to parse patches: {e}")
 
     tokens = extract_tokens(response)
 

@@ -16,7 +16,7 @@ async def run_router(state: CodebaseState):
     
     # Load prompt
     prompt_path = os.path.join("agents", "router", "prompt.md")
-    with open(prompt_path, "r") as f:
+    with open(prompt_path, "r", encoding="utf-8") as f:
         prompt = f.read()
 
     messages = [
