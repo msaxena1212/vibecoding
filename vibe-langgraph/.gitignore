@@ -33,3 +33,5 @@ Thumbs.db
 frontend/p/*/node_modules/
 frontend/p/*/dist/
 planner_raw.txt
+verify_*.py
+*.log

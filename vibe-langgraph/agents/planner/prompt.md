@@ -75,7 +75,7 @@ Before finalizing the plan, you MUST validate:
 2. **vite.config.js**: must configure `root: 'public'`, `build: { outDir: '../dist' }`, AND `optimizeDeps: { esbuildOptions: { loader: { '.js': 'jsx' } } }` to support JSX in .js files.
 3. **public/index.html**: Entry point (pointing to `../src/index.js` - keep .js extension but enable JSX loader).
 4. **src/index.js**: React Root (mounting App).
-5. **src/App.jsx**: Main Router (React Router DOM) and Layout shell.
+5. **src/App.jsx**: Main Router (React Router DOM). MUST implement all routes/pages defined in the `navigation_map`. Use `<Routes>` and `<Route>`.
 6. **src/index.css**: Global Tailwind directives.
 7. **src/components/**: Reusable UI components (.jsx).
 8. **src/pages/**: Page views (.jsx).
@@ -84,12 +84,14 @@ Before finalizing the plan, you MUST validate:
 11. **prisma/schema.prisma**: MANDATORY.
 12. **postcss.config.js**: MANDATORY for Tailwind.
 13. **.gitignore**: MANDATORY. Must ignore node_modules, dist, .env.
+14. **tailwind.config.js**: MANDATORY. Must configure `content` sources.
 
 # ELITE RULES:
 - **Root-Level Execution**: The goal is "one-click" startup. `npm i && npm start` MUST be enough to run everything (ensuring `postinstall` runs prisma generate).
 - **Backend Location**: ALL backend logic (Express server, modules) MUST be placed in a top-level `services/` directory.
-- **Service Layer Architecture**: Frontend calls to the backend MUST go through `src/services/api.js`. Do not write inline `fetch` in components.
+- **Service Layer Architecture**: Frontend (`src/services/api.js`) MUST point to `http://localhost:8000` (Backend Port) and handle CORS.
 - **File Extensions**: ALWAYS use `.jsx` for React components. Logic files (`.js`) containing JSX must be supported via vite config.
+- **Module Safety**: ALWAYS use `export default` for components and pages. Corresponding imports MUST be default imports (`import Page from './Page'`), NOT named imports.
 - **Static vs Dynamic**: The file structure is STATIC (mandated folders/files), but the dynamic content within them must be tailored to the user's specific "vibe" and functional requirements.
 - **Prisma Integration**: For any project requiring a database, `prisma/schema.prisma` is non-negotiable.
 - **Interaction Design**: Use `framer-motion` and `lucide-react` for premium feel.

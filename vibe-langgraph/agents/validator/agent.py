@@ -32,6 +32,7 @@ async def run_validator(state: CodebaseState):
     4. **Zero-Placeholder Policy**: Flag "Lorem Ipsum", generic "Sample Item" text, or any `href="#"` links. Dashboards MUST contain complex mock data, interactive charts, and realistic stats grids proportional to the user intent.
     5. **Complete Graph Connectivity**: Verify that every page has a header/footer with links that connect to all other primary pages in the site. Navigation must be IDENTICAL on all pages.
     6. **Phase 5/6 Interactivity**: Audit for fluid typography (`clamp`), Glassmorphism depth, Bento Grid structures, and Interaction Observer reveal effects (`.reveal` classes).
+    7. **Dependency Safety**: CHECK `package.json`. `lucide-react` MUST be version `^0.x` or `latest`. If version is `9.x` or similar, FAIL IMMEDIATELY. This is a known hallucination.
 
     # OUTPUT SCHEMA (Strict JSON):
     {

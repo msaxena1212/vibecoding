@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans antialiased;
+  }
+}
+
+:root {
+    --primary-color: #FFC107; /* Yellow */
+    --secondary-color: #2196F3; /* Blue */
+    --text-color: #6B7280; /* Gray-500 */
+    --background-color: #F9FAFB; /* Gray-50 */
+  }
