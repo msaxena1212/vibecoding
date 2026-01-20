@@ -1,0 +1,37 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model MenuItem {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  price       Float
+  image       String? // URL to the image
+  orderItems  OrderItem[]
+}
+
+model Order {
+  id        Int      @id @default(autoincrement())
+  orderDate DateTime
+  total     Float
+  orderItems OrderItem[]
+}
+
+model OrderItem {
+  id Int @id @default(autoincrement())
+  order   Order @relation(fields: [orderId], references: [id])
+  orderId Int
+  menuItem   MenuItem @relation(fields: [menuItemId], references: [id]) // Relation to MenuItem
+  menuItemId Int // Foreign key for MenuItem
+  quantity Int
+
+  @@unique([orderId, menuItemId])
+}

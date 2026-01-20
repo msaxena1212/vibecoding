@@ -41,7 +41,7 @@ async def run_react_specialist(state: CodebaseState):
             # Add or update file
             files[path] = {
                 "content": new_content,
-                "language": "typescript" if path.endswith(".tsx") or path.endswith(".ts") else "javascript",
+                "language": "javascript",
                 "lastEditedBy": "react_specialist",
                 "imports": [],
                 "exports": []

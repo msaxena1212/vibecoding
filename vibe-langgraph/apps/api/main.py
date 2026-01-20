@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
-from .routes import generate, edit, validate
+from apps.api.routes import generate, edit, validate
 import uvicorn
 import os
 

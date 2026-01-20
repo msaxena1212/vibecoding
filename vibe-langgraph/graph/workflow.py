@@ -73,8 +73,8 @@ def create_workflow():
     )
     
     workflow.add_edge("seeker", "copywriter")
-    workflow.add_edge("backend_architect", "seeker")
-    workflow.add_edge("react_specialist", "seeker")
+    workflow.add_edge("backend_architect", "assigner")
+    workflow.add_edge("react_specialist", "assigner")
     
     workflow.add_edge("copywriter", "fetch_images")
     workflow.add_edge("fetch_images", "image_generator")

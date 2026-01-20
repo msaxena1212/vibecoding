@@ -7,11 +7,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Get DB URL from .env, handle the typical "postgresql://" vs "postgres://"
-DATABASE_URL = os.getenv("DATABASE_URL", "")
+DATABASE_URL = os.getenv("DATABASE_URL", "").strip()
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql+asyncpg://", 1)
 elif DATABASE_URL.startswith("postgresql://"):
-     DATABASE_URL = DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://", 1)
+    DATABASE_URL = DATABASE_URL.replace("postgresql://", "postgresql+asyncpg://", 1)
 
 # Create Async Engine
 # Note: "statement_cache_size": 0 is required for Supabase Transaction/Session poolers 

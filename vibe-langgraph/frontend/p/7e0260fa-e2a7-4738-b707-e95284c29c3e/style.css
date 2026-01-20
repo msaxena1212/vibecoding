@@ -1,0 +1,199 @@
+/* style.css */
+
+/* Design Tokens */
+:root {
+    --primary-color: #FF5722; /* Orange */
+    --secondary-color: #FFC107; /* Amber */
+    --text-primary: #333; /* Dark Gray */
+    --text-secondary: #777; /* Medium Gray */
+    --bg-light: #f9f7f3; /* Light Beige */
+    --bg-dark: #333; /* Dark Gray */
+
+    --font-family-primary: 'Poppins', sans-serif;
+    --font-family-secondary: 'Roboto', sans-serif;
+
+    --transition-duration: 0.3s;
+    --transition-easing: cubic-bezier(0.4, 0, 0.2, 1); /* Standard easing */
+}
+
+/* Base Styles */
+body {
+    font-family: var(--font-family-primary);
+    background-color: var(--bg-light);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-secondary);
+    color: var(--primary-color);
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: clamp(2.5rem, 5vw, 3.5rem); /* Responsive heading sizes */
+}
+
+h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+p {
+    font-size: clamp(1rem, 2vw, 1.2rem); /* Responsive paragraph sizes */
+}
+
+ul, ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Utility Classes */
+.container {
+    @apply mx-auto px-4;
+    max-width: 1200px; /* Standard container width */
+}
+
+.text-primary {
+    color: var(--text-primary);
+}
+
+.text-secondary {
+    color: var(--text-secondary);
+}
+
+/* Button Styles */
+.btn {
+    @apply font-bold py-2 px-4 rounded shadow-md transition-colors duration-300;
+    transition: all var(--transition-duration) var(--transition-easing);
+}
+
+.btn-primary {
+    @apply bg-orange-500 hover:bg-orange-700 text-white;
+}
+
+.btn-secondary {
+    @apply bg-gray-500 hover:bg-gray-700 text-white;
+}
+
+/* Glassmorphism Effect */
+.glassmorphism {
+    background: rgba(255, 255, 255, 0.1); /* Adjusted opacity */
+    border-radius: 1rem;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15); /* Increased shadow */
+    backdrop-filter: blur(12px); /* Adjusted blur */
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Adjusted border */
+}
+
+/* Reveal on Scroll Effect */
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: transform var(--transition-duration) var(--transition-easing), opacity var(--transition-duration) var(--transition-easing);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Specific delays for cascaded entry */
+.reveal:nth-child(1) { transition-delay: 0.1s; }
+.reveal:nth-child(2) { transition-delay: 0.2s; }
+.reveal:nth-child(3) { transition-delay: 0.3s; }
+.reveal:nth-child(4) { transition-delay: 0.4s; }
+.reveal:nth-child(5) { transition-delay: 0.5s; }
+
+/* Magnetic Button Effect */
+.magnetic-button {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.magnetic-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2); /* Subtle glow color */
+    opacity: 0;
+    transition: opacity 0.3s var(--transition-easing);
+    z-index: -1;
+}
+
+.magnetic-button:hover::before {
+    opacity: 1;
+}
+
+/* Bento Grid Layout */
+.bento-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Mobile first */
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .bento-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .bento-grid > *:nth-child(1) {
+        grid-row: span 2;
+    }
+}
+
+/* Form Styles */
+input[type='text'],
+input[type='email'],
+textarea {
+    @apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-50;
+    transition: border-color var(--transition-duration) var(--transition-easing);
+}
+
+input[type='text']:focus,
+input[type='email']:focus,
+textarea:focus {
+    border-color: var(--primary-color);
+}
+
+/* Footer Styles */
+footer {
+    background-color: var(--bg-dark);
+    color: white;
+    padding: 2rem 0;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Header Styles */
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+/* Mobile Menu Styles */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}

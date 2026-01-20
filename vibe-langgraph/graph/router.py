@@ -44,13 +44,23 @@ def route_request(state: CodebaseState) -> Literal["planner", "editor", "chatter
 def route_assignments(state: CodebaseState) -> Literal["backend_architect", "react_specialist", "seeker"]:
     """
     Decide which specialized agent to trigger based on assignments.
+    Supports sequential execution of multiple specialists.
     """
     assignments = state.get("plan", {}).get("assignments", [])
-    agent_names = [a.get("agent", "").lower() for a in assignments]
+    files = state.get("files", {})
     
-    if "backend" in str(agent_names):
+    # Check for Backend
+    backend_assigned = any("backend" in a.get("agent", "").lower() for a in assignments)
+    backend_done = any(f.get("lastEditedBy") == "backend_architect" for f in files.values())
+    
+    if backend_assigned and not backend_done:
         return "backend_architect"
-    if "react" in str(agent_names) or "component" in str(agent_names):
+        
+    # Check for React/Component Specialist
+    react_assigned = any("react" in a.get("agent", "").lower() or "component" in a.get("agent", "").lower() for a in assignments)
+    react_done = any(f.get("lastEditedBy") == "react_specialist" for f in files.values())
+    
+    if react_assigned and not react_done:
         return "react_specialist"
         
     return "seeker"

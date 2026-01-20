@@ -14,7 +14,11 @@ async def run_image_generator(state: CodebaseState):
         return {"current_step": "image_generation_skipped"}
 
     llm = get_llm()
-    project_id = state.get("project_id", "default")
+    project_id = state.get("project_id")
+    if not project_id:
+        import uuid
+        project_id = str(uuid.uuid4())
+        state["project_id"] = project_id
     
     # Ensure project-specific assets directory exists
     project_hub_path = os.path.join("frontend", "p", project_id)

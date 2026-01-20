@@ -35,7 +35,10 @@ async def run_planner(state: CodebaseState):
     
     # Parse the response content as JSON robustly
     content = response.content
-    print(f"DEBUG: Planner Raw Output: {content[:100]}...") # Log start of output
+    with open("planner_raw.txt", "w", encoding="utf-8") as f:
+        f.write(content)
+    
+    print(f"DEBUG: Planner Raw Output length: {len(content)}")
     
     plan = parse_json_dict(content)
     
