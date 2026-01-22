@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout Confirmation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color-1: #00bcd4;
+            --primary-color-2: #3f51b5;
+            --text-color-light: #ffffff;
+            --text-color-dark: #212121;
+            --background-gradient-start: #4f397f; /* Cyberpunk Lite Purple */
+            --background-gradient-end: #1a0f2e;   /* Deeper Cyberpunk Purple */
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(to bottom right, var(--background-gradient-start), var(--background-gradient-end));
+            color: var(--text-color-light);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Roboto Slab', serif;
+        }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+        }
+        .btn-primary {
+            background-color: var(--primary-color-1);
+            color: var(--text-color-dark);
+            font-weight: bold;
+            transition: all 0.3s ease-out;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 188, 212, 0.4);
+        }
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-color-1);
+            border: 2px solid var(--primary-color-1);
+            font-weight: bold;
+            transition: all 0.3s ease-out;
+        }
+        .btn-secondary:hover {
+            background-color: var(--primary-color-1);
+            color: var(--text-color-dark);
+            transform: translateY(-2px);
+        }
+        .nav-link {
+            transition: color 0.3s ease-out;
+        }
+        .nav-link:hover {
+            color: var(--primary-color-1);
+        }
+        .group:hover .group-hover\:scale-105 {
+            scale: 1.05;
+        }
+        .group:hover .group-hover\:text-primary-1 {
+            color: var(--primary-color-1);
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="sticky top-0 z-50 py-4 px-6 flex justify-between items-center glassmorphism">
+        <div class="flex items-center">
+            <a href="index.html" class="text-2xl font-bold font-serif text-white hover:text-primary-color-1">POSApp</a>
+        </div>
+        <nav class="hidden md:flex space-x-6">
+            <a href="index.html" class="nav-link text-lg">Home</a>
+            <a href="dashboard.html" class="nav-link text-lg">Dashboard</a>
+            <a href="sales.html" class="nav-link text-lg">Sales</a>
+            <a href="products.html" class="nav-link text-lg">Products</a>
+            <a href="customers.html" class="nav-link text-lg">Customers</a>
+            <a href="reports.html" class="nav-link text-lg">Reports</a>
+            <a href="settings.html" class="nav-link text-lg">Settings</a>
+        </nav>
+        <div class="md:hidden">
+            <button id="mobile-menu-button" class="text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
+        <div class="hidden md:flex items-center space-x-4">
+            <a href="login.html" class="btn-secondary px-4 py-2 rounded-lg">Login</a>
+            <a href="logout.html" class="btn-primary px-4 py-2 rounded-lg">Logout</a>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden fixed inset-0 z-40 bg-black bg-opacity-50 backdrop-blur-lg md:hidden">
+        <div class="absolute top-0 right-0 w-64 h-full glassmorphism p-6">
+            <button id="close-menu-button" class="absolute top-4 right-4 text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <nav class="flex flex-col space-y-4 mt-8">
+                <a href="index.html" class="nav-link text-lg">Home</a>
+                <a href="dashboard.html" class="nav-link text-lg">Dashboard</a>
+                <a href="sales.html" class="nav-link text-lg">Sales</a>
+                <a href="products.html" class="nav-link text-lg">Products</a>
+                <a href="customers.html" class="nav-link text-lg">Customers</a>
+                <a href="reports.html" class="nav-link text-lg">Reports</a>
+                <a href="settings.html" class="nav-link text-lg">Settings</a>
+                <a href="login.html" class="btn-secondary px-4 py-2 rounded-lg text-center">Login</a>
+                <a href="logout.html" class="btn-primary px-4 py-2 rounded-lg text-center">Logout</a>
+            </nav>
+        </div>
+    </div>
+
+    <main class="flex items-center justify-center min-h-[calc(100vh-150px)] py-12 px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-md space-y-8 text-center animate-fade-in-up">
+            <div>
+                <h2 class="text-4xl font-bold font-serif mb-4">You've Been Logged Out</h2>
+                <p class="text-lg text-gray-300">For security and privacy, your session has been ended. Please log in again to continue.</p>
+            </div>
+            <div>
+                <a href="login.html" class="btn-primary px-8 py-3 rounded-lg text-xl">
+                    Go to Login
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="sticky bottom-0 py-4 px-6 glassmorphism text-center">
+        <p>&copy; 2023 POSApp. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.remove('hidden');
+        });
+
+        document.getElementById('close-menu-button').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>

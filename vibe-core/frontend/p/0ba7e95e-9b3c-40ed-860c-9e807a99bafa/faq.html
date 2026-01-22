@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Road Safety App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .animate-fade-in-up {
+            animation: fade-in-up 0.75s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes fade-in-up {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2E9AFE',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="index.html" class="text-2xl font-bold text-primary">Road Safety App</a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="index.html" class="hover:text-primary transition-colors">Home</a>
+                <a href="lessons.html" class="hover:text-primary transition-colors">Lessons</a>
+                <a href="about.html" class="hover:text-primary transition-colors">About</a>
+                <a href="contact.html" class="hover:text-primary transition-colors">Contact</a>
+                <a href="faq.html" class="hover:text-primary transition-colors">FAQ</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-primary focus:outline-none">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden bg-white/10 backdrop-blur-lg absolute top-full left-0 w-full py-4 shadow-md">
+            <nav class="flex flex-col items-center space-y-4">
+                <a href="index.html" class="hover:text-primary transition-colors">Home</a>
+                <a href="lessons.html" class="hover:text-primary transition-colors">Lessons</a>
+                <a href="about.html" class="hover:text-primary transition-colors">About</a>
+                <a href="contact.html" class="hover:text-primary transition-colors">Contact</a>
+                 <a href="faq.html" class="hover:text-primary transition-colors">FAQ</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto py-12 px-4">
+        <h1 class="text-4xl font-bold text-gray-800 mb-8 text-center">Frequently Asked Questions</h1>
+
+        <!-- FAQ Categories -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <div class="bg-white rounded-2xl shadow-md p-6">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">General Questions</h2>
+                <ul>
+                    <li><a href="#general-q1" class="text-blue-500 hover:underline">What is this app about?</a></li>
+                    <li><a href="#general-q2" class="text-blue-500 hover:underline">How much does it cost?</a></li>
+                    <li><a href="#general-q3" class="text-blue-500 hover:underline">What platforms are supported?</a></li>
+                </ul>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-md p-6">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">Learning Modules</h2>
+                <ul>
+                    <li><a href="#modules-q1" class="text-blue-500 hover:underline">What topics are covered?</a></li>
+                    <li><a href="#modules-q2" class="text-blue-500 hover:underline">How are the lessons structured?</a></li>
+                    <li><a href="#modules-q3" class="text-blue-500 hover:underline">Can I track my progress?</a></li>
+                </ul>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-md p-6">
+                <h2 class="text-xl font-semibold text-gray-700 mb-4">Technical Issues</h2>
+                <ul>
+                    <li><a href="#technical-q1" class="text-blue-500 hover:underline">App is crashing. What do I do?</a></li>
+                    <li><a href="#technical-q2" class="text-blue-500 hover:underline">I forgot my password.</a></li>
+                    <li><a href="#technical-q3" class="text-blue-500 hover:underline">How do I update the app?</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- FAQ Content -->
+        <section id="general-questions" class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">General Questions</h2>
+
+            <div class="bg-white rounded-2xl shadow-md p-6 mb-4">
+                <h3 id="general-q1" class="text-lg font-semibold text-gray-700 mb-2">What is this app about?</h3>
+                <p class="text-gray-600">This app is designed to help you learn and master essential road safety skills.
+                    We offer interactive lessons, quizzes, and simulations to make learning engaging and effective.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-md p-6 mb-4">
+                <h3 id="general-q2" class="text-lg font-semibold text-gray-700 mb-2">How much does it cost?</h3>
+                <p class="text-gray-600">We offer both free and premium subscription options. The free version provides
+                    access to basic lessons, while the premium subscription unlocks all learning modules and advanced
+                    features.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-md p-6 mb-4">
+                <h3 id="general-q3" class="text-lg font-semibold text-gray-700 mb-2">What platforms are supported?</h3>
+                <p class="text-gray-600">Our app is currently available on iOS and Android devices. We also offer a web
+                    version for desktop users.</p>
+            </div>
+        </section>
+
+        <section id="learning-modules" class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Learning Modules</h2>
+
+            <div class="bg-white rounded-2xl shadow-md p-6 mb-4">
+                <h3 id="modules-q1" class="text-lg font-semibold text-gray-700 mb-2">What topics are covered?</h3>
+                <p class="text-gray-600">Our learning modules cover a wide range of topics, including traffic signs,
+                    right-of-way rules, safe following distance, driving in adverse weather, and sharing the road with
+                    pedestrians and cyclists.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-md p-6 mb-4">
+                <h3 id="modules-q2" class="text-lg font-semibold text-gray-700 mb-2">How are the lessons structured?</h3>
+                <p class="text-gray-600">Each lesson features interactive content, quizzes to test your knowledge, and
+                    real-life driving simulations to put your skills to the test.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-md p-6 mb-4">
+                <h3 id="modules-q3" class="text-lg font-semibold text-gray-700 mb-2">Can I track my progress?</h3>
+                <p class="text-gray-600">Yes, our intuitive dashboard lets you track your progress and see how far
+                    you've come. You can also earn points, badges, and climb the leaderboard as you master new skills.</p>
+            </div>
+        </section>
+
+        <section id="technical-issues">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Technical Issues</h2>
+
+            <div class="bg-white rounded-2xl shadow-md p-6 mb-4">
+                <h3 id="technical-q1" class="text-lg font-semibold text-gray-700 mb-2">App is crashing. What do I do?</h3>
+                <p class="text-gray-600">First, try restarting the app. If the problem persists, please check your
+                    device's storage and memory. You may also need to update your operating system or contact our
+                    support team.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-md p-6 mb-4">
+                <h3 id="technical-q2" class="text-lg font-semibold text-gray-700 mb-2">I forgot my password.</h3>
+                <p class="text-gray-600">You can reset your password by clicking the "Forgot Password" link on the login
+                    page. Follow the instructions to create a new password.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-md p-6 mb-4">
+                <h3 id="technical-q3" class="text-lg font-semibold text-gray-700 mb-2">How do I update the app?</h3>
+                <p class="text-gray-600">You can update the app through the App Store (iOS) or Google Play Store
+                    (Android). Make sure you have automatic updates enabled to receive the latest features and bug fixes.</p>
+            </div>
+        </section>
+
+         <!-- Back to Top Button -->
+        <button id="back-to-top" class="hidden fixed bottom-4 right-4 bg-primary text-white rounded-full p-3 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-primary transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+            </svg>
+        </button>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 py-6 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-600">© 2024 Road Safety App. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Back to Top button functionality
+            const backToTopButton = document.getElementById('back-to-top');
+
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 1000) {
+                    backToTopButton.classList.remove('hidden');
+                } else {
+                    backToTopButton.classList.add('hidden');
+                }
+            });
+
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

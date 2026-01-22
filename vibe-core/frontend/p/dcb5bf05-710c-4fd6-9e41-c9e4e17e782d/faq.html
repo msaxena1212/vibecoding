@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DogeCoin FAQ - To the Moon!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#e2a800', // Doge Gold
+                        secondary: '#f0e090', // Light Doge Gold
+                        accent: '#3498db', // Doge Blue (for contrast/links)
+                        background: '#1a1a2e', // Dark, energetic background
+                        card_bg: '#2a2a40', // Slightly lighter card background
+                    },
+                    fontFamily: {
+                        sans: ['Open Sans', 'sans-serif'],
+                        cursive: ['Luckiest Guy', 'cursive'],
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            from: { opacity: '0', transform: 'translateY(20px)' },
+                            to: { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                            '100%': { transform: 'translateY(0)' },
+                        },
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Custom styles for accordion */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .accordion-content.open {
+            max-height: 500px; /* Adjust as needed */
+        }
+        .accordion-title {
+            transition: all 0.3s ease-out;
+        }
+        .accordion-title:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        .bg-gradient-radial {
+            background: radial-gradient(ellipse at center, var(--tw-gradient-stops));
+        }
+        .from-transparent {
+            --tw-gradient-from: transparent;
+        }
+        .to-black {
+            --tw-gradient-to: black;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-sans bg-background text-white">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 backdrop-blur-lg bg-white/5 border-b border-white/20">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center font-cursive text-3xl text-primary hover:scale-105 transition-transform duration-300">
+                <img src="assets/doge_logo_animated.png" alt="DogeCoin Logo" class="h-10 mr-2 animate-float">
+                DogeCoin
+            </a>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="index.html" class="hover:text-secondary transition-colors duration-300">Home</a>
+                <a href="about.html" class="hover:text-secondary transition-colors duration-300">About</a>
+                <a href="community.html" class="hover:text-secondary transition-colors duration-300">Community</a>
+                <a href="how-to.html" class="hover:text-secondary transition-colors duration-300">How To</a>
+                <a href="faq.html" class="text-secondary hover:scale-105 transition-transform duration-300">FAQ</a>
+                <a href="contact.html" class="hover:text-secondary transition-colors duration-300">Contact</a>
+                <button class="px-5 py-2 bg-primary text-background rounded-full font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 focus:ring-2 ring-accent">
+                    Get Doge!
+                </button>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="focus:outline-none">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 z-40 bg-black bg-opacity-50 backdrop-blur-lg">
+            <div class="absolute top-0 left-0 w-3/4 h-full bg-card_bg border-r border-white/20 shadow-xl p-6">
+                <div class="flex flex-col space-y-6">
+                    <a href="index.html" class="flex items-center font-cursive text-2xl text-primary hover:scale-105 transition-transform duration-300 mb-4">
+                        <img src="assets/doge_logo_animated.png" alt="DogeCoin Logo" class="h-8 mr-2 animate-float">
+                        DogeCoin
+                    </a>
+                    <a href="index.html" class="text-lg hover:text-secondary transition-colors duration-300">Home</a>
+                    <a href="about.html" class="text-lg hover:text-secondary transition-colors duration-300">About</a>
+                    <a href="community.html" class="text-lg hover:text-secondary transition-colors duration-300">Community</a>
+                    <a href="how-to.html" class="text-lg hover:text-secondary transition-colors duration-300">How To</a>
+                    <a href="faq.html" class="text-secondary text-lg font-bold">FAQ</a>
+                    <a href="contact.html" class="text-lg hover:text-secondary transition-colors duration-300">Contact</a>
+                    <button class="mt-4 px-6 py-3 bg-primary text-background rounded-full font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 focus:ring-2 ring-accent">
+                        Get Doge!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-16 reveal-section">
+
+        <!-- Hero Section -->
+        <section class="text-center py-20 px-4 relative overflow-hidden rounded-3xl mb-16 bg-gradient-radial from-secondary to-background shadow-inner">
+            <div class="absolute inset-0 opacity-50">
+                <img src="assets/doge_hero_bg.png" alt="Doge Hero Background" class="w-full h-full object-cover">
+            </div>
+            <div class="relative z-10">
+                <h1 class="font-cursive text-5xl md:text-7xl text-primary mb-4 animate-fade-in-up [animation-delay:0.2s]">
+                    DOGE TO THE MOON: Your Gateway to the People's Crypto!
+                </h1>
+                <p class="text-xl md:text-2xl font-light mb-8 max-w-3xl mx-auto animate-fade-in-up [animation-delay:0.4s]">
+                    Dive into the world of Dogecoin, the fun, fast, and friendly cryptocurrency born from a meme. Discover its history, join a vibrant community, and learn how to get your paws on some Doge!
+                </p>
+                <div class="animate-fade-in-up [animation-delay:0.6s]">
+                    <a href="how-to.html" class="inline-block px-8 py-3 bg-primary text-background rounded-full font-bold text-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 mr-4 mb-4 focus:ring-2 ring-accent">
+                        Learn How to Get Doge!
+                    </a>
+                    <a href="community.html" class="inline-block px-8 py-3 border-2 border-primary text-primary rounded-full font-bold text-lg hover:bg-primary hover:text-background transition-all duration-300 focus:ring-2 ring-primary">
+                        Explore the Doge Community
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="reveal py-16">
+            <h2 class="text-4xl font-cursive text-center mb-12 text-primary">Frequently Asked Questions (Woof!)</h2>
+            <div class="max-w-4xl mx-auto bg-card_bg rounded-3xl p-8 shadow-xl border border-white/10">
+
+                <div class="accordion-item mb-6 border-b border-white/10 pb-6 last:border-b-0 last:pb-0">
+                    <button class="accordion-title w-full flex justify-between items-center text-left text-xl font-bold py-4 px-2 rounded-lg focus:outline-none focus:ring-2 ring-accent">
+                        <span>Much Wow! What's All the Bark About Dogecoin?</span>
+                        <svg class="w-6 h-6 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="accordion-content overflow-hidden px-2">
+                        <p class="pt-4 pb-2 text-lg font-light leading-relaxed">
+                            Born in 2013 as a lighthearted joke, Dogecoin (DOGE) has rocketed from internet meme to a global phenomenon. Created by Billy Markus and Jackson Palmer, it was designed to be a fun, accessible alternative to the serious world of Bitcoin. Powered by a Proof-of-Work (PoW) blockchain, Doge is known for its low transaction fees, quick confirmations, and a truly massive, energetic community. It’s the coin that proves you don’t need to be overly technical to be a part of the future of finance. Ready to join the pack?
+                        </p>
+                    </div>
+                </div>
+
+                <div class="accordion-item mb-6 border-b border-white/10 pb-6 last:border-b-0 last:pb-0">
+                    <button class="accordion-title w-full flex justify-between items-center text-left text-xl font-bold py-4 px-2 rounded-lg focus:outline-none focus:ring-2 ring-accent">
+                        <span>Is Dogecoin Secure? How Does it Stay Safe?</span>
+                        <svg class="w-6 h-6 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="accordion-content overflow-hidden px-2">
+                        <p class="pt-4 pb-2 text-lg font-light leading-relaxed">
+                            Yep! Dogecoin uses a Proof-of-Work (PoW) blockchain, the same foundational technology as Bitcoin, to secure its network. This means a vast network of miners work to validate transactions and add them to the blockchain. While its origin is playful, the underlying technology is robust. For personal security, always use a reputable wallet, keep your private keys safe, and be wary of scams. The community is also very active in helping newcomers stay safe!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="accordion-item mb-6 border-b border-white/10 pb-6 last:border-b-0 last:pb-0">
+                    <button class="accordion-title w-full flex justify-between items-center text-left text-xl font-bold py-4 px-2 rounded-lg focus:outline-none focus:ring-2 ring-accent">
+                        <span>How Can I Buy Dogecoin?</span>
+                        <svg class="w-6 h-6 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="accordion-content overflow-hidden px-2">
+                        <p class="pt-4 pb-2 text-lg font-light leading-relaxed">
+                            Getting your paws on Dogecoin is straightforward! You'll typically need a Dogecoin wallet first to store your coins. Many user-friendly mobile and desktop wallets are available. Once you have a wallet, you can purchase DOGE on various cryptocurrency exchanges. Look for exchanges that support your local currency and have a good reputation. We've got more detailed steps and links to resources on our <a href="how-to.html" class="text-accent font-bold underline hover:text-secondary">How To Get Doge</a> page!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="accordion-item mb-6 border-b border-white/10 pb-6 last:border-b-0 last:pb-0">
+                    <button class="accordion-title w-full flex justify-between items-center text-left text-xl font-bold py-4 px-2 rounded-lg focus:outline-none focus:ring-2 ring-accent">
+                        <span>What Makes the Dogecoin Community So Special?</span>
+                        <svg class="w-6 h-6 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="accordion-content overflow-hidden px-2">
+                        <p class="pt-4 pb-2 text-lg font-light leading-relaxed">
+                            It's all about the vibe! The Dogecoin community is known for being incredibly welcoming, fun-loving, and generous. We love using Doge for tipping content creators, supporting amazing charities (like Doge4Water!), and generally spreading smiles across the internet. It’s a place where memes meet real-world impact, and everyone is invited to join the fun. You'll find us active on social media, forums, and always ready to help a fellow Shibe!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="accordion-item mb-6 border-b border-white/10 pb-6 last:border-b-0 last:pb-0">
+                    <button class="accordion-title w-full flex justify-between items-center text-left text-xl font-bold py-4 px-2 rounded-lg focus:outline-none focus:ring-2 ring-accent">
+                        <span>Can Dogecoin Actually Be Used for Purchases?</span>
+                        <svg class="w-6 h-6 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="accordion-content overflow-hidden px-2">
+                        <p class="pt-4 pb-2 text-lg font-light leading-relaxed">
+                            Absolutely! While it started as a meme, Dogecoin has gained significant adoption for payments. Its low transaction fees and fast confirmation times make it suitable for everyday purchases, tipping, and online transactions. Many merchants and businesses are starting to accept DOGE. You can find lists of merchants that accept Dogecoin online, and the number is growing as the community expands!
+                        </p>
+                    </div>
+                </div>
+
+                 <div class="accordion-item">
+                    <button class="accordion-title w-full flex justify-between items-center text-left text-xl font-bold py-4 px-2 rounded-lg focus:outline-none focus:ring-2 ring-accent">
+                        <span>What's the 'To the Moon!' Slogan All About?</span>
+                        <svg class="w-6 h-6 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="accordion-content overflow-hidden px-2">
+                        <p class="pt-4 pb-2 text-lg font-light leading-relaxed">
+                            "To the Moon!" is a classic crypto phrase, and for Dogecoin, it perfectly captures the community's optimistic spirit and aspiration for growth and widespread adoption. It’s a rallying cry that signifies belief in Dogecoin's potential to reach new heights, both in value and in its positive impact on the world. It's a playful way to express excitement and hope for the future of the coin and its community.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-card_bg text-center py-8 border-t border-white/10">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <div class="flex items-center font-cursive text-2xl text-primary">
+                    <img src="assets/doge_logo_animated.png" alt="DogeCoin Logo" class="h-8 mr-2 animate-float">
+                    DogeCoin Community
+                </div>
+                <div class="flex space-x-6">
+                    <a href="index.html" class="hover:text-secondary transition-colors duration-300">Home</a>
+                    <a href="about.html" class="hover:text-secondary transition-colors duration-300">About</a>
+                    <a href="community.html" class="hover:text-secondary transition-colors duration-300">Community</a>
+                    <a href="how-to.html" class="hover:text-secondary transition-colors duration-300">How To</a>
+                    <a href="faq.html" class="text-secondary font-bold">FAQ</a>
+                    <a href="contact.html" class="hover:text-secondary transition-colors duration-300">Contact</a>
+                </div>
+                <p class="text-sm text-white/70">&copy; 2024 DogeCoin Community. Much rights reserved. Wow.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="hidden fixed bottom-8 right-8 z-50 p-3 bg-primary text-background rounded-full shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 focus:outline-none focus:ring-2 ring-accent">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7M5 15V4"></path>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        // Accordion functionality
+        document.querySelectorAll('.accordion-title').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                content.classList.toggle('open');
+                button.querySelector('svg').classList.toggle('rotate-180');
+
+                // Close other open accordions
+                document.querySelectorAll('.accordion-content.open').forEach(openContent => {
+                    if (openContent !== content) {
+                        openContent.classList.remove('open');
+                        openContent.previousElementSibling.querySelector('svg').classList.remove('rotate-180');
+                    }
+                });
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.onscroll = function() {
+            scrollFunction();
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
+                backToTopButton.classList.remove('hidden');
+            } else {
+                backToTopButton.classList.add('hidden');
+            }
+        }
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Reveal on Scroll
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealSection = document.querySelector('.reveal-section');
+
+        const observerOptions = {
+            root: null,
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Optional: unobserve after revealing
+                }
+            });
+        }, observerOptions);
+
+        revealElements.forEach(el => {
+            observer.observe(el);
+        });
+        // Observe the main section for initial reveal
+        if (revealSection) {
+            observer.observe(revealSection);
+        }
+
+    </script>
+</body>
+</html>

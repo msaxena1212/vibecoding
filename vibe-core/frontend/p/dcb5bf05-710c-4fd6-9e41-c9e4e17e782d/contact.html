@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - DogeCoin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Tailwind CSS configuration for custom colors and fonts */
+        .font-luckiest {
+            font-family: 'Luckiest Guy', cursive;
+        }
+        .font-opensans {
+            font-family: 'Open Sans', sans-serif;
+        }
+        /* Animation for reveal-on-scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Custom scrollbar for WebKit browsers */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e2a800;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f0e090;
+        }
+    </style>
+    <script>
+        // Tailwind CSS configuration for custom colors and fonts
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Open Sans', 'sans-serif'],
+                        luckiest: ['Luckiest Guy', 'cursive'],
+                    },
+                    colors: {
+                        'primary-gold': '#e2a800',
+                        'secondary-gold': '#f0e090',
+                        'primary-blue': '#3498db',
+                        'white-translucent': '#ffffff',
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 1s ease-out forwards',
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            'from': { opacity: '0', transform: 'translateY(20px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-opensans bg-gradient-to-br from-primary-gold via-secondary-gold to-primary-blue text-white min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 backdrop-blur-lg bg-white/10 border-b border-white/20">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="index.html" class="text-3xl font-luckiest text-white flex items-center">
+                    <img src="assets/doge_logo_animated.png" alt="DogeCoin Logo" class="h-10 mr-2 animate-pulse">
+                    DOGE
+                </a>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <ul class="hidden md:flex space-x-6">
+                <li><a href="index.html" class="hover:text-secondary-gold transition-colors duration-300">Home</a></li>
+                <li><a href="about.html" class="hover:text-secondary-gold transition-colors duration-300">About</a></li>
+                <li><a href="community.html" class="hover:text-secondary-gold transition-colors duration-300">Community</a></li>
+                <li><a href="how-to.html" class="hover:text-secondary-gold transition-colors duration-300">How To</a></li>
+                <li><a href="contact.html" class="text-primary-gold font-bold hover:text-secondary-gold transition-colors duration-300">Contact</a></li>
+            </ul>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-white focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-black bg-opacity-80 backdrop-blur-xl z-40 flex items-center justify-center">
+            <div class="text-center">
+                <button id="close-menu-button" class="absolute top-4 right-4 text-white focus:outline-none p-2">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+                <ul class="space-y-6">
+                    <li><a href="index.html" class="text-2xl hover:text-secondary-gold transition-colors duration-300">Home</a></li>
+                    <li><a href="about.html" class="text-2xl hover:text-secondary-gold transition-colors duration-300">About</a></li>
+                    <li><a href="community.html" class="text-2xl hover:text-secondary-gold transition-colors duration-300">Community</a></li>
+                    <li><a href="how-to.html" class="text-2xl hover:text-secondary-gold transition-colors duration-300">How To</a></li>
+                    <li><a href="contact.html" class="text-2xl text-primary-gold font-bold hover:text-secondary-gold transition-colors duration-300">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-16">
+        <section class="text-center reveal">
+            <h1 class="text-5xl md:text-6xl font-luckiest text-white mb-4 animate-fade-in-up">
+                Got Questions? Let's Wag Our Tails!
+            </h1>
+            <p class="text-xl md:text-2xl font-opensans text-secondary-gold mb-8 animate-fade-in-up delay-200">
+                Reach out to us! Whether it's a question, a suggestion, or you just want to share your Doge adventures, we're all ears.
+            </p>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-12 mt-16 items-center reveal">
+            <!-- Contact Form -->
+            <div class="bg-white/10 backdrop-blur-lg border border-white/20 p-8 rounded-3xl shadow-lg reveal delay-400">
+                <h2 class="text-3xl font-luckiest text-white mb-6 text-center">Send a Message</h2>
+                <form action="#" method="POST">
+                    <div class="mb-4">
+                        <label for="name" class="block text-white mb-2 font-bold">Your Name</label>
+                        <input type="text" id="name" name="name" placeholder="Wow, such name!" required class="w-full p-3 rounded-xl bg-white/5 border border-white/20 focus:ring-primary-gold focus:border-primary-gold focus:bg-white/10 shadow-inner font-opensans">
+                    </div>
+                    <div class="mb-4">
+                        <label for="email" class="block text-white mb-2 font-bold">Your Email</label>
+                        <input type="email" id="email" name="email" placeholder="So email, much contact!" required class="w-full p-3 rounded-xl bg-white/5 border border-white/20 focus:ring-primary-gold focus:border-primary-gold focus:bg-white/10 shadow-inner font-opensans">
+                    </div>
+                    <div class="mb-6">
+                        <label for="message" class="block text-white mb-2 font-bold">Your Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Much message, very important!" required class="w-full p-3 rounded-xl bg-white/5 border border-white/20 focus:ring-primary-gold focus:border-primary-gold focus:bg-white/10 shadow-inner font-opensans"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-primary-gold text-white py-3 px-6 rounded-xl font-bold font-luckiest text-xl hover:scale-105 transition-transform duration-300 ease-out shadow-lg hover:shadow-xl group">
+                        Send It!
+                        <span class="inline-block group-hover:translate-x-2 transition-transform duration-300 ml-2">🚀</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Doge Illustration and Support Links -->
+            <div class="text-center reveal delay-600">
+                <img src="assets/how_to_doge_illustration.png" alt="Doge Illustration" class="w-full max-w-sm mx-auto rounded-2xl shadow-2xl mb-8">
+                <h3 class="text-3xl font-luckiest text-white mb-4">Need More Help?</h3>
+                <p class="text-lg font-opensans text-secondary-gold mb-6">
+                    For official support and more resources, check out these links:
+                </p>
+                <div class="flex flex-col space-y-4">
+                    <a href="https://dogecoin.com/support/" target="_blank" rel="noopener noreferrer" class="block bg-white/10 backdrop-blur-lg border border-white/20 p-4 rounded-xl hover:bg-white/20 transition-colors duration-300 group">
+                        <span class="font-bold flex items-center justify-center">
+                            Official Dogecoin Support
+                            <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </span>
+                    </a>
+                    <a href="https://dogechain.info/" target="_blank" rel="noopener noreferrer" class="block bg-white/10 backdrop-blur-lg border border-white/20 p-4 rounded-xl hover:bg-white/20 transition-colors duration-300 group">
+                        <span class="font-bold flex items-center justify-center">
+                            DogeChain Explorer
+                            <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </span>
+                    </a>
+                    <a href="https://www.reddit.com/r/dogecoin/" target="_blank" rel="noopener noreferrer" class="block bg-white/10 backdrop-blur-lg border border-white/20 p-4 rounded-xl hover:bg-white/20 transition-colors duration-300 group">
+                        <span class="font-bold flex items-center justify-center">
+                            Join the Reddit Community
+                            <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-auto sticky bottom-0 z-40 backdrop-blur-lg bg-white/10 border-t border-white/20 py-4">
+        <div class="container mx-auto px-4 text-center text-white/80 font-opensans">
+            <p>&copy; 2024 DogeCoin. Much Crypto. Wow. All rights reserved.</p>
+            <div class="flex justify-center space-x-4 mt-2">
+                <a href="#" class="hover:text-white transition-colors duration-300">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition-colors duration-300">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="hidden fixed bottom-20 right-5 bg-primary-gold text-white p-3 rounded-full shadow-lg hover:bg-secondary-gold transition-all duration-300 ease-out focus:outline-none z-50 group">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const closeMenuButton = document.getElementById('close-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('hidden');
+        });
+
+        closeMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
+
+        // Reveal-on-Scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Optionally unobserve after it becomes active to improve performance
+                    // observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1 // Trigger when 10% of the element is visible
+        });
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Back to Top Button Logic
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.onscroll = function() {
+            // Show button if scrolling down more than 200px
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                backToTopButton.classList.remove('hidden');
+            } else {
+                backToTopButton.classList.add('hidden');
+            }
+        };
+
+        backToTopButton.addEventListener('click', () => {
+            // Smooth scroll to top
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DogeCoin Roadmap</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom animation for fade-in-up */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        /* Kinetic typography effect (simplified) */
+        .kinetic-text {
+            animation: kinetic 4s infinite alternate ease-in-out;
+        }
+        @keyframes kinetic {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        /* Timeline specific styling */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #e2a800; /* Primary color */
+            transform: translateX(-50%);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 20px; /* Adjust based on item padding/height */
+            width: 16px;
+            height: 16px;
+            background-color: #f0e090; /* Secondary color */
+            border-radius: 50%;
+            border: 3px solid #e2a800;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            float: left;
+            width: calc(50% - 40px); /* Adjust for spacing */
+            margin-left: 0;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            float: right;
+            width: calc(50% - 40px); /* Adjust for spacing */
+            margin-right: 0;
+            text-align: left;
+        }
+
+        /* Responsive adjustments for timeline */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+            .timeline-item::before {
+                left: 20px;
+            }
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                float: none;
+                width: calc(100% - 60px); /* Full width minus spacing */
+                margin-left: 40px; /* Align with timeline dot */
+                text-align: left;
+            }
+            .timeline-item:nth-child(odd) .timeline-content {
+                transform: none;
+            }
+            .timeline-item:nth-child(even) .timeline-content {
+                transform: none;
+            }
+        }
+
+        /* Expandable content */
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+        .expandable-content.expanded {
+            max-height: 500px; /* Adjust as needed */
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#e2a800',
+                        secondary: '#f0e090',
+                        accent: '#3498db',
+                        'dark-bg': '#1a1a2e',
+                        'glass-border': 'rgba(255, 255, 255, 0.2)'
+                    },
+                    fontFamily: {
+                        sans: ["'Open Sans', sans-serif"],
+                        cursive: ["'Luckiest Guy', cursive"]
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                        'kinetic': 'kinetic 4s infinite alternate ease-in-out',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark-bg text-white font-sans antialiased">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 backdrop-blur-lg bg-white/5 border-b border-glass-border py-4">
+        <nav class="container mx-auto flex justify-between items-center px-4">
+            <a href="index.html" class="flex items-center space-x-2">
+                <img src="assets/doge_logo_animated.gif" alt="DogeCoin Logo" class="h-10 w-auto rounded-full shadow-lg">
+                <span class="text-2xl font-cursive text-secondary kinetic-text">DogeCoin</span>
+            </a>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="index.html" class="hover:text-secondary transition-colors duration-300">Home</a>
+                <a href="about.html" class="hover:text-secondary transition-colors duration-300">About</a>
+                <a href="community.html" class="hover:text-secondary transition-colors duration-300">Community</a>
+                <a href="how-to.html" class="hover:text-secondary transition-colors duration-300">How To</a>
+                <a href="roadmap.html" class="text-secondary font-bold hover:scale-105 transition-all duration-300 ease-out">Roadmap</a>
+                <a href="faq.html" class="hover:text-secondary transition-colors duration-300">FAQ</a>
+                <a href="contact.html" class="hover:text-secondary transition-colors duration-300">Contact</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-secondary">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-lg z-40">
+            <div class="absolute top-0 left-0 w-3/4 h-full bg-dark-bg/90 border-r border-glass-border p-6">
+                <a href="index.html" class="flex items-center space-x-2 mb-8">
+                    <img src="assets/doge_logo_animated.gif" alt="DogeCoin Logo" class="h-8 w-auto rounded-full shadow-lg">
+                    <span class="text-xl font-cursive text-secondary">DogeCoin</span>
+                </a>
+                <nav class="flex flex-col space-y-4">
+                    <a href="index.html" class="py-2 px-3 rounded-lg hover:bg-white/10 transition-colors duration-300">Home</a>
+                    <a href="about.html" class="py-2 px-3 rounded-lg hover:bg-white/10 transition-colors duration-300">About</a>
+                    <a href="community.html" class="py-2 px-3 rounded-lg hover:bg-white/10 transition-colors duration-300">Community</a>
+                    <a href="how-to.html" class="py-2 px-3 rounded-lg hover:bg-white/10 transition-colors duration-300">How To</a>
+                    <a href="roadmap.html" class="py-2 px-3 rounded-lg bg-white/10 text-secondary font-bold transition-colors duration-300">Roadmap</a>
+                    <a href="faq.html" class="py-2 px-3 rounded-lg hover:bg-white/10 transition-colors duration-300">FAQ</a>
+                    <a href="contact.html" class="py-2 px-3 rounded-lg hover:bg-white/10 transition-colors duration-300">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-16">
+        <h1 class="text-5xl md:text-7xl font-cursive text-center mb-8 kinetic-text text-secondary animate-fade-in-up">Our Journey to the Moon!</h1>
+        <p class="text-xl text-center mb-16 text-gray-300 max-w-3xl mx-auto animate-fade-in-up" style="animation-delay: 0.2s;">Follow our progress as we build the future of the people's crypto, one wagging tail at a time!</p>
+
+        <section class="relative py-12">
+            <div class="timeline absolute left-0 right-0 top-0 bottom-0 mx-auto w-1 bg-primary hidden md:block"></div>
+            <div class="relative mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-16">
+
+                <!-- Milestone 1 -->
+                <div class="timeline-item relative pb-12 md:pb-0">
+                    <div class="timeline-content glassmorphism-card p-6 rounded-xl shadow-xl">
+                        <h2 class="text-3xl font-cursive text-secondary mb-2">Q1 2023</h2>
+                        <h3 class="text-2xl font-bold mb-4">Genesis Block & Community Launch</h3>
+                        <p class="text-gray-300 mb-4">The foundation was laid! We officially launched the project, establishing our core values and kicking off our initial community-building efforts. Much hype, very wow!</p>
+                        <button class="btn-expand text-primary font-semibold flex items-center group">
+                            <span>More Details</span>
+                            <svg class="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </button>
+                        <div class="expandable-content mt-4">
+                            <p class="text-gray-400 text-sm">Detailed community guidelines were established, early social channels were created, and our initial website went live. The core team bonded over memes and a shared vision.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Milestone 2 -->
+                <div class="timeline-item relative pb-12 md:pb-0">
+                    <div class="timeline-content glassmorphism-card p-6 rounded-xl shadow-xl">
+                        <h2 class="text-3xl font-cursive text-secondary mb-2">Q2 2023</h2>
+                        <h3 class="text-2xl font-bold mb-4">Meme Treasury & First Airdrop</h3>
+                        <p class="text-gray-300 mb-4">We funded the official Meme Treasury and rewarded our early supporters with our first DOGE airdrop! Because sharing is caring, and memes are currency.</p>
+                        <button class="btn-expand text-primary font-semibold flex items-center group">
+                            <span>More Details</span>
+                            <svg class="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </button>
+                        <div class="expandable-content mt-4">
+                            <p class="text-gray-400 text-sm">The Meme Treasury was established to fund community-driven content creation. The airdrop aimed to distribute DOGE widely, fostering early adoption and engagement.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Milestone 3 -->
+                <div class="timeline-item relative pb-12 md:pb-0">
+                    <div class="timeline-content glassmorphism-card p-6 rounded-xl shadow-xl">
+                        <h2 class="text-3xl font-cursive text-secondary mb-2">Q3 2023</h2>
+                        <h3 class="text-2xl font-bold mb-4">Community Project Incubator</h3>
+                        <p class="text-gray-300 mb-4">Launched the Community Project Incubator to support innovative ideas within the Doge ecosystem. From charity drives to NFT projects, we're backing the pack!</p>
+                        <button class="btn-expand text-primary font-semibold flex items-center group">
+                            <span>More Details</span>
+                            <svg class="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </button>
+                        <div class="expandable-content mt-4">
+                            <p class="text-gray-400 text-sm">Selected the first cohort of projects, providing mentorship, resources, and initial funding. Focus on projects that align with Doge's spirit of fun, charity, and accessibility.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Milestone 4 -->
+                <div class="timeline-item relative pb-12 md:pb-0">
+                    <div class="timeline-content glassmorphism-card p-6 rounded-xl shadow-xl">
+                        <h2 class="text-3xl font-cursive text-secondary mb-2">Q4 2023</h2>
+                        <h3 class="text-2xl font-bold mb-4">DogeFest & IRL Engagements</h3>
+                        <p class="text-gray-300 mb-4">Hosted the first ever DogeFest! A celebration of all things Doge, bringing the community together for fun, learning, and maybe a few dog puns. Many IRL connections made!</p>
+                        <button class="btn-expand text-primary font-semibold flex items-center group">
+                            <span>More Details</span>
+                            <svg class="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </button>
+                        <div class="expandable-content mt-4">
+                            <p class="text-gray-400 text-sm">Organized virtual and limited in-person meetups, fostering a stronger sense of community and providing opportunities for members to connect and share their Doge experiences.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Milestone 5 -->
+                <div class="timeline-item relative pb-12 md:pb-0">
+                    <div class="timeline-content glassmorphism-card p-6 rounded-xl shadow-xl">
+                        <h2 class="text-3xl font-cursive text-secondary mb-2">Q1 2024</h2>
+                        <h3 class="text-2xl font-bold mb-4">DogeChain Integration & Utility Push</h3>
+                        <p class="text-gray-300 mb-4">Exploring seamless integration with the DogeChain ecosystem to unlock new utility and possibilities for DOGE holders. More ways to use your Doge!</p>
+                        <button class="btn-expand text-primary font-semibold flex items-center group">
+                            <span>More Details</span>
+                            <svg class="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </button>
+                        <div class="expandable-content mt-4">
+                            <p class="text-gray-400 text-sm">Initiated partnerships and development efforts to enhance Dogecoin's utility, focusing on DeFi, NFTs, and real-world applications built on or interacting with the Doge network.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Milestone 6 -->
+                <div class="timeline-item relative pb-12 md:pb-0">
+                    <div class="timeline-content glassmorphism-card p-6 rounded-xl shadow-xl">
+                        <h2 class="text-3xl font-cursive text-secondary mb-2">Ongoing</h2>
+                        <h3 class="text-2xl font-bold mb-4">To Infinity & Beyond!</h3>
+                        <p class="text-gray-300 mb-4">The journey never ends! We're continuously working on community growth, technological advancements, and spreading the Doge spirit across the globe. The moon is just the beginning!</p>
+                        <button class="btn-expand text-primary font-semibold flex items-center group">
+                            <span>More Details</span>
+                            <svg class="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </button>
+                        <div class="expandable-content mt-4">
+                            <p class="text-gray-400 text-sm">Continuous development, community engagement initiatives, educational content creation, and exploration of new partnerships and use cases for Dogecoin.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black/50 backdrop-blur-lg border-t border-glass-border py-8 text-center">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6 space-y-4 md:space-y-0">
+                <div class="flex items-center space-x-3">
+                    <img src="assets/doge_logo_animated.gif" alt="DogeCoin Logo" class="h-12 w-auto rounded-full shadow-lg">
+                    <span class="text-3xl font-cursive text-secondary">DogeCoin Community</span>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="index.html" class="hover:text-secondary transition-colors duration-300">Home</a>
+                    <a href="about.html" class="hover:text-secondary transition-colors duration-300">About</a>
+                    <a href="community.html" class="hover:text-secondary transition-colors duration-300">Community</a>
+                    <a href="how-to.html" class="hover:text-secondary transition-colors duration-300">How To</a>
+                    <a href="roadmap.html" class="text-secondary font-bold">Roadmap</a>
+                    <a href="faq.html" class="hover:text-secondary transition-colors duration-300">FAQ</a>
+                    <a href="contact.html" class="hover:text-secondary transition-colors duration-300">Contact</a>
+                </div>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2024 DogeCoin Community. Much rights reserved. To the moon!</p>
+            <div class="mt-4">
+                <a href="#top" class="inline-block p-2 rounded-full bg-primary/20 hover:bg-primary/40 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-secondary">
+                    <svg class="w-6 h-6 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Close mobile menu when clicking outside of it
+            mobileMenu.addEventListener('click', (event) => {
+                if (event.target === mobileMenu) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+
+            // Expandable content logic
+            const expandButtons = document.querySelectorAll('.btn-expand');
+            expandButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const content = button.nextElementSibling;
+                    content.classList.toggle('expanded');
+                    const svg = button.querySelector('svg');
+                    if (content.classList.contains('expanded')) {
+                        svg.style.transform = 'rotate(180deg)';
+                    } else {
+                        svg.style.transform = 'rotate(0deg)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

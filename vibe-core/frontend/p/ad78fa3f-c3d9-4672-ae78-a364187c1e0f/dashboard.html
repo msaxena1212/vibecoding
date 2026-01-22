@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - India Emissions Data</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#28a745',
+                        secondary: '#007bff',
+                        accent: '#ffc107',
+                        dark: '#1a202c',
+                        light: '#f7fafc',
+                        'primary-dark': '#218838',
+                        'secondary-dark': '#0056b3',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            },
+            plugins: [],
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-dark text-light font-sans antialiased">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-dark/80 backdrop-blur-lg border-b border-white/20">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold font-serif text-primary hover:text-accent transition-colors">
+                India Emissions
+            </a>
+            <div class="hidden md:flex space-x-6">
+                <a href="index.html" class="hover:text-primary transition-colors">Home</a>
+                <a href="dashboard.html" class="text-primary font-semibold hover:text-accent transition-colors">Dashboard</a>
+                <a href="services.html" class="hover:text-primary transition-colors">Services</a>
+                <a href="about.html" class="hover:text-primary transition-colors">About</a>
+                <a href="contact.html" class="hover:text-primary transition-colors">Contact</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-light focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 z-40 bg-dark/90 backdrop-blur-xl">
+            <div class="container mx-auto px-6 py-4">
+                <div class="flex justify-between items-center mb-8">
+                    <a href="index.html" class="text-2xl font-bold font-serif text-primary">India Emissions</a>
+                    <button id="close-menu-button" class="text-light focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <nav class="flex flex-col space-y-6">
+                    <a href="index.html" class="text-lg hover:text-primary transition-colors">Home</a>
+                    <a href="dashboard.html" class="text-lg text-primary font-semibold hover:text-accent transition-colors">Dashboard</a>
+                    <a href="services.html" class="text-lg hover:text-primary transition-colors">Services</a>
+                    <a href="about.html" class="text-lg hover:text-primary transition-colors">About</a>
+                    <a href="contact.html" class="text-lg hover:text-primary transition-colors">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-16">
+
+        <!-- Dashboard Title -->
+        <div class="text-center mb-16 reveal">
+            <h1 class="text-5xl font-bold font-serif mb-4">India's Emission Data Hub</h1>
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto">Visualizing the critical data shaping India's environmental future. Explore trends, metrics, and regional impacts.</p>
+        </div>
+
+        <!-- Key Metrics Section -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            <div class="stats-card reveal bg-white/10 backdrop-blur-lg border border-white/20 p-6 rounded-2xl flex items-center space-x-4 group">
+                <div class="flex-shrink-0">
+                    <img src="assets/co2_molecule_icon.png" alt="CO2 Icon" class="w-12 h-12 text-primary">
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-300">Total CO2 (Current Year)</h3>
+                    <p class="text-3xl font-bold text-white">1.5 Gt</p>
+                </div>
+            </div>
+            <div class="stats-card reveal bg-white/10 backdrop-blur-lg border border-white/20 p-6 rounded-2xl flex items-center space-x-4 group">
+                <div class="flex-shrink-0">
+                    <img src="assets/co2_molecule_icon.png" alt="CH4 Icon" class="w-12 h-12 text-accent">
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-300">Total CH4 (Current Year)</h3>
+                    <p class="text-3xl font-bold text-white">85 Mt</p>
+                </div>
+            </div>
+            <div class="stats-card reveal bg-white/10 backdrop-blur-lg border border-white/20 p-6 rounded-2xl flex items-center space-x-4 group">
+                <div class="flex-shrink-0">
+                    <img src="assets/co2_molecule_icon.png" alt="N2O Icon" class="w-12 h-12 text-secondary">
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-300">Total N2O (Current Year)</h3>
+                    <p class="text-3xl font-bold text-white">20 Mt</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Chart Section -->
+        <section class="reveal mb-16 p-8 bg-white/5 backdrop-blur-lg border border-white/20 rounded-2xl">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold font-serif">Total CO2 Emissions Over Time (India)</h2>
+                <div class="relative inline-block text-left">
+                    <button id="year-filter-button" class="inline-flex justify-center w-full rounded-md border border-white/30 shadow-sm px-4 py-2 bg-white/10 text-sm font-medium text-gray-300 hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-dark">
+                        Filter by Year
+                        <svg class="ml-2 -mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <div id="year-filter-dropdown" class="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white/10 ring-1 ring-black ring-opacity-5 focus:outline-none hidden" role="menu" aria-orientation="vertical" aria-labelledby="year-filter-button">
+                        <div class="py-1" role="none">
+                            <a href="#" class="text-gray-300 block px-4 py-2 text-sm hover:bg-white/20" role="menuitem" data-year="all">All Years</a>
+                            <a href="#" class="text-gray-300 block px-4 py-2 text-sm hover:bg-white/20" role="menuitem" data-year="2023">2023</a>
+                            <a href="#" class="text-gray-300 block px-4 py-2 text-sm hover:bg-white/20" role="menuitem" data-year="2022">2022</a>
+                            <a href="#" class="text-gray-300 block px-4 py-2 text-sm hover:bg-white/20" role="menuitem" data-year="2021">2021</a>
+                            <a href="#" class="text-gray-300 block px-4 py-2 text-sm hover:bg-white/20" role="menuitem" data-year="2020">2020</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-container" style="position: relative; height:60vh; width:100%">
+                <canvas id="co2EmissionsChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Bento Grid Layout -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+
+            <!-- Emissions by State Card -->
+            <div class="bento-card reveal bg-white/5 backdrop-blur-lg border border-white/20 p-6 rounded-2xl group">
+                <h3 class="text-2xl font-bold font-serif mb-4">Emissions by State</h3>
+                <div class="relative overflow-hidden rounded-xl mb-4">
+                    <img src="assets/india_emission_map.png" alt="India Emission Map" class="w-full h-64 object-cover rounded-xl group-hover:scale-105 transition-all duration-300 ease-out">
+                </div>
+                <p class="text-gray-300 mb-4">Explore the geographical distribution of emissions across India's diverse states. Identify key contributors and regional trends.</p>
+                <a href="state_emissions.html" class="inline-block px-6 py-2 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition-colors shadow-lg shadow-primary/30 group-hover:shadow-primary/50">
+                    View State Data
+                </a>
+            </div>
+
+            <!-- Emissions by Sector Card -->
+            <div class="bento-card reveal bg-white/5 backdrop-blur-lg border border-white/20 p-6 rounded-2xl group">
+                <h3 class="text-2xl font-bold font-serif mb-4">Emissions by Sector</h3>
+                <div class="relative overflow-hidden rounded-xl mb-4">
+                    <img src="assets/transport_emission_graphic.png" alt="Transport Emission Graphic" class="w-full h-64 object-cover rounded-xl group-hover:scale-105 transition-all duration-300 ease-out">
+                </div>
+                <p class="text-gray-300 mb-4">Understand the contribution of various sectors, from energy and industry to transport and agriculture, to India's overall emission profile.</p>
+                <a href="sector_emissions.html" class="inline-block px-6 py-2 bg-secondary text-white font-semibold rounded-lg hover:bg-secondary-dark transition-colors shadow-lg shadow-secondary/30 group-hover:shadow-secondary/50">
+                    Explore Sector Data
+                </a>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-auto bg-dark py-8 border-t border-white/10">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-bold font-serif mb-4">India Emissions</h3>
+                    <p class="text-sm">Empowering India with data-driven insights into environmental sustainability.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold font-serif mb-4">Quick Links</h3>
+                    <nav class="flex flex-col space-y-2 text-sm">
+                        <a href="index.html" class="hover:text-primary transition-colors">Home</a>
+                        <a href="dashboard.html" class="text-primary hover:text-accent transition-colors">Dashboard</a>
+                        <a href="services.html" class="hover:text-primary transition-colors">Services</a>
+                        <a href="about.html" class="hover:text-primary transition-colors">About</a>
+                        <a href="contact.html" class="hover:text-primary transition-colors">Contact</a>
+                    </nav>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold font-serif mb-4">Legal</h3>
+                    <nav class="flex flex-col space-y-2 text-sm">
+                        <a href="privacy.html" class="hover:text-primary transition-colors">Privacy Policy</a>
+                        <a href="terms.html" class="hover:text-primary transition-colors">Terms of Service</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-white/10 text-xs">
+                &copy; 2024 India Emissions Data. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="hidden fixed bottom-8 right-8 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-primary-dark transition-all duration-300 ease-out z-50 focus:outline-none focus:ring-2 focus:ring-primary">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7M5 15V4"></path>
+        </svg>
+    </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Chart.js Configuration
+        const ctx = document.getElementById('co2EmissionsChart').getContext('2d');
+        const co2EmissionsChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'],
+                datasets: [{
+                    label: 'Total CO2 Emissions (Mt)',
+                    data: [1800, 1850, 1900, 1950, 2000, 1980, 2100, 2150, 2200], // Mock data
+                    borderColor: 'rgba(40, 167, 69, 1)', // Primary color
+                    backgroundColor: 'rgba(40, 167, 69, 0.2)',
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 0,
+                    pointHoverRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0,0,0,0.7)',
+                        titleFont: { family: "'Inter', sans-serif", weight: '600'},
+                        bodyFont: { family: "'Inter', sans-serif", weight: '400'}
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)',
+                        },
+                        ticks: {
+                            color: 'rgba(209, 213, 219, 1)' // gray-300
+                        }
+                    },
+                    y: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)',
+                        },
+                        ticks: {
+                            color: 'rgba(209, 213, 219, 1)', // gray-300
+                            callback: function(value, index, values) {
+                                return value + ' Mt';
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Emissions (Metric Tons)',
+                            color: 'rgba(209, 213, 219, 1)'
+                        }
+                    }
+                },
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+            }
+        });
+
+        // Year Filter Logic
+        const yearFilterButton = document.getElementById('year-filter-button');
+        const yearFilterDropdown = document.getElementById('year-filter-dropdown');
+        const filterYearLinks = yearFilterDropdown.querySelectorAll('a[data-year]');
+
+        yearFilterButton.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent closing when clicking button
+            yearFilterDropdown.classList.toggle('hidden');
+        });
+
+        filterYearLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const selectedYear = e.target.getAttribute('data-year');
+                // TODO: Implement actual data filtering logic here.
+                // For now, just change the button text and close dropdown.
+                yearFilterButton.querySelector('span').textContent = e.target.textContent;
+                yearFilterDropdown.classList.add('hidden');
+                console.log(`Filtering data for year: ${selectedYear}`);
+                // In a real app, you would fetch/filter chart data and update co2EmissionsChart.update();
+            });
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!yearFilterButton.contains(e.target) && !yearFilterDropdown.contains(e.target)) {
+                yearFilterDropdown.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Emission Monitoring India</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <style>
+        /* Tailwind CSS Configuration - Dynamically set via script */
+        /* Custom animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        /* Reveal on Scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+    <script>
+        // Tailwind CSS Configuration
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#28a745', // Example primary color
+                        'secondary': '#007bff', // Example secondary color
+                        'accent': '#ffc107', // Example accent color
+                        'dark-text': '#1a202c',
+                        'light-text': '#f7fafc',
+                        'glass-border': 'rgba(255, 255, 255, 0.2)',
+                        'glass-bg': 'rgba(255, 255, 255, 0.1)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    backgroundImage: {
+                        'gradient-radial-to-bottom-right': 'radial-gradient(circle at top left, var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans bg-gradient-to-br from-gray-900 to-black min-h-screen text-light-text">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-black/70 backdrop-blur-lg border-b border-glass-border py-4">
+        <nav class="container mx-auto px-4 flex items-center justify-between">
+            <a href="index.html" class="text-2xl font-bold font-serif text-primary flex items-center">
+                <img src="assets/logo.png" alt="Brand Logo" class="h-8 mr-3"> <!-- Assuming you have a logo -->
+                EmissionSense
+            </a>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="index.html" class="hover:text-primary transition-colors duration-300">Home</a>
+                <a href="services.html" class="text-primary font-semibold hover:text-accent transition-colors duration-300">Services</a>
+                <a href="about.html" class="hover:text-primary transition-colors duration-300">About Us</a>
+                <a href="contact.html" class="hover:text-primary transition-colors duration-300">Contact</a>
+                <a href="contact.html" class="bg-primary hover:bg-accent text-white px-6 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 ease-out">Request Detailed Report</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-light-text focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-90 backdrop-blur-lg z-40 hidden flex-col items-center justify-center space-y-6 font-sans text-xl transition-opacity duration-300 ease-out opacity-0">
+            <button id="close-menu-button" class="absolute top-8 right-8 text-light-text focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <a href="index.html" class="hover:text-primary transition-colors duration-300">Home</a>
+            <a href="services.html" class="text-primary font-semibold hover:text-accent transition-colors duration-300">Services</a>
+            <a href="about.html" class="hover:text-primary transition-colors duration-300">About Us</a>
+            <a href="contact.html" class="hover:text-primary transition-colors duration-300">Contact</a>
+            <a href="contact.html" class="bg-primary hover:bg-accent text-white px-6 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 ease-out mt-4">Request Detailed Report</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative py-24 px-4 overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img src="assets/dashboard_hero_graphic.png" alt="Abstract data visualization" class="w-full h-full object-cover opacity-30">
+            </div>
+            <div class="container mx-auto relative z-10 text-center">
+                <h1 class="text-5xl md:text-7xl font-bold font-serif mb-6 reveal animate-fade-in-up">
+                    Comprehensive <span class="text-primary">Emission Monitoring</span> Solutions
+                </h1>
+                <p class="text-xl md:text-2xl font-light leading-relaxed max-w-3xl mx-auto reveal animate-fade-in-up" style="animation-delay: 0.2s;">
+                    Granular insights into India's gas emissions, translating complex data into actionable intelligence for a sustainable future.
+                </p>
+            </div>
+        </section>
+
+        <!-- Services Overview Section -->
+        <section class="py-20 px-4 bg-gradient-to-br from-gray-800 to-black">
+            <div class="container mx-auto">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-4xl font-bold font-serif mb-4">Our Services: <span class="text-primary">What We Offer</span></h2>
+                    <p class="text-lg font-light max-w-3xl mx-auto">
+                        We provide a suite of services designed to offer detailed perspectives on India's environmental data.
+                    </p>
+                </div>
+
+                <!-- Emission Types Bento Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="col-span-1 md:col-span-3 reveal">
+                        <h3 class="text-3xl font-bold font-serif text-center mb-8">Emission Types Monitored</h3>
+                    </div>
+
+                    <!-- CO2 Card -->
+                    <div class="bg-glass-bg backdrop-blur-lg border border-glass-border rounded-2xl p-6 shadow-xl group cursor-pointer reveal" style="animation-delay: 0.1s;">
+                        <div class="flex items-center mb-4">
+                            <img src="assets/co2_molecule_icon.png" alt="CO2 Icon" class="h-10 w-10 mr-4 rounded-lg">
+                            <h4 class="text-2xl font-bold font-sans">CO2</h4>
+                        </div>
+                        <p class="text-sm font-light text-gray-300">Carbon Dioxide: The primary greenhouse gas, largely from fossil fuel combustion for energy and industry.</p>
+                        <div class="mt-4 text-right">
+                            <span class="text-primary font-semibold text-lg group-hover:scale-105 transition-all duration-300 ease-out">Learn More</span>
+                        </div>
+                    </div>
+
+                    <!-- CH4 Card -->
+                    <div class="bg-glass-bg backdrop-blur-lg border border-glass-border rounded-2xl p-6 shadow-xl group cursor-pointer reveal" style="animation-delay: 0.2s;">
+                        <div class="flex items-center mb-4">
+                            <img src="assets/methane_icon.png" alt="CH4 Icon" class="h-10 w-10 mr-4 rounded-lg"> <!-- Placeholder icon -->
+                            <h4 class="text-2xl font-bold font-sans">CH4</h4>
+                        </div>
+                        <p class="text-sm font-light text-gray-300">Methane: A potent GHG, originating from agriculture (livestock, rice paddies), waste, and fossil fuel extraction.</p>
+                        <div class="mt-4 text-right">
+                            <span class="text-primary font-semibold text-lg group-hover:scale-105 transition-all duration-300 ease-out">Learn More</span>
+                        </div>
+                    </div>
+
+                    <!-- N2O Card -->
+                    <div class="bg-glass-bg backdrop-blur-lg border border-glass-border rounded-2xl p-6 shadow-xl group cursor-pointer reveal" style="animation-delay: 0.3s;">
+                        <div class="flex items-center mb-4">
+                            <img src="assets/nitrous_oxide_icon.png" alt="N2O Icon" class="h-10 w-10 mr-4 rounded-lg"> <!-- Placeholder icon -->
+                            <h4 class="text-2xl font-bold font-sans">N2O</h4>
+                        </div>
+                        <p class="text-sm font-light text-gray-300">Nitrous Oxide: A GHG linked to agricultural practices (fertilizers), industrial processes, and combustion.</p>
+                        <div class="mt-4 text-right">
+                            <span class="text-primary font-semibold text-lg group-hover:scale-105 transition-all duration-300 ease-out">Learn More</span>
+                        </div>
+                    </div>
+
+                    <!-- SOx Card -->
+                    <div class="bg-glass-bg backdrop-blur-lg border border-glass-border rounded-2xl p-6 shadow-xl group cursor-pointer reveal" style="animation-delay: 0.4s;">
+                        <div class="flex items-center mb-4">
+                            <img src="assets/sox_icon.png" alt="SOx Icon" class="h-10 w-10 mr-4 rounded-lg"> <!-- Placeholder icon -->
+                            <h4 class="text-2xl font-bold font-sans">SOx</h4>
+                        </div>
+                        <p class="text-sm font-light text-gray-300">Sulphur Oxides: Air pollutants contributing to acid rain and respiratory issues, mainly from burning sulfur-containing fuels like coal.</p>
+                        <div class="mt-4 text-right">
+                            <span class="text-primary font-semibold text-lg group-hover:scale-105 transition-all duration-300 ease-out">Learn More</span>
+                        </div>
+                    </div>
+
+                    <!-- NOx Card -->
+                    <div class="bg-glass-bg backdrop-blur-lg border border-glass-border rounded-2xl p-6 shadow-xl group cursor-pointer reveal" style="animation-delay: 0.5s;">
+                        <div class="flex items-center mb-4">
+                            <img src="assets/nox_icon.png" alt="NOx Icon" class="h-10 w-10 mr-4 rounded-lg"> <!-- Placeholder icon -->
+                            <h4 class="text-2xl font-bold font-sans">NOx</h4>
+                        </div>
+                        <p class="text-sm font-light text-gray-300">Nitrogen Oxides: Key contributors to smog, acid rain, and respiratory problems, from high-temperature combustion (vehicles, power plants).</p>
+                        <div class="mt-4 text-right">
+                            <span class="text-primary font-semibold text-lg group-hover:scale-105 transition-all duration-300 ease-out">Learn More</span>
+                        </div>
+                    </div>
+
+                    <!-- PM2.5 Card -->
+                    <div class="bg-glass-bg backdrop-blur-lg border border-glass-border rounded-2xl p-6 shadow-xl group cursor-pointer reveal" style="animation-delay: 0.6s;">
+                        <div class="flex items-center mb-4">
+                            <img src="assets/pm25_icon.png" alt="PM2.5 Icon" class="h-10 w-10 mr-4 rounded-lg"> <!-- Placeholder icon -->
+                            <h4 class="text-2xl font-bold font-sans">PM2.5</h4>
+                        </div>
+                        <p class="text-sm font-light text-gray-300">Particulate Matter (PM2.5): Fine particles causing severe health issues, from combustion, industrial processes, and dust.</p>
+                        <div class="mt-4 text-right">
+                            <span class="text-primary font-semibold text-lg group-hover:scale-105 transition-all duration-300 ease-out">Learn More</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Methodology and Data Sources Section -->
+        <section class="py-20 px-4 bg-gray-900">
+            <div class="container mx-auto">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-4xl font-bold font-serif mb-4">Our Data Sources & <span class="text-primary">Methodology</span></h2>
+                    <p class="text-lg font-light max-w-3xl mx-auto">
+                        We are committed to data integrity and transparency. Understand how we collect, process, and present emission data for India.
+                    </p>
+                </div>
+
+                <!-- Data Sources Bento Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="col-span-1 md:col-span-2 reveal">
+                        <h3 class="text-3xl font-bold font-serif text-center mb-8">Data Aggregation & Calculation</h3>
+                    </div>
+
+                    <!-- Data Sources Card 1 -->
+                    <div class="bg-glass-bg backdrop-blur-lg border border-glass-border rounded-2xl p-6 shadow-xl reveal" style="animation-delay: 0.1s;">
+                        <h4 class="text-2xl font-bold font-sans mb-4">Trusted Data Origins</h4>
+                        <p class="text-sm font-light text-gray-300 mb-4">
+                            We meticulously source our data from reputable government agencies like the Central Pollution Control Board (CPCB) and the Ministry of Environment, Forest and Climate Change (MoEFCC). Complementing this, we integrate data from globally recognized databases such as EDGAR and Climate Watch (WRI) for a comprehensive view.
+                        </p>
+                        <p class="text-sm font-light text-gray-300 mb-4">
+                            Where direct real-time data is limited, we employ scientifically validated emission factors and models, adapting established methodologies like those from the IPCC to the Indian context.
+                        </p>
+                        <div class="text-right">
+                            <a href="about.html#data-sources" class="text-primary font-semibold text-lg hover:underline transition-colors duration-300 ease-out">View All Sources</a>
+                        </div>
+                    </div>
+
+                    <!-- Methodology Card 2 -->
+                    <div class="bg-glass-bg backdrop-blur-lg border border-glass-border rounded-2xl p-6 shadow-xl reveal" style="animation-delay: 0.2s;">
+                        <h4 class="text-2xl font-bold font-sans mb-4">Rigorous Calculation Process</h4>
+                        <p class="text-sm font-light text-gray-300 mb-4">
+                            Our process involves consolidating information from multiple sources, utilizing a curated database of emission factors specific to Indian sources (vehicles, industries, fuels). Advanced analytics, employing statistical models and libraries like Pandas and NumPy, are used to analyze trends and generate insights.
+                        </p>
+                        <p class="text-sm font-light text-gray-300 mb-4">
+                            We clearly outline our calculation processes and any limitations, ensuring users understand how our insights are derived.
+                        </p>
+                        <div class="text-right">
+                            <a href="about.html#methodology" class="text-primary font-semibold text-lg hover:underline transition-colors duration-300 ease-out">Explore Methodology</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-20 px-4 text-center bg-primary bg-opacity-10">
+            <div class="container mx-auto reveal">
+                <h2 class="text-4xl font-bold font-serif mb-6">Ready to Dive Deeper?</h2>
+                <p class="text-xl font-light max-w-2xl mx-auto mb-8">
+                    Request a detailed report tailored to your specific needs, or contact us to discuss how our data services can support your environmental goals.
+                </p>
+                <a href="contact.html" class="bg-primary hover:bg-accent text-white font-semibold px-10 py-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 ease-out text-lg inline-block transform group-hover:scale-105">
+                    Request Detailed Report
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black/70 backdrop-blur-lg border-t border-glass-border py-8">
+        <div class="container mx-auto px-4 text-center md:text-left">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <a href="index.html" class="text-2xl font-bold font-serif text-primary flex items-center justify-center md:justify-start mb-4">
+                        <img src="assets/logo.png" alt="Brand Logo" class="h-8 mr-3"> <!-- Assuming you have a logo -->
+                        EmissionSense
+                    </a>
+                    <p class="text-sm font-light text-gray-400">Empowering India with data-driven environmental insights.</p>
+                </div>
+                <div class="md:col-span-2">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <h4 class="text-lg font-semibold mb-3">Quick Links</h4>
+                            <ul>
+                                <li><a href="index.html" class="text-gray-400 hover:text-primary transition-colors duration-300">Home</a></li>
+                                <li><a href="services.html" class="text-primary font-semibold">Services</a></li>
+                                <li><a href="about.html" class="text-gray-400 hover:text-primary transition-colors duration-300">About Us</a></li>
+                                <li><a href="contact.html" class="text-gray-400 hover:text-primary transition-colors duration-300">Contact</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold mb-3">Legal</h4>
+                            <ul>
+                                <li><a href="privacy.html" class="text-gray-400 hover:text-primary transition-colors duration-300">Privacy Policy</a></li>
+                                <li><a href="terms.html" class="text-gray-400 hover:text-primary transition-colors duration-300">Terms of Service</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold mb-3">Contact Us</h4>
+                            <p class="text-gray-400 text-sm">info@emissionsense.in</p>
+                            <p class="text-gray-400 text-sm">+91-11-4567890</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-500 text-sm">
+                &copy; 2024 EmissionSense. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-accent transition-all duration-300 ease-out z-50 hidden group-hover:scale-105">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7 7 7M5 18l7-7 7 7"></path>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - Emissions India</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#007bff',
+                        'secondary': '#6c757d',
+                        'success': '#28a745',
+                        'warning': '#ffc107',
+                        'danger': '#dc3545',
+                        'info': '#17a2b8',
+                        'light': '#f8f9fa',
+                        'dark': '#343a40',
+                        'custom-blue': '#003366', // Darker blue for authoritative tone
+                        'custom-green': '#008000', // Standard green for environmental theme
+                        'custom-yellow': '#FFD700', // Gold for emphasis
+                    },
+                    fontFamily: {
+                        sans: ["'Open Sans'", 'sans-serif'],
+                        serif: ["'Roboto'", 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #1a202c; /* Dark background */
+            color: #e2e8f0; /* Light text for contrast */
+        }
+        .border-gradient {
+            border-image-slice: 1;
+            border-width: 2px;
+            border-image-source: linear-gradient(to right, #007bff, #28a745);
+        }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="relative min-h-screen">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-gray-900/80 backdrop-blur-lg py-4 px-4 md:px-8 border-b border-gray-700">
+        <div class="container mx-auto flex items-center justify-between">
+            <a href="index.html" class="text-2xl font-bold text-white flex items-center space-x-2">
+                <img src="assets/co2_molecule_icon.png" alt="Emissions India Logo" class="h-8 w-8">
+                <span class="text-custom-green">Emissions</span><span class="text-white">India</span>
+            </a>
+            <nav class="hidden md:flex space-x-6 items-center">
+                <a href="index.html" class="text-gray-300 hover:text-white transition-colors duration-300">Home</a>
+                <a href="dashboard.html" class="text-gray-300 hover:text-white transition-colors duration-300">Dashboard</a>
+                <a href="services.html" class="text-gray-300 hover:text-white transition-colors duration-300">Services</a>
+                <a href="about.html" class="text-gray-300 hover:text-white transition-colors duration-300">About</a>
+                <a href="contact.html" class="text-gray-300 hover:text-white transition-colors duration-300">Contact</a>
+                <a href="privacy.html" class="text-gray-300 hover:text-white transition-colors duration-300">Privacy</a>
+                <a href="terms.html" class="text-gray-300 hover:text-white transition-colors duration-300">Terms</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-gray-300 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40 md:hidden">
+            <div class="absolute top-0 right-0 w-64 h-full glassmorphism shadow-lg p-6">
+                <button id="close-menu-button" class="absolute top-4 right-4 text-gray-300 hover:text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+                <nav class="mt-12 space-y-4">
+                    <a href="index.html" class="block text-gray-300 hover:text-white transition-colors duration-300">Home</a>
+                    <a href="dashboard.html" class="block text-gray-300 hover:text-white transition-colors duration-300">Dashboard</a>
+                    <a href="services.html" class="block text-gray-300 hover:text-white transition-colors duration-300">Services</a>
+                    <a href="about.html" class="block text-gray-300 hover:text-white transition-colors duration-300">About</a>
+                    <a href="contact.html" class="block text-gray-300 hover:text-white transition-colors duration-300">Contact</a>
+                    <a href="privacy.html" class="block text-gray-300 hover:text-white transition-colors duration-300">Privacy</a>
+                    <a href="terms.html" class="block text-gray-300 hover:text-white transition-colors duration-300">Terms</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-16 md:py-24 text-center">
+        <div class="flex flex-col items-center justify-center min-h-[70vh]">
+            <div class="max-w-2xl mx-auto">
+                <img src="assets/india_emission_map.png" alt="Broken Connection Graphic" class="w-48 h-48 mx-auto mb-8 opacity-70">
+                <h1 class="text-5xl md:text-7xl font-bold text-custom-yellow mb-4">404</h1>
+                <h2 class="text-3xl md:text-4xl font-semibold text-gray-300 mb-6">Page Not Found</h2>
+                <p class="text-lg text-gray-400 mb-8">
+                    It seems the data stream for this page has been disrupted.
+                    The environmental insights you're looking for might have been rerouted or is temporarily unavailable.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="index.html" class="inline-block px-8 py-3 bg-gradient-to-r from-custom-green to-primary text-white font-semibold rounded-lg shadow-lg hover:scale-105 transition-all duration-300 ease-out focus:ring-2 ring-primary">
+                        Go to Homepage
+                    </a>
+                    <a href="dashboard.html" class="inline-block px-8 py-3 bg-gradient-to-r from-custom-blue to-custom-yellow text-white font-semibold rounded-lg shadow-lg hover:scale-105 transition-all duration-300 ease-out focus:ring-2 ring-primary">
+                        Visit Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900/80 backdrop-blur-lg py-8 px-4 md:px-8 border-t border-gray-700 mt-auto">
+        <div class="container mx-auto text-center text-gray-400">
+            <div class="mb-6">
+                <a href="index.html" class="text-2xl font-bold text-white flex items-center justify-center space-x-2 mb-4">
+                    <img src="assets/co2_molecule_icon.png" alt="Emissions India Logo" class="h-6 w-6">
+                    <span class="text-custom-green">Emissions</span><span class="text-white">India</span>
+                </a>
+                <p class="text-sm">Empowering India with critical environmental data for a sustainable future.</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm mb-6">
+                <a href="index.html" class="hover:text-white transition-colors duration-300">Home</a>
+                <a href="dashboard.html" class="hover:text-white transition-colors duration-300">Dashboard</a>
+                <a href="services.html" class="hover:text-white transition-colors duration-300">Services</a>
+                <a href="about.html" class="hover:text-white transition-colors duration-300">About Us</a>
+                <a href="contact.html" class="hover:text-white transition-colors duration-300">Contact</a>
+                <a href="privacy.html" class="hover:text-white transition-colors duration-300">Privacy Policy</a>
+                <a href="terms.html" class="hover:text-white transition-colors duration-300">Terms of Service</a>
+            </div>
+            <div class="text-xs">
+                © 2023 Emissions India. All rights reserved. Data is for informational purposes and may be subject to updates and revisions.
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Mobile menu toggle functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const closeMenuButton = document.getElementById('close-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('hidden');
+        });
+
+        closeMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
+
+        // Close menu if clicking outside of the menu content
+        mobileMenu.addEventListener('click', (event) => {
+            if (event.target === mobileMenu) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

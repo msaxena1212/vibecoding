@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - POS Webapp</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Tailwind CSS configuration for custom colors */
+        .theme-config {
+            --primary-color: #00bcd4;
+            --secondary-color: #3f51b5;
+            --background-color: #212121;
+            --text-color: #ffffff;
+            --input-bg: rgba(255, 255, 255, 0.05);
+            --border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Roboto Slab', serif;
+        }
+
+        .glassmorphism-nav {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .form-input {
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.3);
+            outline: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary-color) 30%, var(--secondary-color) 90%);
+            color: var(--text-color);
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 188, 212, 0.4);
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            transition: background-color 0.3s ease-out, color 0.3s ease-out;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: var(--background-color);
+        }
+
+        .section-divider {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Reveal on Scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            opacity: 0;
+            transform: translateY(100%);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        }
+        .back-to-top.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="theme-config">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 glassmorphism-nav py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="index.html" class="text-2xl font-bold font-['Roboto Slab'] text-cyan-400">POS<span class="text-white">PRO</span></a>
+            </div>
+            <nav class="hidden md:flex space-x-6">
+                <a href="index.html" class="text-gray-300 hover:text-cyan-400 transition duration-300">Home</a>
+                <a href="dashboard.html" class="text-gray-300 hover:text-cyan-400 transition duration-300">Dashboard</a>
+                <a href="sales.html" class="text-gray-300 hover:text-cyan-400 transition duration-300">Sales</a>
+                <a href="products.html" class="text-gray-300 hover:text-cyan-400 transition duration-300">Products</a>
+                <a href="customers.html" class="text-gray-300 hover:text-cyan-400 transition duration-300">Customers</a>
+                <a href="reports.html" class="text-gray-300 hover:text-cyan-400 transition duration-300">Reports</a>
+                <a href="settings.html" class="text-cyan-400 font-semibold">Settings</a>
+            </nav>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-300 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu-overlay" class="fixed inset-0 z-40 bg-black bg-opacity-70 backdrop-blur-lg mobile-menu-overlay">
+            <div class="container mx-auto px-6 h-full flex flex-col justify-center items-center">
+                <nav class="flex flex-col space-y-6 text-center">
+                    <a href="index.html" class="text-gray-300 text-2xl hover:text-cyan-400 transition duration-300">Home</a>
+                    <a href="dashboard.html" class="text-gray-300 text-2xl hover:text-cyan-400 transition duration-300">Dashboard</a>
+                    <a href="sales.html" class="text-gray-300 text-2xl hover:text-cyan-400 transition duration-300">Sales</a>
+                    <a href="products.html" class="text-gray-300 text-2xl hover:text-cyan-400 transition duration-300">Products</a>
+                    <a href="customers.html" class="text-gray-300 text-2xl hover:text-cyan-400 transition duration-300">Customers</a>
+                    <a href="reports.html" class="text-gray-300 text-2xl hover:text-cyan-400 transition duration-300">Reports</a>
+                    <a href="settings.html" class="text-cyan-400 text-2xl font-semibold">Settings</a>
+                </nav>
+                <button id="close-menu-button" class="absolute top-8 right-8 text-gray-300 p-2 focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-16">
+        <h1 class="text-4xl font-bold font-['Roboto Slab'] mb-8 reveal">Application Settings</h1>
+        <p class="text-lg text-gray-300 mb-12 reveal">Configure your POS system to perfectly match your business needs.</p>
+
+        <section id="store-details" class="mb-16 reveal">
+            <h2 class="text-3xl font-bold font-['Roboto Slab'] mb-6">Store Details</h2>
+            <div class="glassmorphism-nav p-6 rounded-lg shadow-xl">
+                <form>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="store-name" class="block text-sm font-medium text-gray-300 mb-2">Store Name</label>
+                            <input type="text" id="store-name" class="form-input w-full px-4 py-3 rounded-lg" placeholder="e.g., 'The Gadget Hub'" required>
+                        </div>
+                        <div>
+                            <label for="store-address" class="block text-sm font-medium text-gray-300 mb-2">Store Address</label>
+                            <input type="text" id="store-address" class="form-input w-full px-4 py-3 rounded-lg" placeholder="123 Main Street, Anytown, CA 90210">
+                        </div>
+                        <div>
+                            <label for="store-phone" class="block text-sm font-medium text-gray-300 mb-2">Store Phone Number</label>
+                            <input type="tel" id="store-phone" class="form-input w-full px-4 py-3 rounded-lg" placeholder="(555) 123-4567">
+                        </div>
+                        <div>
+                            <label for="store-email" class="block text-sm font-medium text-gray-300 mb-2">Store Email</label>
+                            <input type="email" id="store-email" class="form-input w-full px-4 py-3 rounded-lg" placeholder="info@gadgethub.com">
+                        </div>
+                    </div>
+                    <div class="mt-8 text-right">
+                        <button type="submit" class="btn-primary px-6 py-3 rounded-lg font-semibold focus:ring-2 ring-cyan-400">Save Store Details</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section id="user-management" class="mb-16 reveal">
+            <h2 class="text-3xl font-bold font-['Roboto Slab'] mb-6">User Management</h2>
+            <div class="glassmorphism-nav p-6 rounded-lg shadow-xl">
+                <div class="flex justify-end mb-6">
+                    <button class="btn-primary px-5 py-2 rounded-lg font-semibold flex items-center space-x-2 focus:ring-2 ring-cyan-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                        </svg>
+                        <span>Add New User</span>
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full">
+                        <thead>
+                            <tr class="section-divider">
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Name</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Email</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Role</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Status</th>
+                                <th class="px-4 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-transparent divide-y divide-gray-700">
+                            <!-- Mock User Data -->
+                            <tr class="group">
+                                <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-white">Alice Wonderland</td>
+                                <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-300">alice@gadgethub.com</td>
+                                <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-300">Manager</td>
+                                <td class="px-4 py-4 whitespace-nowrap"><span class="px-3 py-1 bg-green-500/20 text-green-400 text-xs font-medium rounded-full">Active</span></td>
+                                <td class="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <button class="text-cyan-400 hover:text-cyan-300 focus:outline-none group-hover:scale-110 transition-transform">Edit</button> |
+                                    <button class="text-red-500 hover:text-red-400 focus:outline-none group-hover:scale-110 transition-transform">Delete</button>
+                                </td>
+                            </tr>
+                            <tr class="group">
+                                <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-white">Bob The Builder</td>
+                                <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-300">bob@gadgethub.com</td>
+                                <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-300">Cashier</td>
+                                <td class="px-4 py-4 whitespace-nowrap"><span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 text-xs font-medium rounded-full">Pending</span></td>
+                                <td class="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <button class="text-cyan-400 hover:text-cyan-300 focus:outline-none group-hover:scale-110 transition-transform">Edit</button> |
+                                    <button class="text-red-500 hover:text-red-400 focus:outline-none group-hover:scale-110 transition-transform">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="payment-gateway" class="mb-16 reveal">
+            <h2 class="text-3xl font-bold font-['Roboto Slab'] mb-6">Payment Gateway Integration</h2>
+            <div class="glassmorphism-nav p-6 rounded-lg shadow-xl">
+                <form>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="payment-gateway-select" class="block text-sm font-medium text-gray-300 mb-2">Select Gateway</label>
+                            <select id="payment-gateway-select" class="form-input w-full px-4 py-3 rounded-lg appearance-none" required>
+                                <option value="" disabled selected>-- Choose a gateway --</option>
+                                <option value="stripe">Stripe</option>
+                                <option value="square">Square</option>
+                                <option value="paypal">PayPal</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="api-key" class="block text-sm font-medium text-gray-300 mb-2">API Key</label>
+                            <input type="text" id="api-key" class="form-input w-full px-4 py-3 rounded-lg" placeholder="sk_test_********************">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="secret-key" class="block text-sm font-medium text-gray-300 mb-2">Secret Key</label>
+                            <input type="text" id="secret-key" class="form-input w-full px-4 py-3 rounded-lg" placeholder="pk_test_********************">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="webhook-url" class="block text-sm font-medium text-gray-300 mb-2">Webhook URL</label>
+                            <input type="url" id="webhook-url" class="form-input w-full px-4 py-3 rounded-lg" value="https://your-pos-app.com/webhooks/stripe" readonly>
+                            <p class="text-xs text-gray-400 mt-1">Copy this URL and add it to your payment gateway settings.</p>
+                        </div>
+                    </div>
+                    <div class="mt-8 text-right">
+                        <button type="submit" class="btn-primary px-6 py-3 rounded-lg font-semibold focus:ring-2 ring-cyan-400">Connect Gateway</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section id="tax-settings" class="mb-16 reveal">
+            <h2 class="text-3xl font-bold font-['Roboto Slab'] mb-6">Tax Settings</h2>
+            <div class="glassmorphism-nav p-6 rounded-lg shadow-xl">
+                <form>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="tax-rate" class="block text-sm font-medium text-gray-300 mb-2">Default Tax Rate (%)</label>
+                            <input type="number" step="0.01" id="tax-rate" class="form-input w-full px-4 py-3 rounded-lg" placeholder="e.g., 8.5" required>
+                        </div>
+                        <div>
+                            <label for="tax-name" class="block text-sm font-medium text-gray-300 mb-2">Tax Name</label>
+                            <input type="text" id="tax-name" class="form-input w-full px-4 py-3 rounded-lg" placeholder="e.g., 'Sales Tax'">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="tax-jurisdiction" class="block text-sm font-medium text-gray-300 mb-2">Tax Jurisdiction</label>
+                            <input type="text" id="tax-jurisdiction" class="form-input w-full px-4 py-3 rounded-lg" placeholder="e.g., 'California State'">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="form-checkbox h-5 w-5 text-cyan-400 bg-gray-700 border-gray-600 rounded focus:ring-cyan-500" checked>
+                                <span class="ml-3 text-sm text-gray-300">Apply tax to all products by default</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mt-8 text-right">
+                        <button type="submit" class="btn-primary px-6 py-3 rounded-lg font-semibold focus:ring-2 ring-cyan-400">Save Tax Settings</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section id="receipt-customization" class="mb-16 reveal">
+            <h2 class="text-3xl font-bold font-['Roboto Slab'] mb-6">Receipt Customization</h2>
+            <div class="glassmorphism-nav p-6 rounded-lg shadow-xl">
+                <form>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="receipt-header" class="block text-sm font-medium text-gray-300 mb-2">Receipt Header Text</label>
+                            <input type="text" id="receipt-header" class="form-input w-full px-4 py-3 rounded-lg" placeholder="Thank you for shopping!">
+                        </div>
+                        <div>
+                            <label for="receipt-footer" class="block text-sm font-medium text-gray-300 mb-2">Receipt Footer Text</label>
+                            <input type="text" id="receipt-footer" class="form-input w-full px-4 py-3 rounded-lg" placeholder="Visit us again soon!">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="logo-upload" class="block text-sm font-medium text-gray-300 mb-2">Upload Logo</label>
+                            <div class="flex items-center space-x-4">
+                                <label class="btn-secondary px-4 py-2 rounded-lg cursor-pointer font-semibold relative overflow-hidden focus:ring-2 ring-cyan-400">
+                                    <span>Choose File</span>
+                                    <input type="file" id="logo-upload" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                                </label>
+                                <span class="text-sm text-gray-400">No file chosen</span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2">Recommended: PNG or JPG, max 2MB.</p>
+                        </div>
+                        <div class="md:col-span-2">
+                             <label class="inline-flex items-center cursor-pointer">
+                                <input type="checkbox" class="form-checkbox h-5 w-5 text-cyan-400 bg-gray-700 border-gray-600 rounded focus:ring-cyan-500" checked>
+                                <span class="ml-3 text-sm text-gray-300">Display company logo on receipt</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mt-8 text-right">
+                        <button type="submit" class="btn-primary px-6 py-3 rounded-lg font-semibold focus:ring-2 ring-cyan-400">Save Receipt Settings</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black/30 py-6 mt-16">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            &copy; 2023 POSPRO. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 z-50 bg-cyan-500/30 backdrop-blur-lg border border-cyan-400/30 p-3 rounded-full shadow-lg hover:bg-cyan-500/50 focus:outline-none back-to-top group">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        // Reveal on Scroll Intersection Observer
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Unobserve after it's revealed
+                }
+            });
+        }, {
+            threshold: 0.1 // Trigger when 10% of the element is visible
+        });
+
+        reveals.forEach(el => {
+            observer.observe(el);
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const closeMenuButton = document.getElementById('close-menu-button');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenuOverlay.classList.add('active');
+        });
+
+        closeMenuButton.addEventListener('click', () => {
+            mobileMenuOverlay.classList.remove('active');
+        });
+
+        // Close menu if clicking outside of nav links (optional)
+        mobileMenuOverlay.addEventListener('click', (event) => {
+            if (event.target === mobileMenuOverlay) {
+                mobileMenuOverlay.classList.remove('active');
+            }
+        });
+
+        // Back to Top Button Logic
+        const backToTopButton = document.getElementById('back-to-top');
+        const pageHeight = document.body.scrollHeight;
+        const viewportHeight = window.innerHeight;
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > viewportHeight) { // Show button when scrolled down past the viewport height
+                backToTopButton.classList.add('active');
+            } else {
+                backToTopButton.classList.remove('active');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

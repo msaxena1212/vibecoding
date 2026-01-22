@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - India Emissions Data</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Tailwind CSS Configuration */
+        const themeConfig = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ["Inter", "sans-serif"],
+                        serif: ["Playfair Display", "serif"],
+                    },
+                    colors: {
+                        primary: "#28a745", // A green shade
+                        secondary: "#007bff", // A blue shade
+                        accent: "#ffc107", // A yellow/gold shade
+                        dark: "#1a202c",
+                        light: "#f7fafc",
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                },
+            },
+        };
+
+        /* Custom Styles for Glassmorphism */
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.75rem; /* Equivalent to Tailwind's rounded-xl */
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-sans bg-dark text-light antialiased">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 glassmorphism py-4 px-6 flex justify-between items-center border-b border-white/20">
+        <div class="flex items-center">
+            <a href="index.html" class="text-2xl font-bold font-serif text-primary mr-8">India Emissions</a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="index.html" class="text-light hover:text-primary transition-colors duration-300">Home</a>
+                <a href="dashboard.html" class="text-light hover:text-primary transition-colors duration-300">Dashboard</a>
+                <a href="services.html" class="text-light hover:text-primary transition-colors duration-300">Services</a>
+                <a href="about.html" class="text-light hover:text-primary transition-colors duration-300">About</a>
+                <a href="contact.html" class="text-primary font-semibold">Contact</a>
+            </nav>
+        </div>
+        <div class="md:hidden flex items-center">
+            <button id="mobile-menu-button" class="text-light focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-dark bg-opacity-90 backdrop-blur-xl hidden md:hidden pt-20">
+        <div class="container mx-auto px-6">
+            <nav class="flex flex-col space-y-4">
+                <a href="index.html" class="text-light text-xl hover:text-primary transition-colors duration-300">Home</a>
+                <a href="dashboard.html" class="text-light text-xl hover:text-primary transition-colors duration-300">Dashboard</a>
+                <a href="services.html" class="text-light text-xl hover:text-primary transition-colors duration-300">Services</a>
+                <a href="about.html" class="text-light text-xl hover:text-primary transition-colors duration-300">About</a>
+                <a href="contact.html" class="text-primary text-xl font-semibold border-b border-primary pb-2">Contact</a>
+            </nav>
+        </div>
+    </div>
+
+    <main class="container mx-auto px-6 py-16">
+        <section class="text-center mb-16 reveal">
+            <h1 class="text-5xl lg:text-6xl font-bold font-serif text-primary mb-4">Get in Touch</h1>
+            <p class="text-xl lg:text-2xl text-gray-300 max-w-3xl mx-auto">
+                Have questions, feedback, or partnership inquiries? We're here to help you understand India's emission landscape.
+            </p>
+        </section>
+
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-12 reveal">
+            <!-- Contact Form -->
+            <div class="lg:col-span-2 glassmorphism p-8">
+                <h2 class="text-3xl font-bold font-serif text-primary mb-6">Send Us a Message</h2>
+                <form id="contactForm" class="space-y-4">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-300">Your Name</label>
+                        <input type="text" id="name" name="name" required class="mt-1 block w-full glassmorphism p-3 border border-white/20 rounded-lg focus:ring-primary focus:border-primary shadow-sm text-light" placeholder="e.g., John Doe">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-300">Your Email</label>
+                        <input type="email" id="email" name="email" required class="mt-1 block w-full glassmorphism p-3 border border-white/20 rounded-lg focus:ring-primary focus:border-primary shadow-sm text-light" placeholder="e.g., john.doe@example.com">
+                    </div>
+                    <div>
+                        <label for="subject" class="block text-sm font-medium text-gray-300">Subject</label>
+                        <input type="text" id="subject" name="subject" required class="mt-1 block w-full glassmorphism p-3 border border-white/20 rounded-lg focus:ring-primary focus:border-primary shadow-sm text-light" placeholder="e.g., Partnership Inquiry">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-300">Message</label>
+                        <textarea id="message" name="message" rows="6" required class="mt-1 block w-full glassmorphism p-3 border border-white/20 rounded-lg focus:ring-primary focus:border-primary shadow-sm text-light" placeholder="Tell us what's on your mind..."></textarea>
+                    </div>
+                    <div class="pt-4">
+                        <button type="submit" class="w-full inline-flex justify-center py-3 px-6 border border-transparent rounded-lg shadow-lg text-lg font-semibold text-dark bg-primary hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition duration-300 group">
+                            <span class="group-hover:scale-105 transition-all duration-300 ease-out">Send Message</span>
+                        </button>
+                    </div>
+                </form>
+                <div id="formMessage" class="mt-6 text-center hidden"></div>
+            </div>
+
+            <!-- Alternative Contact Methods -->
+            <div class="glassmorphism p-8">
+                <h2 class="text-3xl font-bold font-serif text-primary mb-6">Other Ways to Connect</h2>
+                <div class="space-y-6">
+                    <div class="flex items-center">
+                        <svg class="w-8 h-8 text-primary mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        <div>
+                            <h3 class="text-lg font-semibold">Email</h3>
+                            <a href="mailto:info@indiaemissions.in" class="text-secondary hover:text-primary transition-colors duration-300">info@indiaemissions.in</a>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <svg class="w-8 h-8 text-primary mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.468 4.398a1 1 0 00.948.684h5.468a1 1 0 00.948-.684l1.468-4.398A1 1 0 0116.72 3H19a2 2 0 012 2v12a2 2 0 01-2 2h-1.378a1 1 0 00-.948.684l-1.468 4.398a1 1 0 01-.948.684h-5.468a1 1 0 01-.948-.684L7.28 18.684A1 1 0 006.332 18H5a2 2 0 01-2-2V5z"></path></svg>
+                        <div>
+                            <h3 class="text-lg font-semibold">Phone</h3>
+                            <p class="text-gray-400">(+91) 11 2345 6789</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <svg class="w-8 h-8 text-primary mr-4 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8.001 8.001 0 0111.314-11.314l3.474 3.474a1.998 1.998 0 01 0 2.827zM12 15a3 3 0 100-6 3 3 0 000 6z"></path></svg>
+                        <div>
+                            <h3 class="text-lg font-semibold">Office Address</h3>
+                            <p class="text-gray-400">
+                                123, Environmental Data Hub,<br>
+                                Connaught Place, New Delhi - 110001,<br>
+                                India
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-white/20 glassmorphism mt-16">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-6">
+                <a href="index.html" class="text-2xl font-bold font-serif text-primary">India Emissions</a>
+                <p class="text-gray-400 mt-2">Data-driven insights for a sustainable future.</p>
+            </div>
+            <nav class="flex flex-wrap justify-center space-x-4 md:space-x-8 mb-6 text-light">
+                <a href="index.html" class="hover:text-primary transition-colors duration-300">Home</a>
+                <a href="dashboard.html" class="hover:text-primary transition-colors duration-300">Dashboard</a>
+                <a href="services.html" class="hover:text-primary transition-colors duration-300">Services</a>
+                <a href="about.html" class="hover:text-primary transition-colors duration-300">About</a>
+                <a href="contact.html" class="text-primary font-semibold">Contact</a>
+                <a href="privacy.html" class="hover:text-primary transition-colors duration-300">Privacy Policy</a>
+                <a href="terms.html" class="hover:text-primary transition-colors duration-300">Terms of Service</a>
+            </nav>
+            <div class="text-gray-500 text-sm">
+                &copy; 2024 India Emissions Data. All rights reserved. | Powered by cutting-edge environmental analytics.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTopBtn" class="fixed bottom-8 right-8 glassmorphism p-3 rounded-full shadow-lg hover:scale-110 transition-transform duration-300 z-50 hidden">
+        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11l7-7 7 7M5 17l7-7 7 7"></path></svg>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Form Submission Logic
+        const contactForm = document.getElementById('contactForm');
+        const formMessage = document.getElementById('formMessage');
+
+        contactForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            formMessage.classList.add('hidden');
+            formMessage.innerHTML = ''; // Clear previous messages
+
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData.entries());
+
+            // Basic client-side validation feedback (can be enhanced)
+            if (!data.name || !data.email || !data.subject || !data.message) {
+                formMessage.classList.remove('hidden');
+                formMessage.innerHTML = '<p class="text-red-500">Please fill in all fields.</p>';
+                return;
+            }
+
+            try {
+                // Simulate an asynchronous API call
+                // In a real application, this would be:
+                // const response = await fetch('/api/contact', {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify(data)
+                // });
+                // const result = await response.json();
+
+                // Simulate success after a delay
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                const result = { success: true, message: "Thank you for your message! We'll get back to you shortly." };
+
+                if (result.success) {
+                    formMessage.classList.remove('hidden');
+                    formMessage.innerHTML = `<p class="text-green-500">${result.message}</p>`;
+                    contactForm.reset(); // Clear the form
+                } else {
+                    formMessage.classList.remove('hidden');
+                    formMessage.innerHTML = `<p class="text-red-500">Error: ${result.message || 'Something went wrong. Please try again later.'}</p>`;
+                }
+            } catch (error) {
+                console.error('Form submission error:', error);
+                formMessage.classList.remove('hidden');
+                formMessage.innerHTML = '<p class="text-red-500">An unexpected error occurred. Please try again later.</p>';
+            }
+        });
+
+        // Reveal on Scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Optional: stop observing after activation
+                }
+            });
+        }, { threshold: 0.1 }); // Trigger when 10% of the element is visible
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Back to Top Button Logic
+        const backToTopBtn = document.getElementById('backToTopBtn');
+
+        window.onscroll = function() {
+            scrollFunction();
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
+                backToTopBtn.classList.remove('hidden');
+            } else {
+                backToTopBtn.classList.add('hidden');
+            }
+        }
+
+        backToTopBtn.addEventListener('click', () => {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        });
+    </script>
+</body>
+</html>

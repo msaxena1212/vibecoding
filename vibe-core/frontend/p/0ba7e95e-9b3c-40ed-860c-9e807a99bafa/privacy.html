@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Road Safety App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .animate-fade-in-up {
+            animation: fade-in-up 0.75s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2E9AFE',
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="sticky top-0 bg-white/90 backdrop-blur-lg z-50 shadow-md">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="index.html" class="text-2xl font-bold text-primary">Road Safety App</a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="index.html" class="hover:text-primary transition-colors">Home</a>
+                <a href="lessons.html" class="hover:text-primary transition-colors">Lessons</a>
+                <a href="about.html" class="hover:text-primary transition-colors">About</a>
+                <a href="contact.html" class="hover:text-primary transition-colors">Contact</a>
+                <a href="privacy.html" class="hover:text-primary transition-colors">Privacy</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-primary focus:outline-none">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+          <!-- Mobile Menu (Hidden by default) -->
+          <div id="mobile-menu" class="hidden fixed top-0 left-0 w-full h-full bg-white/80 backdrop-blur-lg z-50">
+            <div class="flex flex-col items-center justify-center h-full">
+                <button id="mobile-menu-close" class="absolute top-6 right-6 text-gray-600 hover:text-primary focus:outline-none">
+                    <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+                <nav class="flex flex-col items-center space-y-4 text-lg">
+                    <a href="index.html" class="hover:text-primary transition-colors">Home</a>
+                    <a href="lessons.html" class="hover:text-primary transition-colors">Lessons</a>
+                    <a href="about.html" class="hover:text-primary transition-colors">About</a>
+                    <a href="contact.html" class="hover:text-primary transition-colors">Contact</a>
+                    <a href="privacy.html" class="hover:text-primary transition-colors">Privacy</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12">
+        <section class="mb-8 reveal">
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">Privacy Policy</h1>
+            <p class="text-gray-700">
+                Your privacy is important to us. This privacy policy explains how we collect, use, and protect your personal information when you use our road safety learning app.
+            </p>
+        </section>
+
+        <section class="mb-8 reveal">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Information We Collect</h2>
+            <p class="text-gray-700">
+                We collect the following types of information:
+            </p>
+            <ul class="list-disc list-inside text-gray-700">
+                <li><strong>Personal Information:</strong> This includes your name, email address, and any other information you provide when you create an account.</li>
+                <li><strong>Usage Data:</strong> We collect data about how you use the app, such as the lessons you take, the quizzes you complete, and your progress.</li>
+                <li><strong>Device Information:</strong> We collect information about the device you use to access the app, such as the device type, operating system, and unique device identifiers.</li>
+            </ul>
+        </section>
+
+        <section class="mb-8 reveal">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">How We Use Your Information</h2>
+            <p class="text-gray-700">
+                We use your information for the following purposes:
+            </p>
+            <ul class="list-disc list-inside text-gray-700">
+                <li>To provide and improve the app's functionality.</li>
+                <li>To personalize your learning experience.</li>
+                <li>To track your progress and provide performance reports.</li>
+                <li>To communicate with you about updates and new features.</li>
+                <li>To respond to your inquiries and provide support.</li>
+            </ul>
+        </section>
+
+        <section class="mb-8 reveal">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Data Security</h2>
+            <p class="text-gray-700">
+                We take the security of your information seriously and implement appropriate measures to protect it from unauthorized access, use, or disclosure. These measures include:
+            </p>
+            <ul class="list-disc list-inside text-gray-700">
+                <li>Encryption of data in transit and at rest.</li>
+                <li>Regular security audits and vulnerability assessments.</li>
+                <li>Access controls to limit access to your information.</li>
+            </ul>
+        </section>
+
+        <section class="mb-8 reveal">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Sharing Your Information</h2>
+            <p class="text-gray-700">
+                We do not share your personal information with third parties except in the following circumstances:
+            </p>
+            <ul class="list-disc list-inside text-gray-700">
+                <li>With your consent.</li>
+                <li>To comply with legal obligations.</li>
+                <li>To protect our rights or the rights of others.</li>
+                <li>With service providers who assist us in providing the app's functionality (e.g., hosting providers, analytics providers). These service providers are contractually obligated to protect your information.</li>
+            </ul>
+        </section>
+
+        <section class="mb-8 reveal">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Your Rights</h2>
+            <p class="text-gray-700">
+                You have the following rights regarding your personal information:
+            </p>
+            <ul class="list-disc list-inside text-gray-700">
+                <li>The right to access your information.</li>
+                <li>The right to correct inaccuracies in your information.</li>
+                <li>The right to delete your information.</li>
+                <li>The right to object to the processing of your information.</li>
+            </ul>
+            <p class="text-gray-700">
+                To exercise these rights, please contact us at [Contact Email Address].
+            </p>
+        </section>
+
+        <section class="mb-8 reveal">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Changes to This Privacy Policy</h2>
+            <p class="text-gray-700">
+                We may update this privacy policy from time to time. We will notify you of any material changes by posting the updated policy on our website or through the app.
+            </p>
+        </section>
+
+        <section class="reveal">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Contact Us</h2>
+            <p class="text-gray-700">
+                If you have any questions about this privacy policy, please contact us at <a href="mailto:privacy@example.com">privacy@example.com</a>.
+            </p>
+        </section>
+
+        <button id="back-to-top" class="hidden fixed bottom-4 right-4 bg-primary text-white rounded-full p-3 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+            </svg>
+        </button>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 py-4 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-600">
+                &copy; 2024 Road Safety App. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenuClose = document.getElementById('mobile-menu-close');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const backToTopButton = document.getElementById('back-to-top');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.remove('hidden');
+            });
+
+            mobileMenuClose.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+
+            // Back to top button visibility
+            window.addEventListener('scroll', () => {
+                if (document.documentElement.scrollTop > 1000) {
+                    backToTopButton.classList.remove('hidden');
+                } else {
+                    backToTopButton.classList.add('hidden');
+                }
+            });
+
+            // Back to top button functionality
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Reveal on scroll
+            function reveal() {
+                var reveals = document.querySelectorAll(".reveal");
+                for (var i = 0; i < reveals.length; i++) {
+                  var windowHeight = window.innerHeight;
+                  var elementTop = reveals[i].getBoundingClientRect().top;
+                  var elementVisible = 150;
+                  if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                  } else {
+                    reveals[i].classList.remove("active");
+                  }
+                }
+              }
+
+              window.addEventListener("scroll", reveal);
+        });
+    </script>
+</body>
+</html>

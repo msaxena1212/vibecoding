@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gas Emissions India - Homepage</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#28a745',
+                        'secondary': '#007bff',
+                        'accent': '#ffc107',
+                        'dark-gray': '#343a40',
+                        'light-gray': '#f8f9fa'
+                    },
+                    fontFamily: {
+                        sans: ["'Open Sans', sans-serif"],
+                        serif: ["'Roboto', sans-serif"]
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        /* Custom scrollbar for webkit browsers */
+        body::-webkit-scrollbar {
+            width: 10px;
+        }
+        body::-webkit-scrollbar-track {
+            background: #1a202c; /* Dark background */
+        }
+        body::-webkit-scrollbar-thumb {
+            background-color: #28a745; /* Primary color for the thumb */
+            border-radius: 5px;
+            border: 2px solid #1a202c; /* Match background */
+        }
+        body::-webkit-scrollbar-thumb:hover {
+            background-color: #3cb371; /* Lighter primary on hover */
+        }
+    </style>
+</head>
+<body class="font-sans bg-dark-gray text-white antialiased">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 w-full backdrop-blur-lg bg-white/10 border-b border-white/20 py-4 px-6 flex justify-between items-center">
+        <a href="index.html" class="text-2xl font-bold text-primary flex items-center hover:text-accent transition-colors">
+            <img src="assets/co2_molecule_icon.png" alt="Logo" class="h-8 mr-3">
+            Gas Emissions India
+        </a>
+        <nav class="hidden md:flex space-x-6">
+            <a href="index.html" class="hover:text-primary transition-colors">Home</a>
+            <a href="dashboard.html" class="hover:text-primary transition-colors">Dashboard</a>
+            <a href="services.html" class="hover:text-primary transition-colors">Services</a>
+            <a href="about.html" class="hover:text-primary transition-colors">About</a>
+            <a href="contact.html" class="hover:text-primary transition-colors">Contact</a>
+        </nav>
+        <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="hidden fixed inset-0 z-40 bg-black bg-opacity-70 backdrop-blur-xl md:hidden">
+        <div class="absolute top-0 right-0 w-64 bg-white/5 border-r border-white/20 h-full p-6">
+            <button id="close-menu-button" class="absolute top-4 right-4 text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <nav class="flex flex-col space-y-4 mt-8">
+                <a href="index.html" class="text-lg hover:text-primary transition-colors">Home</a>
+                <a href="dashboard.html" class="text-lg hover:text-primary transition-colors">Dashboard</a>
+                <a href="services.html" class="text-lg hover:text-primary transition-colors">Services</a>
+                <a href="about.html" class="text-lg hover:text-primary transition-colors">About</a>
+                <a href="contact.html" class="text-lg hover:text-primary transition-colors">Contact</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center text-center px-4 overflow-hidden">
+        <div class="absolute inset-0 -z-10">
+            <img src="assets/dashboard_hero_graphic.png" alt="Background Image" class="w-full h-full object-cover opacity-30">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-br from-transparent to-black/70"></div>
+
+        <div class="container mx-auto px-6 py-16">
+            <h1 class="text-5xl md:text-7xl font-bold mb-4 text-white animate-fade-in-up opacity-0 [animation-delay:0.2s]" style="animation-fill-mode: forwards;">
+                India's Air Quality: Real-Time Emissions Data at Your Fingertips
+            </h1>
+            <p class="text-lg md:text-xl text-white/90 mb-8 max-w-3xl mx-auto animate-fade-in-up opacity-0 [animation-delay:0.4s]" style="animation-fill-mode: forwards;">
+                Empowering citizens and policymakers with critical insights into gas emissions across India. Understand, analyze, and act on environmental data to foster a cleaner future.
+            </p>
+            <a href="dashboard.html" class="inline-block px-8 py-3 bg-primary text-white font-semibold rounded-lg shadow-lg hover:bg-accent transition-all duration-300 ease-out transform hover:scale-105 animate-fade-in-up opacity-0 [animation-delay:0.6s]" style="animation-fill-mode: forwards;">
+                Explore India's Emission Data Now
+            </a>
+        </div>
+    </section>
+
+    <!-- Emission Overview Section -->
+    <section class="py-20 px-4 bg-gradient-to-br from-dark-gray to-black">
+        <div class="container mx-auto reveal">
+            <h2 class="text-4xl font-bold text-center mb-12 text-white">Gauging India's Emission Landscape</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="reveal">
+                    <p class="text-lg text-white/90 mb-6 leading-relaxed">
+                        India, a rapidly developing nation, faces significant environmental challenges. Our platform provides a comprehensive, data-driven approach to understanding the complex web of gas emissions impacting the country. From the dominant CO2 contributions of our energy sector to the critical air pollutants like PM2.5 and NOx affecting urban health, we break down the data. Explore national totals, regional variations, and sector-specific impacts, visualized through interactive charts and detailed reports. We leverage data from trusted sources such as the Central Pollution Control Board (CPCB), Ministry of Environment, Forest and Climate Change (MoEFCC), and international databases like EDGAR and Climate Watch (WRI) to offer an unparalleled view of emission trends.
+                    </p>
+                    <a href="about.html#methodology_and_data_integrity" class="inline-block px-6 py-3 bg-accent text-dark-gray font-semibold rounded-lg shadow-md hover:bg-primary transition-colors duration-300">
+                        Learn About Our Methodology
+                    </a>
+                </div>
+                <div class="reveal flex justify-center">
+                    <img src="assets/india_emission_map.png" alt="India Emission Map Preview" class="rounded-2xl shadow-xl max-w-full h-auto border-2 border-primary">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Emission Sources (Bento Grid) -->
+    <section class="py-20 px-4 bg-dark-gray">
+        <div class="container mx-auto reveal">
+            <h2 class="text-4xl font-bold text-center mb-12 text-white">Key Emission Sources in India</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/15 flex flex-col items-center justify-center group cursor-pointer hover:scale-105 transition-all duration-300 ease-out reveal">
+                    <img src="assets/co2_molecule_icon.png" alt="Energy Icon" class="h-16 w-16 mb-4 opacity-70">
+                    <h3 class="text-xl font-semibold text-primary mb-2">Energy</h3>
+                    <p class="text-sm text-white/70 text-center">Dominant CO2 from coal-fired power plants and industrial energy consumption.</p>
+                </div>
+
+                <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-6 flex flex-col items-center justify-center group cursor-pointer hover:scale-105 transition-all duration-300 ease-out reveal">
+                    <img src="assets/transport_emission_graphic.png" alt="Transport Icon" class="h-16 w-16 mb-4 opacity-70">
+                    <h3 class="text-xl font-semibold text-secondary mb-2">Transport</h3>
+                    <p class="text-sm text-white/70 text-center">Road vehicles, aviation, and shipping contribute NOx, PM2.5, and CO2.</p>
+                </div>
+
+                <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-6 flex flex-col items-center justify-center group cursor-pointer hover:scale-105 transition-all duration-300 ease-out reveal">
+                    <img src="assets/co2_molecule_icon.png" alt="Industry Icon" class="h-16 w-16 mb-4 opacity-70">
+                    <h3 class="text-xl font-semibold text-accent mb-2">Industry</h3>
+                    <p class="text-sm text-white/70 text-center">Manufacturing, cement, and steel production emit SO2, NOx, and GHGs.</p>
+                </div>
+
+                <div class="bg-white/5 backdrop-blur-lg rounded-2xl p-6 flex flex-col items-center justify-center group cursor-pointer hover:scale-105 transition-all duration-300 ease-out reveal">
+                    <img src="assets/co2_molecule_icon.png" alt="Agriculture Icon" class="h-16 w-16 mb-4 opacity-70">
+                    <h3 class="text-xl font-semibold text-primary mb-2">Agriculture</h3>
+                    <p class="text-sm text-white/70 text-center">Livestock, rice cultivation, and fertilizers release significant Methane (CH4) and N2O.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Statement/Stats Section -->
+    <section class="py-20 px-4 bg-gradient-to-br from-black to-dark-gray">
+        <div class="container mx-auto reveal">
+            <h2 class="text-4xl font-bold text-center mb-12 text-white">Our Mission: Data-Driven Sustainability</h2>
+            <div class="max-w-4xl mx-auto text-center">
+                <p class="text-xl text-white/90 mb-6 leading-relaxed">
+                    We are committed to providing the most accurate and accessible emission data for India, empowering informed decision-making for a healthier planet. By bridging the gap between complex environmental data and actionable insights, we aim to foster collaboration between citizens, industries, and policymakers to drive sustainable practices and combat climate change.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="reveal">
+                        <p class="text-5xl font-bold text-primary">100+</p>
+                        <p class="text-lg text-white/70">Data Sources Integrated</p>
+                    </div>
+                    <div class="reveal">
+                        <p class="text-5xl font-bold text-secondary">50+</p>
+                        <p class="text-lg text-white/70">Key Pollutants Tracked</p>
+                    </div>
+                    <div class="reveal">
+                        <p class="text-5xl font-bold text-accent">All</p>
+                        <p class="text-lg text-white/70">Indian States Covered</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-gray/90 text-white py-8 px-6 border-t border-white/20">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <div class="flex items-center">
+                <a href="index.html" class="text-2xl font-bold text-primary hover:text-accent transition-colors">
+                    Gas Emissions India
+                </a>
+            </div>
+            <nav class="flex flex-wrap justify-center md:justify-end space-x-4">
+                <a href="index.html" class="hover:text-primary transition-colors">Home</a>
+                <a href="dashboard.html" class="hover:text-primary transition-colors">Dashboard</a>
+                <a href="services.html" class="hover:text-primary transition-colors">Services</a>
+                <a href="about.html" class="hover:text-primary transition-colors">About</a>
+                <a href="contact.html" class="hover:text-primary transition-colors">Contact</a>
+                <a href="privacy.html" class="hover:text-primary transition-colors">Privacy Policy</a>
+                <a href="terms.html" class="hover:text-primary transition-colors">Terms of Service</a>
+            </nav>
+            <div class="text-sm text-white/70">
+                © 2023 Gas Emissions India. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="hidden fixed bottom-8 right-8 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-accent transition-all duration-300 ease-out focus:outline-none z-50">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>

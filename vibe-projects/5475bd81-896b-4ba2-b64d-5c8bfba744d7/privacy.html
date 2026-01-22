@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - POS Webapp</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #00bcd4;
+            --color-secondary: #3f51b5;
+            --color-background: #212121;
+            --color-text: #ffffff;
+            --color-accent: #ffffff;
+            --font-primary: 'Montserrat', sans-serif;
+            --font-secondary: 'Roboto Slab', serif;
+        }
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--color-background);
+            color: var(--color-text);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-secondary);
+        }
+        .gradient-text {
+            background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.75rem; /* rounded-xl */
+        }
+        .btn-primary {
+            background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+            color: var(--color-text);
+            border-radius: 0.5rem; /* rounded-lg */
+            padding: 0.75rem 1.5rem;
+            font-weight: 700;
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 188, 212, 0.4);
+        }
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--color-accent);
+            border: 2px solid var(--color-primary);
+            border-radius: 0.5rem; /* rounded-lg */
+            padding: 0.75rem 1.5rem;
+            font-weight: 700;
+            transition: background-color 0.3s ease-out, color 0.3s ease-out;
+        }
+        .btn-secondary:hover {
+            background-color: var(--color-primary);
+            color: var(--color-background);
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .mobile-menu-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .mobile-menu-toggle span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background-color: var(--color-text);
+            transition: all 0.3s ease-out;
+        }
+        .mobile-menu-toggle span:nth-child(1) {
+            transform: translateY(-5px);
+        }
+        .mobile-menu-toggle span:nth-child(3) {
+            transform: translateY(5px);
+        }
+        .mobile-menu.open span:nth-child(1) {
+            transform: translateY(0) rotate(45deg);
+        }
+        .mobile-menu.open span:nth-child(2) {
+            opacity: 0;
+        }
+        .mobile-menu.open span:nth-child(3) {
+            transform: translateY(0) rotate(-45deg);
+        }
+        .mobile-menu-content {
+            transform: translateX(100%);
+            transition: transform 0.4s ease-out;
+        }
+        .mobile-menu-content.open {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-sans antialiased">
+
+    <header class="sticky top-0 z-50 py-4 px-6 backdrop-blur-lg border-b border-white/20" style="background: rgba(33, 33, 33, 0.8);">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold font-serif gradient-text hover:scale-105 transition-transform duration-300">POSify</a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="dashboard.html" class="hover:text-primary transition-colors duration-300">Dashboard</a>
+                <a href="sales.html" class="hover:text-primary transition-colors duration-300">Sales</a>
+                <a href="products.html" class="hover:text-primary transition-colors duration-300">Products</a>
+                <a href="customers.html" class="hover:text-primary transition-colors duration-300">Customers</a>
+                <a href="reports.html" class="hover:text-primary transition-colors duration-300">Reports</a>
+                <a href="settings.html" class="hover:text-primary transition-colors duration-300">Settings</a>
+            </nav>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="mobile-menu-toggle" aria-label="Toggle mobile menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 z-40 bg-black bg-opacity-50 backdrop-blur-xl hidden transition-opacity duration-300"></div>
+    <div id="mobile-menu-content" class="fixed top-0 right-0 bottom-0 w-64 glassmorphism z-50 p-6 md:hidden mobile-menu-content">
+        <div class="flex justify-end mb-8">
+            <button id="close-mobile-menu" class="text-white hover:text-primary transition-colors duration-300" aria-label="Close mobile menu">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <nav class="flex flex-col space-y-4">
+            <a href="dashboard.html" class="py-2 hover:text-primary transition-colors duration-300">Dashboard</a>
+            <a href="sales.html" class="py-2 hover:text-primary transition-colors duration-300">Sales</a>
+            <a href="products.html" class="py-2 hover:text-primary transition-colors duration-300">Products</a>
+            <a href="customers.html" class="py-2 hover:text-primary transition-colors duration-300">Customers</a>
+            <a href="reports.html" class="py-2 hover:text-primary transition-colors duration-300">Reports</a>
+            <a href="settings.html" class="py-2 hover:text-primary transition-colors duration-300">Settings</a>
+            <a href="login.html" class="mt-4 py-2 btn-primary text-center">Login</a>
+            <a href="logout.html" class="py-2 btn-secondary text-center">Logout</a>
+        </nav>
+    </div>
+
+    <main class="container mx-auto px-6 py-16">
+        <h1 class="text-4xl md:text-5xl font-bold text-center mb-6 gradient-text reveal">Privacy Policy</h1>
+        <p class="text-lg text-center text-gray-300 mb-12 reveal">Your data, our commitment. Transparency in how we handle your information.</p>
+
+        <div class="glassmorphism p-8 md:p-12 space-y-8 reveal">
+            <section>
+                <h2 class="text-3xl font-bold mb-4">1. Introduction</h2>
+                <p class="text-gray-300 leading-relaxed">
+                    This Privacy Policy outlines how POSify ("we," "us," or "our") collects, uses, and protects the information you provide when using our Point-of-Sale (POS) web application. We are committed to safeguarding your privacy and ensuring the security of your data. This policy applies to all features and services offered by POSify.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-3xl font-bold mb-4">2. Information We Collect</h2>
+                <p class="text-gray-300 leading-relaxed mb-4">We may collect the following types of information:</p>
+                <ul class="list-disc list-inside text-gray-300 leading-relaxed space-y-2">
+                    <li><strong>Business Data:</strong> Information related to your business operations, including product details, inventory levels, sales transactions, customer purchase history, employee data, and pricing information. This data is essential for the core functionality of our POS system.</li>
+                    <li><strong>Account Information:</strong> Your name, email address, company name, and password used to create and manage your POSify account.</li>
+                    <li><strong>Usage Data:</strong> Information about how you interact with our application, such as features used, pages visited, and time spent on the platform. This helps us improve user experience and identify areas for development.</li>
+                    <li><strong>Technical Data:</strong> IP addresses, browser type, device information, and operating system details, collected for security, performance monitoring, and troubleshooting.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="text-3xl font-bold mb-4">3. How We Use Your Information</h2>
+                <p class="text-gray-300 leading-relaxed mb-4">We use the collected information for the following purposes:</p>
+                <ul class="list-disc list-inside text-gray-300 leading-relaxed space-y-2">
+                    <li>To provide, operate, and maintain our POS web application and its features.</li>
+                    <li>To process your sales transactions, manage inventory, and facilitate customer management.</li>
+                    <li>To personalize your experience and provide tailored content and features.</li>
+                    <li>To communicate with you, including responding to inquiries, sending service-related notices, and providing updates.</li>
+                    <li>To analyze usage patterns and improve our application's performance, functionality, and user interface.</li>
+                    <li>To ensure the security and integrity of our application and your data, preventing fraud and unauthorized access.</li>
+                    <li>To comply with legal obligations and enforce our terms and policies.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="text-3xl font-bold mb-4">4. Data Protection and Security</h2>
+                <p class="text-gray-300 leading-relaxed mb-4">
+                    We implement robust security measures to protect your data from unauthorized access, alteration, disclosure, or destruction. These measures include:
+                </p>
+                <ul class="list-disc list-inside text-gray-300 leading-relaxed space-y-2">
+                    <li><strong>Encryption:</strong> Sensitive data is encrypted both in transit (using TLS/SSL) and at rest.</li>
+                    <li><strong>Access Controls:</strong> Strict access controls are in place to ensure only authorized personnel can access your data.</li>
+                    <li><strong>Regular Audits:</strong> We conduct regular security assessments and audits to identify and address potential vulnerabilities.</li>
+                    <li><strong>Secure Infrastructure:</strong> Our application is hosted on secure, reliable cloud infrastructure with comprehensive security protocols.</li>
+                </ul>
+                <p class="text-gray-300 leading-relaxed mt-4">
+                    While we strive to protect your data, no method of transmission over the Internet or electronic storage is 100% secure. We cannot guarantee absolute security, but we are dedicated to maintaining the highest standards of data protection.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-3xl font-bold mb-4">5. Third-Party Services</h2>
+                <p class="text-gray-300 leading-relaxed mb-4">
+                    We may use third-party services (e.g., payment gateways, analytics providers) to enhance our application's functionality. These services have their own privacy policies, and we encourage you to review them. We only share information with these third parties as necessary to provide our services and ensure they adhere to strict confidentiality and security standards.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-3xl font-bold mb-4">6. Your Choices and Rights</h2>
+                <p class="text-gray-300 leading-relaxed">
+                    You have the right to access, update, or delete your personal information. You can manage your account settings directly within the POS application. If you have questions or requests regarding your data, please contact us using the information provided below.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-3xl font-bold mb-4">7. Changes to This Privacy Policy</h2>
+                <p class="text-gray-300 leading-relaxed mb-4">
+                    We may update this Privacy Policy from time to time. We will notify you of any significant changes by posting the new policy on this page and updating the "last updated" date. We encourage you to review this policy periodically.
+                </p>
+            </section>
+
+            <section>
+                <h2 class="text-3xl font-bold mb-4">8. Contact Us</h2>
+                <p class="text-gray-300 leading-relaxed">
+                    If you have any questions about this Privacy Policy, please contact us at:
+                    <br><a href="mailto:support@posify.com" class="text-primary hover:underline">support@posify.com</a>
+                    <br>Or via our <a href="contact.html" class="text-primary hover:underline">Contact Page</a>.
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <footer class="mt-20 py-8 text-center bg-gray-800/50 border-t border-white/10">
+        <div class="container mx-auto px-6">
+            <nav class="flex flex-wrap justify-center gap-6 mb-6">
+                <a href="index.html" class="hover:text-primary transition-colors duration-300">Home</a>
+                <a href="dashboard.html" class="hover:text-primary transition-colors duration-300">Dashboard</a>
+                <a href="sales.html" class="hover:text-primary transition-colors duration-300">Sales</a>
+                <a href="products.html" class="hover:text-primary transition-colors duration-300">Products</a>
+                <a href="customers.html" class="hover:text-primary transition-colors duration-300">Customers</a>
+                <a href="reports.html" class="hover:text-primary transition-colors duration-300">Reports</a>
+                <a href="settings.html" class="hover:text-primary transition-colors duration-300">Settings</a>
+                <a href="privacy.html" class="text-primary hover:underline transition-colors duration-300">Privacy Policy</a>
+                <a href="terms.html" class="hover:text-primary transition-colors duration-300">Terms of Service</a>
+            </nav>
+            <p class="text-sm text-gray-400">&copy; 2023 POSify. All rights reserved. Built for Efficiency & Professionalism.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Tailwind CSS Configuration (Optional, for custom theme if needed)
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00bcd4',
+                        secondary: '#3f51b5',
+                        dark: '#212121',
+                        light: '#ffffff',
+                        accent: '#ffffff',
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Roboto Slab', 'serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 1s ease-out forwards',
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            from: { opacity: '0', transform: 'translateY(20px)' },
+                            to: { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        };
+
+        // Reveal-on-Scroll Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const reveals = document.querySelectorAll('.reveal');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target); // Optional: unobserve after revealing
+                    }
+                });
+            }, {
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            });
+
+            reveals.forEach(el => {
+                observer.observe(el);
+            });
+
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+            const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+            const mobileMenuContent = document.getElementById('mobile-menu-content');
+
+            function toggleMobileMenu() {
+                mobileMenuOverlay.classList.toggle('hidden');
+                mobileMenuContent.classList.toggle('open');
+                mobileMenuButton.classList.toggle('open'); // For potential burger icon animation
+            }
+
+            mobileMenuButton.addEventListener('click', toggleMobileMenu);
+            closeMobileMenuButton.addEventListener('click', toggleMobileMenu);
+            mobileMenuOverlay.addEventListener('click', toggleMobileMenu); // Close by clicking overlay
+        });
+    </script>
+</body>
+</html>

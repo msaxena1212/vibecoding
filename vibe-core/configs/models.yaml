@@ -1,0 +1,22 @@
+models:
+  planner: models/gemini-2.5-flash-lite
+  generator: models/gemini-2.5-flash-lite
+  editor: models/gemini-2.5-flash-lite
+  linker: models/gemini-2.5-flash-lite
+  assigner: models/gemini-2.5-flash-lite
+  backend_architect: models/gemini-2.5-flash-lite
+  react_specialist: models/gemini-2.5-flash-lite
+  seeker: models/gemini-2.5-flash-lite
+  chatter: models/gemini-2.5-flash-lite
+  debugger: models/gemini-2.5-flash-lite
+  copywriter: models/gemini-2.5-flash-lite
+  frontend_developer: models/gemini-2.5-flash-lite
+  fetch_images: models/gemini-2.5-flash-lite
+  image_generator: models/gemini-2.5-flash-lite
+  react_specialist: models/gemini-2.5-flash-lite 
+  router: models/gemini-2.5-flash-lite
+  seeker: models/gemini-2.5-flash-lite
+  seo_specialist: models/gemini-2.5-flash-lite
+  ui_specialist: models/gemini-2.5-flash-lite
+  validator: models/gemini-2.5-flash-lite
+  

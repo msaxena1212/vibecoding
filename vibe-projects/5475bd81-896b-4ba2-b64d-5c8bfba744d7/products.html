@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - POS Webapp</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00bcd4',
+                        secondary: '#3f51b5',
+                        background: '#212121',
+                        surface: '#ffffff',
+                        text: '#ffffff',
+                        accent: '#00bcd4',
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Roboto Slab', 'serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        /* Custom styles for reveal-on-scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Aurora gradient for interactive elements */
+        .aurora-gradient {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(128, 0, 255, 0.1) 100%);
+        }
+        .aurora-gradient:hover {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2) 0%, rgba(128, 0, 255, 0.2) 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-text font-sans antialiased">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-white/20">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold font-serif text-surface hover:text-accent transition-colors">
+                POS Pro
+            </a>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="index.html" class="hover:text-accent transition-colors">Home</a>
+                <a href="dashboard.html" class="hover:text-accent transition-colors">Dashboard</a>
+                <a href="sales.html" class="hover:text-accent transition-colors">Sales</a>
+                <a href="products.html" class="text-accent font-semibold">Products</a>
+                <button class="px-4 py-2 bg-accent/20 rounded-md border border-accent/30 hover:bg-accent/30 transition-colors aurora-gradient">
+                    User Profile
+                </button>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="focus:outline-none">
+                    <svg class="w-8 h-8 text-surface" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-background/90 backdrop-blur-xl border-b border-white/20 absolute top-full inset-x-0 z-40">
+            <div class="container mx-auto px-6 py-4 flex flex-col space-y-4">
+                <a href="index.html" class="hover:text-accent transition-colors">Home</a>
+                <a href="dashboard.html" class="hover:text-accent transition-colors">Dashboard</a>
+                <a href="sales.html" class="hover:text-accent transition-colors">Sales</a>
+                <a href="products.html" class="text-accent font-semibold">Products</a>
+                <button class="w-full text-left px-4 py-2 bg-accent/20 rounded-md border border-accent/30 hover:bg-accent/30 transition-colors aurora-gradient">
+                    User Profile
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-16">
+
+        <!-- Page Title and Search/Filter -->
+        <section class="reveal mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold font-serif text-surface mb-4">Product Catalog</h1>
+            <p class="text-lg text-gray-300">Efficiently manage your inventory with our comprehensive product catalog.</p>
+            <div class="mt-8 flex flex-col md:flex-row md:items-center gap-4">
+                <div class="relative w-full md:w-1/3">
+                    <input type="text" id="search-products" placeholder="Search products by name or SKU..." class="w-full p-3 pl-10 rounded-lg bg-background border border-white/20 focus:ring-accent focus:border-accent focus:outline-none placeholder-gray-400">
+                    <svg class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </div>
+                <div class="relative w-full md:w-1/4">
+                    <select id="category-filter" class="w-full p-3 rounded-lg bg-background border border-white/20 appearance-none focus:ring-accent focus:border-accent focus:outline-none text-gray-300">
+                        <option value="">All Categories</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="clothing">Clothing</option>
+                        <option value="groceries">Groceries</option>
+                        <option value="home-goods">Home Goods</option>
+                    </select>
+                    <svg class="w-5 h-5 absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4 4 4-4m0 6H4"></path>
+                    </svg>
+                </div>
+                <a href="#add" id="add-new-product-cta" class="ml-auto px-6 py-3 bg-accent text-background font-semibold rounded-lg shadow-lg hover:bg-accent/90 transition-all duration-300 ease-out aurora-gradient focus:ring-2 ring-accent">
+                    Add New Product
+                </a>
+            </div>
+        </section>
+
+        <!-- Product Grid -->
+        <section class="reveal grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Product Card 1 -->
+            <div class="group bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 flex flex-col justify-between hover:scale-[1.02] transition-all duration-300 ease-out">
+                <img src="assets/product_placeholder.png" alt="Product Name" class="w-full h-48 object-cover rounded-xl mb-4">
+                <div>
+                    <h3 class="text-lg font-semibold text-surface mb-2">Smartwatch Series X</h3>
+                    <p class="text-accent font-bold mb-3">$299.99</p>
+                    <p class="text-sm text-gray-300">Stock: <span class="font-semibold">150</span> units</p>
+                </div>
+                <div class="mt-4 flex space-x-2">
+                    <button class="flex-1 px-4 py-2 bg-accent/20 rounded-md border border-accent/30 hover:bg-accent/30 transition-colors aurora-gradient focus:ring-2 ring-accent">Edit</button>
+                    <button class="flex-1 px-4 py-2 bg-red-500/20 rounded-md border border-red-500/30 hover:bg-red-500/30 transition-colors focus:ring-2 ring-red-500">Delete</button>
+                </div>
+            </div>
+
+            <!-- Product Card 2 -->
+            <div class="group bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 flex flex-col justify-between hover:scale-[1.02] transition-all duration-300 ease-out">
+                <img src="assets/product_placeholder.png" alt="Product Name" class="w-full h-48 object-cover rounded-xl mb-4">
+                <div>
+                    <h3 class="text-lg font-semibold text-surface mb-2">Wireless Noise-Cancelling Headphones</h3>
+                    <p class="text-accent font-bold mb-3">$199.50</p>
+                    <p class="text-sm text-gray-300">Stock: <span class="font-semibold">75</span> units</p>
+                </div>
+                 <div class="mt-4 flex space-x-2">
+                    <button class="flex-1 px-4 py-2 bg-accent/20 rounded-md border border-accent/30 hover:bg-accent/30 transition-colors aurora-gradient focus:ring-2 ring-accent">Edit</button>
+                    <button class="flex-1 px-4 py-2 bg-red-500/20 rounded-md border border-red-500/30 hover:bg-red-500/30 transition-colors focus:ring-2 ring-red-500">Delete</button>
+                </div>
+            </div>
+
+            <!-- Product Card 3 -->
+            <div class="group bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 flex flex-col justify-between hover:scale-[1.02] transition-all duration-300 ease-out">
+                <img src="assets/product_placeholder.png" alt="Product Name" class="w-full h-48 object-cover rounded-xl mb-4">
+                <div>
+                    <h3 class="text-lg font-semibold text-surface mb-2">Organic Cotton T-Shirt</h3>
+                    <p class="text-accent font-bold mb-3">$25.00</p>
+                    <p class="text-sm text-gray-300">Stock: <span class="font-semibold">300</span> units</p>
+                </div>
+                 <div class="mt-4 flex space-x-2">
+                    <button class="flex-1 px-4 py-2 bg-accent/20 rounded-md border border-accent/30 hover:bg-accent/30 transition-colors aurora-gradient focus:ring-2 ring-accent">Edit</button>
+                    <button class="flex-1 px-4 py-2 bg-red-500/20 rounded-md border border-red-500/30 hover:bg-red-500/30 transition-colors focus:ring-2 ring-red-500">Delete</button>
+                </div>
+            </div>
+
+            <!-- Product Card 4 -->
+            <div class="group bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 flex flex-col justify-between hover:scale-[1.02] transition-all duration-300 ease-out">
+                <img src="assets/product_placeholder.png" alt="Product Name" class="w-full h-48 object-cover rounded-xl mb-4">
+                <div>
+                    <h3 class="text-lg font-semibold text-surface mb-2">Espresso Machine Pro</h3>
+                    <p class="text-accent font-bold mb-3">$450.00</p>
+                    <p class="text-sm text-gray-300">Stock: <span class="font-semibold">50</span> units</p>
+                </div>
+                 <div class="mt-4 flex space-x-2">
+                    <button class="flex-1 px-4 py-2 bg-accent/20 rounded-md border border-accent/30 hover:bg-accent/30 transition-colors aurora-gradient focus:ring-2 ring-accent">Edit</button>
+                    <button class="flex-1 px-4 py-2 bg-red-500/20 rounded-md border border-red-500/30 hover:bg-red-500/30 transition-colors focus:ring-2 ring-red-500">Delete</button>
+                </div>
+            </div>
+
+            <!-- Product Card 5 -->
+            <div class="group bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 flex flex-col justify-between hover:scale-[1.02] transition-all duration-300 ease-out">
+                <img src="assets/product_placeholder.png" alt="Product Name" class="w-full h-48 object-cover rounded-xl mb-4">
+                <div>
+                    <h3 class="text-lg font-semibold text-surface mb-2">Ergonomic Office Chair</h3>
+                    <p class="text-accent font-bold mb-3">$320.00</p>
+                    <p class="text-sm text-gray-300">Stock: <span class="font-semibold">90</span> units</p>
+                </div>
+                 <div class="mt-4 flex space-x-2">
+                    <button class="flex-1 px-4 py-2 bg-accent/20 rounded-md border border-accent/30 hover:bg-accent/30 transition-colors aurora-gradient focus:ring-2 ring-accent">Edit</button>
+                    <button class="flex-1 px-4 py-2 bg-red-500/20 rounded-md border border-red-500/30 hover:bg-red-500/30 transition-colors focus:ring-2 ring-red-500">Delete</button>
+                </div>
+            </div>
+
+            <!-- Product Card 6 -->
+            <div class="group bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-6 flex flex-col justify-between hover:scale-[1.02] transition-all duration-300 ease-out">
+                <img src="assets/product_placeholder.png" alt="Product Name" class="w-full h-48 object-cover rounded-xl mb-4">
+                <div>
+                    <h3 class="text-lg font-semibold text-surface mb-2">Professional DSLR Camera Kit</h3>
+                    <p class="text-accent font-bold mb-3">$1200.00</p>
+                    <p class="text-sm text-gray-300">Stock: <span class="font-semibold">30</span> units</p>
+                </div>
+                 <div class="mt-4 flex space-x-2">
+                    <button class="flex-1 px-4 py-2 bg-accent/20 rounded-md border border-accent/30 hover:bg-accent/30 transition-colors aurora-gradient focus:ring-2 ring-accent">Edit</button>
+                    <button class="flex-1 px-4 py-2 bg-red-500/20 rounded-md border border-red-500/30 hover:bg-red-500/30 transition-colors focus:ring-2 ring-red-500">Delete</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add New Product Form Section -->
+        <section id="add" class="reveal mt-16 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-8">
+            <h2 class="text-3xl font-bold font-serif text-surface mb-6">Add New Product</h2>
+            <form id="product-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="form-group">
+                    <label for="product-name" class="block text-sm font-medium text-gray-300 mb-1">Product Name</label>
+                    <input type="text" id="product-name" name="product-name" required class="w-full p-3 rounded-lg bg-background border border-white/20 focus:ring-accent focus:border-accent focus:outline-none">
+                </div>
+                <div class="form-group">
+                    <label for="product-sku" class="block text-sm font-medium text-gray-300 mb-1">SKU</label>
+                    <input type="text" id="product-sku" name="product-sku" required class="w-full p-3 rounded-lg bg-background border border-white/20 focus:ring-accent focus:border-accent focus:outline-none">
+                </div>
+                <div class="form-group col-span-1 md:col-span-2">
+                    <label for="product-description" class="block text-sm font-medium text-gray-300 mb-1">Description</label>
+                    <textarea id="product-description" name="product-description" rows="3" class="w-full p-3 rounded-lg bg-background border border-white/20 focus:ring-accent focus:border-accent focus:outline-none"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="product-price" class="block text-sm font-medium text-gray-300 mb-1">Price</label>
+                    <input type="number" id="product-price" name="product-price" step="0.01" required class="w-full p-3 rounded-lg bg-background border border-white/20 focus:ring-accent focus:border-accent focus:outline-none">
+                </div>
+                <div class="form-group">
+                    <label for="product-stock" class="block text-sm font-medium text-gray-300 mb-1">Current Stock</label>
+                    <input type="number" id="product-stock" name="product-stock" required class="w-full p-3 rounded-lg bg-background border border-white/20 focus:ring-accent focus:border-accent focus:outline-none">
+                </div>
+                <div class="form-group">
+                    <label for="product-category" class="block text-sm font-medium text-gray-300 mb-1">Category</label>
+                    <select id="product-category" name="product-category" class="w-full p-3 rounded-lg bg-background border border-white/20 focus:ring-accent focus:border-accent focus:outline-none text-gray-300">
+                        <option value="">Select Category</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="clothing">Clothing</option>
+                        <option value="groceries">Groceries</option>
+                        <option value="home-goods">Home Goods</option>
+                    </select>
+                </div>
+                <div class="form-group col-span-1 md:col-span-2">
+                    <label for="product-image" class="block text-sm font-medium text-gray-300 mb-1">Product Image URL</label>
+                    <input type="url" id="product-image" name="product-image" class="w-full p-3 rounded-lg bg-background border border-white/20 focus:ring-accent focus:border-accent focus:outline-none" placeholder="https://example.com/image.jpg">
+                </div>
+                <div class="col-span-1 md:col-span-2 text-right">
+                    <button type="submit" class="px-8 py-3 bg-accent text-background font-semibold rounded-lg shadow-lg hover:bg-accent/90 transition-all duration-300 ease-out aurora-gradient focus:ring-2 ring-accent">
+                        Save Product
+                    </button>
+                </div>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 z-50 p-3 bg-accent/20 rounded-full shadow-lg hover:bg-accent/30 transition-all duration-300 ease-out aurora-gradient opacity-0 invisible group-hover:opacity-100 group-hover:visible focus:outline-none focus:ring-2 ring-accent">
+        <svg class="w-6 h-6 text-surface" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
+
+    <!-- Footer -->
+    <footer class="mt-24 py-8 bg-background/80 backdrop-blur-lg border-t border-white/20">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400">&copy; 2023 POS Pro. All rights reserved.</p>
+            <div class="flex justify-center space-x-6 mt-4">
+                <a href="index.html" class="text-gray-400 hover:text-accent transition-colors">Home</a>
+                <a href="dashboard.html" class="text-gray-400 hover:text-accent transition-colors">Dashboard</a>
+                <a href="sales.html" class="text-gray-400 hover:text-accent transition-colors">Sales</a>
+                <a href="products.html" class="text-gray-400 hover:text-accent transition-colors">Products</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Reveal-on-Scroll Logic
+        const reveals = document.querySelectorAll('.reveal');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Optional: Unobserve after it's revealed to improve performance
+                    // observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1 // Trigger when 10% of the element is visible
+        });
+
+        reveals.forEach(el => {
+            observer.observe(el);
+        });
+
+        // Back to Top Button Logic
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 1000) { // Show button after scrolling 1000px
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Prevent form submission from reloading page (for demo purposes)
+        document.getElementById('product-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Product added successfully (simulated)!');
+            // In a real app, you would handle form submission via AJAX or a server redirect.
+        });
+    </script>
+</body>
+</html>

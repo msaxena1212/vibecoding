@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - POS System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00bcd4',
+                        secondary: '#3f51b5',
+                        background: '#212121',
+                        text: '#ffffff',
+                        accent: '#ffffff',
+                        darker_background: '#000000',
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Roboto Slab', 'serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                        'spin-slow': 'spin 3s linear infinite',
+                        'pulse-aurora': 'pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1)',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        pulse: {
+                            '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+                            '50%': { opacity: '0.75', transform: 'scale(0.95)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Slab:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, rgba(0,188,212,1) 0%, rgba(63,81,181,1) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+        .aurora-gradient {
+            background: linear-gradient(135deg, rgba(0,255,255,0.1) 0%, rgba(0,150,255,0.1) 50%, rgba(100,50,200,0.1) 100%);
+        }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .border-gradient {
+            border: 2px solid transparent;
+            background: linear-gradient(90deg, var(--primary), var(--secondary)) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+        }
+        .spin-animation {
+            animation: spin-slow 3s linear infinite;
+        }
+        .pulse-animation {
+            animation: pulse-aurora 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center text-center p-4">
+
+    <header class="w-full fixed top-0 z-50 glassmorphism py-4 px-6 flex justify-between items-center border-b border-white/20">
+        <div class="flex items-center">
+            <h1 class="text-2xl font-bold font-serif gradient-text">POSync</h1>
+        </div>
+        <nav class="hidden md:flex space-x-6">
+            <a href="index.html" class="text-gray-300 hover:text-primary transition-colors duration-300">Home</a>
+            <a href="dashboard.html" class="text-gray-300 hover:text-primary transition-colors duration-300">Dashboard</a>
+            <a href="sales.html" class="text-gray-300 hover:text-primary transition-colors duration-300">Sales</a>
+            <a href="products.html" class="text-gray-300 hover:text-primary transition-colors duration-300">Products</a>
+            <a href="reports.html" class="text-gray-300 hover:text-primary transition-colors duration-300">Reports</a>
+            <a href="login.html" class="text-gray-300 hover:text-primary transition-colors duration-300">Login</a>
+        </nav>
+        <button id="mobile-menu-button" class="md:hidden text-gray-300 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
+    </header>
+
+    <div id="mobile-menu" class="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-lg z-40 hidden flex-col items-center justify-center space-y-6 transition-all duration-500 ease-out transform translate-x-full md:translate-x-0">
+        <button id="close-menu-button" class="absolute top-8 right-8 text-gray-300 hover:text-primary focus:outline-none">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <a href="index.html" class="text-2xl text-gray-300 hover:text-primary transition-colors duration-300">Home</a>
+        <a href="dashboard.html" class="text-2xl text-gray-300 hover:text-primary transition-colors duration-300">Dashboard</a>
+        <a href="sales.html" class="text-2xl text-gray-300 hover:text-primary transition-colors duration-300">Sales</a>
+        <a href="products.html" class="text-2xl text-gray-300 hover:text-primary transition-colors duration-300">Products</a>
+        <a href="reports.html" class="text-2xl text-gray-300 hover:text-primary transition-colors duration-300">Reports</a>
+        <a href="login.html" class="text-2xl text-gray-300 hover:text-primary transition-colors duration-300">Login</a>
+    </div>
+
+    <main class="glassmorphism p-8 md:p-16 rounded-2xl shadow-xl border border-white/20 animate-fade-in-up">
+        <div class="relative w-48 h-48 mb-8 mx-auto">
+            <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-full h-full rounded-full border-4 border-dashed border-primary opacity-50 pulse-animation"></div>
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center">
+                <svg class="w-24 h-24 text-primary opacity-75 animate-spin-slow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M12 2 L12 6"></path>
+                    <path d="M12 18 L12 22"></path>
+                    <path d="M2 12 L6 12"></path>
+                    <path d="M18 12 L22 12"></path>
+                    <path d="M4 4 L7 7"></path>
+                    <path d="M17 7 L20 4"></path>
+                    <path d="M4 17 L7 14"></path>
+                    <path d="M14 14 L17 17"></path>
+                </svg>
+            </div>
+        </div>
+
+        <h1 class="text-5xl md:text-7xl font-bold mb-4 font-serif gradient-text">404</h1>
+        <h2 class="text-3xl md:text-4xl font-semibold mb-6 text-gray-300">Page Not Found</h2>
+        <p class="text-lg md:text-xl text-gray-400 mb-8 leading-relaxed">
+            Oops! It seems the page you're looking for has wandered off.
+            Don't worry, we can help you find your way back.
+        </p>
+
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="index.html" class="px-6 py-3 bg-primary text-white font-bold rounded-lg shadow-lg hover:scale-105 transition-all duration-300 ease-out focus:ring-2 ring-primary">
+                Go to Homepage
+            </a>
+            <a href="dashboard.html" class="px-6 py-3 bg-secondary text-white font-bold rounded-lg shadow-lg hover:scale-105 transition-all duration-300 ease-out focus:ring-2 ring-secondary">
+                Go to Dashboard
+            </a>
+        </div>
+    </main>
+
+    <footer class="w-full py-6 mt-auto glassmorphism border-t border-white/20">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <p>&copy; 2023 POSync. All rights reserved.</p>
+            <div class="flex justify-center space-x-4 mt-3">
+                <a href="privacy.html" class="hover:text-primary transition-colors duration-300">Privacy Policy</a>
+                <a href="terms.html" class="hover:text-primary transition-colors duration-300">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const closeMenuButton = document.getElementById('close-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-x-full', 'hidden');
+            mobileMenu.classList.add('translate-x-0', 'flex');
+        });
+
+        closeMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.add('translate-x-full', 'hidden');
+            mobileMenu.classList.remove('translate-x-0');
+        });
+
+        // Close menu if clicked outside of it
+        document.addEventListener('click', (event) => {
+            if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target) && !mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('translate-x-full', 'hidden');
+                mobileMenu.classList.remove('translate-x-0');
+            }
+        });
+    </script>
+</body>
+</html>

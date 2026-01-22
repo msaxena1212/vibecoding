@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Transactions - POS</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00bcd4',
+                        secondary: '#3f51b5',
+                        background: '#212121',
+                        text: '#ffffff',
+                        'glass-border': 'rgba(255, 255, 255, 0.2)',
+                        'glass-overlay': 'rgba(255, 255, 255, 0.05)',
+                        'aurora-start': '#00bcd4',
+                        'aurora-end': '#3f51b5',
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Roboto Slab', 'serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
+                        'aurora-gradient': 'aurora 5s ease infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        aurora: {
+                            '0%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                            '100%': { backgroundPosition: '0% 50%' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for smooth scroll and scrollspy */
+        html {
+            scroll-behavior: smooth;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Aurora gradient for interactive elements */
+        .aurora-gradient {
+            background: linear-gradient(270deg, var(--tw-gradient-stops));
+            background-size: 200% 200%;
+            animation: aurora 5s ease infinite;
+        }
+        .table-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        .table-container::-webkit-scrollbar-track {
+            background: #2c3e50; /* Darker track */
+            border-radius: 4px;
+        }
+        .table-container::-webkit-scrollbar-thumb {
+            background: #00bcd4; /* Primary color thumb */
+            border-radius: 4px;
+        }
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: #00a8b8; /* Darker shade on hover */
+        }
+    </style>
+</head>
+<body class="bg-background text-text font-sans antialiased">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 w-full backdrop-blur-lg bg-background/80 border-b border-glass-border">
+        <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="index.html" class="text-2xl font-bold font-serif text-primary aurora-gradient bg-clip-text text-transparent">POS</a>
+
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="index.html" class="hover:text-primary transition-colors duration-300">Dashboard</a>
+                <a href="sales.html" class="text-primary hover:text-primary transition-colors duration-300">Sales</a>
+                <a href="products.html" class="hover:text-primary transition-colors duration-300">Products</a>
+                <a href="customers.html" class="hover:text-primary transition-colors duration-300">Customers</a>
+                <a href="reports.html" class="hover:text-primary transition-colors duration-300">Reports</a>
+            </div>
+
+            <button id="mobile-menu-button" class="md:hidden text-text focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </nav>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 z-40 hidden md:hidden bg-background/90 backdrop-blur-xl transition-opacity duration-300">
+            <div class="container mx-auto px-4 py-4 h-full flex flex-col justify-center items-center space-y-8">
+                <button id="close-menu-button" class="absolute top-4 right-4 text-text focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+                <a href="index.html" class="text-2xl hover:text-primary transition-colors duration-300">Dashboard</a>
+                <a href="sales.html" class="text-2xl text-primary hover:text-primary transition-colors duration-300">Sales</a>
+                <a href="products.html" class="text-2xl hover:text-primary transition-colors duration-300">Products</a>
+                <a href="customers.html" class="text-2xl hover:text-primary transition-colors duration-300">Customers</a>
+                <a href="reports.html" class="text-2xl hover:text-primary transition-colors duration-300">Reports</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-16">
+
+        <!-- Page Title and CTA -->
+        <section class="mb-12 text-center reveal">
+            <h1 class="text-5xl md:text-6xl font-bold font-serif mb-4 text-transparent bg-clip-text bg-gradient-to-r from-aurora-start to-aurora-end">Transaction Log</h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-8">Detailed history of all sales, sortable, filterable, and searchable for ultimate control.</p>
+            <a href="sale.html" class="inline-block px-8 py-3 bg-gradient-to-r from-aurora-start to-aurora-end text-white font-bold rounded-lg shadow-lg hover:scale-105 transition-all duration-300 ease-out focus:ring-2 ring-primary">
+                Process New Sale
+            </a>
+        </section>
+
+        <!-- Search and Filter Controls -->
+        <section class="mb-8 reveal" style="animation-delay: 0.1s;">
+            <div class="flex flex-col md:flex-row gap-4 justify-between items-center">
+                <div class="w-full md:w-1/3 relative">
+                    <input type="text" id="search-transactions" placeholder="Search transactions..." class="w-full px-4 py-3 rounded-lg bg-background border border-glass-border focus:outline-none focus:ring-2 focus:ring-primary/50 placeholder-gray-400">
+                    <svg class="w-5 h-5 absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+                    <select id="filter-date" class="px-4 py-3 rounded-lg bg-background border border-glass-border focus:outline-none focus:ring-2 focus:ring-primary/50 appearance-none">
+                        <option value="">Filter by Date</option>
+                        <option value="today">Today</option>
+                        <option value="week">This Week</option>
+                        <option value="month">This Month</option>
+                        <option value="year">This Year</option>
+                    </select>
+                    <select id="filter-status" class="px-4 py-3 rounded-lg bg-background border border-glass-border focus:outline-none focus:ring-2 focus:ring-primary/50 appearance-none">
+                        <option value="">Filter by Status</option>
+                        <option value="completed">Completed</option>
+                        <option value="pending">Pending</option>
+                        <option value="refunded">Refunded</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Transaction Table -->
+        <section class="reveal" style="animation-delay: 0.2s;">
+            <div class="overflow-x-auto table-container max-h-[70vh]">
+                <table class="w-full min-w-[800px] border-separate border-spacing-y-2">
+                    <thead class="sticky top-0 z-30 bg-background/90 backdrop-blur-lg">
+                        <tr>
+                            <th class="px-4 py-3 text-left rounded-tl-lg">
+                                <button class="flex items-center group">
+                                    Transaction ID
+                                    <svg class="w-4 h-4 ml-1 opacity-50 group-hover:opacity-100 transition-opacity duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 15l4 4 4-4M8 9l4-4 4 4"></path>
+                                    </svg>
+                                </button>
+                            </th>
+                            <th class="px-4 py-3 text-left">
+                                <button class="flex items-center group">
+                                    Date
+                                    <svg class="w-4 h-4 ml-1 opacity-50 group-hover:opacity-100 transition-opacity duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 15l4 4 4-4M8 9l4-4 4 4"></path>
+                                    </svg>
+                                </button>
+                            </th>
+                            <th class="px-4 py-3 text-left">Customer</th>
+                            <th class="px-4 py-3 text-left">
+                                <button class="flex items-center group">
+                                    Total
+                                    <svg class="w-4 h-4 ml-1 opacity-50 group-hover:opacity-100 transition-opacity duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 15l4 4 4-4M8 9l4-4 4 4"></path>
+                                    </svg>
+                                </button>
+                            </th>
+                            <th class="px-4 py-3 text-left">Payment Method</th>
+                            <th class="px-4 py-3 text-left rounded-tr-lg">Status</th>
+                            <th class="px-4 py-3 text-right rounded-tr-lg">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transaction-table-body">
+                        <!-- Transaction rows will be injected here by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Back to Top Button -->
+        <button id="back-to-top" class="hidden fixed bottom-8 right-8 z-50 p-3 bg-primary text-white rounded-full shadow-lg hover:scale-110 transition-all duration-300 ease-out focus:outline-none focus:ring-2 ring-primary">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+            </svg>
+        </button>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-20 py-8 bg-background/90 border-t border-glass-border">
+        <div class="container mx-auto px-4 text-center text-gray-400">
+            <div class="mb-6 flex justify-center space-x-6">
+                <a href="index.html" class="hover:text-primary transition-colors duration-300">Dashboard</a>
+                <a href="sales.html" class="text-primary hover:text-primary transition-colors duration-300">Sales</a>
+                <a href="products.html" class="hover:text-primary transition-colors duration-300">Products</a>
+                <a href="customers.html" class="hover:text-primary transition-colors duration-300">Customers</a>
+                <a href="reports.html" class="hover:text-primary transition-colors duration-300">Reports</a>
+            </div>
+            <p>&copy; 2023 POS System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Mock Data for Transactions
+        const mockTransactions = [
+            { id: 'TXN78901', date: '2023-10-26T10:30:00Z', customer: 'Alice Wonderland', total: 150.75, paymentMethod: 'Credit Card', status: 'Completed', items: [{ id: 'P001', name: 'Organic Coffee Beans', quantity: 2, unitPrice: 15.50 }, { id: 'P005', name: 'Ceramic Mug', quantity: 1, unitPrice: 20.00 }, { id: 'P012', name: 'Espresso Machine', quantity: 1, unitPrice: 79.75 }] },
+            { id: 'TXN78902', date: '2023-10-25T14:45:00Z', customer: 'Bob The Builder', total: 45.50, paymentMethod: 'Cash', status: 'Completed', items: [{ id: 'P003', name: 'Screwdriver Set', quantity: 1, unitPrice: 25.00 }, { id: 'P008', name: 'Work Gloves', quantity: 2, unitPrice: 10.25 }] },
+            { id: 'TXN78903', date: '2023-10-25T09:15:00Z', customer: 'Charlie Chaplin', total: 210.00, paymentMethod: 'Credit Card', status: 'Pending', items: [{ id: 'P010', name: 'Professional Camera', quantity: 1, unitPrice: 210.00 }] },
+            { id: 'TXN78904', date: '2023-10-24T11:00:00Z', customer: 'Diana Prince', total: 88.90, paymentMethod: 'Credit Card', status: 'Completed', items: [{ id: 'P006', name: 'Running Shoes', quantity: 1, unitPrice: 75.00 }, { id: 'P007', name: 'Water Bottle', quantity: 1, unitPrice: 13.90 }] },
+            { id: 'TXN78905', date: '2023-10-23T16:20:00Z', customer: 'Ethan Hunt', total: 32.00, paymentMethod: 'Cash', status: 'Refunded', items: [{ id: 'P009', name: 'Wireless Mouse', quantity: 1, unitPrice: 32.00 }] },
+            { id: 'TXN78906', date: '2023-10-22T13:00:00Z', customer: 'Fiona Shrek', total: 65.25, paymentMethod: 'Credit Card', status: 'Completed', items: [{ id: 'P004', name: 'Gardening Tools Set', quantity: 1, unitPrice: 50.00 }, { id: 'P011', name: 'Plant Fertilizer', quantity: 1, unitPrice: 15.25 }] },
+            { id: 'TXN78907', date: '2023-10-21T10:00:00Z', customer: 'George Jetson', total: 199.99, paymentMethod: 'Credit Card', status: 'Completed', items: [{ id: 'P013', name: 'Smart Home Hub', quantity: 1, unitPrice: 199.99 }] },
+            { id: 'TXN78908', date: '2023-10-20T15:30:00Z', customer: 'Hannah Montana', total: 22.50, paymentMethod: 'Cash', status: 'Completed', items: [{ id: 'P002', name: 'Notebook', quantity: 5, unitPrice: 4.50 }] },
+            { id: 'TXN78909', date: '2023-10-19T12:00:00Z', customer: 'Ian Malcolm', total: 115.00, paymentMethod: 'Credit Card', status: 'Completed', items: [{ id: 'P005', name: 'Ceramic Mug', quantity: 2, unitPrice: 20.00 }, { id: 'P001', name: 'Organic Coffee Beans', quantity: 3, unitPrice: 15.50 }] },
+            { id: 'TXN78910', date: '2023-10-18T17:00:00Z', customer: 'Jane Doe', total: 55.00, paymentMethod: 'Credit Card', status: 'Completed', items: [{ id: 'P006', name: 'Running Shoes', quantity: 1, unitPrice: 55.00 }] }
+        ];
+
+        const transactionTableBody = document.getElementById('transaction-table-body');
+        const searchInput = document.getElementById('search-transactions');
+        const filterDate = document.getElementById('filter-date');
+        const filterStatus = document.getElementById('filter-status');
+
+        function formatDate(isoString) {
+            const date = new Date(isoString);
+            return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        }
+
+        function formatCurrency(amount) {
+            return `$${amount.toFixed(2)}`;
+        }
+
+        function renderTable(transactions) {
+            transactionTableBody.innerHTML = '';
+            transactions.forEach((txn, index) => {
+                const row = document.createElement('tr');
+                row.classList.add('group', 'cursor-pointer', 'hover:bg-white/5', 'transition-all', 'duration-200');
+                row.innerHTML = `
+                    <td class="px-4 py-3 rounded-bl-lg">${txn.id}</td>
+                    <td class="px-4 py-3">${formatDate(txn.date)}</td>
+                    <td class="px-4 py-3">${txn.customer}</td>
+                    <td class="px-4 py-3">${formatCurrency(txn.total)}</td>
+                    <td class="px-4 py-3">${txn.paymentMethod}</td>
+                    <td class="px-4 py-3 ${txn.status === 'Completed' ? 'text-green-400' : txn.status === 'Pending' ? 'text-yellow-400' : 'text-red-400'}">${txn.status}</td>
+                    <td class="px-4 py-3 rounded-br-lg text-right">
+                        <button class="toggle-details text-primary hover:underline focus:outline-none focus:ring-2 ring-primary rounded-md">View</button>
+                    </td>
+                `;
+                transactionTableBody.appendChild(row);
+
+                // Add expandable row for item details
+                const detailsRow = document.createElement('tr');
+                detailsRow.classList.add('hidden', 'bg-background/50', 'details-row');
+                detailsRow.innerHTML = `
+                    <td colspan="7" class="px-4 py-4">
+                        <div class="p-4 rounded-lg bg-glass-overlay border border-glass-border">
+                            <h4 class="font-semibold mb-3">Items Purchased:</h4>
+                            <ul class="list-disc list-inside space-y-1">
+                                ${txn.items.map(item => `<li>${item.name} (x${item.quantity}) - ${formatCurrency(item.unitPrice * item.quantity)}</li>`).join('')}
+                            </ul>
+                            <p class="mt-3 text-sm text-gray-400">Transaction Date: ${new Date(txn.date).toLocaleString()}</p>
+                        </div>
+                    </td>
+                `;
+                transactionTableBody.appendChild(detailsRow);
+
+                // Add event listener to toggle details
+                const toggleButton = row.querySelector('.toggle-details');
+                toggleButton.addEventListener('click', () => {
+                    detailsRow.classList.toggle('hidden');
+                    toggleButton.textContent = detailsRow.classList.contains('hidden') ? 'View' : 'Hide';
+                });
+            });
+        }
+
+        function applyFiltersAndSearch() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const filterDateValue = filterDate.value;
+            const filterStatusValue = filterStatus.value;
+
+            const today = new Date();
+            const thisWeekStart = new Date(today);
+            thisWeekStart.setDate(today.getDate() - today.getDay());
+            const thisMonthStart = new Date(today.getFullYear(), today.getMonth(), 1);
+            const thisYearStart = new Date(today.getFullYear(), 0, 1);
+
+            const filteredTransactions = mockTransactions.filter(txn => {
+                const txnDate = new Date(txn.date);
+                let dateMatch = true;
+
+                if (filterDateValue) {
+                    switch (filterDateValue) {
+                        case 'today':
+                            dateMatch = txnDate.toDateString() === today.toDateString();
+                            break;
+                        case 'week':
+                            dateMatch = txnDate >= thisWeekStart && txnDate <= today;
+                            break;
+                        case 'month':
+                            dateMatch = txnDate >= thisMonthStart && txnDate <= today;
+                            break;
+                        case 'year':
+                            dateMatch = txnDate >= thisYearStart && txnDate <= today;
+                            break;
+                    }
+                }
+
+                const statusMatch = filterStatusValue ? txn.status.toLowerCase() === filterStatusValue.toLowerCase() : true;
+                const searchMatch = txn.id.toLowerCase().includes(searchTerm) ||
+                                  txn.customer.toLowerCase().includes(searchTerm) ||
+                                  txn.paymentMethod.toLowerCase().includes(searchTerm) ||
+                                  txn.items.some(item => item.name.toLowerCase().includes(searchTerm));
+
+                return dateMatch && statusMatch && searchMatch;
+            });
+
+            renderTable(filteredTransactions);
+        }
+
+        searchInput.addEventListener('input', applyFiltersAndSearch);
+        filterDate.addEventListener('change', applyFiltersAndSearch);
+        filterStatus.addEventListener('change', applyFiltersAndSearch);
+
+        // Initial render
+        renderTable(mockTransactions);
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const closeMenuButton = document.getElementById('close-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('hidden');
+            mobileMenu.classList.add('opacity-100');
+        });
+
+        closeMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('opacity-100');
+            mobileMenu.classList.add('hidden');
+        });
+
+        // Back to Top Button Logic
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 1000) { // Show button after scrolling 1000px
+                backToTopButton.classList.remove('hidden');
+            } else {
+                backToTopButton.classList.add('hidden');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Reveal on Scroll Animation
+        const revealElements = document.querySelectorAll('.reveal');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Optional: unobserve after revealing
+                }
+            });
+        }, observerOptions);
+
+        revealElements.forEach(el => {
+            observer.observe(el);
+        });
+
+    </script>
+</body>
+</html>

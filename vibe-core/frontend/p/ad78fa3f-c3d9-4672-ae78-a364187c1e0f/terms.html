@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Emission Data India</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* Dark background */
+            color: #e2e8f0; /* Light text */
+        }
+        .font-sans {
+            font-family: 'Inter', sans-serif;
+        }
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .bg-primary-gradient {
+            background: linear-gradient(180deg, rgba(40, 167, 69, 0.8) 0%, rgba(0, 123, 255, 0.8) 100%);
+        }
+        .border-primary-gradient {
+            border-image-source: linear-gradient(180deg, rgba(40, 167, 69, 0.5) 0%, rgba(0, 123, 255, 0.5) 100%);
+            border-image-slice: 1;
+        }
+        .ring-primary {
+            --tw-ring-color: #007bff; /* Default primary blue */
+        }
+        .text-primary {
+            color: #007bff; /* Default primary blue */
+        }
+        .text-secondary {
+            color: #28a745; /* Default secondary green */
+        }
+        .text-warning {
+            color: #ffc107; /* Default warning yellow */
+        }
+
+        /* Reveal-on-scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+    <script>
+        // Tailwind CSS Configuration
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#007bff',
+                        secondary: '#28a745',
+                        warning: '#ffc107',
+                        dark: '#0f172a',
+                        light: '#f8fafc',
+                        'primary-gradient-start': '#28a745',
+                        'primary-gradient-end': '#007bff',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        'fade-in-up': {
+                            from: { opacity: '0', transform: 'translateY(20px)' },
+                            to: { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="bg-dark text-light font-sans">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 w-full backdrop-blur-lg border-b border-white/20 py-4 px-6 flex justify-between items-center bg-white/5">
+        <div class="flex items-center">
+            <a href="index.html" class="text-2xl font-bold font-serif text-light hover:text-primary transition-colors">
+                Emission Data India
+            </a>
+        </div>
+        <nav class="hidden md:flex space-x-6">
+            <a href="index.html" class="text-light hover:text-primary transition-colors">Home</a>
+            <a href="dashboard.html" class="text-light hover:text-primary transition-colors">Dashboard</a>
+            <a href="services.html" class="text-light hover:text-primary transition-colors">Services</a>
+            <a href="about.html" class="text-light hover:text-primary transition-colors">About</a>
+            <a href="contact.html" class="text-light hover:text-primary transition-colors">Contact</a>
+            <a href="privacy.html" class="text-light hover:text-primary transition-colors">Privacy Policy</a>
+            <a href="terms.html" class="text-primary font-semibold border-b-2 border-primary">Terms of Service</a>
+        </nav>
+        <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+            <svg class="w-6 h-6 text-light" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-xl z-40 hidden md:hidden">
+        <div class="flex flex-col items-center justify-center h-full space-y-8">
+            <a href="index.html" class="text-light text-2xl hover:text-primary transition-colors">Home</a>
+            <a href="dashboard.html" class="text-light text-2xl hover:text-primary transition-colors">Dashboard</a>
+            <a href="services.html" class="text-light text-2xl hover:text-primary transition-colors">Services</a>
+            <a href="about.html" class="text-light text-2xl hover:text-primary transition-colors">About</a>
+            <a href="contact.html" class="text-light text-2xl hover:text-primary transition-colors">Contact</a>
+            <a href="privacy.html" class="text-light text-2xl hover:text-primary transition-colors">Privacy Policy</a>
+            <a href="terms.html" class="text-primary text-2xl font-semibold border-b-2 border-primary">Terms of Service</a>
+            <button id="close-menu-button" class="absolute top-8 right-8 text-light focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <main class="container mx-auto px-4 py-16 md:py-24">
+        <div class="reveal max-w-4xl mx-auto">
+            <h1 class="font-serif text-4xl md:text-5xl font-bold text-center mb-8 text-primary-gradient-start">Terms of Service</h1>
+            <p class="text-center text-lg md:text-xl text-light/80 mb-12">Last Updated: October 26, 2023</p>
+        </div>
+
+        <div class="bg-white/5 backdrop-blur-lg border border-white/20 rounded-2xl p-8 md:p-12 shadow-lg">
+
+            <section class="mb-10 reveal">
+                <h2 class="font-serif text-3xl font-bold text-primary mb-4">1. Introduction</h2>
+                <p class="mb-4">Welcome to Emission Data India. These Terms of Service ("Terms") govern your access to and use of our website, services, and applications (collectively, the "Service"). By accessing or using the Service, you agree to be bound by these Terms and our Privacy Policy. If you do not agree to these Terms, you may not access or use the Service.</p>
+                <p class="mb-4">The Service provides information and data related to gas emissions in India, intended for informational and analytical purposes. We strive for accuracy but do not guarantee the completeness or timeliness of all data presented.</p>
+            </section>
+
+            <section class="mb-10 reveal">
+                <h2 class="font-serif text-3xl font-bold text-secondary mb-4">2. User Obligations</h2>
+                <p class="mb-4">By using the Service, you agree to:</p>
+                <ul class="list-disc list-inside space-y-2 ml-4">
+                    <li>Provide accurate, current, and complete information when required.</li>
+                    <li>Use the Service in compliance with all applicable laws and regulations.</li>
+                    <li>Not engage in any activity that disrupts, damages, or impairs the Service or its associated networks.</li>
+                    <li>Not attempt to gain unauthorized access to any part of the Service or any other user's accounts.</li>
+                    <li>Respect the intellectual property rights of Emission Data India and its licensors.</li>
+                    <li>Use the data provided solely for informational, research, or analytical purposes as permitted herein.</li>
+                </ul>
+            </section>
+
+            <section class="mb-10 reveal">
+                <h2 class="font-serif text-3xl font-bold text-warning mb-4">3. Intellectual Property</h2>
+                <p class="mb-4">All content on the Service, including text, graphics, logos, icons, images, data compilations, and software, is the property of Emission Data India or its content suppliers and is protected by copyright and other intellectual property laws. You may access and use this content for your personal, non-commercial use, provided you do not modify, reproduce, or distribute it without our express written consent.</p>
+                <p class="mb-4">Any feedback, suggestions, or ideas you provide are non-confidential and may be used by Emission Data India without restriction or compensation.</p>
+            </section>
+
+            <section class="mb-10 reveal">
+                <h2 class="font-serif text-3xl font-bold text-primary mb-4">4. Disclaimers</h2>
+                <p class="mb-4">The Service is provided "as is" and "as available" without any warranties of any kind, either express or implied. Emission Data India disclaims all warranties, including, but not limited to, implied warranties of merchantability, fitness for a particular purpose, title, and non-infringement.</p>
+                <p class="mb-4">We do not warrant that the Service will be uninterrupted, error-free, or secure, or that any defects will be corrected. The data provided is for informational purposes only and should not be solely relied upon for critical decision-making without independent verification and expert consultation. Emission Data India shall not be liable for any damages arising from the use of or inability to use the Service or its content.</p>
+            </section>
+
+            <section class="mb-10 reveal">
+                <h2 class="font-serif text-3xl font-bold text-secondary mb-4">5. Limitation of Liability</h2>
+                <p class="mb-4">To the fullest extent permitted by applicable law, Emission Data India, its affiliates, officers, employees, agents, suppliers, or licensors shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses, resulting from (a) your access to or use of or inability to access or use the Service; (b) any conduct or content of any third party on the Service; or (c) unauthorized access, use, or alteration of your transmissions or content.</p>
+            </section>
+
+            <section class="mb-10 reveal">
+                <h2 class="font-serif text-3xl font-bold text-warning mb-4">6. Changes to Terms</h2>
+                <p class="mb-4">We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.</p>
+                <p class="mb-4">By continuing to access or use our Service after those revisions become effective, you agree to be bound by the revised terms. You are advised to review this page periodically for any changes.</p>
+            </section>
+
+            <section class="mb-10 reveal">
+                <h2 class="font-serif text-3xl font-bold text-primary mb-4">7. Governing Law</h2>
+                <p class="mb-4">These Terms shall be governed and construed in accordance with the laws of India, without regard to its conflict of law provisions. Any legal suit, action, or proceeding arising out of or related to these Terms or the Service shall be instituted exclusively in the courts located within India.</p>
+            </section>
+
+            <section class="reveal">
+                <h2 class="font-serif text-3xl font-bold text-secondary mb-4">8. Contact Us</h2>
+                <p class="mb-4">If you have any questions about these Terms, please contact us at:</p>
+                <p class="mb-4">Email: <a href="mailto:support@emissiondataindia.in" class="text-primary hover:underline">support@emissiondataindia.in</a></p>
+                <p class="mb-4">You can also reach us via our <a href="contact.html" class="text-primary hover:underline">Contact Page</a>.</p>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-20 py-8 bg-darker border-t border-white/10">
+        <div class="container mx-auto px-6 text-center">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="font-bold text-lg mb-3 font-serif text-primary">Emission Data India</h3>
+                    <p class="text-light/70 text-sm">Providing critical insights into India's environmental data for a sustainable future.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-3 font-serif text-secondary">Quick Links</h3>
+                    <nav class="flex flex-col space-y-2 text-sm">
+                        <a href="index.html" class="text-light/70 hover:text-primary transition-colors">Home</a>
+                        <a href="dashboard.html" class="text-light/70 hover:text-primary transition-colors">Dashboard</a>
+                        <a href="services.html" class="text-light/70 hover:text-primary transition-colors">Services</a>
+                        <a href="about.html" class="text-light/70 hover:text-primary transition-colors">About Us</a>
+                        <a href="contact.html" class="text-light/70 hover:text-primary transition-colors">Contact</a>
+                    </nav>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-3 font-serif text-warning">Legal</h3>
+                    <nav class="flex flex-col space-y-2 text-sm">
+                        <a href="privacy.html" class="text-light/70 hover:text-primary transition-colors">Privacy Policy</a>
+                        <a href="terms.html" class="text-light/70 hover:text-primary transition-colors">Terms of Service</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-6 text-sm text-light/60">
+                &copy; 2023 Emission Data India. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-primary-dark transition-colors duration-300 ease-out hidden z-50 focus:outline-none focus:ring-2 focus:ring-primary/50">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const closeMenuButton = document.getElementById('close-menu-button');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenuOverlay.classList.remove('hidden');
+        });
+
+        closeMenuButton.addEventListener('click', () => {
+            mobileMenuOverlay.classList.add('hidden');
+        });
+
+        // Close mobile menu if clicking outside of content
+        mobileMenuOverlay.addEventListener('click', (event) => {
+            if (event.target === mobileMenuOverlay) {
+                mobileMenuOverlay.classList.add('hidden');
+            }
+        });
+
+        // Back to Top Button Logic
+        const backToTopButton = document.getElementById("back-to-top");
+
+        window.onscroll = function() {
+            scrollFunction();
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
+                backToTopButton.classList.remove("hidden");
+            } else {
+                backToTopButton.classList.add("hidden");
+            }
+        }
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Reveal on Scroll Intersection Observer
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Optional: unobserve after activation
+                }
+            });
+        }, {
+            threshold: 0.1 // Trigger when 10% of the element is visible
+        });
+
+        reveals.forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers - POS Webapp</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00bcd4',
+                        secondary: '#3f51b5',
+                        background: '#212121',
+                        text: '#ffffff',
+                        accent: '#ffffff',
+                        darkGrey: '#212121',
+                        lightGrey: '#ffffff',
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Roboto Slab', 'serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .card-hover-effect {
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-background text-text font-sans">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 glassmorphism p-4 shadow-lg">
+        <nav class="container mx-auto flex items-center justify-between">
+            <a href="index.html" class="text-2xl font-bold font-serif text-accent">POSApp</a>
+            <div class="hidden md:flex space-x-6">
+                <a href="index.html" class="hover:text-primary transition-colors duration-300">Home</a>
+                <a href="dashboard.html" class="hover:text-primary transition-colors duration-300">Dashboard</a>
+                <a href="sales.html" class="hover:text-primary transition-colors duration-300">Sales</a>
+                <a href="products.html" class="hover:text-primary transition-colors duration-300">Products</a>
+                <a href="customers.html" class="text-primary font-semibold">Customers</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-accent focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glassmorphism absolute top-full left-0 right-0 w-full py-4 px-6">
+            <div class="flex flex-col space-y-4">
+                <a href="index.html" class="hover:text-primary transition-colors duration-300">Home</a>
+                <a href="dashboard.html" class="hover:text-primary transition-colors duration-300">Dashboard</a>
+                <a href="sales.html" class="hover:text-primary transition-colors duration-300">Sales</a>
+                <a href="products.html" class="hover:text-primary transition-colors duration-300">Products</a>
+                <a href="customers.html" class="text-primary font-semibold">Customers</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-16">
+        <section class="mb-12 reveal">
+            <h1 class="text-4xl md:text-5xl font-bold font-serif mb-4 text-center">Customer Management</h1>
+            <p class="text-lg text-center text-gray-300 max-w-3xl mx-auto">
+                Manage your customer base efficiently, track spending, and foster loyalty with our comprehensive CRM tools.
+            </p>
+        </section>
+
+        <section class="mb-12 reveal">
+            <div class="flex justify-end mb-6">
+                <a href="#add-customer-form" class="bg-secondary hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-shadow duration-300 focus:outline-none focus:ring-2 focus:ring-secondary ring-offset-2 ring-offset-background">
+                    Add New Customer
+                </a>
+            </div>
+
+            <!-- Customer List/Card View Toggle (Optional, for now, defaulting to list) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Customer Card Example -->
+                <div class="glassmorphism rounded-2xl p-6 card-hover-effect cursor-pointer" onclick="window.location.href='customer_detail.html'">
+                    <div class="flex items-center mb-4">
+                        <img src="assets/customer_avatar_placeholder.png" alt="Customer Avatar" class="w-16 h-16 rounded-full object-cover mr-4 border-2 border-primary">
+                        <div>
+                            <h3 class="text-xl font-bold">Jane Doe</h3>
+                            <p class="text-gray-300">jane.doe@example.com</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-gray-400">Total Spent:</p>
+                        <p class="text-2xl font-bold text-accent">$1,250.75</p>
+                    </div>
+                </div>
+
+                <div class="glassmorphism rounded-2xl p-6 card-hover-effect cursor-pointer" onclick="window.location.href='customer_detail.html'">
+                    <div class="flex items-center mb-4">
+                        <img src="assets/customer_avatar_placeholder.png" alt="Customer Avatar" class="w-16 h-16 rounded-full object-cover mr-4 border-2 border-primary">
+                        <div>
+                            <h3 class="text-xl font-bold">John Smith</h3>
+                            <p class="text-gray-300">john.smith@example.com</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-gray-400">Total Spent:</p>
+                        <p class="text-2xl font-bold text-accent">$875.50</p>
+                    </div>
+                </div>
+
+                <div class="glassmorphism rounded-2xl p-6 card-hover-effect cursor-pointer" onclick="window.location.href='customer_detail.html'">
+                    <div class="flex items-center mb-4">
+                        <img src="assets/customer_avatar_placeholder.png" alt="Customer Avatar" class="w-16 h-16 rounded-full object-cover mr-4 border-2 border-primary">
+                        <div>
+                            <h3 class="text-xl font-bold">Alice Johnson</h3>
+                            <p class="text-gray-300">alice.j@example.com</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-gray-400">Total Spent:</p>
+                        <p class="text-2xl font-bold text-accent">$2,100.00</p>
+                    </div>
+                </div>
+                <!-- Add more customer cards here -->
+            </div>
+        </section>
+
+        <!-- Add Customer Form Section -->
+        <section id="add-customer-form" class="py-16 reveal">
+            <h2 class="text-3xl font-bold font-serif mb-8 text-center">Add New Customer</h2>
+            <div class="glassmorphism rounded-2xl p-8 max-w-3xl mx-auto">
+                <form id="new-customer-form">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="first_name" class="block text-sm font-medium text-gray-300 mb-2">First Name</label>
+                            <input type="text" id="first_name" name="first_name" class="w-full glassmorphism border-none rounded-lg p-3 focus:ring-primary focus:ring-2 ring-offset-2 ring-offset-background" required>
+                        </div>
+                        <div>
+                            <label for="last_name" class="block text-sm font-medium text-gray-300 mb-2">Last Name</label>
+                            <input type="text" id="last_name" name="last_name" class="w-full glassmorphism border-none rounded-lg p-3 focus:ring-primary focus:ring-2 ring-offset-2 ring-offset-background" required>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                        <input type="email" id="email" name="email" class="w-full glassmorphism border-none rounded-lg p-3 focus:ring-primary focus:ring-2 ring-offset-2 ring-offset-background" required>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-300 mb-2">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="w-full glassmorphism border-none rounded-lg p-3 focus:ring-primary focus:ring-2 ring-offset-2 ring-offset-background">
+                        </div>
+                        <div>
+                            <label for="total_spent" class="block text-sm font-medium text-gray-300 mb-2">Initial Total Spent (Optional)</label>
+                            <input type="number" id="total_spent" name="total_spent" step="0.01" class="w-full glassmorphism border-none rounded-lg p-3 focus:ring-primary focus:ring-2 ring-offset-2 ring-offset-background">
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="bg-primary hover:bg-cyan-600 text-darkGrey font-bold py-3 px-8 rounded-lg shadow-lg transition-shadow duration-300 focus:outline-none focus:ring-2 focus:ring-primary ring-offset-2 ring-offset-background">
+                            Save Customer
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-darkGrey/80 glassmorphism py-8 mt-16">
+        <div class="container mx-auto px-4 text-center">
+            <nav class="flex flex-wrap justify-center gap-6 mb-6">
+                <a href="index.html" class="hover:text-primary transition-colors duration-300">Home</a>
+                <a href="dashboard.html" class="hover:text-primary transition-colors duration-300">Dashboard</a>
+                <a href="sales.html" class="hover:text-primary transition-colors duration-300">Sales</a>
+                <a href="products.html" class="hover:text-primary transition-colors duration-300">Products</a>
+                <a href="customers.html" class="text-primary font-semibold">Customers</a>
+            </nav>
+            <p class="text-gray-400">&copy; 2023 POSApp. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary text-darkGrey p-3 rounded-full shadow-lg hover:bg-cyan-600 transition-all duration-300 z-50 hidden focus:outline-none focus:ring-2 focus:ring-primary ring-offset-2 ring-offset-background">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7 7 7M5 18l7-7 7 7"></path>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Reveal on Scroll
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => {
+            observer.observe(el);
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) { // Show button after scrolling 500px
+                backToTopButton.classList.remove('hidden');
+            } else {
+                backToTopButton.classList.add('hidden');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Form Submission (Placeholder)
+        const newCustomerForm = document.getElementById('new-customer-form');
+        newCustomerForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            // In a real app, you would submit this data via AJAX
+            alert('Customer added successfully! (Data not actually saved)');
+            newCustomerForm.reset();
+        });
+    </script>
+</body>
+</html>

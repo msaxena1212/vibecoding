@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Road Safety App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .animate-fade-in-up {
+            animation: fade-in-up 0.75s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes fade-in-up {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        primary: '#2E9AFE',
+                    },
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="bg-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="index.html" class="text-2xl font-bold text-primary">RoadWise</a>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-6">
+                <a href="index.html" class="hover:text-primary transition-colors">Home</a>
+                <a href="lessons.html" class="hover:text-primary transition-colors">Lessons</a>
+                <a href="about.html" class="hover:text-primary transition-colors">About</a>
+                <a href="contact.html" class="hover:text-primary transition-colors">Contact</a>
+                <a href="privacy.html" class="hover:text-primary transition-colors">Privacy</a>
+                <a href="terms.html" class="hover:text-primary transition-colors">Terms</a>
+            </nav>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu"
+            class="hidden md:hidden fixed top-0 left-0 w-full h-full bg-white/5 backdrop-blur-lg z-50">
+            <div class="p-4">
+                <div class="flex justify-end">
+                    <button id="close-menu-button">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <nav class="flex flex-col space-y-4 mt-4">
+                    <a href="index.html" class="hover:text-primary transition-colors block">Home</a>
+                    <a href="lessons.html" class="hover:text-primary transition-colors block">Lessons</a>
+                    <a href="about.html" class="hover:text-primary transition-colors block">About</a>
+                    <a href="contact.html" class="hover:text-primary transition-colors block">Contact</a>
+                    <a href="privacy.html" class="hover:text-primary transition-colors block">Privacy</a>
+                    <a href="terms.html" class="hover:text-primary transition-colors block">Terms</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <section class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">Terms of Service</h1>
+            <p class="text-gray-700">
+                Welcome to RoadWise! These Terms of Service ("Terms") govern your use of the RoadWise application and
+                related services (the "Services"). By accessing or using our Services, you agree to be bound by these
+                Terms. If you do not agree to these Terms, please do not use our Services.
+            </p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-2">1. Account Registration</h2>
+            <p class="text-gray-700">
+                To access certain features of our Services, you may be required to register for an account. You agree
+                to provide accurate, current, and complete information during the registration process and to update
+                such information to keep it accurate, current, and complete. You are responsible for maintaining the
+                confidentiality of your account credentials and for all activities that occur under your account.
+            </p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-2">2. Use of Services</h2>
+            <p class="text-gray-700">
+                You agree to use our Services only for lawful purposes and in accordance with these Terms. You agree
+                not to:
+            </p>
+            <ul class="list-disc pl-5 text-gray-700">
+                <li>Use our Services in any way that violates any applicable law or regulation.</li>
+                <li>Impersonate any person or entity or falsely state or otherwise misrepresent your affiliation with a
+                    person or entity.</li>
+                <li>Interfere with or disrupt the operation of our Services or the servers or networks used to make our
+                    Services available.</li>
+                <li>Attempt to gain unauthorized access to any portion of our Services or any other systems or networks
+                    connected to our Services.</li>
+                <li>Use any data mining, robots, or similar data gathering or extraction methods in connection with our
+                    Services.</li>
+            </ul>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-2">3. Intellectual Property</h2>
+            <p class="text-gray-700">
+                The content and materials available through our Services, including but not limited to text, graphics,
+                images, logos, and software, are owned by or licensed to us and are protected by copyright, trademark,
+                and other intellectual property laws. You may not use, reproduce, modify, distribute, or create
+                derivative works of any content or materials without our prior written consent.
+            </p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-2">4. Disclaimer of Warranties</h2>
+            <p class="text-gray-700">
+                OUR SERVICES ARE PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS. WE DISCLAIM ALL WARRANTIES OF ANY
+                KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF
+                MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. WE DO NOT WARRANT THAT OUR
+                SERVICES WILL BE UNINTERRUPTED, ERROR-FREE, OR FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS.
+            </p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-2">5. Limitation of Liability</h2>
+            <p class="text-gray-700">
+                TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, WE WILL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL,
+                SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING OUT OF OR IN CONNECTION WITH YOUR USE OF OUR
+                SERVICES, WHETHER BASED ON WARRANTY, CONTRACT, TORT (INCLUDING NEGLIGENCE), OR ANY OTHER LEGAL THEORY,
+                EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+            </p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-2">6. Changes to These Terms</h2>
+            <p class="text-gray-700">
+                We may update these Terms from time to time. We will notify you of any material changes by posting the
+                new Terms on our website or through our Services. Your continued use of our Services after the
+                effective date of the revised Terms constitutes your acceptance of the revised Terms.
+            </p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-2">7. Governing Law</h2>
+            <p class="text-gray-700">
+                These Terms are governed by and construed in accordance with the laws of [Your Jurisdiction], without
+                regard to its conflict of law principles.
+            </p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-2">8. Contact Us</h2>
+            <p class="text-gray-700">
+                If you have any questions about these Terms, please contact us at <a
+                    href="mailto:support@example.com">support@example.com</a>.
+            </p>
+        </section>
+
+        <button id="back-to-top" class="hidden fixed bottom-4 right-4 bg-primary text-white p-3 rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+            </svg>
+        </button>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 py-4 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-600">
+                &copy; 2024 RoadWise. All rights reserved. | <a href="privacy.html"
+                    class="hover:text-primary transition-colors">Privacy Policy</a> | <a href="terms.html"
+                    class="hover:text-primary transition-colors">Terms of Service</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenuButton = document.getElementById('close-menu-button');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('hidden');
+        });
+
+        closeMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
+
+        // Back to top button functionality
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (document.documentElement.scrollTop > 1000) {
+                backToTopButton.classList.remove('hidden');
+            } else {
+                backToTopButton.classList.add('hidden');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>

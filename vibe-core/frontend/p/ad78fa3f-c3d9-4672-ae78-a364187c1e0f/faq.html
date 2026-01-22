@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frequently Asked Questions - Emission Insights India</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Configure Tailwind CSS theme with provided design tokens
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#28a745", // Example primary color, adjust if needed from tokens
+                        secondary: "#007bff", // Example secondary color
+                        accent: "#ffc107",  // Example accent color
+                    },
+                    fontFamily: {
+                        sans: ["'Open Sans', sans-serif"],
+                        serif: ["'Roboto', sans-serif"],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        /* Additional custom styles if needed */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .accordion-content.active {
+            max-height: 500px; /* Adjust as needed, or use a JS-calculated height */
+        }
+        .accordion-header::after {
+            content: '+';
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #fff;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease-out;
+        }
+        .accordion-header.active::after {
+            content: '-';
+            transform: translateY(-50%) rotate(180deg);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-black/50 backdrop-blur-lg border-b border-white/20">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-white hover:text-primary transition duration-300">
+                Emission Insights India
+            </a>
+            <div class="hidden md:flex space-x-6">
+                <a href="index.html" class="text-lg hover:text-primary transition duration-300">Home</a>
+                <a href="dashboard.html" class="text-lg hover:text-primary transition duration-300">Dashboard</a>
+                <a href="services.html" class="text-lg hover:text-primary transition duration-300">Services</a>
+                <a href="about.html" class="text-lg hover:text-primary transition duration-300">About</a>
+                <a href="contact.html" class="text-lg hover:text-primary transition duration-300">Contact</a>
+                <a href="faq.html" class="text-lg hover:text-primary transition duration-300 font-semibold border-b-2 border-primary">FAQ</a>
+                <a href="privacy.html" class="text-lg hover:text-primary transition duration-300">Privacy</a>
+                <a href="terms.html" class="text-lg hover:text-primary transition duration-300">Terms</a>
+            </div>
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-button" class="focus:outline-none">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu -->
+        <nav id="mobile-menu" class="hidden md:hidden bg-black/80 backdrop-blur-xl absolute top-full inset-x-0 z-40">
+            <div class="container mx-auto px-6 py-4 flex flex-col space-y-4">
+                <a href="index.html" class="text-lg hover:text-primary transition duration-300">Home</a>
+                <a href="dashboard.html" class="text-lg hover:text-primary transition duration-300">Dashboard</a>
+                <a href="services.html" class="text-lg hover:text-primary transition duration-300">Services</a>
+                <a href="about.html" class="text-lg hover:text-primary transition duration-300">About</a>
+                <a href="contact.html" class="text-lg hover:text-primary transition duration-300">Contact</a>
+                <a href="faq.html" class="text-lg hover:text-primary transition duration-300 font-semibold border-b-2 border-primary">FAQ</a>
+                <a href="privacy.html" class="text-lg hover:text-primary transition duration-300">Privacy</a>
+                <a href="terms.html" class="text-lg hover:text-primary transition duration-300">Terms</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-16">
+        <h1 class="text-5xl font-bold text-center mb-12 reveal">Frequently Asked Questions</h1>
+
+        <div class="max-w-3xl mx-auto reveal">
+            <!-- Accordion Item 1 -->
+            <div class="mb-6 border border-white/20 rounded-xl overflow-hidden">
+                <button class="accordion-header group w-full flex justify-between items-center p-6 text-left text-xl font-semibold bg-white/10 hover:bg-white/20 transition duration-300 focus:outline-none relative">
+                    <span>Data Sources & Reliability</span>
+                </button>
+                <div class="accordion-content bg-white/5 p-6">
+                    <p class="mb-4">We primarily source our data from reputable government agencies such as the Central Pollution Control Board (CPCB) and the Ministry of Environment, Forest and Climate Change (MoEFCC). We also integrate data from internationally recognized databases like EDGAR (Emissions Database for Global Atmospheric Research) and Climate Watch (World Resources Institute - WRI). For specific estimations where real-time granular data is unavailable, we utilize scientifically validated emission factors and models, adapted to the Indian context, often referencing IPCC guidelines and academic research. Our commitment is to transparency; we detail our sources and methodologies in the 'About Us' section.</p>
+                </div>
+            </div>
+
+            <!-- Accordion Item 2 -->
+            <div class="mb-6 border border-white/20 rounded-xl overflow-hidden">
+                <button class="accordion-header group w-full flex justify-between items-center p-6 text-left text-xl font-semibold bg-white/10 hover:bg-white/20 transition duration-300 focus:outline-none relative">
+                    <span>What are the major gas emissions in India?</span>
+                </button>
+                <div class="accordion-content bg-white/5 p-6">
+                    <p class="mb-4">India's major emissions stem from several key sectors. The energy sector, heavily reliant on coal, is a primary source of Carbon Dioxide (CO2). Industry (manufacturing, cement, steel) also contributes significantly to CO2 and other pollutants. Transport is a major source of NOx, CO, and PM2.5. Agriculture contributes Methane (CH4) and Nitrous Oxide (N2O), while waste management (landfills) is a significant source of CH4. Residential fuel burning and industrial processes also release various pollutants. We track CO2, CH4, N2O, SO2, NOx, PM2.5, CO, and VOCs.</p>
+                </div>
+            </div>
+
+            <!-- Accordion Item 3 -->
+            <div class="mb-6 border border-white/20 rounded-xl overflow-hidden">
+                <button class="accordion-header group w-full flex justify-between items-center p-6 text-left text-xl font-semibold bg-white/10 hover:bg-white/20 transition duration-300 focus:outline-none relative">
+                    <span>How do you calculate emissions?</span>
+                </button>
+                <div class="accordion-content bg-white/5 p-6">
+                    <p class="mb-4">Our emission calculations primarily follow the standard methodology of multiplying activity data by relevant emission factors. For instance, calculating CO2 emissions from a power plant would involve the amount of coal burned (activity data) multiplied by the CO2 emission factor for coal combustion. For sectors like transport, we use data on vehicle types, fuel consumed, and distance traveled. We leverage a curated database of emission factors specific to Indian conditions, sourced from official reports and scientific literature. For broader trends and where specific data is limited, we utilize aggregated data from sources like EDGAR and Climate Watch.</p>
+                </div>
+            </div>
+
+            <!-- Accordion Item 4 -->
+            <div class="mb-6 border border-white/20 rounded-xl overflow-hidden">
+                <button class="accordion-header group w-full flex justify-between items-center p-6 text-left text-xl font-semibold bg-white/10 hover:bg-white/20 transition duration-300 focus:outline-none relative">
+                    <span>What is the '5-second Clarity Rule' mentioned?</span>
+                </button>
+                <div class="accordion-content bg-white/5 p-6">
+                    <p class="mb-4">The '5-second Clarity Rule' is a user experience principle we adhere to. It means that within the first five seconds of landing on any page, a user should intuitively understand the purpose and value proposition of that page or the application as a whole. For our platform, this translates to clear headlines, concise subheadings, and immediately understandable data visualizations that convey the critical nature of emission data for India.</p>
+                </div>
+            </div>
+
+            <!-- Accordion Item 5 -->
+            <div class="mb-6 border border-white/20 rounded-xl overflow-hidden">
+                <button class="accordion-header group w-full flex justify-between items-center p-6 text-left text-xl font-semibold bg-white/10 hover:bg-white/20 transition duration-300 focus:outline-none relative">
+                    <span>Is the data available in real-time?</span>
+                </button>
+                <div class="accordion-content bg-white/5 p-6">
+                    <p class="mb-4">The availability of real-time data varies significantly by pollutant and source. While some air quality monitoring stations (like those managed by CPCB) provide near real-time data for pollutants like PM2.5 and SO2, comprehensive real-time emission data specifically categorized by source (e.g., individual industrial stacks, specific vehicle models) is often not publicly available in India. Our platform provides the most up-to-date data accessible from official sources and uses robust estimation methodologies for other areas. We clearly indicate the source and timeliness of the data presented.</p>
+                </div>
+            </div>
+
+            <!-- Accordion Item 6 -->
+            <div class="mb-6 border border-white/20 rounded-xl overflow-hidden">
+                <button class="accordion-header group w-full flex justify-between items-center p-6 text-left text-xl font-semibold bg-white/10 hover:bg-white/20 transition duration-300 focus:outline-none relative">
+                    <span>Can I download the data?</span>
+                </button>
+                <div class="accordion-content bg-white/5 p-6">
+                    <p class="mb-4">Yes, where feasible and permitted by data source agreements, we provide options to download data. This is typically available for aggregated datasets, historical trends, and reports generated through our 'Data Explorer' section. Downloads are usually offered in common formats like CSV or Excel to facilitate further analysis by researchers, policymakers, and the public.</p>
+                </div>
+            </div>
+
+            <!-- Accordion Item 7 -->
+            <div class="mb-6 border border-white/20 rounded-xl overflow-hidden">
+                <button class="accordion-header group w-full flex justify-between items-center p-6 text-left text-xl font-semibold bg-white/10 hover:bg-white/20 transition duration-300 focus:outline-none relative">
+                    <span>What is your policy on data usage?</span>
+                </button>
+                <div class="accordion-content bg-white/5 p-6">
+                    <p class="mb-4">We encourage the use of our data for research, education, and advocacy aimed at improving environmental quality in India. Please refer to our <a href="terms.html" class="text-primary hover:underline">Terms of Service</a> and <a href="privacy.html" class="text-primary hover:underline">Privacy Policy</a> for detailed information on data usage, attribution requirements, and any restrictions. Our goal is to foster transparency and informed action.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black/50 backdrop-blur-lg border-t border-white/20 py-8">
+        <div class="container mx-auto px-6 text-center">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Emission Insights India</h3>
+                    <p class="text-sm text-gray-300">Providing critical data and insights into gas emissions across India to foster a cleaner, healthier future.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html" class="hover:text-primary transition duration-300">Home</a></li>
+                        <li><a href="dashboard.html" class="hover:text-primary transition duration-300">Dashboard</a></li>
+                        <li><a href="services.html" class="hover:text-primary transition duration-300">Services</a></li>
+                        <li><a href="about.html" class="hover:text-primary transition duration-300">About Us</a></li>
+                        <li><a href="contact.html" class="hover:text-primary transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Legal</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="privacy.html" class="hover:text-primary transition duration-300">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="hover:text-primary transition duration-300">Terms of Service</a></li>
+                        <li><a href="faq.html" class="hover:text-primary transition duration-300">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/20 pt-8 text-sm text-gray-400">
+                &copy; 2024 Emission Insights India. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-primary-dark transition duration-300 focus:outline-none hidden animate-fade-in-up" style="z-index: 1000;">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7M5 15l7-7 7 7"></path>
+        </svg>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        // FAQ Accordion Functionality
+        document.querySelectorAll('.accordion-header').forEach(button => {
+            button.addEventListener('click', () => {
+                const accordionContent = button.nextElementSibling;
+                button.classList.toggle('active');
+                accordionContent.classList.toggle('active');
+
+                // Optional: Adjust max-height dynamically if needed for perfect fit
+                if (accordionContent.classList.contains('active')) {
+                    accordionContent.style.maxHeight = accordionContent.scrollHeight + "px";
+                } else {
+                    accordionContent.style.maxHeight = "0px";
+                }
+            });
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a link is clicked (optional)
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Back to Top Button Logic
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.onscroll = function() {
+            scrollFunction();
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
+                backToTopButton.classList.remove('hidden');
+            } else {
+                backToTopButton.classList.add('hidden');
+            }
+        }
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Reveal on Scroll
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = `fadeInUp 0.8s ease-out forwards`;
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
