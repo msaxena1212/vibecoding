@@ -46,6 +46,19 @@ async def run_backend_architect(state: CodebaseState):
                 "imports": [],
                 "exports": []
             }
+            
+            # Update Disk in Project Hub
+            try:
+                project_id = state.get("project_id")
+                if project_id:
+                    full_path = os.path.join("frontend", "p", project_id, path)
+                    os.makedirs(os.path.dirname(full_path), exist_ok=True)
+                    with open(full_path, "w", encoding="utf-8") as f:
+                        f.write(new_content)
+                    print(f"[BACKEND ARCHITECT] Persisted change to: {path}")
+            except Exception as e:
+                print(f"[FAIL] Backend Architect failed to persist {path}: {e}")
+                
             patches_applied += 1
     except Exception as e:
         print(f"[FAIL] Backend Architect failed to parse patches: {e}")

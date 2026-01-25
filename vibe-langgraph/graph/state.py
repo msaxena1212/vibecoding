@@ -35,3 +35,6 @@ class CodebaseState(TypedDict):
     project_id: Optional[str]
     retry_count: Annotated[int, operator.add]
     errors: List[str]
+    suggested_actions: List[str]
+    attempted_fixes: List[str] # Track attempted fixes to avoid loops
+    proposed_patches: List[Dict[str, Any]] # Structured patches waiting for validation

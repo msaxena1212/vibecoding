@@ -4,7 +4,13 @@ from typing import AsyncGenerator
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+# Load .env relative to this file's location to ensure it works from any CWD
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+env_path = os.path.join(base_dir, ".env")
+if os.path.exists(env_path):
+    load_dotenv(env_path)
+else:
+    load_dotenv() # Fallback to CWD
 
 # Get DB URL from .env, handle the typical "postgresql://" vs "postgres://"
 DATABASE_URL = os.getenv("DATABASE_URL", "").strip()

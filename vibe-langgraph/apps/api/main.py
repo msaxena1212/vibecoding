@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
-from apps.api.routes import generate, edit, validate
+from apps.api.routes import generate, edit, validate, report
 import uvicorn
 import os
 
@@ -10,17 +10,20 @@ app = FastAPI(title="Vibe LangGraph API", version="0.1.0")
 app.include_router(generate.router, prefix="/api/v1/generate", tags=["generate"])
 app.include_router(edit.router, prefix="/api/v1/edit", tags=["edit"])
 app.include_router(validate.router, prefix="/api/v1/validate", tags=["validate"])
+app.include_router(report.router, prefix="/api/v1/projects", tags=["report"])
 
-# Create frontend directory if it doesn't exist
+import mimetypes
+mimetypes.add_type('application/javascript', '.js')
+mimetypes.add_type('application/javascript', '.jsx')
+
 if not os.path.exists("frontend"):
     os.makedirs("frontend", exist_ok=True)
+if not os.path.exists("frontend/p"):
+    os.makedirs("frontend/p", exist_ok=True)
 
-# Mount frontend directory for static assets and generated files
-# We mount it at /static so that /static/p/{id}/index.html works
-# html=True allows serving HTML files from subdirectories
+app.mount("/static/p", StaticFiles(directory="frontend/p", html=True), name="project_static")
 app.mount("/static", StaticFiles(directory="frontend", html=True), name="static")
 
-# Serve the main index.html for the root route
 @app.get("/")
 async def root():
     return FileResponse('frontend/index.html')
@@ -29,9 +32,6 @@ from utils.db import init_db
 
 @app.on_event("startup")
 async def on_startup():
-    # Transaction Poolers often fail with DDL (CREATE TABLE).
-    # We will run the schema manually via Supabase SQL Editor.
-    # await init_db()
     pass
 
 @app.get("/api/v1/projects")
@@ -41,8 +41,7 @@ async def get_projects():
     try:
         store = get_project_store()
         projects = await store.get_history()
-        # Explicitly convert models to dicts to avoid serialization edge cases
-        # Using model_dump() as recommended for Pydantic v2 / SQLModel
+        
         return [p.model_dump() for p in projects]
     except Exception as e:
         print(f"CRITICAL ERROR in get_projects: {e}")

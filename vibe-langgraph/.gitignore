@@ -35,3 +35,4 @@ frontend/p/*/dist/
 planner_raw.txt
 verify_*.py
 *.log
+frontend/p/*

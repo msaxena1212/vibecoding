@@ -37,6 +37,7 @@ async def run_copywriter(state: CodebaseState):
 
     return {
         "copy_data": data,
+        "project_description": data.get("project_description", plan_summary[:100] if plan_summary else ""),
         "reasoning": final_reasoning,
         "current_step": "copywriting_complete",
         "total_tokens": tokens,

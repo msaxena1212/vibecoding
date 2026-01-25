@@ -14,6 +14,10 @@ Design and implement the data layer, API endpoints, and server configuration wit
 7. **Documentation**: Provide a clear `API.md` summarizing the endpoints and Prisma models.
 8. **No Configuration**: Do NOT generate `package.json`. This is handled by the Root Architect.
 9. **Port & CORS**: explicit Bind to port `8000`. Enable CORS for `http://localhost:5173`.
+10. **SPA Integration**: This is a Single Page Application. 
+    - Frontend architecture MUST follow the SPA pattern; DO NOT reference static `.html` files.
+    - **Explicit Imports**: If you reference local files in `api.js` or elsewhere, ALWAYS use explicit extensions (e.g., `.js`).
+    - **Vite Safety**: DO NOT use `process.env` in any client-side code (like `src/services/api.js`). 
 
 # CONCISENESS PROTOCOL:
 - **NO CHATTER**: Output STRICT JSON only. No conversational text whatsoever.

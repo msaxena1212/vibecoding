@@ -16,10 +16,10 @@ from agents.fetch_images.agent import run_fetch_images
 from agents.backend_architect.agent import run_backend_architect
 from agents.react_specialist.agent import run_react_specialist
 from agents.ui_specialist.agent import run_ui_specialist
+from agents.compiler.agent import run_compiler
 from agents.debugger.agent import run_debugger
 from agents.chatter.agent import run_chatter
-
-from .router import route_request, route_validator, route_assignments
+from .router import route_request, route_validator, route_assignments, route_compiler
 
 def create_workflow():
     workflow = StateGraph(CodebaseState)
@@ -37,6 +37,7 @@ def create_workflow():
     workflow.add_node("ui_specialist", run_ui_specialist)
     workflow.add_node("seo_specialist", run_seo_specialist)
     workflow.add_node("validator", run_validator)
+    workflow.add_node("compiler", run_compiler)  # NEW NODE
     workflow.add_node("editor", run_editor)
     workflow.add_node("debugger", run_debugger)
     workflow.add_node("chatter", run_chatter)
@@ -91,7 +92,19 @@ def create_workflow():
         {
             "editor": "editor",
             "debugger": "debugger",
+            "compiler": "compiler", # Update routing
             "end": END
+        }
+    )
+
+    # Compiler Routing
+    workflow.add_conditional_edges(
+        "compiler",
+        route_compiler,
+        {
+            "debugger": "debugger", # Build failed -> Debug
+            "editor": "editor",     # Escalation -> Rewrite
+            "end": END              # Build passed -> Done
         }
     )
     

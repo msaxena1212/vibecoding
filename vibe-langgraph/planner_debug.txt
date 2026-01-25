@@ -1,0 +1,3 @@
+USER INTENT: Create a website for an ice cream store
+HISTORY LEN: 1
+HISTORY PREVIEW: ...

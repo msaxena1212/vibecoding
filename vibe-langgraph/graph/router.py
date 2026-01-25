@@ -1,34 +1,53 @@
 from typing import Literal
 from .state import CodebaseState
 
-def route_validator(state: CodebaseState) -> Literal["editor", "debugger", "end"]:
+def route_validator(state: CodebaseState) -> Literal["editor", "debugger", "compiler", "end"]:
     """
-    Handle self-diagnosis loop with retry limit.
+    Handle self-diagnosis loop with escalation strategy.
+    Strategy:
+    - 0-3 retries: Debugger (Surgical fix)
+    - 4-15 retries: Editor (Deep rewrite/refactor)
+    - >15 retries: End (Failsafe)
     """
     current_step = state.get("current_step", "")
     retry_count = state.get("retry_count", 0)
     
-    # If validator explicitly requested a fix
-    if current_step == "needs_fix":
-        if retry_count > 5:
-            print("[STOP] Max retries reached. Exiting validation loop.")
+    # Validation failed (or explicitly requested fix)
+    if current_step == "needs_fix" or "fail" in state.get("diagnostic_report", "").lower():
+        if retry_count > 15:
+            print("[STOP] Max retries (15) reached. Exiting validation loop to prevent crash.")
             return "end"
             
-        # Use Debugger for technical failures, Editor for user-initiated changes
+        if retry_count > 3:
+            print(f"[ESCALATE] Validation failed (Attempt {retry_count + 1}). Escalating to Editor for rewrite.")
+            return "editor"
+
         print(f"[RETRY] Validation failed (Attempt {retry_count + 1}). Routing to Debugger.")
         return "debugger"
-        
-    # Check for critical errors in the diagnostic report (heuristic)
-    diagnostic = state.get("diagnostic_report", "").lower()
-    if "critical" in diagnostic or "error" in diagnostic or "fail" in diagnostic:
-        if retry_count > 5:
-            print("[STOP] Max retries reached (Critical Errors). Exiting.")
+
+    print("[SUCCESS] Validation passed. Routing to Compiler.")
+    return "compiler"
+
+def route_compiler(state: CodebaseState) -> Literal["debugger", "editor", "end"]:
+    """
+    Handle runtime compilation results with escalation.
+    """
+    current_step = state.get("current_step", "")
+    retry_count = state.get("retry_count", 0)
+    
+    if current_step == "build_error":
+        if retry_count > 15:
+            print("[STOP] Compilation failed max retries (15). Exiting.")
             return "end"
             
-        print(f"[WARN] Issues found (Attempt {retry_count + 1}). Routing to Debugger.")
+        if retry_count > 3:
+            print(f"[ESCALATE] Compilation failed (Attempt {retry_count + 1}). Escalating to Editor.")
+            return "editor"
+            
+        print("[FAIL] Runtime compilation failed. Routing to Debugger.")
         return "debugger"
-
-    print("[SUCCESS] Validation passed. Finishing workflow.")
+        
+    print("[SUCCESS] Runtime compilation passed. Finishing workflow.")
     return "end"
 
 def route_request(state: CodebaseState) -> Literal["planner", "editor", "chatter"]:
@@ -56,7 +75,6 @@ def route_assignments(state: CodebaseState) -> Literal["backend_architect", "rea
     if backend_assigned and not backend_done:
         return "backend_architect"
         
-    # Check for React/Component Specialist
     react_assigned = any("react" in a.get("agent", "").lower() or "component" in a.get("agent", "").lower() for a in assignments)
     react_done = any(f.get("lastEditedBy") == "react_specialist" for f in files.values())
     

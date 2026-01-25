@@ -17,6 +17,7 @@ async def run_generator(state: CodebaseState):
         system_prompt_template = f.read()
 
     total_gen_tokens = 0
+    proposed_patches = []
     
     # Pre-fetch index.html content if it exists (for consistency context)
     reference_context = ""
@@ -61,45 +62,55 @@ async def run_generator(state: CodebaseState):
                 total_gen_tokens += tokens
                 content = response.content
                 
-                import re
-                # Try to extract code from triple backticks
-                code_match = re.search(r"```(?:\w+)?\n(.*?)\n```", content, re.DOTALL)
-                if code_match:
-                    content = code_match.group(1)
-                else:
-                    # Fallback: remove backticks if they exist but don't match the newlines perfectly
-                    content = content.replace("```json", "").replace("```javascript", "").replace("```js", "").replace("```", "").strip()
+                # Clean and parse JSON
+                content = content.strip()
+                if content.startswith("```json"):
+                    content = content[7:]
+                if content.endswith("```"):
+                    content = content[:-3]
+                content = content.strip()
+                
+                try:
+                    response_json = json.loads(content)
+                    operations = response_json.get("operations", [])
+                except json.JSONDecodeError as e:
+                    print(f"[ERROR] JSON Parsing failed: {e}")
+                    # Basic retry or fallback could go here
+                    operations = []
+                
+                for op in operations:
+                    op_type = op.get("type")
+                    op_path = op.get("path")
+                    op_content = op.get("content")
+                    op_desc = op.get("description", f"{op_type} {op_path}")
                     
-                generated_files[path] = {
-                    "content": content,
-                    "language": "json" if path.endswith(".json") else ("python" if path.endswith(".py") else "javascript"),
-                    "imports": [],
-                    "exports": [],
-                    "lastEditedBy": "generator"
-                }
-                print(f"[SUCCESS] Generated {path}")
+                    if not op_path or not op_content:
+                        continue
+                    
+                    # STAGE AS PROPOSAL
+                    patch = {
+                        "op": op_type,
+                        "path": op_path,
+                        "content": op_content,
+                        "language": "json" if op_path.endswith(".json") else ("python" if op_path.endswith(".py") else "javascript"),
+                        "description": op_desc
+                    }
+                    
+                    # Update local state for context (though not final)
+                    generated_files[op_path] = {
+                        "content": op_content,
+                        "lastEditedBy": "generator"
+                    }
+                    
+                    proposed_patches.append(patch)
+                    print(f"[PROPOSED] Patch for {op_path}")
+
             except Exception as e:
                 print(f"[ERROR] generating {path}: {e}")
 
-        # PERSIST TO PROJECT HUB (Moved outside the 'else' to handle skipped files too)
-        project_id = state.get("project_id")
-        if not project_id:
-            # Create a fallback if missing for some reason
-            import uuid
-            project_id = str(uuid.uuid4())
-            state["project_id"] = project_id
-            
-        try:
-            local_full_path = os.path.join("frontend", "p", project_id, path)
-            os.makedirs(os.path.dirname(local_full_path), exist_ok=True)
-            with open(local_full_path, "w", encoding="utf-8") as f:
-                f.write(generated_files[path]["content"])
-            print(f"[SUCCESS] File {path} persisted to Project Hub: {local_full_path}")
-        except Exception as e:
-            print(f"[ERROR] persisting {path}: {e}")
-
+    # Return proposals
     return {
-        "files": generated_files, 
+        "proposed_patches": proposed_patches,
         "current_step": "generation_complete", 
         "total_tokens": total_gen_tokens,
         "token_usage": {"generator": total_gen_tokens}

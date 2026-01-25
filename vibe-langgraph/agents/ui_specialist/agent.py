@@ -45,6 +45,19 @@ async def run_ui_specialist(state: CodebaseState):
             if path in files:
                 files[path]["content"] = new_content
                 files[path]["lastEditedBy"] = "ui_specialist"
+                
+                # Update Disk in Project Hub
+                try:
+                    project_id = state.get("project_id")
+                    if project_id:
+                        full_path = os.path.join("frontend", "p", project_id, path)
+                        os.makedirs(os.path.dirname(full_path), exist_ok=True)
+                        with open(full_path, "w", encoding="utf-8") as f:
+                            f.write(new_content)
+                        print(f"[UI SPECIALIST] Persisted change to: {path}")
+                except Exception as e:
+                    print(f"[FAIL] UI Specialist failed to persist {path}: {e}")
+                
                 patches_applied += 1
     except Exception as e:
         print(f"[FAIL] UI Specialist failed to parse patches: {e}")

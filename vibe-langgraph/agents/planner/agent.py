@@ -20,14 +20,34 @@ async def run_planner(state: CodebaseState):
     with open("agents/planner/prompt.md", "r", encoding="utf-8") as f:
         system_prompt = f.read()
         
-    history = state.get("messages", [])
+    history_list = state.get("messages", [])
+    history_text = ""
+    from langchain_core.messages import BaseMessage
+    
+    for msg in history_list:
+        content_str = ""
+        role = "User"
+        if isinstance(msg, HumanMessage):
+            content_str = msg.content
+            if "[TASK_TYPE]" in str(content_str): 
+                continue
+        elif isinstance(msg, dict):
+            role = "User" if msg.get("role") == "user" else "AI"
+            content_str = msg.get("content", "")
+        else:
+            role = "AI"
+            content_str = msg.content
+        history_text += f"{role}: {content_str}\n"
+
+    # Limit context
+    recent_history = "\n".join(history_text.split('\n')[-30:])
+    
     existing_files = list(state.get("files", {}).keys())
     existing_context = f"\n\nEXISTING FILES:\n{', '.join(existing_files)}" if existing_files else ""
     
     messages = [
-        SystemMessage(content=system_prompt)
-    ] + history + [
-        HumanMessage(content=f"User Request: {user_intent}{existing_context}")
+        SystemMessage(content=system_prompt),
+        HumanMessage(content=f"Conversation History:\n{recent_history}\n\nCurrent User Request: {user_intent}{existing_context}")
     ]
     
     response = await llm.ainvoke(messages)
@@ -37,6 +57,11 @@ async def run_planner(state: CodebaseState):
     content = response.content
     with open("planner_raw.txt", "w", encoding="utf-8") as f:
         f.write(content)
+        
+    with open("planner_debug.txt", "w", encoding="utf-8") as f:
+        f.write(f"USER INTENT: {user_intent}\n")
+        f.write(f"HISTORY LEN: {len(history_list)}\n")
+        f.write(f"HISTORY PREVIEW: {recent_history[:200]}...\n")
     
     print(f"DEBUG: Planner Raw Output length: {len(content)}")
     

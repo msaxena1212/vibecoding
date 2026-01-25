@@ -72,15 +72,19 @@ async def run_editor(state: CodebaseState):
             if path in new_files:
                 new_files[path]["content"] = new_content
                 new_files[path]["lastEditedBy"] = "editor"
-            else:
-                # Handle new file creation during edit if requested
-                new_files[path] = {
-                    "content": new_content,
-                    "language": "python" if path.endswith(".py") else "javascript",
-                    "imports": [],
-                    "exports": [],
-                    "lastEditedBy": "editor"
-                }
+                
+                # Update Disk in Project Hub
+                try:
+                    import os
+                    project_id = state.get("project_id")
+                    if project_id:
+                        full_path = os.path.join("frontend", "p", project_id, path)
+                        os.makedirs(os.path.dirname(full_path), exist_ok=True)
+                        with open(full_path, "w", encoding="utf-8") as f:
+                            f.write(new_content)
+                        print(f"[EDITOR] Persisted fix to: {path}")
+                except Exception as e:
+                    print(f"[FAIL] Editor failed to persist {path}: {e}")
                 
         reasoning_obj = data.get("reasoning", {})
         if isinstance(reasoning_obj, dict):

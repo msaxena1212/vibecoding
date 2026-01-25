@@ -11,6 +11,7 @@ You are a master of conversion-focused storytelling. Your mission is to take the
 ```json
 {
     "reasoning": "Strategy for the brand voice and content hierarchy",
+    "project_description": "A catchy, 1-sentence professional summary for the project (max 15 words)",
     "content_blocks": {
         "hero_headline": "Professional hook",
         "hero_subheadline": "Benefit-driven explanation",

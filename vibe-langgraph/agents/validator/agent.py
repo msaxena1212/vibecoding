@@ -4,6 +4,25 @@ from langchain_core.messages import SystemMessage, HumanMessage
 from utils.formatter import parse_json_dict
 import json
 import re
+import os
+
+def check_structural_integrity(files: dict) -> list[str]:
+    errors = []
+    paths = files.keys()
+    
+    # 1. Critical Files
+    if "package.json" not in paths:
+        errors.append("Missing package.json")
+    
+    if "index.html" not in paths:
+        errors.append("Missing index.html")
+        
+    # 2. Entry Point
+    has_entry = any(p in paths for p in ["src/main.jsx", "src/index.jsx", "src/main.js", "src/index.js"])
+    if not has_entry:
+        errors.append("Missing React entry point (src/main.jsx or src/index.jsx)")
+        
+    return errors
 
 async def run_validator(state: CodebaseState):
     print("\n=== [VALIDATOR STARTING] ===")
@@ -15,37 +34,40 @@ async def run_validator(state: CodebaseState):
     files = state.get("files", {})
     user_intent = state.get("userIntent", "")
     
-    if not files:
+    if not files and not state.get("proposed_patches"):
         return {"current_step": "validation_skipped"}
 
-    # Build context for diagnostic
-    code_context = "\n".join([f"--- FILE: {path} ---\n{data['content']}" for path, data in files.items()])
+    # --- PROCESS PATCHES IF ANY ---
+    proposed_patches = state.get("proposed_patches", [])
+    files_to_validate = files.copy()
     
-    system_prompt = """
-    # ROLE: Elite QA Auditor & Design Critic (Gemini-Optimized)
-    You are a high-end Quality Assurance Engineer. Your mission is to audit the provided code against "Lovable/Antigravity" standards.
+    # Simulate patch application for validation context
+    for patch in proposed_patches:
+        path = patch.get("path")
+        content = patch.get("content")
+        files_to_validate[path] = {"content": content} # Simulation
 
-    # AUDIT CHECKLIST:
-    1. **Logic & Syntax**: Identify broken JS logic, infinite loops, or CSS syntax errors.
-    2. **Design Fidelity**: Check for inconsistent spacing, poor contrast (a11y), or missing hover states.
-    3. **Asset Integrity**: Sourced images MUST be high-resolution and brand-appropriate. Favor cinematic photography over generic clipart.
-    4. **Zero-Placeholder Policy**: Flag "Lorem Ipsum", generic "Sample Item" text, or any `href="#"` links. Dashboards MUST contain complex mock data, interactive charts, and realistic stats grids proportional to the user intent.
-    5. **Complete Graph Connectivity**: Verify that every page has a header/footer with links that connect to all other primary pages in the site. Navigation must be IDENTICAL on all pages.
-    6. **Phase 5/6 Interactivity**: Audit for fluid typography (`clamp`), Glassmorphism depth, Bento Grid structures, and Interaction Observer reveal effects (`.reveal` classes).
-    7. **Dependency Safety**: CHECK `package.json`. `lucide-react` MUST be version `^0.x` or `latest`. If version is `9.x` or similar, FAIL IMMEDIATELY. This is a known hallucination.
+    # Build context for diagnostic from simulated state
+    code_context = "\n".join([f"--- FILE: {path} ---\n{data['content']}" for path, data in files_to_validate.items()])
 
-    # OUTPUT SCHEMA (Strict JSON):
-    {
-        "status": "pass" | "fail",
-        "diagnostic_report": {
-            "summary": "High-level audit result",
-            "technical_issues": ["List of code/logic errors"],
-            "design_flaws": ["List of UI/UX improvements needed"],
-            "a11y_concerns": ["List of accessibility issues"]
-        },
-        "fix_instructions": "Step-by-step technical guidance for the Editor to resolve failures"
-    }
-    """
+    # --- STRUCTURAL VALIDATION ---
+    structural_errors = check_structural_integrity(files_to_validate)
+    if structural_errors:
+        error_msg = "Structural Validation Failed:\n" + "\n".join(f"- {e}" for e in structural_errors)
+        print(f"[VALIDATOR] {error_msg}")
+        return {
+            "current_step": "needs_fix",
+            "diagnostic_report": error_msg,
+            "fix_instructions": "Generate the missing critical files (package.json, index.html, entry point).",
+            "errors": structural_errors,
+            "retry_count": state.get("retry_count", 0) + 1,
+            "proposed_patches": []
+        }
+    
+    # Load prompt from file
+    prompt_path = os.path.join(os.path.dirname(__file__), "prompt.md")
+    with open(prompt_path, "r", encoding="utf-8") as f:
+        system_prompt = f.read()
     
     images_info = json.dumps(state.get("images_to_generate", []), indent=2)
     
@@ -81,6 +103,7 @@ async def run_validator(state: CodebaseState):
         fix_instr = report.get("fix_instructions", "Review the diagnostic report and apply surgical patches.")
         
         print(f"DEBUG: Diagnosis FAILED: {diag_text}")
+        # REJECT PATCHES - Do not commit to disk
         return {
             "current_step": "needs_fix",
             "diagnostic_report": diag_text,
@@ -88,12 +111,47 @@ async def run_validator(state: CodebaseState):
             "errors": [diag_text],
             "retry_count": state.get("retry_count", 0) + 1,
             "total_tokens": tokens,
-            "token_usage": {"validator": tokens}
+            "token_usage": {"validator": tokens},
+            "proposed_patches": [] # Clear invalid patches
         }
     
+    # --- COMMIT PHASE: ALL CHECKS PASSED ---
+    print(f"[VALIDATOR] Validation Passed. Committing {len(proposed_patches)} patches to disk.")
+    
+    project_id = state.get("project_id")
+    if not project_id:
+        import uuid
+        project_id = str(uuid.uuid4())
+        
+    committed_files = files.copy()
+    
+    for patch in proposed_patches:
+        path = patch.get("path")
+        content = patch.get("content")
+        
+        # 1. Update In-Memory State
+        committed_files[path] = {
+            "content": content,
+            "language": patch.get("language", "javascript"),
+            "lastEditedBy": "validator_commit"
+        }
+        
+        # 2. Persist to Disk (The "Truth")
+        try:
+            local_full_path = os.path.join("frontend", "p", project_id, path)
+            os.makedirs(os.path.dirname(local_full_path), exist_ok=True)
+            with open(local_full_path, "w", encoding="utf-8") as f:
+                f.write(content)
+            print(f"[COMMIT] {path}")
+        except Exception as e:
+            print(f"[ERROR] Committing {path}: {e}")
+
     return {
+        "files": committed_files,
         "current_step": "validation_complete", 
-        "diagnostic_report": "All quality and design audits passed.",
+        "diagnostic_report": "All quality and design audits passed. Patches committed.",
         "total_tokens": tokens,
-        "token_usage": {"validator": tokens}
+        "token_usage": {"validator": tokens},
+        "proposed_patches": [], # Clear applied patches
+        "project_id": project_id # Ensure ID is passed back if created
     }

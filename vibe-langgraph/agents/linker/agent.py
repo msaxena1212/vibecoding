@@ -64,6 +64,18 @@ async def run_linker(state: CodebaseState):
             
             if not path or new_content is None: continue
 
+            if new_content == "DELETE_FILE":
+                if path in files:
+                    del files[path]
+                    try:
+                        local_full_path = os.path.join(project_hub_path, path)
+                        if os.path.exists(local_full_path):
+                            os.remove(local_full_path)
+                            print(f"[LINKER] Deleted forbidden file: {path}")
+                    except Exception: pass
+                patches_applied += 1
+                continue
+
             # Truncation check
             if path.endswith(".html") and "</html>" not in new_content.lower():
                 print(f"[WARN] Linker truncation detected for {path}! Rejecting patch.")
@@ -78,7 +90,7 @@ async def run_linker(state: CodebaseState):
             else:
                 files[path] = {
                     "content": new_content,
-                    "language": "python" if path.endswith(".py") else "javascript",
+                    "language": "javascript",
                     "imports": [],
                     "exports": [],
                     "lastEditedBy": "linker"
