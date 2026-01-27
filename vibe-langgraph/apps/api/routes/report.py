@@ -146,6 +146,22 @@ async def trigger_self_healing(project_id: str, report: ErrorReport, store):
                      files.update(update.get("files", {}))
                      final_state["files"] = files
                      if "plan_summary" in update: final_state["plan_summary"] = update["plan_summary"]
+                     
+                     # FEEDBACK: Log meaningful steps to chat
+                     step_name = update.get("current_step", "")
+                     
+                     if step_name == "planning_complete":
+                         plan_summary = update.get("plan_summary", "Creating fix plan...")
+                         await store.add_chat_message(project_id, "system", f"🧠 Planner: {plan_summary[:100]}...")
+                     elif step_name == "generation_complete":
+                         await store.add_chat_message(project_id, "system", "🔨 Generator: Code updates generated.")
+                     elif step_name == "debugging_complete":
+                         await store.add_chat_message(project_id, "system", "🔧 Debugger: applied fixes to code.")
+                     elif step_name == "compilation_progress":
+                        phase = update.get("compile_phase", "")
+                        await store.add_chat_message(project_id, "system", f"⚙️ Re-building... ({phase})")
+                     elif step_name == "build_error":
+                        await store.add_chat_message(project_id, "system", "❌ Re-build failed. Retrying...")
 
         # Save final snapshot
         from utils.formatter import sanitize_state

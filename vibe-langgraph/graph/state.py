@@ -38,3 +38,4 @@ class CodebaseState(TypedDict):
     suggested_actions: List[str]
     attempted_fixes: List[str] # Track attempted fixes to avoid loops
     proposed_patches: List[Dict[str, Any]] # Structured patches waiting for validation
+    compile_phase: Optional[Literal["install", "build", "dev_check", "test", "complete"]] # Track build progress

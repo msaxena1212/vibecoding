@@ -16,17 +16,23 @@ import mimetypes
 mimetypes.add_type('application/javascript', '.js')
 mimetypes.add_type('application/javascript', '.jsx')
 
-if not os.path.exists("frontend"):
-    os.makedirs("frontend", exist_ok=True)
-if not os.path.exists("frontend/p"):
-    os.makedirs("frontend/p", exist_ok=True)
+# ROBUST PATH RESOLUTION
+# Get the project root directory (3 levels up from apps/api/main.py)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
+PROJECTS_DIR = os.path.join(FRONTEND_DIR, "p")
 
-app.mount("/static/p", StaticFiles(directory="frontend/p", html=True), name="project_static")
-app.mount("/static", StaticFiles(directory="frontend", html=True), name="static")
+if not os.path.exists(FRONTEND_DIR):
+    os.makedirs(FRONTEND_DIR, exist_ok=True)
+if not os.path.exists(PROJECTS_DIR):
+    os.makedirs(PROJECTS_DIR, exist_ok=True)
+
+app.mount("/static/p", StaticFiles(directory=PROJECTS_DIR, html=True), name="project_static")
+app.mount("/static", StaticFiles(directory=FRONTEND_DIR, html=True), name="static")
 
 @app.get("/")
 async def root():
-    return FileResponse('frontend/index.html')
+    return FileResponse(os.path.join(FRONTEND_DIR, 'index.html'))
 
 from utils.db import init_db
 

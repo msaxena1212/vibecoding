@@ -153,5 +153,6 @@ async def run_validator(state: CodebaseState):
         "total_tokens": tokens,
         "token_usage": {"validator": tokens},
         "proposed_patches": [], # Clear applied patches
-        "project_id": project_id # Ensure ID is passed back if created
+        "project_id": project_id, # Ensure ID is passed back if created
+        "compile_phase": "install" # Reset build phase for fresh compilation
     }

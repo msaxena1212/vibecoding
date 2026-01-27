@@ -28,12 +28,13 @@ def route_validator(state: CodebaseState) -> Literal["editor", "debugger", "comp
     print("[SUCCESS] Validation passed. Routing to Compiler.")
     return "compiler"
 
-def route_compiler(state: CodebaseState) -> Literal["debugger", "editor", "end"]:
+def route_compiler(state: CodebaseState) -> Literal["debugger", "editor", "compiler", "end"]:
     """
     Handle runtime compilation results with escalation.
     """
     current_step = state.get("current_step", "")
     retry_count = state.get("retry_count", 0)
+    compile_phase = state.get("compile_phase", "install")
     
     if current_step == "build_error":
         if retry_count > 15:
@@ -47,6 +48,11 @@ def route_compiler(state: CodebaseState) -> Literal["debugger", "editor", "end"]
         print("[FAIL] Runtime compilation failed. Routing to Debugger.")
         return "debugger"
         
+    # If phase is not complete, loop back to compiler for next phase
+    if compile_phase != "complete":
+        print(f"[LOOP] Phase '{compile_phase}' passed. looping to Compiler for next phase.")
+        return "compiler"
+
     print("[SUCCESS] Runtime compilation passed. Finishing workflow.")
     return "end"
 

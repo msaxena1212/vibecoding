@@ -1,6 +1,7 @@
 from sqlmodel import select
 from typing import Dict, Any, Optional, List
 from datetime import datetime
+import os
 from utils.db import engine
 from memory.models import Project, ChatMessage
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -91,8 +92,37 @@ class ProjectStore:
             project = result.scalar_one_or_none()
             
             if project:
+                # ACTIVE SYNC: Read from disk to ensure local changes are reflected
+                disk_files = {}
+                project_path = os.path.abspath(f"frontend/p/{project_id}")
+                
+                if os.path.exists(project_path):
+                    for root, _, files in os.walk(project_path):
+                        if "node_modules" in root or ".git" in root or "dist" in root or ".next" in root:
+                            continue
+                        
+                        for file in files:
+                            if file.endswith(('.png', '.jpg', '.jpeg', '.gif', '.ico', '.woff', '.woff2', '.ttf', '.eot')):
+                                continue
+                                
+                            full_path = os.path.join(root, file)
+                            rel_path = os.path.relpath(full_path, project_path).replace("\\", "/")
+                            
+                            try:
+                                with open(full_path, "r", encoding="utf-8") as f:
+                                    content = f.read()
+                                    disk_files[rel_path] = {
+                                        "content": content,
+                                        "language": rel_path.split('.')[-1]
+                                    }
+                            except Exception:
+                                pass # Skip binary or unreadable files
+                
+                # Merge: Disk takes precedence over DB
+                merged_files = {**project.files, **disk_files}
+
                 return {
-                    "files": project.files,
+                    "files": merged_files,
                     "dependencyGraph": project.dependency_graph,
                     "userIntent": project.user_intent,
                     "framework": project.framework,

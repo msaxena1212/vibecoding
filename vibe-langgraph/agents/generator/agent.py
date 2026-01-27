@@ -87,6 +87,33 @@ async def run_generator(state: CodebaseState):
                     if not op_path or not op_content:
                         continue
                     
+                    # PATH ENFORCEMENT: Ensure React code goes to src/
+                    root_allowlist = [
+                        "package.json", "vite.config.js", "tailwind.config.js", "postcss.config.js", 
+                        "index.html", ".gitignore", "README.md", ".env", "prisma/schema.prisma"
+                    ]
+                    
+                    # Normalizing path separator
+                    clean_path = op_path.replace("\\", "/")
+                    
+                    # If it's a backend file, allow "services/"
+                    if clean_path.startswith("services/"):
+                         pass
+                    elif clean_path in root_allowlist:
+                         pass
+                    elif clean_path.startswith("public/"):
+                         pass
+                    elif not clean_path.startswith("src/"):
+                         # Force src/ prefix for everything else (code, styles, etc)
+                         print(f"[PATH CORRECTION] Moving {clean_path} to src/{clean_path}")
+                         clean_path = f"src/{clean_path}"
+                         # Update the op_path for the patch
+                         op_path = clean_path
+
+                         clean_path = f"src/{clean_path}"
+                         # Update the op_path for the patch
+                         op_path = clean_path
+
                     # STAGE AS PROPOSAL
                     patch = {
                         "op": op_type,
@@ -96,7 +123,7 @@ async def run_generator(state: CodebaseState):
                         "description": op_desc
                     }
                     
-                    # Update local state for context (though not final)
+                    # Update local state for context
                     generated_files[op_path] = {
                         "content": op_content,
                         "lastEditedBy": "generator"
@@ -107,6 +134,19 @@ async def run_generator(state: CodebaseState):
 
             except Exception as e:
                 print(f"[ERROR] generating {path}: {e}")
+
+    # --- SAFETY NET: Ensure logic integrity ---
+    # 1. Ensure src/index.css exists (Crucial for Tailwind)
+    if not any(f == "src/index.css" or f == "index.css" for f in generated_files.keys()):
+        print("[SAFETY NET] Injecting missing src/index.css")
+        default_css = "@tailwind base;\n@tailwind components;\n@tailwind utilities;\n\nhtml, body { height: 100%; width: 100%; overflow-x: hidden; }"
+        proposed_patches.append({
+            "op": "create_file",
+            "path": "src/index.css",
+            "content": default_css,
+            "language": "css",
+            "description": "Safety Net: Injected Tailwind CSS"
+        })
 
     # Return proposals
     return {

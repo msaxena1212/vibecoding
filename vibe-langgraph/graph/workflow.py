@@ -104,7 +104,8 @@ def create_workflow():
         {
             "debugger": "debugger", # Build failed -> Debug
             "editor": "editor",     # Escalation -> Rewrite
-            "end": END              # Build passed -> Done
+            "compiler": "compiler", # Next Phase
+            "end": END              # Everything passed -> Done
         }
     )
     
