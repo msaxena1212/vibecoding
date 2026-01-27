@@ -12,7 +12,7 @@ models:
   copywriter: models/gemini-2.0-flash
   frontend_developer: models/gemini-2.0-flash
   fetch_images: models/gemini-2.0-flash
-  image_generator: models/gemini-2.5-flash-preview-image
+  image_generator: models/gemini-2.0-flash
   react_specialist: models/gemini-2.0-flash
   router: models/gemini-2.0-flash
   seeker: models/gemini-2.0-flash

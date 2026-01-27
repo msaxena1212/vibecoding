@@ -5,6 +5,7 @@ from graph.state import CodebaseState
 from utils.formatter import parse_json_dict
 import json
 import re
+import os
 
 async def run_planner(state: CodebaseState):
     """
@@ -17,7 +18,10 @@ async def run_planner(state: CodebaseState):
     user_intent = state.get("userIntent", "")
     
     # Load prompt
-    with open("agents/planner/prompt.md", "r", encoding="utf-8") as f:
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    prompt_path = os.path.join(current_dir, "prompt.md")
+    
+    with open(prompt_path, "r", encoding="utf-8") as f:
         system_prompt = f.read()
         
     history_list = state.get("messages", [])

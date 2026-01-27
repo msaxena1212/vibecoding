@@ -50,6 +50,30 @@ async def run_compiler(state: CodebaseState):
         log(f"Executing: {cmd} in {cwd}")
         return await asyncio.to_thread(_run)
 
+    # --- OPTIMIZATION: CONFIG FIXES ---
+    async def _auto_fix_config():
+        # Placeholder for future config fixes
+        pass
+
+    await _auto_fix_config()
+    
+    # --- OPTIMIZATION: CODE FIXES ---
+    async def _auto_fix_code():
+        # Ensure App.jsx has "import React"
+        app_jsx_path = os.path.join(base_path, "src", "App.jsx")
+        if os.path.exists(app_jsx_path):
+             try:
+                content = await asyncio.to_thread(lambda: open(app_jsx_path, "r", encoding="utf-8").read())
+                if "import React" not in content:
+                    log("Auto-Fix: Injecting 'import React' into App.jsx", "system")
+                    new_content = "import React from 'react';\n" + content
+                    await asyncio.to_thread(lambda: open(app_jsx_path, "w", encoding="utf-8").write(new_content))
+             except Exception as e:
+                log(f"Failed to patch App.jsx: {e}", "warning")
+                
+    await _auto_fix_code()
+    # ----------------------------------------
+    
     project_path = base_path 
     compile_phase = state.get("compile_phase", "install")
     log(f"Current Phase: {compile_phase}")

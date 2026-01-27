@@ -18,7 +18,10 @@ async def run_linker(state: CodebaseState):
         return {"current_step": "linking_skipped"}
 
     # Load rules
-    rules_path = os.path.join("agents", "linker", "rules.md")
+    # Load rules
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    rules_path = os.path.join(current_dir, "rules.md")
+    
     with open(rules_path, "r", encoding="utf-8") as f:
         rules = f.read()
 

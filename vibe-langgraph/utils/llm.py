@@ -20,7 +20,11 @@ def get_llm(model_name: str = None, agent_name: str = "planner"):
     # Load config if model_name not explicit
     if not model_name:
         try:
-            with open("configs/models.yaml", "r") as f:
+            # Robustly resolve path relative to this file
+            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            config_path = os.path.join(base_dir, "configs", "models.yaml")
+            
+            with open(config_path, "r") as f:
                 config = yaml.safe_load(f)
                 model_name = config.get("models", {}).get(agent_name, "models/gemini-1.5-flash")
         except Exception as e:

@@ -16,7 +16,10 @@ async def run_ui_specialist(state: CodebaseState):
     design_tokens = state.get("design_tokens", {})
     
     # Load prompt
-    prompt_path = os.path.join("agents", "ui_specialist", "prompt.md")
+    # Load prompt
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    prompt_path = os.path.join(current_dir, "prompt.md")
+    
     with open(prompt_path, "r", encoding="utf-8") as f:
         prompt = f.read()
 

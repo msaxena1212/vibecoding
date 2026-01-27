@@ -13,7 +13,11 @@ async def run_generator(state: CodebaseState):
     generated_files = state.get("files", {}).copy()
     total_tokens = state.get("total_tokens", 0)
     
-    with open("agents/generator/prompt.md", "r", encoding="utf-8") as f:
+    # Load prompt
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    prompt_path = os.path.join(current_dir, "prompt.md")
+    
+    with open(prompt_path, "r", encoding="utf-8") as f:
         system_prompt_template = f.read()
 
     total_gen_tokens = 0
@@ -39,7 +43,9 @@ async def run_generator(state: CodebaseState):
             generated_images = {img["path"]: img["local_path"] for img in state.get("images_to_generate", []) if "local_path" in img}
             
             reasoning = state.get("reasoning", "")
+            reasoning = state.get("reasoning", "")
             plan_summary = state.get("plan_summary", "")
+            user_intent = state.get("userIntent", "high-end")
 
             # REACT CONTEXT INJECTION
             current_context = ""
@@ -53,7 +59,7 @@ async def run_generator(state: CodebaseState):
             messages = [
                 SystemMessage(content=system_prompt_template)
             ] + history + [
-                HumanMessage(content=f"Generate the file: {path}\nDescription: {description}\n\nProject Reasoning: {reasoning}\nTechnical Plan: {plan_summary}\n\nExisting State: {str(generated_files.keys())}\nDesign Tokens: {json.dumps(design_tokens)}\nMock Data: {json.dumps(mock_data)}\nCopy Data: {json.dumps(copy_data)}\nAvailable Assets: {json.dumps(generated_images)}{current_context}")
+                HumanMessage(content=f"Generate the file: {path}\nDescription: {description}\n\nProject Reasoning: {reasoning}\nTechnical Plan: {plan_summary}\n\nExisting State: {str(generated_files.keys())}\nDesign Tokens: {json.dumps(design_tokens)}\nMock Data: {json.dumps(mock_data)}\nCopy Data: {json.dumps(copy_data)}\nAvailable Assets: {json.dumps(generated_images)}{current_context}\n\n[LOGIC INJECTION]: You MUST generate explicitly styled components. Use 'style={{}}' for background-images, gradients, or dynamic values to match the '{user_intent}' vibe. Use Tailwind for structure. DO NOT RETURN PLAIN HTML.")
             ]
             
             try:

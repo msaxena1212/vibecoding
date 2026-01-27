@@ -22,7 +22,10 @@ async def run_debugger(state: CodebaseState):
         missing_file_hint = "\nCRITICAL: The build failed because a file is missing. You MUST create the missing file. Do not just edit the importer."
     
     # Load prompt
-    prompt_path = os.path.join("agents", "debugger", "prompt.md")
+    # Load prompt
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    prompt_path = os.path.join(current_dir, "prompt.md")
+    
     with open(prompt_path, "r", encoding="utf-8") as f:
         prompt = f.read()
 

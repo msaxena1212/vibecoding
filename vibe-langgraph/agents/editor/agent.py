@@ -4,6 +4,7 @@ from utils.llm import get_llm, extract_tokens
 from utils.formatter import parse_json_dict
 import json
 import re
+import os
 
 async def run_editor(state: CodebaseState):
     """
@@ -15,7 +16,11 @@ async def run_editor(state: CodebaseState):
     existing_files = state.get("files", {})
     
     # Load prompt
-    with open("agents/editor/prompt.md", "r", encoding="utf-8") as f:
+    # Load prompt
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    prompt_path = os.path.join(current_dir, "prompt.md")
+    
+    with open(prompt_path, "r", encoding="utf-8") as f:
         system_prompt = f.read()
         
     # Build context for LLM
@@ -75,7 +80,6 @@ async def run_editor(state: CodebaseState):
                 
                 # Update Disk in Project Hub
                 try:
-                    import os
                     project_id = state.get("project_id")
                     if project_id:
                         full_path = os.path.join("frontend", "p", project_id, path)

@@ -15,7 +15,10 @@ async def run_backend_architect(state: CodebaseState):
     user_intent = state.get("userIntent", "")
     
     # Load prompt
-    prompt_path = os.path.join("agents", "backend_architect", "prompt.md")
+    # Load prompt
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    prompt_path = os.path.join(current_dir, "prompt.md")
+    
     with open(prompt_path, "r", encoding="utf-8") as f:
         prompt = f.read()
 

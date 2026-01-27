@@ -7,6 +7,15 @@ import os
 
 app = FastAPI(title="Vibe LangGraph API", version="0.1.0")
 
+from fastapi.middleware.cors import CORSMiddleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(generate.router, prefix="/api/v1/generate", tags=["generate"])
 app.include_router(edit.router, prefix="/api/v1/edit", tags=["edit"])
 app.include_router(validate.router, prefix="/api/v1/validate", tags=["validate"])
@@ -27,12 +36,48 @@ if not os.path.exists(FRONTEND_DIR):
 if not os.path.exists(PROJECTS_DIR):
     os.makedirs(PROJECTS_DIR, exist_ok=True)
 
-app.mount("/static/p", StaticFiles(directory=PROJECTS_DIR, html=True), name="project_static")
 app.mount("/static", StaticFiles(directory=FRONTEND_DIR, html=True), name="static")
 
 @app.get("/")
 async def root():
     return FileResponse(os.path.join(FRONTEND_DIR, 'index.html'))
+
+# SPA Fallback for Projects
+@app.get("/static/p/{project_id}/{file_path:path}")
+async def serve_project_files(project_id: str, file_path: str):
+    import os
+    from fastapi import HTTPException
+    
+    project_root = os.path.join(PROJECTS_DIR, project_id)
+    
+    # Security check: prevent directory traversal
+    if ".." in file_path:
+        raise HTTPException(status_code=400, detail="Invalid path")
+
+    # 1. Try exact match in dist (Priority for built apps)
+    dist_full_path = os.path.join(project_root, "dist", file_path)
+    if os.path.exists(dist_full_path) and os.path.isfile(dist_full_path):
+        return FileResponse(dist_full_path)
+
+    # 2. Try exact match in root (For source files or raw assets)
+    full_path = os.path.join(project_root, file_path)
+    if os.path.exists(full_path) and os.path.isfile(full_path):
+        return FileResponse(full_path)
+    
+    # 3. SPA Fallback: If not found, and likely a route, serve index.html
+    # Only fallback if it DOES NOT have an extension (likely a route like /about)
+    filename = os.path.basename(file_path)
+    if "." not in filename:
+        # Serve dist/index.html if built
+        dist_index = os.path.join(project_root, "dist", "index.html")
+        if os.path.exists(dist_index):
+             return FileResponse(dist_index)
+        # Fallback to root index.html (experimental/dev)
+        root_index = os.path.join(project_root, "index.html")
+        if os.path.exists(root_index):
+             return FileResponse(root_index)
+
+    raise HTTPException(status_code=404, detail="File not found")
 
 from utils.db import init_db
 

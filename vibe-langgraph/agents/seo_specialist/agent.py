@@ -16,7 +16,10 @@ async def run_seo_specialist(state: CodebaseState):
         return {"current_step": "seo_skipped"}
 
     # Load system prompt
-    prompt_path = os.path.join("agents", "seo_specialist", "prompt.md")
+    # Load system prompt
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    prompt_path = os.path.join(current_dir, "prompt.md")
+    
     with open(prompt_path, "r", encoding="utf-8") as f:
         system_prompt = f.read()
 

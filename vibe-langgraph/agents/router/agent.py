@@ -15,7 +15,10 @@ async def run_router(state: CodebaseState):
     files = list(state.get("files", {}).keys())
     
     # Load prompt
-    prompt_path = os.path.join("agents", "router", "prompt.md")
+    # Load prompt
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    prompt_path = os.path.join(current_dir, "prompt.md")
+    
     with open(prompt_path, "r", encoding="utf-8") as f:
         prompt = f.read()
 

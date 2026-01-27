@@ -25,7 +25,10 @@ async def run_image_generator(state: CodebaseState):
     os.makedirs(project_hub_path, exist_ok=True)
     
     # Load system prompt
-    prompt_path = os.path.join("agents", "image_generator", "prompt.md")
+    # Load system prompt
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    prompt_path = os.path.join(current_dir, "prompt.md")
+    
     with open(prompt_path, "r", encoding="utf-8") as f:
         system_prompt = f.read()
 

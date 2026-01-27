@@ -15,7 +15,10 @@ async def run_chatter(state: CodebaseState):
     messages_history = state.get("messages", [])
     
     # Load prompt
-    prompt_path = os.path.join("agents", "chatter", "prompt.md")
+    # Load prompt
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    prompt_path = os.path.join(current_dir, "prompt.md")
+    
     with open(prompt_path, "r", encoding="utf-8") as f:
         prompt = f.read()
 
