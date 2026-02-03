@@ -23,14 +23,15 @@ async def run_backend_architect(state: CodebaseState):
         prompt = f.read()
 
     # Build context
-    code_context = "\n".join([f"--- FILE: {path} ---\n{data['content']}" for path, data in files.items()])
+    code_context = "\n".join([f"--- FILE: {path} ---\n{data['content']}" for path, data in files.items() if isinstance(path, str)])
     
     messages = [
         SystemMessage(content=prompt),
         HumanMessage(content=f"User Intent: {user_intent}\n\nCURRENT CODE:\n{code_context}")
     ]
     
-    response = await llm.ainvoke(messages)
+    from utils.llm import resilient_call
+    response = await resilient_call(llm.ainvoke, messages)
     content = response.content
     
     patches_applied = 0
@@ -73,5 +74,6 @@ async def run_backend_architect(state: CodebaseState):
         "current_step": "backend_complete",
         "diagnostic_report": f"Backend Architect: Added/Updated {patches_applied} files.",
         "total_tokens": tokens,
-        "token_usage": {"backend_architect": tokens}
+        "token_usage": {"backend_architect": tokens},
+        "model_calls": 1
     }

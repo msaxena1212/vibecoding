@@ -17,7 +17,7 @@ class FileState(TypedDict):
 class CodebaseState(TypedDict):
     files: Dict[str, FileState]
     dependencyGraph: Dict[str, List[str]]
-    framework: Literal["nextjs", "react", "expo"]
+    framework: Literal["nextjs", "react", "expo", "express", "fullstack"]
     userIntent: str
     messages: List[Any] # To track conversation history/agent messages
     plan: Dict[str, Any] # The generated plan
@@ -31,6 +31,7 @@ class CodebaseState(TypedDict):
     fix_instructions: Optional[str]
     current_step: str
     total_tokens: Annotated[int, operator.add]
+    model_calls: Annotated[int, operator.add]
     token_usage: Annotated[Dict[str, int], merge_usage] # Granular usage per agent
     project_id: Optional[str]
     retry_count: Annotated[int, operator.add]

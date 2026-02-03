@@ -24,7 +24,7 @@ async def run_ui_specialist(state: CodebaseState):
         prompt = f.read()
 
     # Build context
-    code_context = "\n".join([f"--- FILE: {path} ---\n{data['content']}" for path, data in files.items()])
+    code_context = "\n".join([f"--- FILE: {path} ---\n{data['content']}" for path, data in files.items() if isinstance(path, str)])
     tokens_json = json.dumps(design_tokens, indent=2)
     
     reasoning = state.get("reasoning", "")
@@ -35,7 +35,9 @@ async def run_ui_specialist(state: CodebaseState):
         HumanMessage(content=f"User Intent: {user_intent}\nProject Context: {reasoning}\nTechnical Plan: {plan_summary}\n\nDESIGN TOKENS:\n{tokens_json}\n\nCURRENT CODE:\n{code_context}")
     ]
     
-    response = await llm.ainvoke(messages)
+    from utils.llm import resilient_call
+    response = await resilient_call(llm.ainvoke, messages)
+    tokens = extract_tokens(response)
     content = response.content
     
     patches_applied = 0
@@ -72,5 +74,6 @@ async def run_ui_specialist(state: CodebaseState):
         "current_step": "ui_polish_complete",
         "diagnostic_report": f"UI Specialist: Applied {patches_applied} visual patches.",
         "total_tokens": tokens,
-        "token_usage": {"ui_specialist": tokens}
+        "token_usage": {"ui_specialist": tokens},
+        "model_calls": 1
     }

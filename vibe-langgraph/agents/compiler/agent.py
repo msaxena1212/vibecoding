@@ -23,12 +23,6 @@ async def run_compiler(state: CodebaseState):
         log(f"Project directory not found: {base_path}", "error")
         return {"current_step": "compilation_failed", "errors": [f"Directory not found: {base_path}"], "logs": logs}
 
-    # Check for package.json
-    package_json = os.path.join(base_path, "package.json")
-    if not os.path.exists(package_json):
-        log("No package.json found. Skipping compilation.")
-        return {"current_step": "compilation_skipped", "logs": logs}
-
     # Helper to run shell commands
     async def run_command_safe(cmd, cwd):
         def _run():
@@ -59,7 +53,7 @@ async def run_compiler(state: CodebaseState):
     
     # --- OPTIMIZATION: CODE FIXES ---
     async def _auto_fix_code():
-        # Ensure App.jsx has "import React"
+        # 1. Ensure App.jsx has "import React"
         app_jsx_path = os.path.join(base_path, "src", "App.jsx")
         if os.path.exists(app_jsx_path):
              try:
@@ -70,9 +64,59 @@ async def run_compiler(state: CodebaseState):
                     await asyncio.to_thread(lambda: open(app_jsx_path, "w", encoding="utf-8").write(new_content))
              except Exception as e:
                 log(f"Failed to patch App.jsx: {e}", "warning")
+        
+        # 2. Path Hygiene: Ensure index.html uses RELATIVE ./src/index.jsx for Vite/Rollup
+        index_html_path = os.path.join(base_path, "index.html")
+        if os.path.exists(index_html_path):
+            try:
+                content = await asyncio.to_thread(lambda: open(index_html_path, "r", encoding="utf-8").read())
+                import re
+                if 'src="/src/index.jsx"' in content or 'src="src/index.jsx"' in content:
+                    log("Auto-Fix: Normalizing index.html script tag to relative path...", "system")
+                    new_content = re.sub(r'src="/src/index\.jsx"', 'src="./src/index.jsx"', content)
+                    new_content = re.sub(r'src="src/index\.jsx"', 'src="./src/index.jsx"', new_content)
+                    await asyncio.to_thread(lambda: open(index_html_path, "w", encoding="utf-8").write(new_content))
+            except Exception as e:
+                log(f"Failed to patch index.html: {e}", "warning")
+
+        # 3. Vitest Hygiene: Ensure vite.config.js has test globals
+        vite_config_path = os.path.join(base_path, "vite.config.js")
+        if os.path.exists(vite_config_path):
+            try:
+                content = await asyncio.to_thread(lambda: open(vite_config_path, "r", encoding="utf-8").read())
+                if "test:" not in content and "vitest" in content.lower():
+                    log("Auto-Fix: Injecting Vitest config into vite.config.js...", "system")
+                    # Naive injection before the last closing brace
+                    if "export default defineConfig({" in content:
+                        insertion = "\n  test: {\n    globals: true,\n    environment: 'jsdom',\n  },"
+                        last_brace = content.rfind("})")
+                        if last_brace != -1:
+                            new_content = content[:last_brace] + insertion + content[last_brace:]
+                            await asyncio.to_thread(lambda: open(vite_config_path, "w", encoding="utf-8").write(new_content))
+            except Exception as e:
+                log(f"Failed to patch vite.config.js: {e}", "warning")
+
+        # 4. Disk Verification: Ensure mandatory files in state are definitely on disk
+        files = state.get("files", {})
+        mandatory = ["package.json", "index.html", "src/index.jsx", "src/App.jsx", "src/index.css", "vite.config.js"]
+        for rel_path in mandatory:
+            full_path = os.path.join(base_path, rel_path)
+            if not os.path.exists(full_path) and rel_path in files:
+                log(f"Auto-Fix: Restoring missing mandatory file from state: {rel_path}", "system")
+                try:
+                    os.makedirs(os.path.dirname(full_path), exist_ok=True)
+                    with open(full_path, "w", encoding="utf-8") as f:
+                        f.write(files[rel_path]["content"])
+                except Exception as e:
+                    log(f"Failed to restore {rel_path}: {e}", "warning")
                 
     await _auto_fix_code()
-    # ----------------------------------------
+
+    # Check for package.json
+    package_json = os.path.join(base_path, "package.json")
+    if not os.path.exists(package_json):
+        log("No package.json found. Skipping compilation.")
+        return {"current_step": "compilation_skipped", "logs": logs}
     
     project_path = base_path 
     compile_phase = state.get("compile_phase", "install")
@@ -96,12 +140,12 @@ async def run_compiler(state: CodebaseState):
             log(f"Install failed: {stderr[:200]}", "error")
             return {
                 "current_step": "build_error",
-                "diagnostic_report": f"NPM INSTALL FAILED:\n{stderr}\n{stdout}",
+                "diagnostic_report": f"INSTALLATION FAILURE (npm install):\n{stderr}\n{stdout}",
                 "fix_instructions": "Review package.json dependencies for version conflicts or typos. Ensure all dependencies are valid.",
                 "errors": [f"npm install failed: {stderr}"],
-                "retry_count": 1,
+                "retry_count": state.get("retry_count", 0) + 1,
                 "logs": logs,
-                "compile_phase": "install" # Stay in install phase
+                "compile_phase": "install"
             }
         
         log("Install passed. Moving to Build phase.", "system")
@@ -126,7 +170,7 @@ async def run_compiler(state: CodebaseState):
                  # Ensure src exists
                  os.makedirs(os.path.dirname(css_path), exist_ok=True)
                  
-                 default_css = "@tailwind base;\n@tailwind components;\n@tailwind utilities;\n\nhtml, body { height: 100%; width: 100%; overflow-x: hidden; }"
+                 default_css = "@tailwind base;\\n@tailwind components;\\n@tailwind utilities;\\n\\nhtml, body { height: 100%; width: 100%; overflow-x: hidden; }"
                  with open(css_path, "w", encoding="utf-8") as f:
                      f.write(default_css)
                      
@@ -136,8 +180,19 @@ async def run_compiler(state: CodebaseState):
             
             # Re-check after potential auto-fix
             if code != 0:
+                # --- AUTO-FIX: Missing @vitejs/plugin-react ---
+                if "ERR_MODULE_NOT_FOUND" in stderr and "@vitejs/plugin-react" in stderr:
+                    log("[AUTO-FIX] Detected missing @vitejs/plugin-react. Attempting manual install...", "system")
+                    inst_out, inst_err, inst_code = await run_command_safe("npm install @vitejs/plugin-react --save-dev", project_path)
+                    if inst_code == 0:
+                        log("[AUTO-FIX] @vitejs/plugin-react installed. Retrying build...", "system")
+                        stdout, stderr, code = await run_command_safe("npm run build", project_path)
+                    else:
+                        log(f"[AUTO-FIX] Install failed: {inst_err}", "error")
+
+            if code != 0:
                 log(f"Build failed: {stderr[:200]}", "error")
-                full_log = f"{stdout}\n{stderr}"
+                full_log = f"{stdout}\\n{stderr}"
                 
                 diagnostic_prefix = "Build Compilation Failed"
                 fix_hint = "Check for syntax errors, missing imports, or incorrect Vite configuration."
@@ -151,12 +206,12 @@ async def run_compiler(state: CodebaseState):
                     
                 return {
                     "current_step": "build_error",
-                    "diagnostic_report": f"{diagnostic_prefix}:\n{full_log}",
+                    "diagnostic_report": f"BUILD FAILURE (npm run build) - {diagnostic_prefix}:\\n{full_log}",
                     "fix_instructions": fix_hint,
                     "errors": [f"npm run build failed: {stderr}"],
-                    "retry_count": 1,
+                    "retry_count": state.get("retry_count", 0) + 1,
                     "logs": logs,
-                    "compile_phase": "build" # Stay in build phase
+                    "compile_phase": "build"
                 }
 
         # Verify Dist
@@ -165,10 +220,10 @@ async def run_compiler(state: CodebaseState):
             log("Build finished but 'dist' directory missing.", "error")
             return {
                 "current_step": "build_error",
-                "diagnostic_report": "Build verification failed: 'dist' folder not found after build.",
+                "diagnostic_report": "BUILD VERIFICATION FAILURE: 'dist' folder not found after build.",
                 "fix_instructions": "Ensure vite.config.js is configured to output to 'dist'.",
                 "errors": ["Missing dist directory"],
-                "retry_count": 1, 
+                "retry_count": state.get("retry_count", 0) + 1, 
                 "logs": logs,
                 "compile_phase": "build"
             }
@@ -235,10 +290,10 @@ async def run_compiler(state: CodebaseState):
              log(f"Dev server crashed: {stderr[:200]}", "error")
              return {
                 "current_step": "build_error",
-                "diagnostic_report": f"Runtime Crash (npm run dev):\n{stderr}\n{stdout}",
-                "fix_instructions": "Fix runtime errors that occur on startup.",
+                "diagnostic_report": f"RUNTIME FAILURE (npm run dev):\\n{stderr}\\n{stdout}",
+                "fix_instructions": "Fix runtime errors that occur on startup. Check for broken component mounts or contextual errors.",
                 "errors": [f"npm run dev crashed: {stderr}"],
-                "retry_count": 1,
+                "retry_count": state.get("retry_count", 0) + 1,
                 "logs": logs,
                 "compile_phase": "dev_check"
             }
@@ -279,7 +334,7 @@ async def run_compiler(state: CodebaseState):
              log(f"Tests failed: {stderr[:200]}", "error")
              return {
                 "current_step": "build_error",
-                "diagnostic_report": f"Automated Tests Failed:\n{stderr}\n{stdout}",
+                "diagnostic_report": f"Automated Tests Failed:\\n{stderr}\\n{stdout}",
                 "fix_instructions": "Fix the test failures. This often indicates a component crashed on mount or a missing context (like Router).",
                 "errors": [f"npm test failed: {stderr}"],
                 "retry_count": 1,
@@ -300,4 +355,3 @@ async def run_compiler(state: CodebaseState):
         "diagnostic_report": "Build pipeline finished.",
         "logs": logs
     }
-

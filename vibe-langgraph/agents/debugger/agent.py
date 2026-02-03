@@ -30,11 +30,34 @@ async def run_debugger(state: CodebaseState):
         prompt = f.read()
 
     # Build context
-    code_context = "\n".join([f"--- FILE: {path} ---\n{data['content']}" for path, data in files.items()])
+    # Build context
+    code_context = "\n".join([f"--- FILE: {path} ---\n{data['content']}" for path, data in files.items() if isinstance(path, str)])
+    
+    # --- RAG: RETRIEVE SIMILAR ERROR PATTERNS ---
+    rag_context = ""
+    try:
+        from utils.vector_store import VectorStore
+        vs = VectorStore(collection_name="codebase_index", persist_directory="./.chroma_db")
+        if vs.count() > 0:
+            # Search for the specific error or intent
+            query = f"{user_intent} {diagnostic[:200]}"
+            print(f"[Debugger] RAG Searching for: {query[:100]}...")
+            results = vs.search(query, n_results=3)
+            
+            if results:
+                rag_context = "\n\n### RELEVANT CODE KNOWLEDGE (RAG):\nThe following snippets from the codebase might be relevant to this error:\n"
+                for res in results:
+                    source = res['metadata'].get('source', 'Unknown')
+                    snippet = res['content'][:1000]
+                    rag_context += f"File: {source}\nContent:\n{snippet}\n---\n"
+                print(f"[Debugger] Found {len(results)} relevant RAG snippets.")
+    except Exception as e:
+        print(f"[Debugger] RAG failed: {e}")
+    # --------------------------------------------
     
     messages = [
         SystemMessage(content=prompt),
-        HumanMessage(content=f"User Intent: {user_intent}\n\nDIAGNOSTIC REPORT:\n{diagnostic}\n\nFIX INSTRUCTIONS:\n{state.get('fix_instructions', '')}{missing_file_hint}\n\nATTEMPTED FIXES (DO NOT REPEAT):\n{json.dumps(attempted_fixes, indent=2)}\n\nCURRENT CODE:\n{code_context}")
+        HumanMessage(content=f"User Intent: {user_intent}\n\nDIAGNOSTIC REPORT:\n{diagnostic}\n\nFIX INSTRUCTIONS:\n{state.get('fix_instructions', '')}{missing_file_hint}\n\nATTEMPTED FIXES (DO NOT REPEAT):\n{json.dumps(attempted_fixes, indent=2)}\n\nCURRENT CODE:\n{code_context}{rag_context}")
     ]
     
     logs = []
@@ -43,9 +66,22 @@ async def run_debugger(state: CodebaseState):
         logs.append({"content": msg, "source": source})
 
     log("Starting debugging session...")
-    
-    response = await llm.ainvoke(messages)
-    content = response.content
+    try:
+        from utils.llm import resilient_call
+        response = await resilient_call(llm.ainvoke, messages)
+        content = response.content
+        tokens = extract_tokens(response)
+    except Exception as e:
+        log(f"LLM call failed: {e}", "error")
+        return {
+            "files": files,
+            "current_step": "debugging_failed",
+            "diagnostic_report": f"Debugger: LLM call failed with error: {e}",
+            "total_tokens": 0,
+            "token_usage": {"debugger": 0},
+            "logs": logs,
+            "attempted_fixes": attempted_fixes
+        }
     
     patches_applied = 0
     new_attempted_fixes = list(attempted_fixes)
@@ -58,6 +94,12 @@ async def run_debugger(state: CodebaseState):
         for patch in patches:
             path = patch.get("path")
             new_content = patch.get("new_content")
+            
+            if not path: continue
+            
+            # Standardize Path
+            path = path.replace("\\", "/").strip("./")
+            if path == "public/index.html": path = "index.html"
             
             # Duplicate check
             import hashlib
@@ -122,6 +164,7 @@ async def run_debugger(state: CodebaseState):
         "diagnostic_report": f"Debugger: Applied {patches_applied} patches.",
         "total_tokens": tokens,
         "token_usage": {"debugger": tokens},
+        "model_calls": 1,
         "token_usage": {"debugger": tokens},
         "logs": logs,
         "attempted_fixes": new_attempted_fixes

@@ -22,14 +22,23 @@ elif DATABASE_URL.startswith("postgresql://"):
 # Create Async Engine
 # Note: "statement_cache_size": 0 is required for Supabase Transaction/Session poolers 
 # because they don't support prepared statements in this mode.
-engine = create_async_engine(
-    DATABASE_URL,
-    echo=False,
-    future=True,
-    connect_args={"statement_cache_size": 0} 
-)
+_engine = None
+
+async def get_db_engine() -> AsyncEngine:
+    global _engine
+    if _engine is None:
+        _engine = create_async_engine(
+            DATABASE_URL,
+            echo=False,
+            future=True,
+            connect_args={"statement_cache_size": 0},
+            pool_pre_ping=True,
+            pool_recycle=300
+        )
+    return _engine
 
 async def init_db():
+    engine = await get_db_engine()
     async with engine.begin() as conn:
         # await conn.run_sync(SQLModel.metadata.drop_all) # WARNING: Dev only
         await conn.run_sync(SQLModel.metadata.create_all)
@@ -55,6 +64,3 @@ async def init_db():
         FOR EACH ROW
         EXECUTE PROCEDURE update_updated_at_column();
         """))
-
-async def get_db_engine() -> AsyncEngine:
-    return engine

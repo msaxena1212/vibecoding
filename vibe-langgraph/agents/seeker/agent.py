@@ -26,7 +26,8 @@ async def run_seeker(state: CodebaseState):
         HumanMessage(content=f"User Intent: {user_intent}")
     ]
     
-    response = await llm.ainvoke(messages)
+    from utils.llm import resilient_call
+    response = await resilient_call(llm.ainvoke, messages)
     content = response.content
     
     findings = []
@@ -46,5 +47,6 @@ async def run_seeker(state: CodebaseState):
         "reasoning": new_reasoning,
         "current_step": "research_complete",
         "total_tokens": tokens,
-        "token_usage": {"seeker": tokens}
+        "token_usage": {"seeker": tokens},
+        "model_calls": 1
     }

@@ -31,11 +31,31 @@ def get_llm(model_name: str = None, agent_name: str = "planner"):
             print(f"Warning: Could not load models.yaml, defaulting to gemini-1.5-flash. Error: {e}")
             model_name = "models/gemini-1.5-flash"
 
-    # Map common model names if needed, or just pass through
-    if "gpt" in model_name:
-        model_name = "models/gemini-1.5-flash"
-        
-    return ChatGoogleGenerativeAI(model=model_name, google_api_key=api_key)
+    return ChatGoogleGenerativeAI(
+        model=model_name, 
+        google_api_key=api_key,
+        max_retries=10,
+        timeout=60
+    )
+
+async def resilient_call(ainvoke_fn, messages):
+    """
+    Wrapper to handle transient LLM connection errors with retries.
+    """
+    import asyncio
+    from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
+    import httpx
+    
+    @retry(
+        stop=stop_after_attempt(5),
+        wait=wait_exponential(multiplier=1, min=2, max=10),
+        retry=retry_if_exception_type((httpx.RemoteProtocolError, httpx.ReadTimeout, httpx.ConnectError, Exception)),
+        before_sleep=lambda retry_state: print(f"[RETRY] LLM call failed. Attempt {retry_state.attempt_number}. Retrying in {retry_state.next_action.sleep}s...")
+    )
+    async def _call():
+        return await ainvoke_fn(messages)
+    
+    return await _call()
 
 def extract_tokens(response) -> int:
     """

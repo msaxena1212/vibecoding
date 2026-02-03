@@ -49,12 +49,35 @@ async def run_planner(state: CodebaseState):
     existing_files = list(state.get("files", {}).keys())
     existing_context = f"\n\nEXISTING FILES:\n{', '.join(existing_files)}" if existing_files else ""
     
+    # --- VECTOR SEARCH INTEGRATION ---
+    try:
+        from utils.vector_store import VectorStore
+        # Assuming run form root, .chroma_db is in root
+        vs = VectorStore(collection_name="codebase_index", persist_directory="./.chroma_db")
+        if vs.count() > 0:
+            print(f"[Planner] Searching vector store for: {user_intent}")
+            results = vs.search(user_intent, n_results=3)
+            if results:
+                context_str = "\n\n### RELEVANT ARCHITECTURAL CONTEXT:\n"
+                for res in results:
+                    source = res['metadata'].get('source', 'Unknown')
+                    snippet = res['content'][:1500] # Increased limit for planner
+                    context_str += f"File: {source}\nContent:\n{snippet}\n---\n"
+                
+                existing_context += context_str
+    except Exception as e:
+        print(f"[Planner] Vector search skipped or failed: {e}")
+    # ---------------------------------
+
+    framework = state.get("framework", "react")
+
     messages = [
         SystemMessage(content=system_prompt),
-        HumanMessage(content=f"Conversation History:\n{recent_history}\n\nCurrent User Request: {user_intent}{existing_context}")
+        HumanMessage(content=f"Conversation History:\n{recent_history}\n\nSelected Framework: {framework}\n\nCurrent User Request: {user_intent}{existing_context}")
     ]
     
-    response = await llm.ainvoke(messages)
+    from utils.llm import resilient_call
+    response = await resilient_call(llm.ainvoke, messages)
     tokens = extract_tokens(response)
     
     # Parse the response content as JSON robustly
@@ -82,6 +105,52 @@ async def run_planner(state: CodebaseState):
     reasoning_obj = plan.get("reasoning", {})
     reasoning_text = f"{reasoning_obj.get('brand_tone', '')}\n\n{reasoning_obj.get('architectural_logic', '')}\n\n{reasoning_obj.get('ux_strategy', '')}"
     
+    images_to_generate = plan.get("images_to_generate", [])
+    assignments = plan.get("assignments", [])
+    files = plan.get("files", [])
+
+    # MANDATORY STRUCTURAL ENFORCEMENT
+    framework = state.get("framework", "react")
+    
+    mandatory_files = {}
+    if framework == "react":
+        mandatory_files = {
+            "package.json": "Standard project configuration",
+            "index.html": "SPA entry point",
+            "src/index.jsx": "React mounting logic",
+            "src/App.jsx": "Main Router and state shell",
+            "src/App.test.jsx": "Automated smoke test",
+            "src/index.css": "Global Tailwind styles",
+            "vite.config.js": "Vite build configuration",
+            "tailwind.config.js": "Tailwind UI configuration",
+            "postcss.config.js": "PostCSS directives"
+        }
+    elif framework == "express":
+        mandatory_files = {
+            "package.json": "Node.js configuration",
+            "server.js": "Main Express application entry point",
+            "tests/server.test.js": "API integration test",
+            ".env": "Environment variables"
+        }
+    elif framework == "fullstack":
+        mandatory_files = {
+            "package.json": "Integrated Monorepo configuration",
+            "services/server.js": "Main Express backend entry point",
+            "index.html": "React frontend entry point",
+            "src/index.jsx": "React mounting logic",
+            "src/App.jsx": "Frontend Router and state shell",
+            "src/index.css": "Global Tailwind styles",
+            "src/services/api.js": "Backend communication bridge",
+            ".env": "Environment variables"
+        }
+
+    for path, desc in mandatory_files.items():
+        if not any(f.get("path") == path for f in files):
+            print(f"[PLANNER SAFETY] Injecting missing mandatory file into plan ({framework}): {path}")
+            files.append({"path": path, "description": f"Priority: {desc}"})
+    
+    plan["files"] = files
+
     return {
         "current_step": "planning_complete", 
         "plan": plan, 
@@ -89,8 +158,9 @@ async def run_planner(state: CodebaseState):
         "plan_summary": plan.get("plan_summary", ""),
         "design_tokens": plan.get("design_tokens", {}),
         "mock_data": plan.get("mock_data", {}),
-        "images_to_generate": plan.get("images_to_generate", []),
-        "assignments": plan.get("assignments", []),
+        "images_to_generate": images_to_generate,
+        "assignments": assignments,
         "total_tokens": tokens,
-        "token_usage": {"planner": tokens}
+        "token_usage": {"planner": tokens},
+        "model_calls": 1
     }

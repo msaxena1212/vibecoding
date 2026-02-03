@@ -23,7 +23,7 @@ async def run_react_specialist(state: CodebaseState):
         prompt = f.read()
 
     # Build context
-    code_context = "\n".join([f"--- FILE: {path} ---\n{data['content']}" for path, data in files.items()])
+    code_context = "\n".join([f"--- FILE: {path} ---\n{data['content']}" for path, data in files.items() if isinstance(path, str)])
     
     messages = [
         SystemMessage(content=prompt),
@@ -40,6 +40,10 @@ async def run_react_specialist(state: CodebaseState):
         for patch in patches:
             path = patch.get("path")
             new_content = patch.get("new_content")
+            
+            if not path or not isinstance(path, str):
+                print(f"[WARN] Skipping invalid patch paths: {path}")
+                continue
             
             # Add or update file
             files[path] = {
@@ -72,5 +76,6 @@ async def run_react_specialist(state: CodebaseState):
         "files": files,
         "current_step": "react_implementation_complete",
         "total_tokens": tokens,
-        "token_usage": {"react_specialist": tokens}
+        "token_usage": {"react_specialist": tokens},
+        "model_calls": 1
     }

@@ -24,7 +24,7 @@ async def run_seo_specialist(state: CodebaseState):
         system_prompt = f.read()
 
     # Audit the main HTML file primarily
-    html_files = {p: d['content'] for p, d in files.items() if p.endswith('.html')}
+    html_files = {p: d['content'] for p, d in files.items() if isinstance(p, str) and p.endswith('.html')}
     content_to_audit = "\n\n".join([f"--- FILE: {p} ---\n{c}" for p, c in html_files.items()])
 
     messages = [
@@ -32,7 +32,8 @@ async def run_seo_specialist(state: CodebaseState):
         HumanMessage(content=f"Audit this project for SEO/Performance:\n\n{content_to_audit}")
     ]
 
-    response = await llm.ainvoke(messages)
+    from utils.llm import resilient_call
+    response = await resilient_call(llm.ainvoke, messages)
     content = response.content
     tokens = extract_tokens(response)
     
@@ -43,12 +44,14 @@ async def run_seo_specialist(state: CodebaseState):
             "current_step": "needs_fix",
             "diagnostic_report": f"SEO/Performance Alert: {report.get('optimizations_recommended')}",
             "total_tokens": tokens,
-            "token_usage": {"seo_specialist": tokens}
+            "token_usage": {"seo_specialist": tokens},
+            "model_calls": 1
         }
         
     return {
         "seo_report": report or {},
         "current_step": "seo_audit_complete",
         "total_tokens": tokens,
-        "token_usage": {"seo_specialist": tokens}
+        "token_usage": {"seo_specialist": tokens},
+        "model_calls": 1
     }

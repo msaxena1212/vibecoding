@@ -36,6 +36,7 @@ async def run_image_generator(state: CodebaseState):
     design_tokens = state.get("design_tokens", {})
     
     total_gen_tokens = 0
+    total_calls = 0
     for img in images:
         path = img.get("path", "assets/generated.png")
         if not path.endswith('.png'):
@@ -49,6 +50,7 @@ async def run_image_generator(state: CodebaseState):
         ]
         try:
             response = await llm.ainvoke(messages)
+            total_calls += 1
             tokens = extract_tokens(response)
             total_gen_tokens += tokens
             p_data = parse_json_dict(response.content)
@@ -113,5 +115,6 @@ async def run_image_generator(state: CodebaseState):
         "images_to_generate": updated_images,
         "current_step": "image_generation_complete",
         "total_tokens": total_gen_tokens,
-        "token_usage": {"image_generator": total_gen_tokens}
+        "token_usage": {"image_generator": total_gen_tokens},
+        "model_calls": total_calls
     }

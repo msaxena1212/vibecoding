@@ -30,7 +30,8 @@ async def run_copywriter(state: CodebaseState):
         HumanMessage(content=f"User Intent: {user_intent}\nPlanning Reasoning: {reasoning}\nPlan Summary: {plan_summary}\nDesign Tokens: {json.dumps(design_tokens)}\nMock Data: {json.dumps(mock_data)}")
     ]
 
-    response = await llm.ainvoke(messages)
+    from utils.llm import resilient_call
+    response = await resilient_call(llm.ainvoke, messages)
     content = response.content
     tokens = extract_tokens(response)
     
@@ -44,5 +45,6 @@ async def run_copywriter(state: CodebaseState):
         "reasoning": final_reasoning,
         "current_step": "copywriting_complete",
         "total_tokens": tokens,
-        "token_usage": {"copywriter": tokens}
+        "token_usage": {"copywriter": tokens},
+        "model_calls": 1
     }

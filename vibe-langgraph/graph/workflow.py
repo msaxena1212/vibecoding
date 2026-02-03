@@ -19,7 +19,7 @@ from agents.ui_specialist.agent import run_ui_specialist
 from agents.compiler.agent import run_compiler
 from agents.debugger.agent import run_debugger
 from agents.chatter.agent import run_chatter
-from .router import route_request, route_validator, route_assignments, route_compiler
+from .router import route_request, route_validator, route_assignments, route_compiler, route_debugger
 
 def create_workflow():
     workflow = StateGraph(CodebaseState)
@@ -109,7 +109,16 @@ def create_workflow():
         }
     )
     
-    workflow.add_edge("debugger", "linker")
+    # Post-Fix Routing
+    workflow.add_conditional_edges(
+        "debugger",
+        route_debugger,
+        {
+            "compiler": "compiler", # Build fix -> Back to compiler
+            "linker": "linker"      # Logic fix -> Linker audit
+        }
+    )
+
     workflow.add_edge("editor", "linker")
     workflow.add_edge("chatter", END)
 

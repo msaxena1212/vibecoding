@@ -27,7 +27,8 @@ async def run_assigner(state: CodebaseState):
         HumanMessage(content=f"User Intent: {user_intent}\nCurrent Plan: {json.dumps(plan)}")
     ]
     
-    response = await llm.ainvoke(messages)
+    from utils.llm import resilient_call
+    response = await resilient_call(llm.ainvoke, messages)
     content = response.content
     
     data = parse_json_dict(content)
@@ -40,5 +41,6 @@ async def run_assigner(state: CodebaseState):
         "current_step": "assignments_complete",
         "diagnostic_report": f"Assigner: Made {len(assignments)} assignments.",
         "total_tokens": tokens,
-        "token_usage": {"assigner": tokens}
+        "token_usage": {"assigner": tokens},
+        "model_calls": 1
     }

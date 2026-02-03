@@ -2,19 +2,32 @@ from sqlmodel import select
 from typing import Dict, Any, Optional, List
 from datetime import datetime
 import os
-from utils.db import engine
+from utils.db import get_db_engine
 from memory.models import Project, ChatMessage
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import sessionmaker
 
 class ProjectStore:
     def __init__(self):
-        self.async_session = sessionmaker(
-            engine, class_=AsyncSession, expire_on_commit=False
-        )
+        self._session_maker = None
+
+    async def get_session_maker(self):
+        if not self._session_maker:
+            engine = await get_db_engine()
+            self._session_maker = sessionmaker(
+                engine, class_=AsyncSession, expire_on_commit=False
+            )
+        return self._session_maker
+
+    def async_session(self):
+        # We need to return an async context manager, but we need to await get_session_maker first.
+        # This is tricky because __call__ or property cannot be async easily in this pattern.
+        # We will change the usage pattern in methods to await get_session_maker()
+        pass
 
     async def save_snapshot(self, user_intent: str, state: Dict[str, Any], project_id: Optional[str] = None) -> str:
-        async with self.async_session() as session:
+        session_maker = await self.get_session_maker()
+        async with session_maker() as session:
             if project_id:
                 statement = select(Project).where(Project.id == project_id)
                 result = await session.execute(statement)
@@ -62,7 +75,8 @@ class ProjectStore:
             return project.id
 
     async def add_chat_message(self, project_id: str, role: str, content: str) -> str:
-        async with self.async_session() as session:
+        session_maker = await self.get_session_maker()
+        async with session_maker() as session:
             msg = ChatMessage(
                 project_id=project_id,
                 role=role,
@@ -74,19 +88,22 @@ class ProjectStore:
             return msg.id
 
     async def get_history(self) -> List[Project]:
-        async with self.async_session() as session:
+        session_maker = await self.get_session_maker()
+        async with session_maker() as session:
             statement = select(Project).order_by(Project.created_at.desc())
             result = await session.execute(statement)
             return result.scalars().all()
 
     async def get_chat_messages(self, project_id: str) -> List[ChatMessage]:
-        async with self.async_session() as session:
+        session_maker = await self.get_session_maker()
+        async with session_maker() as session:
             statement = select(ChatMessage).where(ChatMessage.project_id == project_id).order_by(ChatMessage.created_at.asc())
             result = await session.execute(statement)
             return result.scalars().all()
 
     async def get_latest(self, project_id: str) -> Optional[Dict]:
-        async with self.async_session() as session:
+        session_maker = await self.get_session_maker()
+        async with session_maker() as session:
             statement = select(Project).where(Project.id == project_id)
             result = await session.execute(statement)
             project = result.scalar_one_or_none()

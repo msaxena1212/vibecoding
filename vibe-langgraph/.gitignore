@@ -8,6 +8,17 @@ env/
 venv/
 .venv/
 
+# Additional Python
+*.py[cod]
+*.pdb
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.manifest
+*.spec
+
 # Node.js
 node_modules/
 npm-debug.log
@@ -16,9 +27,16 @@ dist/
 build/
 .cache/
 
+# Jupyter Notebooks
+.ipynb_checkpoints
+
 # Environment
 .env
 .env.local
+
+# Docker
+*.log
+docker-compose.override.yml
 
 # IDEs
 .vscode/
@@ -33,6 +51,26 @@ Thumbs.db
 frontend/p/*/node_modules/
 frontend/p/*/dist/
 planner_raw.txt
+planner_debug.txt
 verify_*.py
+debug_*.py
+run_server*.py
+test_*.py
 *.log
 frontend/p/*
+
+# Test outputs
+*.cover
+coverage.xml
+htmlcov/
+
+# Misc
+*.sqlite3
+*.db
+*.bak
+*.tmp
+*.swp
+
+# Frontend build
+frontend/dist/
+frontend/node_modules/

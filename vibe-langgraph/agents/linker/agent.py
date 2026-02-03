@@ -26,7 +26,7 @@ async def run_linker(state: CodebaseState):
         rules = f.read()
 
     # Build context: full paths and content
-    content_summary = "\n".join([f"FILE: {p}\n{data['content']}" for p, data in files.items()])
+    content_summary = "\n".join([f"FILE: {p}\n{data['content']}" for p, data in files.items() if isinstance(p, str)])
     
     images_info = json.dumps(state.get("images_to_generate", []), indent=2)
     
@@ -44,7 +44,8 @@ async def run_linker(state: CodebaseState):
     # We use LLM to audit, but for now we trust the Generator. 
     # High-end linking would involve rewriting imports, but we'll stick to auditing.
     # Parse response
-    response = await llm.ainvoke(messages)
+    from utils.llm import resilient_call
+    response = await resilient_call(llm.ainvoke, messages)
     content = response.content
     patches_applied = 0
     
@@ -66,6 +67,10 @@ async def run_linker(state: CodebaseState):
             new_content = patch.get("new_content")
             
             if not path or new_content is None: continue
+
+            # Standardize Path
+            path = path.replace("\\", "/").strip("./")
+            if path == "public/index.html": path = "index.html"
 
             if new_content == "DELETE_FILE":
                 if path in files:
@@ -118,5 +123,6 @@ async def run_linker(state: CodebaseState):
         "current_step": "linking_complete" if patches_applied > 0 else "linking_skipped",
         "diagnostic_report": f"Linker Audit: {patches_applied} patches applied.",
         "total_tokens": tokens,
-        "token_usage": {"linker": tokens}
+        "token_usage": {"linker": tokens},
+        "model_calls": 1
     }

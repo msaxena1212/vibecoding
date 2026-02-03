@@ -46,11 +46,32 @@ async def run_chatter(state: CodebaseState):
         SystemMessage(content=prompt),
         HumanMessage(content=f"Conversation History:\n{history_text}\n\nCurrent User Request: {user_intent}")
     ]
+
+    # --- VECTOR SEARCH INTEGRATION ---
+    try:
+        from utils.vector_store import VectorStore
+        # Assuming run form root, .chroma_db is in root
+        vs = VectorStore(collection_name="codebase_index", persist_directory="./.chroma_db")
+        if vs.count() > 0:
+            print(f"[Chatter] Searching vector store for: {user_intent}")
+            results = vs.search(user_intent, n_results=3)
+            if results:
+                context_str = "\n\n### Relevant Codebase Context:\n"
+                for res in results:
+                    source = res['metadata'].get('source', 'Unknown')
+                    snippet = res['content'][:1000] # Limit snippet size
+                    context_str += f"File: {source}\nContent:\n{snippet}\n---\n"
+                
+                # Append context to the last message (HumanMessage)
+                messages[-1].content += context_str
+    except Exception as e:
+        print(f"[Chatter] Vector search skipped or failed: {e}")
+    # ---------------------------------
     
-    response = await llm.ainvoke(messages)
-    content = response.content
+    from utils.llm import resilient_call
+    response = await resilient_call(llm.ainvoke, messages)
     
-    data = parse_json_dict(content)
+    data = parse_json_dict(response.content)
     chat_response = data.get("response", "Processing request...")
     suggested_actions = data.get("suggested_actions", [])
     
@@ -68,5 +89,6 @@ async def run_chatter(state: CodebaseState):
         "current_step": "chat_complete",
         "total_tokens": tokens,
         "token_usage": {"chatter": tokens},
+        "model_calls": 1,
         "suggested_actions": suggested_actions
     }

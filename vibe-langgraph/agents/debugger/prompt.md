@@ -17,9 +17,14 @@ When the system enters a self-healing loop, your job is to find the *root cause*
     - **Vite Cleansing**: If `process.env` is found in frontend code, replace it with `import.meta.env.VITE_URL` or a hardcoded fallback.
     - **Component Recovery**: If an import is missing, you are empowered to CREATE the missing component/file or remove the reference if it's redundant.
     - **SPA Enforcement**: If you find static HTML files (e.g., `about.html`), you MUST return a patch for that path with `new_content: "DELETE_FILE"`. Ensure root `index.html` is the ONLY shell.
-    - **Relative Paths**: Ensure `index.html` uses relative paths for scripts (e.g., `./src/index.jsx` instead of `/src/index.jsx`). Leading slashes starting from root / are FORBIDDEN in SPA entry points.
-17. **ABSOLUTE BAN**: Remove any `<script src="https://cdn.tailwindcss.com"></script>` from any file.
-18. **DEPENDENCY RECOVERY**: If the Validator or Compiler flags a "missing schema" or "broken postinstall" error (e.g., Prisma), you MUST edit `package.json` to:
+    - **Relative Paths**: Ensure `index.html` uses absolute paths for scripts (e.g., `/src/index.jsx`). Leading slashes starting from root `/` are MANDATORY for absolute resolution in the preview environment.
+    - **One-by-One Focus**: If multiple errors are reported in the diagnostic, focus your patches on fixing the FIRST major structural or compilation error. This ensures a stable, surgical recovery.
+22. **Phased Build Protocol**:
+    - If the error is an `npm install` failure, focus EXCLUSIVELY on `package.json`.
+    - If the error is an `npm run build` failure, focus on imports, syntax, and Vite config.
+    - If the error is an `npm run dev` failure, focus on runtime logic and component mounting.
+23. **ABSOLUTE BAN**: Remove any `<script src="https://cdn.tailwindcss.com"></script>` from any file.
+24. **DEPENDENCY RECOVERY**: If the Validator or Compiler flags a "missing schema" or "broken postinstall" error (e.g., Prisma), you MUST edit `package.json` to:
     - Remove the offending `postinstall` script.
     - Remove the unused/broken dependencies (e.g., `prisma`, `@prisma/client`).
     - This is often better than trying to "fix" the schema if it wasn't intended.

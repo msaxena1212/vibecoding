@@ -108,24 +108,14 @@ async def generate_project(request: GenerateRequest):
             yield json.dumps(response) + "\n"
         return StreamingResponse(chat_generator(), media_type="application/json")
 
-    # Determine high‑level task type
-    intent_lower = intent.strip().lower()
-    if any(word in intent_lower for word in ["generate", "create", "build", "make", "want", "need", "design"]):
-        task_type = "generate"
-    elif any(word in intent_lower for word in ["modify", "update", "change", "edit"]):
-        task_type = "modify"
-    elif any(word in intent_lower for word in ["explain", "describe", "detail"]):
-        task_type = "explain"
-    elif any(word in intent_lower for word in ["debug", "fix", "repair", "error"]):
-        task_type = "debug"
-    else:
-        task_type = "chat"
+    # task_type will now be decided SEMANTICALLY by the Router agent.
+    # We no longer pre-classify here with rigid keywords.
 
     async def stream_generator():
         try:
-            print(f"DEBUG: Streaming start for intent: {intent} (task_type={task_type})")
+            print(f"DEBUG: Streaming start for intent: {intent}")
         except UnicodeEncodeError:
-            print(f"DEBUG: Streaming start for intent: {intent.encode('ascii', 'replace').decode()} (task_type={task_type})")
+            print(f"DEBUG: Streaming start for intent: {intent.encode('ascii', 'replace').decode()}")
         try:
             workflow = create_workflow()
             files = {}
@@ -161,8 +151,7 @@ async def generate_project(request: GenerateRequest):
                         elif msg.role == "assistant":
                             messages.append(AIMessage(content=msg.content))
 
-            # Inject task_type for downstream agents
-            messages.append(HumanMessage(content=f"[TASK_TYPE] {task_type}"))
+            # Intent and history will be passed directly to the Router agent.
 
             initial_state = CodebaseState(
                 files=files,
@@ -190,10 +179,10 @@ async def generate_project(request: GenerateRequest):
             await store.save_snapshot(intent, sanitize_state(initial_state), project_id=active_project_id)
 
             # Start workflow streaming
-            from graph.router import route_request, route_validator
+            from graph.router import route_request
             initial_step = route_request(initial_state)
             if initial_step in NODE_NAMES:
-                yield json.dumps({"type": "status", "name": initial_step, "content": NODE_NAMES[initial_step], "intent": task_type, "project_id": active_project_id}) + "\n"
+                yield json.dumps({"type": "status", "name": initial_step, "content": NODE_NAMES[initial_step], "project_id": active_project_id}) + "\n"
 
             final_result = initial_state.copy()
             async for event in workflow.astream(initial_state, config={"recursion_limit": 100}):
@@ -204,6 +193,8 @@ async def generate_project(request: GenerateRequest):
                     for key, value in update.items():
                         if key == "total_tokens":
                             final_result["total_tokens"] = final_result.get("total_tokens", 0) + value
+                        elif key == "model_calls":
+                            final_result["model_calls"] = final_result.get("model_calls", 0) + value
                         elif key == "token_usage":
                             current = final_result.get("token_usage", {})
                             for ag, cnt in value.items():
@@ -248,7 +239,7 @@ async def generate_project(request: GenerateRequest):
                     elif node_name == "debugger": next_node = "linker" # Loop back
                     
                     if next_node and next_node in NODE_NAMES:
-                        yield json.dumps({"type": "status", "name": next_node, "content": NODE_NAMES[next_node], "intent": task_type, "project_id": active_project_id}) + "\n"
+                        yield json.dumps({"type": "status", "name": next_node, "content": NODE_NAMES[next_node], "project_id": active_project_id}) + "\n"
 
             # Final processing
             sanitized_result = sanitize_state(final_result)
@@ -283,7 +274,12 @@ async def generate_project(request: GenerateRequest):
                 usage = sanitized_result.get("token_usage", {})
                 if usage:
                     rows = "\n".join([f"| {ag.capitalize()} | {cnt} |" for ag, cnt in usage.items()])
-                    assistant_text += f"## 📊 Compute Resource Usage\n| Agent | Tokens |\n| :--- | :--- |\n{rows}\n| **Total** | **{sanitized_result.get('total_tokens', 0)}** |\n\n"
+                    total = sanitized_result.get('total_tokens', 0)
+                    calls = sanitized_result.get('model_calls', 0)
+                    avg = round(total / calls, 2) if calls > 0 else 0
+                    
+                    assistant_text += f"## 📊 Analysis Metrics\n| Metric | Value |\n| :--- | :--- |\n| **Gemini Hits** | `{calls}` |\n| **Avg Tokens/Hit** | `{avg}` |\n| **Total Cost (Est)** | `${round(total * 0.00000015, 6)}` |\n\n"
+                    assistant_text += f"### Granular Usage\n| Agent | Tokens |\n| :--- | :--- |\n{rows}\n| **Total** | **{total}** |\n\n"
                 assistant_text += "I've updated your workspace. View the files and preview to see the results."
                 
                 await store.add_chat_message(new_project_id, "user", intent)

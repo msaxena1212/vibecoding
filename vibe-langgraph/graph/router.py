@@ -14,11 +14,11 @@ def route_validator(state: CodebaseState) -> Literal["editor", "debugger", "comp
     
     # Validation failed (or explicitly requested fix)
     if current_step == "needs_fix" or "fail" in state.get("diagnostic_report", "").lower():
-        if retry_count > 15:
-            print("[STOP] Max retries (15) reached. Exiting validation loop to prevent crash.")
+        if retry_count > 8:
+            print("[STOP] Max retries (8) reached. Exiting validation loop to prevent crash.")
             return "end"
             
-        if retry_count > 3:
+        if retry_count > 2:
             print(f"[ESCALATE] Validation failed (Attempt {retry_count + 1}). Escalating to Editor for rewrite.")
             return "editor"
 
@@ -88,3 +88,18 @@ def route_assignments(state: CodebaseState) -> Literal["backend_architect", "rea
         return "react_specialist"
         
     return "seeker"
+
+def route_debugger(state: CodebaseState) -> Literal["linker", "compiler"]:
+    """
+    Decide where to go after a fix is applied.
+    If we were fixing a build error, go back to compiler.
+    Otherwise (validation error), go to linker.
+    """
+    diag = state.get("diagnostic_report", "").lower()
+    
+    if "build" in diag or "npm" in diag or "installation" in diag or "compilation" in diag:
+        print("[ROUTE] Build fix applied. Routing back to Compiler for next phase/retry.")
+        return "compiler"
+    
+    print("[ROUTE] General fix applied. Routing to Linker for audit.")
+    return "linker"
