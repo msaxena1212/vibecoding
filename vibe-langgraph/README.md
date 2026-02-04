@@ -6,7 +6,7 @@ A generative coding platform inspired by Lovable/Antigravity, powered by LangGra
 
 - **Apps**: FastAPI backend
 - **Agents**: Planner, Generator, Linker, Editor, Validator, UI Specialist, SEO Specialist
-- **Graph**: LangGraph state machine
+- **Graph**: LangGraph state machine (See [LOGIC.md](./LOGIC.md) for details)
 - **Memory**: Project snapshots and diff engine
 
 ## Key Features
